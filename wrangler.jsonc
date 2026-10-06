@@ -1,0 +1,11 @@
+// Cloudflare Workers (static assets): https://prototype.dpy-mi.workers.dev
+// The name must match the Worker in the dashboard, or GitHub deploys fail.
+{
+  "name": "prototype",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./",
+    // unknown paths get the branded 404.html (with a real 404 status)
+    "not_found_handling": "404-page"
+  }
+}

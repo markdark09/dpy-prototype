@@ -18,15 +18,16 @@ The green is replaced with **DPY's logo colours**:
 
 **Open it:** double-click `index.html`. GSAP, Lenis, Three.js and MapLibre are bundled in `assets/vendor/`. Opened from disk, the 3D borrows Three.js from unpkg, because browsers block local modules on `file://`. Online, everything except the Manrope font, the map tiles and Street View comes from the site itself.
 
-## Deploying to Cloudflare Pages
+## Deploying (Cloudflare Workers)
 
-Project name: **dpy-prototype** (the share-preview tags point to https://dpy-prototype.pages.dev/, so link previews in Messenger and Viber show the hero image; `assets/img/og-cover.jpg` is regenerated from the current hero). Upload the `mist` folder as is (no build step; build output directory = the folder root). It includes:
+Live at **https://prototype.dpy-mi.workers.dev**. It is a Cloudflare Worker named `prototype` (account subdomain `dpy-mi`), connected to the GitHub repo markdark09/dpy-prototype. Every push to `main` goes live in about 30 seconds. There's no build step.
+
+- `wrangler.jsonc`: the Worker name (it must match the dashboard), the folder to serve, and `404.html` for unknown paths.
+- `.assetsignore`: files that are not served (this README, the config, git files).
 - `_headers`: `noindex` for the whole prototype, basic security headers, 30-day caching for `/assets/*`, and `index.html` always fresh.
-- `_redirects`: `/README.md` redirects to the homepage, so these notes aren't public.
 - `404.html`: a branded "page not found" page.
 - `robots.txt`: blocks all crawlers (prototype).
-
-Optional: turn on **Web Analytics** in the Pages project settings (free, one click, no code).
+- The share-preview tags (Open Graph and Twitter) point to https://prototype.dpy-mi.workers.dev/, so links pasted in Messenger and Viber show `assets/img/og-cover.jpg`.
 
 **When it becomes the live site:**
 - Change `<meta name="robots">` to `index,follow`.
