@@ -27,10 +27,11 @@
 <link rel="icon" href="assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin> <!-- Manrope is hosted with the site: no render-blocking request to Google -->
 <style>
+/* Manrope (variable 300–800), from Google Fonts, served locally */
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 /* soft and steamy, in DPY's logo colours: the drop's blues for water and cold, the gear's red for heat and the main
    action, the gear's black for type. Every product shown is a real unit DPY sells (photos from dpymi.com.ph). */
 :root{
@@ -48,6 +49,7 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
+img{height:auto}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty} /* no lonely last words */
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -56,7 +58,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .skip:focus{top:16px}
 .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--g)}
 main > section{overflow-x:clip}
-.off *,.off::before,.off::after{animation-play-state:paused!important}
+.off *,.off *::before,.off *::after{animation-play-state:paused!important} /* off-screen sections: every loop pauses, pseudo-elements too */
 
 /* ---------- type ---------- */
 .thin{font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:0;
@@ -173,10 +175,12 @@ main > section{overflow-x:clip}
 .cap span.on{opacity:1;transform:none;transition-delay:.25s}
 .cap b{font-weight:700;color:var(--ink)}
 .pager{display:flex;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:var(--sh-s)}
-.pager button{position:relative;height:32px;padding:0 15px;white-space:nowrap;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--mute);overflow:hidden;transition:color .3s,background .3s}
+.pager button{position:relative;height:32px;padding:0 15px;white-space:nowrap;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--mute);transition:color .3s,background .3s}
 .pager button:hover{color:var(--ink)}
 .pager button[aria-selected="true"]{color:#fff;background:var(--ink)}
-.pager button i{will-change:transform;position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red));transform:scaleX(0);transform-origin:left}
+.pager button.run i{animation:fill 5.5s linear forwards}.show.hold .pager button.run i{animation-play-state:paused}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pager button i{position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red));transform:scaleX(0);transform-origin:left}
 
 .hc{position:absolute;z-index:2;border-radius:18px;background:rgba(242,246,250,.96);box-shadow:var(--sh);animation:float 7s ease-in-out infinite}
 @keyframes float{50%{translate:0 -8px}} /* "translate", not "transform", so GSAP entrances on the same card never fight it */
@@ -554,7 +558,7 @@ main > section{overflow-x:clip}
 .ask-btn .av{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
 .ask .drop{position:relative;display:block;width:28px;height:28px}
 .ask .drop svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ask .drop .hot{opacity:0;animation:warm 7s ease-in-out infinite;will-change:opacity} /* cold to hot and back as an opacity cross-fade: the GPU handles it, nothing repaints */
+.ask .drop .hot{position:absolute;inset:0;opacity:0;animation:warm 7s ease-in-out infinite;will-change:opacity} /* cold to hot and back as an opacity cross-fade: the GPU handles it, nothing repaints */
 @keyframes warm{0%,40%{opacity:0}60%,70%{opacity:1}92%,100%{opacity:0}}
 .ask .av{position:relative}
 .ask .drop{transform-origin:50% 85%}
@@ -827,7 +831,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="DPY Mercantile Inc., back to top"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill"><span class="ind" aria-hidden="true"></span><li><a href="#heaters">Water Heaters</a></li><li><a href="#how">How It Works</a></li><li><a href="#buildings">Solutions</a></li><li><a href="#clients">Clients</a></li><li><a href="#service">Service</a></li><li><a href="#branches">Branches</a></li></ul>
+    <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="#heaters">Water Heaters</a></li><li><a href="#how">How It Works</a></li><li><a href="#buildings">Solutions</a></li><li><a href="#clients">Clients</a></li><li><a href="#service">Service</a></li><li><a href="#branches">Branches</a></li></ul>
     <a class="btn line" href="#quote">Get a Quote</a>
     <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </div>
@@ -836,18 +840,18 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 
 <main id="main">
 <section class="hero" id="top">
-  <div class="hero-bg"><img src="assets/img/hero-steam-soft.webp" alt="" fetchpriority="high"></div><div class="hero-warm" aria-hidden="true"></div>
+  <div class="hero-bg"><img src="assets/img/hero-steam-soft.webp" alt="" fetchpriority="high" width="1333" height="2000"></div><div class="hero-warm" aria-hidden="true"></div>
   <div class="steam s1"></div><div class="steam s2"></div>
   <div class="wrap hero-in">
     <div class="hero-head">
-      <span class="badge"><img src="assets/brand/dpy-icon.svg" alt="">Water heaters · Heat pumps · Solar · Since 2001<img class="bd-g" src="assets/brand/gratek-g.png" alt="Gratek"></span>
+      <span class="badge"><img src="assets/brand/dpy-icon.svg" alt="" width="512" height="512">Water heaters · Heat pumps · Solar · Since 2001<img class="bd-g" src="assets/brand/gratek-g.png" alt="Gratek" width="39" height="64"></span>
       <h1 class="thin h1"><span class="ln"><span>Heat Your Water</span></span><span class="ln"><span>Smarter and Safer</span></span></h1>
       <p class="sub">Instant, storage, heat pump and solar water heaters for homes, hotels and hospitals across the Philippines, supplied, installed and serviced by one team.</p>
       <a class="btn" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a>
     </div>
 
     <div class="stage">
-      <div class="show" aria-roledescription="carousel" aria-label="Water heaters we supply">
+      <div class="show" role="region" aria-roledescription="carousel" aria-label="Water heaters we supply">
         <div class="halo"><b></b><i></i></div>
         <div class="plinth"></div><div class="floor"></div>
         <div class="waves" aria-hidden="true"><svg viewBox="0 0 18 46"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg viewBox="0 0 18 56"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg viewBox="0 0 18 46"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gWave" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FF5A3C"/><stop offset="1" stop-color="#FFB37A" stop-opacity=".2"/></linearGradient></defs></svg></div>
@@ -856,7 +860,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
       </div>
 
       <article class="hc hc-gtk" aria-label="Gratek Smart Water Corp.">
-        <div class="gt-top"><img src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp."><small>Home &amp; retail</small></div>
+        <div class="gt-top"><img src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="183" height="84"><small>Home &amp; retail</small></div>
         <p class="gt-h">Your one-stop hub for hot water at home</p>
         <div class="gt-br" aria-label="Brands Gratek carries"><span>Rheem</span><span>Everhot</span><span>Aquapower</span></div>
         <a class="gt-ft" href="https://www.dpymi.com.ph/gratek-smart-water-corp/" target="_blank" rel="noopener">Visit Gratek <i>→</i></a>
@@ -880,7 +884,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <li><b><span data-n="100">100</span>+</b><small>Hotel &amp; hospital projects</small></li>
         <li><b data-n="5">5</b><small>Branches nationwide</small></li>
       </ul>
-      <div class="brands-k"><small>12 brands<br>we carry</small><div class="chips" aria-label="DPY Mercantile, Gratek and ten more brands"><span><img src="assets/brand/dpy-icon.svg" alt=""></span><span class="g"><img src="assets/brand/gratek-logo.png" alt=""></span><span class="more">+10</span></div></div>
+      <div class="brands-k"><small>12 brands<br>we carry</small><div class="chips" aria-label="DPY Mercantile, Gratek and ten more brands"><span><img src="assets/brand/dpy-icon.svg" alt="" width="512" height="512"></span><span class="g"><img src="assets/brand/gratek-logo.png" alt="" width="183" height="84"></span><span class="more">+10</span></div></div>
     </div>
   </div>
 </section>
@@ -931,7 +935,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
             <span><small>Set point</small><b>50°C</b></span>
             <span><small>Element</small><b class="i-e"><i class="led"></i><em>Off</em></b></span>
           </div>
-          <img class="h3d-fb" src="assets/img/dpy/rheem.webp" alt="">
+          <img class="h3d-fb" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
           <span class="model-cap">Shown: Rheem electric storage heater · supplied &amp; installed by DPY</span>
         </div>
       </div>
@@ -947,10 +951,10 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     </div>
     <ul class="tabs" role="tablist" aria-label="Building type"></ul>
     <div class="sol-grid">
-      <article class="big" role="tabpanel" style="--img:url(assets/img/dpy/tower-render.webp)">
+      <div class="big" role="tabpanel" style="--img:url(assets/img/dpy/tower-render.webp)">
         <div class="frost"><h3><span class="dot"></span><span class="t"></span></h3><p class="rec">Recommended: <b></b></p><p class="d"></p><div class="tags"></div></div>
         <span class="credit"></span>
-      </article>
+      </div>
       <article class="tall">
         <h3><span class="dot b"></span>Heat Pump Water Heaters</h3>
         <p>They move warmth from the air into the water instead of making it, so they use far less electricity than a plain electric heater.</p>
@@ -960,7 +964,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <path d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10V240H0Z" fill="url(#gRiseA)"/>
           <path class="rl" d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10" fill="none" stroke="url(#gRise)" stroke-width="3"/>
         </svg>
-        <img class="hp" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump">
+        <img class="hp" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump" width="355" height="400">
         <div class="mini a"><b>Air → Hot Water</b>Heat moved, not made</div>
         <div class="mini b"><b>Deron · 5 Star</b>Heat pumps we install</div>
       </article>
@@ -1039,7 +1043,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
       <span class="br-hint">Also sold in Baguio City &amp; Tagaytay</span>
       <div class="br-info" aria-live="polite">
         <span class="k"></span><h3></h3><p class="ad"></p>
-        <div class="acts"><a class="btn red dirs" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
+        <div class="acts"><a class="btn red dirs" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
         <div class="ph"><b style="color:var(--ink);font-weight:600">Mon–Sat · 8:00 AM – 5:00 PM</b><br><a href="tel:+639338672954">0933 867 2954</a> · <a href="tel:+639152453528">0915 245 3528</a> · <a href="tel:+63279560521">(02) 7956 0521</a></div>
       </div>
     </div>
@@ -1125,9 +1129,9 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <div class="ask">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="askDropC" gradientUnits="userSpaceOnUse" x1="12700" y1="4822" x2="12700" y2="16677"><stop offset="0" stop-color="#013C80"/><stop offset="1" stop-color="#0D68C3"/></linearGradient><linearGradient id="askDropH" gradientUnits="userSpaceOnUse" x1="12700" y1="4822" x2="12700" y2="16677"><stop offset="0" stop-color="#9C1A2E"/><stop offset="1" stop-color="#FF5A3C"/></linearGradient></defs><symbol id="askDrop" viewBox="6920 5100 12600 12600"><path d="M16703 12704c0,3860 -5587,5919 -6319,1408 -326,-2014 987,-3503 1504,-5406 -1987,2889 -3741,4693 -917,7609 -1345,-646 -2274,-2020 -2274,-3611 0,-2543 3497,-4744 4003,-7882 506,3138 4003,5339 4003,7882z" fill="url(#askDropC)"/></symbol><symbol id="askDropHot" viewBox="6920 5100 12600 12600"><path d="M16703 12704c0,3860 -5587,5919 -6319,1408 -326,-2014 987,-3503 1504,-5406 -1987,2889 -3741,4693 -917,7609 -1345,-646 -2274,-2020 -2274,-3611 0,-2543 3497,-4744 4003,-7882 506,3138 4003,5339 4003,7882z" fill="url(#askDropH)"/></symbol></svg>
   <div class="ask-tip" role="status"><button aria-label="Dismiss">×</button>Not sure which water heater you need? Ask me.</div>
-  <button class="ask-btn" aria-expanded="false" aria-controls="askWin"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><svg class="hot" viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span><i class="dot"></i><span>Ask DPY</span></button>
+  <button class="ask-btn" aria-expanded="false" aria-controls="askWin" aria-label="Ask DPY, the website assistant"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><span class="hot"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span></span><i class="dot"></i><span>Ask DPY</span></button>
   <section class="ask-win" id="askWin" role="dialog" aria-label="DPY Assistant">
-    <header class="ask-hd"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><svg class="hot" viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span><div><b>DPY Assistant</b><small>Online · answers right away</small></div><button class="x" aria-label="Close">×</button></header>
+    <header class="ask-hd"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><span class="hot"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span></span><div><b>DPY Assistant</b><small>Online · answers right away</small></div><button class="x" aria-label="Close">×</button></header>
     <div class="ask-log" aria-live="polite"></div>
     <div class="ask-chips"></div>
     <form class="ask-in"><input type="text" placeholder="Ask about heaters, prices, branches…" aria-label="Your question" autocomplete="off"><button aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button></form>
@@ -1144,6 +1148,9 @@ const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [..
 const MOTION = !RM && !!window.gsap && !!window.ScrollTrigger
 if (MOTION) { gsap.registerPlugin(ScrollTrigger); ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,DOMContentLoaded,resize' }) } // no automatic re-measure on load: see the one after the intro
 const IMG = 'assets/img/dpy/'
+// pixel sizes of the images the scripts insert, so the browser reserves their space before they load (no layout shift)
+const DIM = {"clients/ace-iloilo.webp":[160,160],"clients/amanpulo.webp":[160,160],"clients/arya.webp":[320,119],"clients/ascott.webp":[165,160],"clients/chong-hua.webp":[160,160],"clients/city-of-dreams.webp":[296,160],"clients/discovery-shores.webp":[221,160],"clients/dunkin.webp":[320,116],"clients/dusit-thani.webp":[320,95],"clients/fairfield.webp":[320,93],"clients/fitness-first.webp":[190,160],"clients/four-points.webp":[240,160],"clients/go-hotels.webp":[205,160],"clients/holiday-inn.webp":[162,160],"clients/ibis.webp":[160,160],"clients/jp-morgan.webp":[320,65],"clients/kfc.webp":[159,160],"clients/makati-med.webp":[205,54],"clients/marco-polo.webp":[289,160],"clients/maribago.webp":[307,128],"clients/mcdonalds.webp":[183,160],"clients/msr.webp":[185,160],"clients/park-avenue.webp":[320,66],"clients/proscenium.webp":[320,58],"clients/red-planet.webp":[160,160],"clients/shakeys.webp":[320,158],"clients/shangri-la.webp":[320,159],"clients/sheraton.webp":[202,137],"clients/starbucks.webp":[158,160],"clients/summit.webp":[297,120],"clients/taal-vista.webp":[320,88],"clients/trion.webp":[319,160],"clients/u-baguio.webp":[161,160],"dpy/acthor.webp":[340,294],"dpy/aquaplast.webp":[340,276],"dpy/aquapower-a35.webp":[365,600],"dpy/aquapower-aqp28n.webp":[462,560],"dpy/aquapower-s35.webp":[976,1100],"dpy/champion-tank.webp":[215,440],"dpy/deron-de27.webp":[493,544],"dpy/deron-pool.webp":[355,400],"dpy/everhot-cold.webp":[622,1100],"dpy/everhot-hot.webp":[622,1100],"dpy/everhot.webp":[407,720],"dpy/gratek-aquarius.webp":[327,206],"dpy/haase-install.webp":[1600,1067],"dpy/haase-tank.webp":[422,428],"dpy/heatpump-5star.webp":[138,410],"dpy/resort-render.webp":[1600,538],"dpy/rheem.webp":[270,452],"dpy/solar-5star.webp":[720,711],"dpy/team.webp":[1600,538],"dpy/tower-render.webp":[1600,538],"dpy/wilo-pump.webp":[340,284],"logos/5star.jpg":[203,81],"logos/aquapower.jpg":[240,55],"logos/champion.jpg":[301,69],"logos/deron.jpg":[212,81],"logos/enermax.jpg":[185,81],"logos/haase.jpg":[252,81],"logos/wilo.png":[163,81]}
+const wh = p => { const d = DIM[p.replace('assets/img/', '')]; return d ? ` width="${d[0]}" height="${d[1]}"` : '' }
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
 
 /* ---------- scrolling + nav ---------- */
@@ -1186,7 +1193,7 @@ const BRANDS = [
   ['Katen', '', 'Exhaust fans', 'https://www.dpymi.com.ph/'],
 ]
 $('.bwall').innerHTML = BRANDS.map(([n, img, what, url]) => `<li><a class="bw" href="${url}" target="_blank" rel="noopener" aria-label="${n}: ${what} (dpymi.com.ph)">
-  <span class="lm">${img ? `<img src="assets/img/logos/${img}" alt="" loading="lazy">` : `<span class="tx">${n.toUpperCase()}</span>`}</span>
+  <span class="lm">${img ? `<img src="assets/img/logos/${img}"${wh('logos/' + img)} alt="" loading="lazy">` : `<span class="tx">${n.toUpperCase()}</span>`}</span>
   <span class="ct">${what}${EXT0}</span></a></li>`).join('')
 
 /* ---------- clients: from DPY's and Gratek's project-reference pages on dpymi.com.ph ---------- */
@@ -1199,8 +1206,8 @@ const CLIENTS = {
 {
   const cli = $('.cli'), grid = $('.cl-grid'), tabs = $('.cl-tabs'), cats = Object.keys(CLIENTS)
   // in category order (hotels, then hospitals, residences, food); a filter lights up its group and dims the rest, so nothing moves
-  grid.innerHTML = cats.flatMap(c => CLIENTS[c].map(([f, n]) => `<li class="cl" data-c="${c}" title="${n}"><img src="assets/img/clients/${f}.webp" alt="${n}" loading="lazy"><span aria-hidden="true">${n}</span></li>`)).join('')
-  tabs.innerHTML = ['All', ...cats].map((c, i) => `<li><button role="tab" aria-selected="${!i}">${c}${i ? ` <small>${CLIENTS[c].length}</small>` : ''}</button></li>`).join('')
+  grid.innerHTML = cats.flatMap(c => CLIENTS[c].map(([f, n]) => `<li class="cl" data-c="${c}" title="${n}"><img src="assets/img/clients/${f}.webp"${wh('clients/' + f + '.webp')} alt="${n}" loading="lazy"><span aria-hidden="true">${n}</span></li>`)).join('')
+  tabs.innerHTML = ['All', ...cats].map((c, i) => `<li role="presentation"><button role="tab" aria-selected="${!i}">${c}${i ? ` <small>${CLIENTS[c].length}</small>` : ''}</button></li>`).join('')
   const B = $$('button', tabs), T = $$('.cl', grid)
   B.forEach((b, i) => b.addEventListener('click', () => {
     B.forEach(x => x.setAttribute('aria-selected', x === b))
@@ -1281,12 +1288,11 @@ const SHOW = [
   { k: 'Heat Pump', img: 'deron-de27', h: 285, name: 'Deron DE-27W/S', what: 'heat pump water heater', hs: [36, 27, 'l', 'Smart control panel'] },
 ]
 const prods = $('.prods'), cap = $('.cap'), pager = $('.pager')
-prods.innerHTML = SHOW.map((s, i) => { const [x, y, side, t] = s.hs; return `<div class="prod${i ? '' : ' on'}" style="--h:${s.h}px" aria-hidden="${!!i}"><img class="main" src="${IMG}${s.img}.webp" alt="${s.name} ${s.what}"><img class="rf" src="${IMG}${s.img}.webp" alt=""><span class="hs ${side}" style="--x:${x}%;--y:${y}%"><b></b><span>${t}</span></span></div>` }).join('')
+prods.innerHTML = SHOW.map((s, i) => { const [x, y, side, t] = s.hs; return `<div class="prod${i ? '' : ' on'}" style="--h:${s.h}px" aria-hidden="${!!i}"><img class="main" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt="${s.name} ${s.what}"><img class="rf" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt=""><span class="hs ${side}" style="--x:${x}%;--y:${y}%"><b></b><span>${t}</span></span></div>` }).join('')
 cap.innerHTML = SHOW.map((s, i) => `<span class="${i ? '' : 'on'}"><b>${s.name}</b> · ${s.what}</span>`).join('')
 pager.innerHTML = SHOW.map((s, i) => `<button role="tab" aria-selected="${!i}">${s.k}<i></i></button>`).join('')
 const P = $$('.prod', prods), C = $$('span', cap).filter(s => s.parentNode === cap), B = $$('button', pager)
-let cur = 0, prog = null
-const DUR = 5.5
+let cur = 0
 function show(i) {
   if (i === cur) return
   const old = P[cur]; old.classList.add('out'); old.classList.remove('on'); setTimeout(() => old.classList.remove('out'), 900)
@@ -1294,15 +1300,16 @@ function show(i) {
   P[i].classList.add('on'); C.forEach((c, k) => c.classList.toggle('on', k === i)); B.forEach((b, k) => b.setAttribute('aria-selected', k === i))
   cur = i; run(); placeWaves()
 }
-function run() { // the pill underneath fills while the current heater is on show, then the next one comes in
+// the line under the current type fills while that heater is on show, then the next one comes in. It is a CSS animation, so the
+// graphics card runs it without redrawing the page every frame; hovering the heater (or scrolling the hero away) pauses it
+function run() {
   if (!MOTION) return
-  prog?.kill(); B.forEach(b => gsap.set($('i', b), { scaleX: 0 }))
-  prog = gsap.to($('i', B[cur]), { scaleX: 1, duration: DUR, ease: 'none', onComplete: () => show((cur + 1) % SHOW.length) })
+  B.forEach(b => b.classList.remove('run')); void B[cur].offsetWidth; B[cur].classList.add('run')
 }
+B.forEach(b => $('i', b).addEventListener('animationend', () => show((cur + 1) % SHOW.length)))
 B.forEach((b, i) => b.addEventListener('click', () => show(i)))
 const showEl = $('.show')
-showEl.addEventListener('pointerenter', () => prog?.pause()); showEl.addEventListener('pointerleave', () => prog?.resume())
-new IntersectionObserver(([e]) => prog && (e.isIntersecting ? prog.resume() : prog.pause())).observe(showEl)
+showEl.addEventListener('pointerenter', () => showEl.classList.add('hold')); showEl.addEventListener('pointerleave', () => showEl.classList.remove('hold'))
 // fit the showcase to the screen: on a 768px-tall laptop the heater, plinth and switcher still sit above the fold
 const stageEl = $('.stage')
 function fitHero() {
@@ -1400,7 +1407,7 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
   function result() {
     const [a, b] = pick(ans), r = R[a], alt = R[b]
     const bld = { condo: 'Condo', house: 'House', hotel: 'Hotel / Resort', hospital: 'Hospital', commercial: 'Commercial' }[ans.where]
-    body.innerHTML = `<div class="qz-step"><div class="qz-res"><div class="pic"><img src="${IMG}${r.img}.webp" alt="${r.t}"></div><div><span class="k">We recommend</span><h3>${r.t}</h3><p class="mods">${r.m}</p><ul>${r.why.map(x => `<li>${x}</li>`).join('')}</ul></div></div>
+    body.innerHTML = `<div class="qz-step"><div class="qz-res"><div class="pic"><img src="${IMG}${r.img}.webp"${wh('dpy/' + r.img + '.webp')} alt="${r.t}"></div><div><span class="k">We recommend</span><h3>${r.t}</h3><p class="mods">${r.m}</p><ul>${r.why.map(x => `<li>${x}</li>`).join('')}</ul></div></div>
       ${NOTE[ans.where] ? `<p class="qz-also">${NOTE[ans.where]}</p>` : ''}<p class="qz-also">Also worth a look: <b>${alt.t}</b>. We'll compare both at your free site visit.</p>
       <div class="qz-acts"><button class="btn red go" type="button">Get a free quote for this <svg><use href="#arr"/></svg></button><a class="btn ghost" href="https://www.dpymi.com.ph/products/${r.url}/" target="_blank" rel="noopener">See models</a><button class="btn line again" type="button">Start over</button></div></div>`
     $('.again', body).addEventListener('click', () => { step = 0; ans = {}; render(-1) })
@@ -1489,7 +1496,7 @@ const MODELS = [
 ]
 $('.models').innerHTML = MODELS.map(([k, img, type, t, mods, tag, li, url], i) => `<article class="model">
   <span class="num">0${i + 1}</span>${tag ? `<span class="tag${i ? '' : ' hot'}">${tag}</span>` : ''}
-  <div class="pic"><img src="${IMG}${img}.webp" alt="${t}: ${mods}" loading="lazy"></div>
+  <div class="pic"><img src="${IMG}${img}.webp"${wh('dpy/' + img + '.webp')} alt="${t}: ${mods}" loading="lazy"></div>
   <p class="type">${type}</p><h3>${t}</h3><p class="mods">${mods}</p>
   <ul>${li.map(x => `<li>${CK}${x}</li>`).join('')}</ul>
   <div class="acts"><a class="btn ${i ? 'ghost' : 'red'}" href="#quote" data-quote="${['Instant', 'Storage', 'Heat pump', 'Solar'][i]}">Get a Quote</a><a class="ext" href="https://www.dpymi.com.ph/products/${url}/" target="_blank" rel="noopener" aria-label="See ${t} on dpymi.com.ph">${EXT}</a></div></article>`).join('')
@@ -1501,7 +1508,7 @@ const SYS = [
   ['aquaplast', 'PPR Pipes & Fittings', 'Aquaplast', 'Heat-resistant pipes, elbows and valves for hot water lines.', 'products/ppr-pipes-and-fittings/'],
   ['acthor', 'AC·THOR Solar Control', 'my-PV', 'Sends surplus solar-panel power into heating your water.', 'products/ac-thor/'],
 ]
-$('.systems').innerHTML = SYS.map(([img, t, br, d, url]) => `<a class="sy" href="https://www.dpymi.com.ph/${url}" target="_blank" rel="noopener"><span class="ph"><img src="${IMG}${img}.webp" alt="${t}: ${br}" loading="lazy"></span><span><small>${br}</small><b>${t}</b><p>${d}</p></span><i aria-hidden="true">${EXT}</i></a>`).join('')
+$('.systems').innerHTML = SYS.map(([img, t, br, d, url]) => `<a class="sy" href="https://www.dpymi.com.ph/${url}" target="_blank" rel="noopener"><span class="ph"><img src="${IMG}${img}.webp"${wh('dpy/' + img + '.webp')} alt="${t}: ${br}" loading="lazy"></span><span><small>${br}</small><b>${t}</b><p>${d}</p></span><i aria-hidden="true">${EXT}</i></a>`).join('')
 
 /* ---------- which water heater for which building ---------- */
 const SOL = [
@@ -1511,7 +1518,7 @@ const SOL = [
   ['Hospitals', 'plant', 'Heat pumps with backup heaters', 'Hot water around the clock for wards, theatres and kitchens, with backup heating so supply never stops.', ['Backup heaters', 'Mixing valves', 'Maintenance plans'], ''],
 ]
 const tabs = $('.tabs'), big = $('.big'), fr = $('.big .frost'), credit = $('.big .credit')
-tabs.innerHTML = SOL.map(([t], i) => `<li><button role="tab" aria-selected="${!i}" data-i="${i}">${t}</button></li>`).join('')
+tabs.innerHTML = SOL.map(([t], i) => `<li role="presentation"><button role="tab" aria-selected="${!i}" data-i="${i}">${t}</button></li>`).join('')
 function showSol(i, anim) {
   const [t, img, rec, d, tags, cr] = SOL[i]
   const apply = () => { big.style.setProperty('--img', `url(assets/img/${img}.webp)`); $('.t', fr).textContent = t; $('.rec b', fr).textContent = rec; $('.d', fr).textContent = d; $('.tags', fr).innerHTML = tags.map(x => `<span>${x}</span>`).join(''); credit.textContent = cr }
@@ -1562,7 +1569,7 @@ const intro = gsap.timeline({ paused: true })
   .from('.h1 .ln > span', { yPercent: 105, duration: 1.2, ease: 'expo.out', stagger: .12, clearProps: 'transform' }, .25)
   .from('.hero-head .sub, .hero-head .btn', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'transform,transition' }, .55)
   .from('.halo, .plinth, .floor', { opacity: 0, duration: 1.8, ease: 'power2.out', stagger: .12 }, .4)
-  .from('.prods', { y: 80, opacity: 0, duration: 1.6, ease: 'expo.out' }, .55)
+  .from('.prods', { y: 80, opacity: .01, duration: 1.6, ease: 'expo.out' }, .55) // from 1%, not 0: looks the same, but counts as painted at once
   .from('.pager, .cap', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08 }, .9)
   .from('.hc-gtk', { x: -60, opacity: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform' }, .8)
   .from('.hc-dial', { x: 60, opacity: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform' }, .9)
@@ -1584,35 +1591,36 @@ ScrollTrigger.create({ once: false, ...(wide
   ? { trigger: '.how-track', start: 'top top', end: 'bottom bottom', scrub: true, onUpdate: st => heat(clamp(st.progress / .86)) }
   : { trigger: '.how-grid > div:not(.how-vis)', start: 'top 62%', end: 'bottom 92%', scrub: true, onUpdate: st => heat(clamp(st.progress / .9)) }) }) // phones: the steps scroll under the sticky tank
 // the entrance animations for everything below the hero are set up in an idle moment after the first paint, so they don't hold up the opening
-function entrances() {
-  ScrollTrigger.defaults({ once: true }) // every entrance below plays once, then stops listening to the scroll
-  gsap.from('.band h2', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.band', start: 'top 85%' } })
-  gsap.from('.bwall li', { y: 24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: { each: .04, grid: 'auto', from: 'start' }, clearProps: 'all', scrollTrigger: { trigger: '.bwall', start: 'top 88%' } })
-  $$('.kick, .thin.h2').forEach(h => { if (h.closest('.hero') || h.closest('.how')) return; gsap.from(h, { y: 36, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%' } }) })
-  $$('.sec-head .lede, .svc .lede').forEach(h => gsap.from(h, { y: 24, opacity: 0, duration: 1, delay: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%' } }))
+async function entrances() { // one small task per group, with a break between each
+  const step = () => new Promise(r => setTimeout(r, 0))
+  ScrollTrigger.defaults({ once: true }); await step() // every entrance below plays once, then stops listening to the scroll
+  gsap.from('.band h2', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.band', start: 'top 85%' } }); await step()
+  gsap.from('.bwall li', { y: 24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: { each: .04, grid: 'auto', from: 'start' }, clearProps: 'all', scrollTrigger: { trigger: '.bwall', start: 'top 88%' } }); await step()
+  $$('.kick, .thin.h2').forEach(h => { if (h.closest('.hero') || h.closest('.how')) return; gsap.from(h, { y: 36, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%' } }) }); await step()
+  $$('.sec-head .lede, .svc .lede').forEach(h => gsap.from(h, { y: 24, opacity: 0, duration: 1, delay: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%' } })); await step()
   // products rise in, then each heater drops onto its shadow
-  gsap.from('.model', { y: 90, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, clearProps: 'transform,transition', scrollTrigger: { trigger: '.models', start: 'top 82%' } })
-  gsap.from('.model .pic img', { y: -40, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, delay: .2, clearProps: 'transform,opacity,transition', scrollTrigger: { trigger: '.models', start: 'top 82%' } })
-  gsap.from('.how .kick, .how h2', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: '.how', start: 'top 70%' } })
-  gsap.from('.steps li', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'all', scrollTrigger: { trigger: '.how', start: 'top 60%' } })
-  gsap.from('.how-vis', { y: 50, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.how', start: 'top 70%' } })
-  gsap.from('.sol .tabs li', { y: 16, opacity: 0, duration: .8, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.sol .tabs', start: 'top 90%' } })
-  gsap.from('.cl-tabs li', { y: 16, opacity: 0, duration: .8, ease: 'expo.out', stagger: .05, scrollTrigger: { trigger: '.cl-tabs', start: 'top 90%' } })
-  gsap.from('.br-stage', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.br-stage', start: 'top 85%' } })
-  gsap.from('.br-ov li', { x: -24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: .06, delay: .3, clearProps: 'transform,opacity,visibility', scrollTrigger: { trigger: '.br-stage', start: 'top 70%' } })
-  gsap.from('.qt-panel', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.qt', start: 'top 85%' } })
-  gsap.from('.sav-card', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.sav', start: 'top 80%' } })
-  gsap.from('.tm figure', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'all', scrollTrigger: { trigger: '.tm', start: 'top 88%' } })
-  gsap.set('.sy', { transition: 'none' })
-  gsap.from('.sy', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .07, clearProps: 'all', scrollTrigger: { trigger: '.systems', start: 'top 88%' } })
-  gsap.set('.cl', { transition: 'none' }) // CSS opacity transition would fight the entrance
-  gsap.from('.cl', { y: 24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: { each: .025, from: 'start' }, clearProps: 'all', scrollTrigger: { trigger: '.cl-grid', start: 'top 88%' } })
-  gsap.from('.big, .tall', { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .12, scrollTrigger: { trigger: '.sol-grid', start: 'top 85%' } })
-  gsap.from('.tall .hp', { x: 60, opacity: 0, duration: 1.4, delay: .4, ease: 'expo.out', scrollTrigger: { trigger: '.sol-grid', start: 'top 80%' } })
-  const rl = $('.rl'), rL = rl.getTotalLength(); rl.style.strokeDasharray = rL; rl.style.strokeDashoffset = rL
-  gsap.to(rl, { strokeDashoffset: 0, duration: 2, ease: 'power2.inOut', scrollTrigger: { trigger: '.tall', start: 'top 75%' } })
-  gsap.from('.plan', { y: 80, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, clearProps: 'transform,transition', scrollTrigger: { trigger: '.plans', start: 'top 85%' } })
-  gsap.from('.ft > *', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.foot', start: 'top 90%' } })
+  gsap.from('.model', { y: 90, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, clearProps: 'transform,transition', scrollTrigger: { trigger: '.models', start: 'top 82%' } }); await step()
+  gsap.from('.model .pic img', { y: -40, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, delay: .2, clearProps: 'transform,opacity,transition', scrollTrigger: { trigger: '.models', start: 'top 82%' } }); await step()
+  gsap.from('.how .kick, .how h2', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: '.how', start: 'top 70%' } }); await step()
+  gsap.from('.steps li', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'all', scrollTrigger: { trigger: '.how', start: 'top 60%' } }); await step()
+  gsap.from('.how-vis', { y: 50, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.how', start: 'top 70%' } }); await step()
+  gsap.from('.sol .tabs li', { y: 16, opacity: 0, duration: .8, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.sol .tabs', start: 'top 90%' } }); await step()
+  gsap.from('.cl-tabs li', { y: 16, opacity: 0, duration: .8, ease: 'expo.out', stagger: .05, scrollTrigger: { trigger: '.cl-tabs', start: 'top 90%' } }); await step()
+  gsap.from('.br-stage', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.br-stage', start: 'top 85%' } }); await step()
+  gsap.from('.br-ov li', { x: -24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: .06, delay: .3, clearProps: 'transform,opacity,visibility', scrollTrigger: { trigger: '.br-stage', start: 'top 70%' } }); await step()
+  gsap.from('.qt-panel', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.qt', start: 'top 85%' } }); await step()
+  gsap.from('.sav-card', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.sav', start: 'top 80%' } }); await step()
+  gsap.from('.tm figure', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'all', scrollTrigger: { trigger: '.tm', start: 'top 88%' } }); await step()
+  gsap.set('.sy', { transition: 'none' }); await step()
+  gsap.from('.sy', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .07, clearProps: 'all', scrollTrigger: { trigger: '.systems', start: 'top 88%' } }); await step()
+  gsap.set('.cl', { transition: 'none' }); await step() // CSS opacity transition would fight the entrance
+  gsap.from('.cl', { y: 24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: { each: .025, from: 'start' }, clearProps: 'all', scrollTrigger: { trigger: '.cl-grid', start: 'top 88%' } }); await step()
+  gsap.from('.big, .tall', { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .12, scrollTrigger: { trigger: '.sol-grid', start: 'top 85%' } }); await step()
+  gsap.from('.tall .hp', { x: 60, opacity: 0, duration: 1.4, delay: .4, ease: 'expo.out', scrollTrigger: { trigger: '.sol-grid', start: 'top 80%' } }); await step()
+  const rl = $('.rl'), rL = rl.getTotalLength(); rl.style.strokeDasharray = rL; rl.style.strokeDashoffset = rL; await step()
+  gsap.to(rl, { strokeDashoffset: 0, duration: 2, ease: 'power2.inOut', scrollTrigger: { trigger: '.tall', start: 'top 75%' } }); await step()
+  gsap.from('.plan', { y: 80, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .1, clearProps: 'transform,transition', scrollTrigger: { trigger: '.plans', start: 'top 85%' } }); await step()
+  gsap.from('.ft > *', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.foot', start: 'top 90%' } }); await step()
 }
 painted.then(() => (window.requestIdleCallback || setTimeout)(entrances, { timeout: 1200 }))
 })()
@@ -1645,7 +1653,7 @@ const BUILD = {
 // each intent: words that point to it (multi-word phrases count double) and the reply
 const I = [
   { k: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'kumusta', 'musta'], a: () => ({ t: '<p>Hi! I\'m the DPY Assistant. I can help you pick a water heater, find a branch, or get a quote.</p>', c: ['Which heater for my condo?', 'Find a branch', 'How much does it cost?'] }) },
-  { k: ['not sure', 'help me choose', 'which heater', 'which water heater', 'recommend', 'find my', 'quiz', 'suggest', 'what should i'], a: () => ({ t: '<p>Happy to help you choose! Answer <b>4 quick questions</b> and I\'ll recommend the right water heater for your place.</p><p>Or just tell me: is it a condo, house, hotel or hospital?</p>', x: ['<a href="#" data-quiz>Find my water heater</a>'], c: ['Condo', 'House', 'Hotel', 'Hospital'] }) },
+  { k: ['not sure', 'help me choose', 'which heater', 'which water heater', 'recommend', 'find my', 'quiz', 'suggest', 'what should i'], a: () => ({ t: '<p>Happy to help you choose! Answer <b>4 quick questions</b> and I\'ll recommend the right water heater for your place.</p><p>Or just tell me: is it a condo, house, hotel or hospital?</p>', x: ['<a href="#heaters" data-quiz>Find my water heater</a>'], c: ['Condo', 'House', 'Hotel', 'Hospital'] }) },
   { k: ['condo', 'apartment', 'studio', 'unit', 'dorm'], a: () => ({ t: BUILD.condo, x: [sec('heaters', 'See instant heaters'), QUOTE] }) },
   { k: ['house', 'home', 'family', 'bungalow', 'townhouse'], a: () => ({ t: BUILD.home, x: [sec('heaters', 'See storage heaters'), QUOTE] }) },
   { k: ['hotel', 'resort', 'inn', 'hostel', 'airbnb'], a: () => ({ t: BUILD.hotel, x: [sec('buildings', 'See solutions'), QUOTE] }) },
@@ -1717,7 +1725,7 @@ $('button', tip).addEventListener('click', () => { tip.classList.remove('on'); c
 </script>
 <script>/* Three.js is served from our own site; opened straight from disk (file://) the browser blocks local modules, so the preview borrows unpkg */
 { const u = location.protocol === 'file:' ? 'https://unpkg.com/three@0.160.0/' : null, m = document.createElement('script'); m.type = 'importmap'
-  m.textContent = JSON.stringify({ imports: u ? { three: u + 'build/three.module.js', 'three/addons/environments/RoomEnvironment.js': u + 'examples/jsm/environments/RoomEnvironment.js' } : { three: './assets/vendor/three.module.js', 'three/addons/environments/RoomEnvironment.js': './assets/vendor/RoomEnvironment.js' } })
+  m.textContent = JSON.stringify({ imports: u ? { three: u + 'build/three.module.min.js', 'three/addons/environments/RoomEnvironment.js': u + 'examples/jsm/environments/RoomEnvironment.js' } : { three: './assets/vendor/three.module.min.js', 'three/addons/environments/RoomEnvironment.js': './assets/vendor/RoomEnvironment.js' } })
   document.currentScript.after(m) }</script>
 <script type="module">
 /* How it works: a real-time 3D cutaway of a DPY electric storage water heater.
