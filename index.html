@@ -1334,22 +1334,25 @@ const haloC = $('.halo b'), haloW = $('.halo i'), dialCard = $('.hc-dial'), wave
 const dial = $('.dial'), fg = $('.dial .fg'), knob = $('.dial .knob'), dv = $('.dial strong'), dm = $('.dial em')
 const ARC = fg.getTotalLength(); fg.style.strokeDasharray = ARC
 const MODES = [[36, 'Cool'], [40, 'Warm'], [45, 'Comfortable'], [52, 'Hot'], [61, 'Very hot']]
-let temp = 42
+let temp = 42, val = 42 // temp: the whole degrees shown; val: the exact value the knob, arc and glow follow (so they glide, not step)
 function setTemp(t) {
-  temp = Math.round(clamp(t, 30, 60)); const f = (temp - 30) / 30
-  fg.style.strokeDashoffset = ARC * (1 - f)
+  val = clamp(t, 30, 60); const f = (val - 30) / 30
+  fg.style.strokeDashoffset = (ARC * (1 - f)).toFixed(2)
   const a = (135 + f * 270) * Math.PI / 180; knob.setAttribute('cx', (60 + 50 * Math.cos(a)).toFixed(2)); knob.setAttribute('cy', (60 + 50 * Math.sin(a)).toFixed(2)) // the arc is a circle (r 50 around 60,60) from 135° to 405°, so the knob is placed by maths, not by measuring the path
-  dv.textContent = temp + '°C'; dm.textContent = MODES.find(m => temp < m[0])[1]; dial.setAttribute('aria-valuenow', temp)
-  haloC.style.opacity = clamp(1 - f * 1.6).toFixed(2); haloW.style.opacity = clamp(f * 1.3 - .15).toFixed(2) // the halo turns from cool blue to warm
-  dialCard.style.setProperty('--heat', f.toFixed(2))
-  const wo = clamp((f - .4) / .45); waves.style.opacity = wo.toFixed(2); waves.classList.toggle('on', wo > .04) // heat waves from about 42°C, full at 55°C
+  haloC.style.opacity = clamp(1 - f * 1.6).toFixed(3); haloW.style.opacity = clamp(f * 1.3 - .15).toFixed(3) // the halo turns from cool blue to warm
+  dialCard.style.setProperty('--heat', f.toFixed(3))
+  const wo = clamp((f - .4) / .45); waves.style.opacity = wo.toFixed(3); waves.classList.toggle('on', wo > .04) // heat waves from about 42°C, full at 55°C
   warm.style.opacity = (f * f * .55).toFixed(3)
+  const r = Math.round(val); if (r === temp && dv.textContent) return
+  temp = r; dv.textContent = temp + '°C'; dm.textContent = MODES.find(m => temp < m[0])[1]; dial.setAttribute('aria-valuenow', temp) // the number only changes on a new whole degree
   dial.classList.add('bump'); clearTimeout(bumpT); bumpT = setTimeout(() => dial.classList.remove('bump'), 140)
 }
 let bumpT
-setTemp(42)
-let sweep = null
+dv.textContent = ''; setTemp(42)
+let sweep = null, glide = null
 const stopSweep = () => { sweep?.kill(); sweep = null }
+// clicks, arrow keys and the wheel glide to the new value instead of jumping
+const glideTo = (v, d = .35) => { glide?.kill(); v = clamp(v, 30, 60); if (!MOTION) return setTemp(v); const o = { v: val }; glide = gsap.to(o, { v, duration: d, ease: 'power3.out', onUpdate: () => setTemp(o.v) }) }
 if (MOTION) { // one sweep shows the dial can be turned: up to 42°C, a peek at 57°C (the room warms), back to 42°C
   const o = { v: 30 }; setTemp(30)
   sweep = gsap.timeline({ delay: 1.3, onComplete: () => sweep = null })
@@ -1360,11 +1363,16 @@ if (MOTION) { // one sweep shows the dial can be turned: up to 42°C, a peek at 
 }
 const angleTemp = e => { const r = dial.getBoundingClientRect(), a = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; let d = (a + 225 + 360) % 360; if (d > 270) d = d > 315 ? 0 : 270; return 30 + d / 270 * 30 }
 let drag = false
-dial.addEventListener('pointerdown', e => { drag = true; dial.setPointerCapture(e.pointerId); setTemp(angleTemp(e)) })
-dial.addEventListener('pointermove', e => drag && setTemp(angleTemp(e)))
-dial.addEventListener('pointerup', () => drag = false)
-dial.addEventListener('keydown', e => { if (/Arrow(Up|Right)/.test(e.key)) { setTemp(temp + 1); e.preventDefault() } if (/Arrow(Down|Left)/.test(e.key)) { setTemp(temp - 1); e.preventDefault() } })
-dial.addEventListener('wheel', e => { e.preventDefault(); e.stopPropagation(); setTemp(temp + (e.deltaY < 0 ? 1 : -1)) }, { passive: false })
+// while the visitor plays with the dial, the 3D tank (built in the background) waits, so it never interrupts a drag
+;['pointerdown', 'pointermove', 'wheel', 'keydown'].forEach(n => dial.addEventListener(n, () => window.DPYbusy = performance.now(), { passive: true }))
+// press: glide to where you pressed; drag: follow the pointer exactly; release: settle on the nearest whole degree
+dial.addEventListener('pointerdown', e => { drag = true; dial.setPointerCapture(e.pointerId); glideTo(angleTemp(e), .3) })
+dial.addEventListener('pointermove', e => { if (!drag) return; const v = angleTemp(e); if (glide?.isActive()) glideTo(v, .12); else setTemp(v) })
+const release = () => { if (!drag) return; drag = false; glideTo(Math.round(val), .25) }
+dial.addEventListener('pointerup', release); dial.addEventListener('pointercancel', release)
+dial.addEventListener('keydown', e => { if (/Arrow(Up|Right)/.test(e.key)) { glideTo(temp + 1, .25); e.preventDefault() } if (/Arrow(Down|Left)/.test(e.key)) { glideTo(temp - 1, .25); e.preventDefault() } })
+let wheelTo = null
+dial.addEventListener('wheel', e => { e.preventDefault(); e.stopPropagation(); wheelTo = clamp((glide?.isActive() && wheelTo != null ? wheelTo : temp) + (e.deltaY < 0 ? 1 : -1), 30, 60); glideTo(wheelTo, .3) }, { passive: false })
 
 /* hide the page scrollbar while a dialog is open, without the page shifting sideways */
 const lockPage = on => { const h = document.documentElement; if (on) h.style.setProperty('--sbw', (innerWidth - h.clientWidth) + 'px'); h.classList.toggle('modal-open', on) }
@@ -1742,6 +1750,7 @@ const idle = (fn, ms) => (window.requestIdleCallback || setTimeout)(fn, { timeou
 await Promise.race([near, new Promise(go => { const after = () => setTimeout(() => idle(go, 2500), 6600); document.readyState === 'complete' ? after() : addEventListener('load', after, { once: true }) })])
 // a frame break: the build runs in small steps, so the page never freezes long enough to notice
 const breathe = () => new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)))
+while (performance.now() - (window.DPYbusy ?? -1e9) < 1500) await new Promise(r => setTimeout(r, 400)) // someone is turning the dial: wait until they stop
 let THREE, RoomEnvironment
 try { THREE = await import('three'); ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js')) }
 catch (e) { vis.classList.add('no3d'); throw e }
