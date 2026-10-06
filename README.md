@@ -128,6 +128,7 @@ How it stays fast:
 - **Hero blur:** baked into `hero-steam-soft.webp`, not applied live.
 - **Frosted panels:** a pre-blurred copy of the photo, not `backdrop-filter`.
 - **3D cutaway:** Three.js no longer loads with the page. It downloads and builds the scene in the first idle moment after the page loads (or earlier if you scroll toward it), so it never stalls a scroll. Shaders compile in the background, shader error checks are off, it's capped at 1.25× resolution, and the render loop stops completely while the tank is off screen.
+- **A smooth opening:** the hero intro starts only once the page has painted. The 3D tank builds after the intro and the dial sweep (about 6.5 s in), in small steps. The entrance animations further down are set up in an idle moment after the first paint. The page is re-measured for scroll animations once, after the intro, instead of twice during it. Hidden heaters do not pulse, and the heat waves only move while visible.
 - **Phones and tablets scroll natively.** Smooth scrolling (Lenis) runs only with a mouse or trackpad.
 - **Branch map:** the map library is parsed when the browser is idle, and the fly-in waits until the map is on screen.
 - **Scroll work:** entrance animations stop listening to the scroll once they've played. The temperature dial places its knob by maths instead of measuring the SVG path each frame, and plays one intro sweep instead of two overlapping ones.
