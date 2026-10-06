@@ -1,0 +1,21 @@
+{
+  "name": "DPY Mercantile Inc.",
+  "short_name": "DPY",
+  "description": "Instant, storage, heat pump and solar water heaters for homes, hotels and hospitals in the Philippines. Free site visit, installation and service since 2001.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "icons": [
+    {
+      "src": "assets/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

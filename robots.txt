@@ -1,0 +1,3 @@
+# prototype: no crawling. On the live site, allow everything and list a sitemap.
+User-agent: *
+Disallow: /
