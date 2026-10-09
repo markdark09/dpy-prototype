@@ -102,7 +102,7 @@ html.menu-lock{overflow:hidden}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
 .msgr.vb{background:#665CAC} 
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
+.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,var(--from,#FBF3EC) 0,#FBF3EC 200px,#F5E4D7 100%);overflow:hidden}
 .foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;padding:28px 30px;border-radius:26px;color:#fff;background:radial-gradient(90% 120% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(120deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);box-shadow:0 30px 60px -40px rgba(120,10,20,.7)}
 .foot-cta b{display:block;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em}
 .foot-cta span{font-size:14px;color:rgba(255,255,255,.8)}
@@ -205,6 +205,7 @@ html.menu-lock{overflow:hidden}
 .cmpb .on{display:none}.cmpb[aria-pressed="true"] .on{display:inline}.cmpb[aria-pressed="true"] .of{display:none}
 .ctray{position:fixed;left:50%;bottom:20px;z-index:70;transform:translate(-50%,140%);transition:transform .55s var(--ease);max-width:calc(100% - 24px)}
 .ctray.on{transform:translate(-50%,0)}
+.ctray:not(.on){visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s} 
 .ct-in{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(14,17,22,.94);color:#fff;box-shadow:0 24px 50px -18px rgba(1,20,50,.6)}
 .ct-k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9DB4CF}
 .ctray ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
@@ -258,10 +259,13 @@ html.menu-lock{overflow:hidden}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
-.sec.soft{background:#F4F7FA}
-.sec.ice{background:var(--ice-bg)}
-.sec.sand{background:var(--sand)}
-.sec.dark{background:var(--night);color:#fff}
+.sec{--bg:#fff;background:linear-gradient(180deg,var(--from,var(--bg)) 0,var(--bg) var(--blend,200px))}
+.sec.soft{--bg:#F4F7FA}
+.sec.ice{--bg:var(--ice-bg)}
+.sec.sand{--bg:var(--sand)}
+.sec.dark{--bg:var(--night);color:#fff}
+:root{--dblend:90px} 
+@media (max-width:640px){:root{--dblend:60px}}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
 .sec-head .lede{max-width:380px}
 .sec-head.c{display:grid;justify-items:center;text-align:center}
@@ -297,7 +301,8 @@ html.menu-lock{overflow:hidden}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
-.pc .acts{position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.pc .acts{position:relative;z-index:2;display:flex;flex-direction:row-reverse;align-items:center;gap:8px} 
+.pc .acts .addq{flex:1;min-width:0}
 .pc .acts .btn{flex:1;height:40px;font-size:13px}
 .addq{position:relative;z-index:2;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .addq svg{width:14px;height:14px}
@@ -477,20 +482,20 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT">
+<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Made for pool water</h3><p>A titanium heat exchanger resists chlorine and corrosion.</p></div><div class="ft-c" data-r><h3>Quiet</h3><p>A compressor jacket and anti-vibration pads keep the noise down.</p></div><div class="ft-c" data-r><h3>Quality parts</h3><p>Copeland scroll compressor, Emerson expansion valve and Saginomiya 4-way valve.</p></div><div class="ft-c" data-r><h3>Can cool too</h3><p>Also brings pool water down on very hot days.</p></div></div>
   </div>
 </section>
 
-<section class="sec soft" id="specs" aria-labelledby="spT">
+<section class="sec soft" id="specs" aria-labelledby="spT" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
     <div class="spec" data-r><h3>Swimming pool heat pumps (DE-W/DY series)</h3><p class="all"><b>All models:</b> Power supply 380/3/50 V/Ph/Hz · Refrigerant R410a · Evaporator Aluminum/Cu lamellar tube evaporator · Condenser/heat exchanger Titanium-in-PVC heat exchanger · Throttling device Emerson thermal expansion valve · Controller Indoor Digital Controller · Level against electric shock I · Water proof grade IPX4 · Rated water temp. 28 °C · Max. water temp. 45 °C · Operation temp. range -10-45°</p><div class="tscroll" tabindex="0" role="region" aria-label="Swimming pool heat pumps (DE-W/DY series)"><table><thead><tr><th scope="col">Model</th><th scope="col">Heating capacity¹ (kW)</th><th scope="col">Heating capacity¹ (BTU)</th><th scope="col">Rated power input¹ (kW)</th><th scope="col">Heating capacity² (kW)</th><th scope="col">Heating capacity² (BTU)</th><th scope="col">Power input² (kW)</th><th scope="col">Cooling capacity (kW)</th><th scope="col">Cooling capacity (BTU)</th><th scope="col">Cooling rated power input (kW)</th><th scope="col">Water flow rate (m3/h)</th><th scope="col">Water connection (mm)</th><th scope="col">Sound pressure level at 1m (dB(A))</th><th scope="col">Max. current (A)</th><th scope="col">Net weight (kg)</th><th scope="col">Dimension L/W/H (mm)</th></tr></thead><tbody><tr><th scope="row">DE-75W/DY</th><td>34</td><td>123003</td><td>6</td><td>30</td><td>102389</td><td>5.8</td><td>22</td><td>75085</td><td>9</td><td>12</td><td>63</td><td>≤60</td><td>21</td><td>250</td><td>1200x990x1225</td></tr><tr><th scope="row">DE-92W/DY</th><td>44</td><td>141092</td><td>8</td><td>39</td><td>133106</td><td>7.5</td><td>26</td><td>88737</td><td>11</td><td>15</td><td>63</td><td>≤60</td><td>25</td><td>250</td><td>1200x990x1225</td></tr><tr><th scope="row">DE-105W/DY</th><td>53</td><td>168225</td><td>9</td><td>46.5</td><td>158703</td><td>8.9</td><td>29.8</td><td>101706</td><td>12</td><td>15</td><td>63</td><td>≤60</td><td>30</td><td>290</td><td>1200x990x1425</td></tr><tr><th scope="row">DE-150W/DY</th><td>62</td><td>198976</td><td>11</td><td>55</td><td>187713</td><td>10.6</td><td>40</td><td>136519</td><td>17</td><td>25</td><td>75</td><td>≤62</td><td>40</td><td>465</td><td>2140x1280x1670</td></tr><tr><th scope="row">DE-180W/DY</th><td>86</td><td>289420</td><td>15</td><td>76</td><td>259386</td><td>14.6</td><td>55</td><td>187713</td><td>23</td><td>30</td><td>75</td><td>≤64</td><td>50</td><td>622</td><td>2200x1315x2080</td></tr></tbody></table></div><p class="scroll-hint">Swipe the table sideways to see every column.</p><ul class="notes"><li>¹ Heating test condition: *Ambient temp. (Dry Bulb): 26°C , Water temp. 26°C</li><li>² Heating test condition: *Ambient temp. (Dry Bulb): 20°C , Water temp. 26°C</li><li>Cooling test condition: *Ambient temp. (Dry Bulb): 35°C , Water temp. 27°C</li><li>The technical data above are for reference only and the accurate data should be subject to the testing report or nameplate.</li></ul></div>
   </div>
 </section>
-<section class="sec ice" aria-label="Our promise">
+<section class="sec ice" aria-label="Our promise" style="--from:#F4F7FA">
   <div class="wrap prom">
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>
@@ -499,7 +504,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="rlT">
+<section class="sec" aria-labelledby="rlT" style="--from:#EAF2FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Also consider</span><h2 class="thin h2" id="rlT">Related Products</h2></div><span style="display:flex;gap:18px;flex-wrap:wrap"><a class="link" href="../compare?p=deron-swimming-pool-heat-pump,5-star-integral-heat-pump,deron-air-to-water-heat-pump">Compare with similar <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="link" href="../water-heaters">See all products <svg aria-hidden="true"><use href="#arr"/></svg></a></span></div>
     <div class="grid rel"><article class="pc" data-cat="heatpump" data-for="home business" data-r>
@@ -509,7 +514,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/5-star-integral-heat-pump">5 Star Integral Heat Pump</a></h3>
   <p>A heat pump and hot water tank in one tall unit. Uses about a quarter of the power of an electric heater.</p>
   <div class="kf"><span><b>4</b> COP</span><span><b>100–300</b> liters</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/5-star-integral-heat-pump">Details</a><button class="cmpb" type="button" data-cmp="5-star-integral-heat-pump" data-name="5 Star Integral Heat Pump" data-img="assets/img/dpy/heatpump-5star.webp" aria-pressed="false" aria-label="Compare 5 Star Integral Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="5-star-integral-heat-pump" data-name="5 Star Integral Heat Pump" data-img="assets/img/dpy/heatpump-5star.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="5-star-integral-heat-pump" data-name="5 Star Integral Heat Pump" data-img="assets/img/dpy/heatpump-5star.webp" aria-pressed="false" aria-label="Compare 5 Star Integral Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="5-star-integral-heat-pump" data-name="5 Star Integral Heat Pump" data-img="assets/img/dpy/heatpump-5star.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="heatpump" data-for="business" data-r>
   <span class="tag">Heat pump</span><span class="who"><span class="b">Business</span></span>
   <div class="pic"><img src="../assets/img/dpy/deron-wizard.webp" width="450" height="470" alt="Deron Air to Water Heat Pump" loading="lazy"></div>
@@ -517,7 +522,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/deron-air-to-water-heat-pump">Deron Air to Water Heat Pump</a></h3>
   <p>Commercial heat pumps that heat water to 60°C for hotels, hospitals and buildings, and can cut heating costs by up to 70%.</p>
   <div class="kf"><span><b>Up to 70%</b> lower heating cost</span><span><b>60°C</b> hot water</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/deron-air-to-water-heat-pump">Details</a><button class="cmpb" type="button" data-cmp="deron-air-to-water-heat-pump" data-name="Deron Air to Water Heat Pump" data-img="assets/img/dpy/deron-wizard.webp" aria-pressed="false" aria-label="Compare Deron Air to Water Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="deron-air-to-water-heat-pump" data-name="Deron Air to Water Heat Pump" data-img="assets/img/dpy/deron-wizard.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="deron-air-to-water-heat-pump" data-name="Deron Air to Water Heat Pump" data-img="assets/img/dpy/deron-wizard.webp" aria-pressed="false" aria-label="Compare Deron Air to Water Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="deron-air-to-water-heat-pump" data-name="Deron Air to Water Heat Pump" data-img="assets/img/dpy/deron-wizard.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="heatpump" data-for="business" data-r>
   <span class="tag">Heat pump</span><span class="who"><span class="b">Business</span></span>
   <div class="pic"><img src="../assets/img/dpy/deron-w2w.webp" width="446" height="533" alt="Deron Water to Water Heat Pump" loading="lazy"></div>
@@ -525,7 +530,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/deron-water-to-water-heat-pump">Deron Water to Water Heat Pump</a></h3>
   <p>Takes heat from ground, lake or river water to make hot water, and can cool at the same time.</p>
   <div class="kf"><span><b>4.4</b> COP</span><span><b>11.5–40</b> kW</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/deron-water-to-water-heat-pump">Details</a><button class="cmpb" type="button" data-cmp="deron-water-to-water-heat-pump" data-name="Deron Water to Water Heat Pump" data-img="assets/img/dpy/deron-w2w.webp" aria-pressed="false" aria-label="Compare Deron Water to Water Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="deron-water-to-water-heat-pump" data-name="Deron Water to Water Heat Pump" data-img="assets/img/dpy/deron-w2w.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="deron-water-to-water-heat-pump" data-name="Deron Water to Water Heat Pump" data-img="assets/img/dpy/deron-w2w.webp" aria-pressed="false" aria-label="Compare Deron Water to Water Heat Pump" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="deron-water-to-water-heat-pump" data-name="Deron Water to Water Heat Pump" data-img="assets/img/dpy/deron-w2w.webp" data-cat="heatpump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home business" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span><span class="b">Business</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-q6.webp" width="514" height="900" alt="Aquapower Q6M / Q9M" loading="lazy"></div>
@@ -533,13 +538,13 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/aquapower-q6m-q9m">Aquapower Q6M / Q9M</a></h3>
   <p>Our most powerful instant heaters, for several taps or a strong rain shower.</p>
   <div class="kf"><span><b>6 / 9</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/aquapower-q6m-q9m">Details</a><button class="cmpb" type="button" data-cmp="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" aria-pressed="false" aria-label="Compare Aquapower Q6M / Q9M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" aria-pressed="false" aria-label="Compare Aquapower Q6M / Q9M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article></div>
   </div>
 </section>
 <div class="qbar" aria-hidden="true"><a class="btn red" href="../contact?add=deron-swimming-pool-heat-pump#quote" tabindex="-1">Get a quote for this</a><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call" tabindex="-1"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
 </main>
-<footer class="foot">
+<footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="../contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">

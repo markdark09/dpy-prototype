@@ -102,7 +102,7 @@ html.menu-lock{overflow:hidden}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
 .msgr.vb{background:#665CAC} 
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
+.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,var(--from,#FBF3EC) 0,#FBF3EC 200px,#F5E4D7 100%);overflow:hidden}
 .foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;padding:28px 30px;border-radius:26px;color:#fff;background:radial-gradient(90% 120% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(120deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);box-shadow:0 30px 60px -40px rgba(120,10,20,.7)}
 .foot-cta b{display:block;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em}
 .foot-cta span{font-size:14px;color:rgba(255,255,255,.8)}
@@ -205,6 +205,7 @@ html.menu-lock{overflow:hidden}
 .cmpb .on{display:none}.cmpb[aria-pressed="true"] .on{display:inline}.cmpb[aria-pressed="true"] .of{display:none}
 .ctray{position:fixed;left:50%;bottom:20px;z-index:70;transform:translate(-50%,140%);transition:transform .55s var(--ease);max-width:calc(100% - 24px)}
 .ctray.on{transform:translate(-50%,0)}
+.ctray:not(.on){visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s} 
 .ct-in{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(14,17,22,.94);color:#fff;box-shadow:0 24px 50px -18px rgba(1,20,50,.6)}
 .ct-k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9DB4CF}
 .ctray ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
@@ -258,10 +259,13 @@ html.menu-lock{overflow:hidden}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
-.sec.soft{background:#F4F7FA}
-.sec.ice{background:var(--ice-bg)}
-.sec.sand{background:var(--sand)}
-.sec.dark{background:var(--night);color:#fff}
+.sec{--bg:#fff;background:linear-gradient(180deg,var(--from,var(--bg)) 0,var(--bg) var(--blend,200px))}
+.sec.soft{--bg:#F4F7FA}
+.sec.ice{--bg:var(--ice-bg)}
+.sec.sand{--bg:var(--sand)}
+.sec.dark{--bg:var(--night);color:#fff}
+:root{--dblend:90px} 
+@media (max-width:640px){:root{--dblend:60px}}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
 .sec-head .lede{max-width:380px}
 .sec-head.c{display:grid;justify-items:center;text-align:center}
@@ -297,7 +301,8 @@ html.menu-lock{overflow:hidden}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
-.pc .acts{position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.pc .acts{position:relative;z-index:2;display:flex;flex-direction:row-reverse;align-items:center;gap:8px} 
+.pc .acts .addq{flex:1;min-width:0}
 .pc .acts .btn{flex:1;height:40px;font-size:13px}
 .addq{position:relative;z-index:2;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .addq svg{width:14px;height:14px}
@@ -491,7 +496,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="sxT">
+<section class="sec" aria-labelledby="sxT" style="--from:#0A1830;--blend:var(--dblend)">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
     <ul class="tabs" role="tablist" aria-label="Building type"><li role="presentation"><button class="chip" role="tab" id="t-hotels" aria-controls="p-hotels" aria-selected="true" tabindex="0">Hotels & Resorts</button></li><li role="presentation"><button class="chip" role="tab" id="t-hospitals" aria-controls="p-hospitals" aria-selected="false" tabindex="-1">Hospitals & Clinics</button></li><li role="presentation"><button class="chip" role="tab" id="t-towers" aria-controls="p-towers" aria-selected="false" tabindex="-1">Condos & Residential Towers</button></li><li role="presentation"><button class="chip" role="tab" id="t-commercial" aria-controls="p-commercial" aria-selected="false" tabindex="-1">Restaurants, Gyms & Offices</button></li></ul>
@@ -514,7 +519,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec soft" aria-labelledby="scT">
+<section class="sec soft" aria-labelledby="scT" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="scT">One System, Four Parts</h2></div><p class="lede">A typical central system for a hotel or hospital. Tap any part to see the equipment we use.</p></div>
     <div class="sch" data-loop data-r>
@@ -552,25 +557,25 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="prT">
+<section class="sec" aria-labelledby="prT" style="--from:#F4F7FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How we work</span><h2 class="thin h2" id="prT">From Survey to<br>Service, One Team</h2></div><p class="lede">You deal with the same company from the first site visit to the tenth maintenance check.</p></div>
     <ol class="proc"><li data-r><b>Site survey</b><p>Free. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used.</p></li><li data-r><b>System design</b><p>We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.</p></li><li data-r><b>Written proposal</b><p>An itemized quotation: units, pipes, pumps, installation and commissioning.</p></li><li data-r><b>Supply & installation</b><p>Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.</p></li><li data-r><b>Maintenance</b><p>Preventive maintenance and repairs from our five branches, for as long as the system runs.</p></li></ol>
   </div>
 </section>
 
-<section class="sec soft" aria-labelledby="brT">
+<section class="sec soft" aria-labelledby="brT" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Brands</span><h2 class="thin h2" id="brT">Equipment We<br>Supply &amp; Install</h2></div><p class="lede">From Germany, Australia and beyond, chosen for Philippine conditions and backed by our own spare parts.</p></div>
     <ul class="bwall"><li data-r><img src="assets/img/logos/deron.jpg" width="212" height="81" alt="Deron" loading="lazy"></li><li data-r><img src="assets/img/logos/haase.jpg" width="252" height="81" alt="HAASE" loading="lazy"></li><li data-r><img src="assets/img/logos/enermax.jpg" width="185" height="81" alt="Enermax" loading="lazy"></li><li data-r><img src="assets/img/logos/champion.jpg" width="301" height="69" alt="Champion" loading="lazy"></li><li data-r><img src="assets/img/logos/wilo.png" width="163" height="81" alt="Wilo" loading="lazy"></li><li data-r><img src="assets/img/logos/5star.jpg" width="203" height="81" alt="5 Star" loading="lazy"></li><li data-r><span>AQUAPOWER</span></li><li data-r><span>RHEEM</span></li><li data-r><span>EVERHOT</span></li><li data-r><span>ROTEX</span></li><li data-r><span>GRUNDFOS</span></li><li data-r><span>MY-PV</span></li></ul>
   </div>
 </section>
 
-<section class="sec tight" aria-label="Savings">
+<section class="sec tight" aria-label="Savings" style="--from:#F4F7FA">
   <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="#savings">Try the savings calculator <svg aria-hidden="true"><use href="#arr"/></svg></a></div></div>
 </section>
 </main>
-<footer class="foot">
+<footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">

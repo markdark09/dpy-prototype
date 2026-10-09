@@ -102,7 +102,7 @@ html.menu-lock{overflow:hidden}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
 .msgr.vb{background:#665CAC} 
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
+.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,var(--from,#FBF3EC) 0,#FBF3EC 200px,#F5E4D7 100%);overflow:hidden}
 .foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;padding:28px 30px;border-radius:26px;color:#fff;background:radial-gradient(90% 120% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(120deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);box-shadow:0 30px 60px -40px rgba(120,10,20,.7)}
 .foot-cta b{display:block;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em}
 .foot-cta span{font-size:14px;color:rgba(255,255,255,.8)}
@@ -205,6 +205,7 @@ html.menu-lock{overflow:hidden}
 .cmpb .on{display:none}.cmpb[aria-pressed="true"] .on{display:inline}.cmpb[aria-pressed="true"] .of{display:none}
 .ctray{position:fixed;left:50%;bottom:20px;z-index:70;transform:translate(-50%,140%);transition:transform .55s var(--ease);max-width:calc(100% - 24px)}
 .ctray.on{transform:translate(-50%,0)}
+.ctray:not(.on){visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s} 
 .ct-in{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(14,17,22,.94);color:#fff;box-shadow:0 24px 50px -18px rgba(1,20,50,.6)}
 .ct-k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9DB4CF}
 .ctray ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
@@ -258,10 +259,13 @@ html.menu-lock{overflow:hidden}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
-.sec.soft{background:#F4F7FA}
-.sec.ice{background:var(--ice-bg)}
-.sec.sand{background:var(--sand)}
-.sec.dark{background:var(--night);color:#fff}
+.sec{--bg:#fff;background:linear-gradient(180deg,var(--from,var(--bg)) 0,var(--bg) var(--blend,200px))}
+.sec.soft{--bg:#F4F7FA}
+.sec.ice{--bg:var(--ice-bg)}
+.sec.sand{--bg:var(--sand)}
+.sec.dark{--bg:var(--night);color:#fff}
+:root{--dblend:90px} 
+@media (max-width:640px){:root{--dblend:60px}}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
 .sec-head .lede{max-width:380px}
 .sec-head.c{display:grid;justify-items:center;text-align:center}
@@ -297,7 +301,8 @@ html.menu-lock{overflow:hidden}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
-.pc .acts{position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.pc .acts{position:relative;z-index:2;display:flex;flex-direction:row-reverse;align-items:center;gap:8px} 
+.pc .acts .addq{flex:1;min-width:0}
 .pc .acts .btn{flex:1;height:40px;font-size:13px}
 .addq{position:relative;z-index:2;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .addq svg{width:14px;height:14px}
@@ -483,7 +488,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" id="checks" aria-labelledby="ckT">
+<section class="sec" id="checks" aria-labelledby="ckT" style="--from:#EAF2FA">
   <div class="wrap ck-grid">
     <div>
       <span class="kick">Before you call</span>
@@ -495,7 +500,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec dark" aria-labelledby="pmT">
+<section class="sec dark" aria-labelledby="pmT" style="--from:#FFFFFF;--blend:var(--dblend)">
   <div class="wrap pm">
     <div>
       <span class="kick">Preventive maintenance</span>
@@ -507,7 +512,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec soft" aria-labelledby="waT">
+<section class="sec soft" aria-labelledby="waT" style="--from:#0A1830;--blend:var(--dblend)">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Warranty</span><h2 class="thin h2" id="waT">Covered and<br>Registered for You</h2></div><p class="lede">We register the warranty when we install, so you never have to look for a receipt.</p></div>
     <div class="war">
@@ -518,7 +523,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" id="book" aria-labelledby="bkT">
+<section class="sec" id="book" aria-labelledby="bkT" style="--from:#F4F7FA">
   <div class="wrap">
     <div class="book">
       <div class="book-side">
@@ -547,7 +552,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 </main>
-<footer class="foot">
+<footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">

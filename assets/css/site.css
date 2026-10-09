@@ -26,10 +26,14 @@
 /* ---------- sections ---------- */
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
-.sec.soft{background:#F4F7FA}
-.sec.ice{background:var(--ice-bg)}
-.sec.sand{background:var(--sand)}
-.sec.dark{background:var(--night);color:#fff}
+/* each section fades in from the colour of the one above (the build sets --from), like the homepage: no hard edges */
+.sec{--bg:#fff;background:linear-gradient(180deg,var(--from,var(--bg)) 0,var(--bg) var(--blend,200px))}
+.sec.soft{--bg:#F4F7FA}
+.sec.ice{--bg:var(--ice-bg)}
+.sec.sand{--bg:var(--sand)}
+.sec.dark{--bg:var(--night);color:#fff}
+:root{--dblend:90px} /* blends into or out of the dark sections stay short, so text never sits on half-dark */
+@media (max-width:640px){:root{--dblend:60px}}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
 .sec-head .lede{max-width:380px}
 .sec-head.c{display:grid;justify-items:center;text-align:center}
@@ -73,7 +77,8 @@
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
-.pc .acts{position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.pc .acts{position:relative;z-index:2;display:flex;flex-direction:row-reverse;align-items:center;gap:8px} /* the whole card opens the product; this row adds it to a quote or a comparison */
+.pc .acts .addq{flex:1;min-width:0}
 .pc .acts .btn{flex:1;height:40px;font-size:13px}
 .addq{position:relative;z-index:2;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .addq svg{width:14px;height:14px}

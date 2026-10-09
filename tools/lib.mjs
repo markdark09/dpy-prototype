@@ -122,7 +122,7 @@ export function card(p, R, { h = 'h3' } = {}) {
   <${h}><a href="${R}products/${p.slug}">${esc(p.name)}</a></${h}>
   <p>${esc(p.short)}</p>
   <div class="kf">${p.key.slice(0, 2).map(([v, l]) => `<span><b>${esc(v)}</b> ${esc(l)}</span>`).join('')}</div>
-  <div class="acts"><a class="btn ghost" href="${R}products/${p.slug}">Details</a><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article>`
 }
 
@@ -200,9 +200,27 @@ export function foot(R, pg) {
 export function crumbsHtml(R, list) {
   return `<ol class="crumbs"><li><a href="${R || './'}">Home</a></li>${list.map(([n, u], i) => i === list.length - 1 ? `<li><span aria-current="page">${esc(n)}</span></li>` : `<li><a href="${R}${u}">${esc(n)}</a></li>`).join('')}</ol>`
 }
+// each top-level section fades in from the colour the section above ends on (like the homepage's "warming" page),
+// so there are no hard edges between white, pale blue, sand and navy. Returns the body and the colour the footer fades from.
+const NIGHT = '#0A1830', BG = { soft: '#F4F7FA', ice: '#EAF2FA', sand: '#FBF3EC', dark: NIGHT }
+function blend(html) {
+  let prev = null
+  const out = html.replace(/<section class="([^"]*)"([^>]*)>/g, (m, cls, attrs) => {
+    const st = attrs.match(/ style="([^"]*)"/)?.[1] || '', c = cls.split(/\s+/), bg = st.match(/background:([^;"]+)/)?.[1]
+    if (c.includes('phead')) { prev = BG.ice; return m } // page heads end on pale blue
+    if (c.includes('bh')) { prev = NIGHT; return m } // dark photo hero
+    if (bg) { const cols = bg.match(/#[0-9a-f]{3,6}|var\(--[\w-]+\)/gi) || []; prev = ({ 'var(--ice-bg)': BG.ice, '#fff': '#FFFFFF' })[cols.at(-1)] || cols.at(-1) || prev; return m } // its own background: leave it
+    if (!c.includes('sec')) return m
+    const me = BG[c.find(k => BG[k])] || '#FFFFFF', from = prev; prev = me
+    if (!from || from.toLowerCase() === me.toLowerCase()) return m
+    const css = `--from:${from}${from === NIGHT || me === NIGHT ? ';--blend:var(--dblend)' : ''}`
+    return st ? m.replace(' style="', ` style="${css};`) : m.slice(0, -1) + ` style="${css}">`
+  })
+  return { html: out, last: prev }
+}
 export function page(pg) {
   const R = pg.path.includes('/') ? '../'.repeat(pg.path.split('/').length - 1) : ''
-  const body = typeof pg.body === 'function' ? pg.body(R) : pg.body
+  const B = blend(typeof pg.body === 'function' ? pg.body(R) : pg.body), body = B.html
   return `${head(pg, R)}
 <body class="pg-${pg.nav || 'x'}">
 <script>document.documentElement.classList.add('js');if(matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||navigator.connection?.saveData)document.documentElement.classList.add('lite')</script>
@@ -212,7 +230,7 @@ ${nav(pg, R)}
 <main id="main">
 ${body.trim()}
 </main>
-${foot(R, pg)}
+${foot(R, pg).replace('<footer class="foot">', B.last && B.last !== '#FBF3EC' ? `<footer class="foot" style="--from:${B.last}">` : '<footer class="foot">')}
 ${ASK}
 <script src="${R}assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
 <script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>

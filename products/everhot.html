@@ -102,7 +102,7 @@ html.menu-lock{overflow:hidden}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
 .msgr.vb{background:#665CAC} 
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
+.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,var(--from,#FBF3EC) 0,#FBF3EC 200px,#F5E4D7 100%);overflow:hidden}
 .foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;padding:28px 30px;border-radius:26px;color:#fff;background:radial-gradient(90% 120% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(120deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);box-shadow:0 30px 60px -40px rgba(120,10,20,.7)}
 .foot-cta b{display:block;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em}
 .foot-cta span{font-size:14px;color:rgba(255,255,255,.8)}
@@ -205,6 +205,7 @@ html.menu-lock{overflow:hidden}
 .cmpb .on{display:none}.cmpb[aria-pressed="true"] .on{display:inline}.cmpb[aria-pressed="true"] .of{display:none}
 .ctray{position:fixed;left:50%;bottom:20px;z-index:70;transform:translate(-50%,140%);transition:transform .55s var(--ease);max-width:calc(100% - 24px)}
 .ctray.on{transform:translate(-50%,0)}
+.ctray:not(.on){visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s} 
 .ct-in{display:flex;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(14,17,22,.94);color:#fff;box-shadow:0 24px 50px -18px rgba(1,20,50,.6)}
 .ct-k{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9DB4CF}
 .ctray ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
@@ -258,10 +259,13 @@ html.menu-lock{overflow:hidden}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
-.sec.soft{background:#F4F7FA}
-.sec.ice{background:var(--ice-bg)}
-.sec.sand{background:var(--sand)}
-.sec.dark{background:var(--night);color:#fff}
+.sec{--bg:#fff;background:linear-gradient(180deg,var(--from,var(--bg)) 0,var(--bg) var(--blend,200px))}
+.sec.soft{--bg:#F4F7FA}
+.sec.ice{--bg:var(--ice-bg)}
+.sec.sand{--bg:var(--sand)}
+.sec.dark{--bg:var(--night);color:#fff}
+:root{--dblend:90px} 
+@media (max-width:640px){:root{--dblend:60px}}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px}
 .sec-head .lede{max-width:380px}
 .sec-head.c{display:grid;justify-items:center;text-align:center}
@@ -297,7 +301,8 @@ html.menu-lock{overflow:hidden}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
-.pc .acts{position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.pc .acts{position:relative;z-index:2;display:flex;flex-direction:row-reverse;align-items:center;gap:8px} 
+.pc .acts .addq{flex:1;min-width:0}
 .pc .acts .btn{flex:1;height:40px;font-size:13px}
 .addq{position:relative;z-index:2;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .addq svg{width:14px;height:14px}
@@ -477,20 +482,20 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT">
+<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Enamel-lined tank</h3><p>A durable vitreous enamel lining keeps the tank from rusting.</p></div><div class="ft-c" data-r><h3>Pressure relief valve</h3><p>Set at 0.85 MPa to protect against too much pressure. Also lets the tank be drained for servicing.</p></div><div class="ft-c" data-r><h3>Adjustable thermostat</h3><p>Cuts the power once the water reaches your setting, saving electricity and preventing scalding.</p></div><div class="ft-c" data-r><h3>Anode rod</h3><p>Protects the inner tank from corrosion and makes the heater last longer.</p></div><div class="ft-c" data-r><h3>Indoors or outdoors</h3><p>Suitable for both, with CFC-free foam insulation inside an epoxy-coated steel jacket.</p></div></div>
   </div>
 </section>
 
-<section class="sec soft" id="specs" aria-labelledby="spT">
+<section class="sec soft" id="specs" aria-labelledby="spT" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
     <div class="spec" data-r><h3>Everhot floor-stand or wall-hung storage water heaters (ERAS small)</h3><p class="all"><b>All models:</b> Heating element voltage 220V</p><div class="tscroll" tabindex="0" role="region" aria-label="Everhot floor-stand or wall-hung storage water heaters (ERAS small)"><table><thead><tr><th scope="col">Model</th><th scope="col">Tank capacity (USG)</th><th scope="col">Tank capacity (Liters)</th><th scope="col">Heating element power (kW)</th><th scope="col">Operating weight (kg)</th><th scope="col">Diameter (mm)</th><th scope="col">Height (mm)</th><th scope="col">Current draw (amps)</th><th scope="col">Over current protection (amps)</th></tr></thead><tbody><tr><th scope="row">ERAS025G</th><td>6.5 Gals</td><td>25</td><td>1.5</td><td>13</td><td>370</td><td>440</td><td>6.25</td><td>15</td></tr><tr><th scope="row">ERAS040G</th><td>10.5 Gals</td><td>40</td><td>1.5</td><td>22</td><td>458</td><td>454</td><td>6.8</td><td>15</td></tr><tr><th scope="row">ERAS060G</th><td>15 Gals</td><td>57</td><td>3.6</td><td>27</td><td>458</td><td>614</td><td>16.3</td><td>20</td></tr><tr><th scope="row">ERAS090G</th><td>23 Gals</td><td>87</td><td>3.6</td><td>34</td><td>458</td><td>864</td><td>16.3</td><td>20</td></tr><tr><th scope="row">ERAS0120</th><td>32 Gals</td><td>121</td><td>3.6</td><td>42</td><td>458</td><td>1114</td><td>16.3</td><td>20</td></tr></tbody></table></div><p class="scroll-hint">Swipe the table sideways to see every column.</p></div><div class="spec" data-r><h3>Everhot floor-stand storage water heaters (ERAS large)</h3><p class="all"><b>All models:</b> Heating element voltage 220V · Over current protection 20 amps</p><div class="tscroll" tabindex="0" role="region" aria-label="Everhot floor-stand storage water heaters (ERAS large)"><table><thead><tr><th scope="col">Model</th><th scope="col">Tank capacity (USG)</th><th scope="col">Tank capacity (Liters)</th><th scope="col">Heating element power (kW)</th><th scope="col">Operating weight (kg)</th><th scope="col">Diameter (mm)</th><th scope="col">Height (mm)</th><th scope="col">Current draw (amps)</th></tr></thead><tbody><tr><th scope="row">ERAS150</th><td>40 Gals</td><td>151</td><td>3.6</td><td>49</td><td>458</td><td>1364</td><td>16.3</td></tr><tr><th scope="row">ERAS195</th><td>50 Gals</td><td>189</td><td>3.6</td><td>58.5</td><td>458</td><td>1714</td><td>16.3</td></tr><tr><th scope="row">ERAS245</th><td>65 Gals</td><td>246</td><td>4.8</td><td>65.5</td><td>569</td><td>1409</td><td>21.8</td></tr><tr><th scope="row">ERAS320</th><td>85 Gals</td><td>322</td><td>4.8</td><td>79</td><td>569</td><td>1759</td><td>21.8</td></tr><tr><th scope="row">ERAS400</th><td>108 Gals</td><td>409</td><td>4.8</td><td>102</td><td>610</td><td>1900</td><td>21.8</td></tr><tr><th scope="row">ERAS495</th><td>130 Gals</td><td>492</td><td>4.8</td><td>115</td><td>681</td><td>1911</td><td>21.8</td></tr></tbody></table></div><p class="scroll-hint">Swipe the table sideways to see every column.</p></div>
   </div>
 </section>
-<section class="sec ice" aria-label="Our promise">
+<section class="sec ice" aria-label="Our promise" style="--from:#F4F7FA">
   <div class="wrap prom">
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>
@@ -499,7 +504,7 @@ html.menu-lock{overflow:hidden}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="rlT">
+<section class="sec" aria-labelledby="rlT" style="--from:#EAF2FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Also consider</span><h2 class="thin h2" id="rlT">Related Products</h2></div><span style="display:flex;gap:18px;flex-wrap:wrap"><a class="link" href="../compare?p=everhot,rheem">Compare with similar <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="link" href="../water-heaters">See all products <svg aria-hidden="true"><use href="#arr"/></svg></a></span></div>
     <div class="grid rel"><article class="pc" data-cat="storage" data-for="home business" data-r>
@@ -509,7 +514,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/rheem">Rheem Storage Water Heaters</a></h3>
   <p>Rheem's glass-lined tanks keep 25 to 454 liters of hot water ready for the whole house.</p>
   <div class="kf"><span><b>25–454</b> liters</span><span><b>60°C</b> preset</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/rheem">Details</a><button class="cmpb" type="button" data-cmp="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" aria-pressed="false" aria-label="Compare Rheem Storage Water Heaters" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" data-cat="storage" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" aria-pressed="false" aria-label="Compare Rheem Storage Water Heaters" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" data-cat="storage" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-a35.webp" width="365" height="600" alt="Aquapower A35M / A55" loading="lazy"></div>
@@ -517,7 +522,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/aquapower-a35m-a55">Aquapower A35M / A55</a></h3>
   <p>A multipoint instant heater: one unit can feed the shower and the sink.</p>
   <div class="kf"><span><b>3.5 / 5.5</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/aquapower-a35m-a55">Details</a><button class="cmpb" type="button" data-cmp="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" aria-pressed="false" aria-label="Compare Aquapower A35M / A55" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" aria-pressed="false" aria-label="Compare Aquapower A35M / A55" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-aqp28n.webp" width="462" height="560" alt="Aquapower AQP-28N" loading="lazy"></div>
@@ -525,7 +530,7 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/aquapower-aqp-28n">Aquapower AQP-28N</a></h3>
   <p>A slim single-point heater with a modern black finish, for one shower.</p>
   <div class="kf"><span><b>3.5</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/aquapower-aqp-28n">Details</a><button class="cmpb" type="button" data-cmp="aquapower-aqp-28n" data-name="Aquapower AQP-28N" data-img="assets/img/dpy/aquapower-aqp28n.webp" aria-pressed="false" aria-label="Compare Aquapower AQP-28N" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-aqp-28n" data-name="Aquapower AQP-28N" data-img="assets/img/dpy/aquapower-aqp28n.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-aqp-28n" data-name="Aquapower AQP-28N" data-img="assets/img/dpy/aquapower-aqp28n.webp" aria-pressed="false" aria-label="Compare Aquapower AQP-28N" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-aqp-28n" data-name="Aquapower AQP-28N" data-img="assets/img/dpy/aquapower-aqp28n.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-q35m.webp" width="331" height="413" alt="Aquapower Q35M" loading="lazy"></div>
@@ -533,13 +538,13 @@ html.menu-lock{overflow:hidden}
   <h3><a href="../products/aquapower-q35m">Aquapower Q35M</a></h3>
   <p>A single-point heater with its own shower set, ready for one bathroom.</p>
   <div class="kf"><span><b>3.5</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><a class="btn ghost" href="../products/aquapower-q35m">Details</a><button class="cmpb" type="button" data-cmp="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" aria-pressed="false" aria-label="Compare Aquapower Q35M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" aria-pressed="false" aria-label="Compare Aquapower Q35M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article></div>
   </div>
 </section>
 <div class="qbar" aria-hidden="true"><a class="btn red" href="../contact?add=everhot#quote" tabindex="-1">Get a quote for this</a><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call" tabindex="-1"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
 </main>
-<footer class="foot">
+<footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="../contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">
