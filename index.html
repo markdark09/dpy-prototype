@@ -242,7 +242,8 @@ html.menu-lock{overflow:hidden}
 .trust + .base{margin-top:26px}
 @media (max-width:640px){.trust{gap:18px}.trust img{width:100%;max-width:360px}}
 </style>
-<link rel="preload" as="image" href="assets/img/dpy/aquapower-aqp28n.webp" fetchpriority="high"> <!-- the first heater in the hero: the script adds it, so tell the browser early -->
+<link rel="preload" as="image" href="assets/img/dpy/aquapower-aqp28n.webp" fetchpriority="high">
+<link rel="preload" as="script" href="assets/vendor/gsap.min.js"><link rel="preload" as="script" href="assets/vendor/ScrollTrigger.min.js"> <!-- downloaded now, run after the first paint --> <!-- the first heater in the hero: the script adds it, so tell the browser early -->
 <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin> <!-- Manrope is hosted with the site: no render-blocking request to Google -->
 <style>
 /* soft and steamy, in DPY's logo colours: the drop's blues for water and cold, the gear's red for heat and the main
@@ -885,10 +886,13 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
 }
 .gt-top small,.gt-br span{font-size:11px}.sy small,.plan .top .real{font-size:11px}.inst small{font-size:10px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.intro .badge,.intro .h1 .ln > span,.intro .hero-head .sub,.intro .hero-head .btn,.intro .pager,.intro .cap,.intro .hc,.intro .hero-foot > *,.intro .nav-in > *,.intro .halo,.intro .plinth,.intro .floor{opacity:0}
 </style>
 </head>
 <body>
 <script>const RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+// the hero intro's text and cards wait hidden for the animation (the heater itself shows at once); never longer than 4 s
+if (!RM) { document.documentElement.classList.add('intro'); setTimeout(() => document.documentElement.classList.remove('intro'), 4000) }
 // light mode: phones, tablets and low-power PCs skip the purely decorative loops
 if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || navigator.connection?.saveData) document.documentElement.classList.add('lite')</script>
 <a class="skip" href="#main">Skip to content</a>
@@ -929,7 +933,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <div class="halo"><b></b><i></i></div>
         <div class="plinth"></div><div class="floor"></div>
         <div class="waves" aria-hidden="true"><svg viewBox="0 0 18 46"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg viewBox="0 0 18 56"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg viewBox="0 0 18 46"><path d="M9 44c-6-6 6-10 0-16s6-10 0-16-2-8 0-10"/></svg><svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gWave" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FF5A3C"/><stop offset="1" stop-color="#FFB37A" stop-opacity=".2"/></linearGradient></defs></svg></div>
-        <div class="prods"></div>
+        <!-- the first heater is in the page itself, so it shows from the first frame (the script adds the other three) -->
+        <div class="prods"><div class="prod on" style="--h:320px" aria-hidden="false"><img class="main" src="assets/img/dpy/aquapower-aqp28n.webp" width="462" height="560" alt="Aquapower AQP-28N instant water heater" fetchpriority="high"><img class="rf" src="assets/img/dpy/aquapower-aqp28n.webp" width="462" height="560" alt=""><span class="hs r" style="--x:70%;--y:57%"><b></b><span>Power control dial</span></span></div></div>
         <div class="switch"><p class="cap" aria-live="polite"></p><div class="pager" role="tablist" aria-label="Water heater type"></div></div>
       </div>
 
@@ -1224,10 +1229,12 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <script>window.DPY_HOME = true</script>
 <script src="assets/js/site.js?v=a8bca181" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
-<script src="assets/vendor/gsap.min.js"></script>
-<script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script>
-(() => {
+// paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
+// The library is downloaded early (preload in the head), then run right after the first frame, followed by everything below.
+const loadJS = src => new Promise(ok => { const s = document.createElement('script'); s.src = src; s.onload = s.onerror = ok; document.head.append(s) })
+addEventListener('DOMContentLoaded', () => requestAnimationFrame(() => setTimeout(() => loadJS('assets/vendor/gsap.min.js').then(() => loadJS('assets/vendor/ScrollTrigger.min.js')).then(main))))
+function main() {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)]
 const MOTION = !RM && !!window.gsap && !!window.ScrollTrigger
 if (MOTION) { gsap.registerPlugin(ScrollTrigger); ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,DOMContentLoaded,resize' }) } // no automatic re-measure on load: see the one after the intro
@@ -1372,7 +1379,7 @@ const SHOW = [
   { k: 'Heat Pump', img: 'deron-de27', h: 285, name: 'Deron DE-27W/S', what: 'heat pump water heater', hs: [36, 27, 'l', 'Smart control panel'] },
 ]
 const prods = $('.prods'), cap = $('.cap'), pager = $('.pager')
-prods.innerHTML = SHOW.map((s, i) => { const [x, y, side, t] = s.hs; return `<div class="prod${i ? '' : ' on'}" style="--h:${s.h}px" aria-hidden="${!!i}"><img class="main" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt="${s.name} ${s.what}"><img class="rf" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt=""><span class="hs ${side}" style="--x:${x}%;--y:${y}%"><b></b><span>${t}</span></span></div>` }).join('')
+prods.insertAdjacentHTML('beforeend', SHOW.map((s, i) => { if (!i) return '' /* already in the page */; const [x, y, side, t] = s.hs; return `<div class="prod${i ? '' : ' on'}" style="--h:${s.h}px" aria-hidden="${!!i}"><img class="main" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt="${s.name} ${s.what}"><img class="rf" src="${IMG}${s.img}.webp"${wh('dpy/' + s.img + '.webp')} alt=""><span class="hs ${side}" style="--x:${x}%;--y:${y}%"><b></b><span>${t}</span></span></div>` }).join(''))
 cap.innerHTML = SHOW.map((s, i) => `<span class="${i ? '' : 'on'}"><b>${s.name}</b> · ${s.what}</span>`).join('')
 pager.innerHTML = SHOW.map((s, i) => `<button role="tab" aria-selected="${!i}">${s.k}<i></i></button>`).join('')
 const P = $$('.prod', prods), C = $$('span', cap).filter(s => s.parentNode === cap), B = $$('button', pager)
@@ -1650,28 +1657,30 @@ rail(); addEventListener('resize', rail); document.fonts?.ready.then(rail)
 setTimeout(() => { if (!window.HOW3D) $('.how-vis').classList.add('no3d') }, 6000) // no module support at all
 
 /* ---------- motion ---------- */
+document.documentElement.classList.remove('intro') // the intro below takes over in this same moment (or there's no animation to wait for)
 if (!MOTION) return
 run()
 $$('[data-n]').forEach(el => { const end = +el.dataset.n, o = { v: 0 }; gsap.to(o, { v: end, duration: 2, delay: 1, ease: 'power3.out', onUpdate: () => el.textContent = Math.round(o.v) }) })
 // CSS hover transitions would re-ease every GSAP frame (the "rubbery, late" feel), so they're parked while an entrance runs
 gsap.set('.hero-head .btn, .nav-in > *, .model, .model .pic img, .plan, .steps li', { transition: 'none' })
 const intro = gsap.timeline({ paused: true })
-  .from('.hero-bg img', { scale: 1.14, duration: 2.6, ease: 'power3.out' }, 0)
-  .from('.badge', { y: 16, opacity: 0, duration: .8, ease: 'expo.out' }, .15)
-  .from('.h1 .ln > span', { yPercent: 105, duration: 1.2, ease: 'expo.out', stagger: .12, clearProps: 'transform' }, .25)
-  .from('.hero-head .sub, .hero-head .btn', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'transform,transition' }, .55)
-  .from('.halo, .plinth, .floor', { opacity: 0, duration: 1.8, ease: 'power2.out', stagger: .12 }, .4)
-  .from('.prods', { y: 80, opacity: .01, duration: 1.6, ease: 'expo.out' }, .55) // from 1%, not 0: looks the same, but counts as painted at once
-  .from('.pager, .cap', { y: 20, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08 }, .9)
-  .from('.hc-gtk', { x: -60, opacity: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform' }, .8)
-  .from('.hc-dial', { x: 60, opacity: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform' }, .9)
-  .from('.hero-foot > *', { y: 24, opacity: 0, duration: 1, ease: 'expo.out', stagger: .1 }, 1)
-  .from('.nav-in > *', { y: -16, opacity: 0, duration: .8, ease: 'expo.out', stagger: .06, clearProps: 'transform,transition' }, .1)
-// the intro starts once the hero photo is decoded and the page has painted, so none of it plays before you can see it
+  // the heater is visible from the first frame and only rises into place; everything else arrives within about 1.6 s
+  .from('.hero-bg img', { scale: 1.1, duration: 2, ease: 'power3.out' }, 0)
+  .from('.badge', { y: 14, opacity: 0, duration: .7, ease: 'expo.out' }, .1)
+  .from('.h1 .ln > span', { yPercent: 105, duration: 1, ease: 'expo.out', stagger: .1, clearProps: 'transform' }, .15)
+  .from('.hero-head .sub, .hero-head .btn', { y: 18, opacity: 0, duration: .8, ease: 'expo.out', stagger: .07, clearProps: 'transform,transition' }, .4)
+  .from('.halo, .plinth, .floor', { opacity: 0, duration: 1.2, ease: 'power2.out', stagger: .1 }, .1)
+  .from('.prods', { y: 40, duration: 1.2, ease: 'expo.out' }, .2)
+  .from('.pager, .cap', { y: 18, opacity: 0, duration: .8, ease: 'expo.out', stagger: .07 }, .6)
+  .from('.hc-gtk', { x: -50, opacity: 0, duration: 1, ease: 'expo.out', clearProps: 'transform' }, .55)
+  .from('.hc-dial', { x: 50, opacity: 0, duration: 1, ease: 'expo.out', clearProps: 'transform' }, .62)
+  .from('.hero-foot > *', { y: 20, opacity: 0, duration: .8, ease: 'expo.out', stagger: .08 }, .7)
+  .from('.nav-in > *', { y: -14, opacity: 0, duration: .7, ease: 'expo.out', stagger: .05, clearProps: 'transform,transition' }, .05)
+// the intro starts at the browser's first paint, so none of it plays before you can see it (and nothing waits longer than that)
 const within = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]) // a promise, or give up waiting after ms
 const painted = within(new Promise(r => { try { new PerformanceObserver((l, o) => { o.disconnect(); r() }).observe({ type: 'paint', buffered: true }) } catch { r() } }), 1500) // the browser's first paint
 { const img = $('.hero-bg img')
-  Promise.all([within(img.decode ? img.decode().catch(() => {}) : 0, 900), painted]).then(() => requestAnimationFrame(() => intro.play())) }
+  Promise.all([within(img.decode ? img.decode().catch(() => {}) : 0, 250), painted]).then(() => requestAnimationFrame(() => intro.play())) }
 // once the page has loaded and the intro has played, re-measure every scroll animation in an idle moment (images and fonts are in by then)
 Promise.all([new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true })), new Promise(r => setTimeout(r, 3200))])
   .then(() => (window.requestIdleCallback || setTimeout)(() => ScrollTrigger.refresh(), { timeout: 2000 }))
@@ -1715,7 +1724,7 @@ async function entrances() { // one small task per group, with a break between e
   gsap.from('.ft > *', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.foot', start: 'top 90%' } }); await step()
 }
 painted.then(() => (window.requestIdleCallback || setTimeout)(entrances, { timeout: 1200 }))
-})()
+}
 </script>
 <script>/* Three.js is served from our own site; opened straight from disk (file://) the browser blocks local modules, so the preview borrows unpkg */
 { const u = location.protocol === 'file:' ? 'https://unpkg.com/three@0.160.0/' : null, m = document.createElement('script'); m.type = 'importmap'
