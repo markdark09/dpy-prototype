@@ -21,7 +21,8 @@
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=7ef97ab1">
+<link rel="stylesheet" href="assets/css/base.css?v=dfac365e">
+<link rel="stylesheet" href="assets/css/site.css?v=61f19c18">
 <style>
 .bh{position:relative;isolation:isolate;overflow:clip;padding:160px 0 70px;color:#fff;background:var(--night)}
 .bh > img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
@@ -118,7 +119,7 @@
 <nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters">Water Heaters</a><a href="business" aria-current="page">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
 <main id="main">
 <section class="bh">
-  <img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" fetchpriority="high">
+  <img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:640px) 400px, 100vw" fetchpriority="high">
   <div class="wrap">
     <ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">For Business</span></li></ol>
     <span class="kick">For hotels, hospitals &amp; buildings</span>
@@ -223,7 +224,8 @@
   </div>
 </footer>
 <script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/site.js?v=dd6d3aeb" defer></script>
+<script src="assets/js/site.js?v=4eafb977" defer></script>
+<script src="assets/js/ask.js?v=767c5d36" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
 const { $, $$, RM, go, quote } = DPY

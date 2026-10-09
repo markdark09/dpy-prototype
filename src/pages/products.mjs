@@ -79,7 +79,7 @@ function pg(p) {
         <p class="lede">${p.short}</p>
         <div class="facts">${p.key.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
         <ul class="best"><li>Best for</li>${p.best.map(b => `<li>${b}</li>`).join('')}</ul>
-        <div class="ph-acts"><a class="btn red" href="${R}contact?add=${p.slug}#quote" data-quote-now="${p.slug}" data-name="${p.name}">Get a quote for this ${I.arr}</a><button class="addq" type="button" data-add="${p.slug}" data-name="${p.name}" aria-pressed="false">${I.plus}<span class="of">Add to quote list</span><span class="on">In your quote list</span></button></div>
+        <div class="ph-acts"><a class="btn red" href="${R}contact?add=${p.slug}#quote" data-quote-now="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}">Get a quote for this ${I.arr}</a><button class="addq" type="button" data-add="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote list</span><span class="on">In your quote list</span></button></div>
         <div class="msg">Questions first? ${MSGR}<a class="msgr" style="background:var(--ink)" href="tel:+639338672954">${I.tel}Call</a></div>
       </div>
       <div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span>${src ? img(R, src, p.name, ` class="main${p.photo ? ' photo' : ''}" fetchpriority="high"`) : `<span class="noimg"><span>${p.brand.toUpperCase()}<small>Photo to follow</small></span></span>`}</div>
@@ -130,9 +130,9 @@ ${tables ? `
 <div class="qbar" aria-hidden="true"><a class="btn red" href="${R}contact?add=${p.slug}#quote" tabindex="-1">Get a quote for this</a><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call" tabindex="-1">${I.tel}</a></div>`,
     js: `
 // "Get a quote for this": add it to the quote list first, so the contact page lists it
-$('[data-quote-now]').addEventListener('click', e => { const a = e.currentTarget; quote.add(a.dataset.quoteNow, a.dataset.name) })
+$('[data-quote-now]').addEventListener('click', e => { const d = e.currentTarget.dataset; quote.add(d.quoteNow, d.name, d.img, d.cat) })
 // phones: the quote bar slides up once the main buttons scroll away
-const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => bar.classList.toggle('on', acts.getBoundingClientRect().bottom < 0)
+const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => { const on = acts.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', on); document.body.classList.toggle('qbar-on', on) }
 addEventListener('scroll', qb, { passive: true }); qb()
 `,
   }

@@ -11,7 +11,7 @@ export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const SPECS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/specs.json'), 'utf8'))
 export const SITE = 'https://prototype.dpy-mi.workers.dev/' // swap to the real domain at launch
 // /assets/* is cached for 30 days (_headers), so the shared files carry a content hash: a change gets a new address
-const ver = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)
+export const ver = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 // ---------- image sizes (read from the webp/png/jpg header, so every <img> gets width and height) ----------
@@ -109,7 +109,7 @@ export function card(p, R, { h = 'h3' } = {}) {
   <${h}><a href="${R}products/${p.slug}">${esc(p.name)}</a></${h}>
   <p>${esc(p.short)}</p>
   <div class="kf">${p.key.slice(0, 2).map(([v, l]) => `<span><b>${esc(v)}</b> ${esc(l)}</span>`).join('')}</div>
-  <div class="acts"><a class="btn ghost" href="${R}products/${p.slug}">Details</a><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><a class="btn ghost" href="${R}products/${p.slug}">Details</a><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
 </article>`
 }
 
@@ -141,6 +141,7 @@ ${ld.length ? `<script type="application/ld+json">${JSON.stringify({ '@context':
 <link rel="apple-touch-icon" href="${R}assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="${R}site.webmanifest">
 <link rel="preload" href="${R}assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${R}assets/css/base.css?v=${ver('assets/css/base.css')}">
 <link rel="stylesheet" href="${R}assets/css/site.css?v=${ver('assets/css/site.css')}">
 ${pg.css ? `<style>\n${pg.css.trim()}\n</style>\n` : ''}</head>`
 }
@@ -151,18 +152,19 @@ const SYMBOLS = `<svg width="0" height="0" style="position:absolute" aria-hidden
   <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <linearGradient id="gHeat" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5FA8EC"/><stop offset="1" stop-color="#C70A0E"/></linearGradient>
 </defs></svg>`
-function nav(pg, R) {
-  const cur = k => pg.nav === k ? ' aria-current="page"' : ''
+// the homepage (pg.home) keeps its sliding highlight, its logo goes back to the top, and its quote button glides to its own form
+export function nav(pg, R) {
+  const cur = k => pg.nav === k ? ' aria-current="page"' : '', quote = pg.home ? '#quote' : `${R}contact#quote`
   return `<header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="${R || './'}" aria-label="DPY Mercantile Inc., home"><img src="${R}assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill">${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
-    <div class="nav-cta"><a class="btn line qt" href="${R}contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+    <a class="brand" href="${pg.home ? '#top' : R || './'}" aria-label="DPY Mercantile Inc., ${pg.home ? 'back to top' : 'home'}"><img src="${R}assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
+    <ul class="pill">${pg.home ? '<li class="ind" aria-hidden="true"></li>' : ''}${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
+    <div class="nav-cta"><a class="btn line qt" href="${quote}">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="${R || './'}">Home</a>${NAV.map(([k, t]) => `<a href="${R}${k}"${cur(k)}>${t}</a>`).join('')}<a class="btn red" href="${R}contact#quote">Get a Free Quote ${I.arr}</a></nav>`
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="${pg.home ? '#top' : R || './'}">Home</a>${NAV.map(([k, t]) => `<a href="${R}${k}"${cur(k)}>${t}</a>`).join('')}<a class="btn red" href="${quote}">Get a Free Quote ${I.arr}</a></nav>`
 }
-function foot(R, pg) {
+export function foot(R, pg) {
   const cat = k => `${R}water-heaters?type=${k}`
   return `<footer class="foot">
   <div class="wrap">
@@ -197,6 +199,7 @@ ${body.trim()}
 ${foot(R, pg)}
 <script src="${R}assets/vendor/lenis.min.js" defer></script>
 <script src="${R}assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
+<script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>
 ${pg.js ? `<script>\naddEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready\nconst { $, $$, RM, go, quote } = DPY\n${(typeof pg.js === 'function' ? pg.js(R) : pg.js).trim()}\n})\n</script>\n` : ''}</body>
 </html>
 `

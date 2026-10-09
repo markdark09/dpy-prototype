@@ -23,18 +23,7 @@ export default {
 .qp-hd{padding:30px 34px 0}
 .qp-hd h2{margin:0;font-size:26px;font-weight:600;letter-spacing:-.03em}
 .qp-hd p{margin:6px 0 0;font-size:14px;color:var(--mute)}
-.ql{margin:20px 34px 0;padding:14px;border-radius:18px;background:#F4F7FA}
-.ql[hidden]{display:none}
-.ql h3{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;font-size:13px;font-weight:700}
-.ql h3 button{font-size:12px;font-weight:600;color:var(--mute);text-decoration:underline}
-.ql ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.ql li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:6px 8px 6px 6px;border-radius:14px;background:#fff}
-.ql li img,.ql li .ni{width:44px;height:44px;object-fit:contain;border-radius:10px;background:#F4F7FA}
-.ql li .ni{display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--mute)}
-.ql li a{font-size:13.5px;font-weight:600;line-height:1.3}
-.ql li button{width:30px;height:30px;border-radius:50%;color:var(--mute);font-size:16px}
-.ql li button:hover{background:#FFF0F0;color:var(--red)}
-.ql .more{margin-top:10px;font-size:12.5px}
+.qp .ql{margin:20px 34px 0}
 .qp .form{padding:24px 34px 34px}
 /* branches */
 .bx{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;align-items:stretch}
@@ -57,7 +46,7 @@ export default {
 .map-card span{font-size:12.5px;color:var(--mute)}
 .map-card .acts{display:flex;gap:8px}
 @media (max-width:980px){.ct-top,.bx{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
-@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}.map{min-height:380px}}
+@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}.map{min-height:380px}}
 `,
   body: R => `
 <section class="phead" style="padding-bottom:40px">
@@ -84,13 +73,13 @@ export default {
     </div>
     <div class="qp" data-r>
       <div class="qp-hd"><h2>Request a free quote</h2><p>Tell us about your building. We'll recommend the right system, visit if needed, and send a written quotation. No cost, no obligation.</p></div>
-      <div class="ql" hidden><h3>Your quote list <button type="button" class="clr">Clear</button></h3><ul></ul><p class="more"><a class="link" href="${R}water-heaters">Add more products ${I.arr}</a></p></div>
+      <div class="ql" data-ql hidden><h3>Your quote list <button type="button" class="clr">Clear</button></h3><ul></ul><p class="more"><a class="link" href="${R}water-heaters">Add more products ${I.arr}</a></p></div>
       <form class="form" data-mail="sales@dpymi.com.ph" data-subject="Free quote request" novalidate>
         <input type="hidden" name="products" data-label="Products in quote list">
         <div><label for="qN">Full name <i>*</i></label><input id="qN" name="fullname" autocomplete="name" required></div>
         <div><label for="qP">Mobile number <i>*</i></label><input id="qP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
         <div><label for="qE">Email</label><input id="qE" name="email" type="email" autocomplete="email" placeholder="you@email.com"></div>
-        <div><label for="qC">Company <span style="font-weight:400;color:var(--dim)">(for projects)</span></label><input id="qC" name="company" autocomplete="organization"></div>
+        <div><label for="qC">Company <span style="font-weight:400;color:var(--mute)">(for projects)</span></label><input id="qC" name="company" autocomplete="organization"></div>
         <div class="full"><span class="lb" id="qtB">Type of building</span><div class="qchips" role="group" aria-labelledby="qtB" data-group="Building">${['Condo', 'House', 'Hotel / Resort', 'Hospital', 'Commercial', 'Other'].map(v => `<label><input type="radio" name="building" value="${v}"><span>${v}</span></label>`).join('')}</div></div>
         <div class="full"><span class="lb" id="qtI">Interested in</span><div class="qchips" role="group" aria-labelledby="qtI" data-group="Interested in">${INTEREST.map(([k, v]) => `<label><input type="checkbox" name="interest" value="${v}" data-k="${k}"><span>${v}</span></label>`).join('')}</div></div>
         <div><label for="qB">Nearest branch</label><select id="qB" name="branch">${BRANCHES.map(b => `<option>${b.n}</option>`).join('')}<option>Other area</option></select></div>
@@ -109,24 +98,16 @@ export default {
     <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Open Monday to Saturday, 8 AM to 5 PM.</p></div>
     <div class="bx">
       <ul class="bl">${BRANCHES.map((b, i) => `<li><button type="button" data-i="${i}" aria-pressed="${!i}"><span class="n">0${i + 1}</span><b>${b.n}<small>${b.rg}</small></b><span class="a">${b.a}</span></button></li>`).join('')}<li class="also">Our products are also sold in <b>Baguio City</b> and <b>Tagaytay</b>.</li></ul>
-      <div class="map"><span class="ld">Loading the map…</span><iframe title="Map of the selected branch" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-card"><div><b class="mn"></b><span class="ma"></span></div><div class="acts"><a class="btn red sm dir" target="_blank" rel="noopener">Directions ${I.arr}</a><a class="btn ghost sm" href="tel:+639338672954" aria-label="Call">${I.tel}</a></div></div></div>
+      <div class="map"><span class="ld">Loading the map…</span><iframe title="Map of the selected branch" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-card"><div><b class="mn"></b><span class="ma"></span></div><div class="acts"><a class="btn red sm dir" href="https://www.google.com/maps/dir/?api=1&amp;destination=${BRANCHES[0].ll.join(',')}" target="_blank" rel="noopener">Directions ${I.arr}</a><a class="btn ghost sm" href="tel:+639338672954" aria-label="Call">${I.tel}</a></div></div></div>
     </div>
   </div>
 </section>`,
   js: R => `
 /* ---------- the quote list, and anything passed in the address (from the finder or a product page) ---------- */
 const PROD = ${JSON.stringify(Object.fromEntries(PRODUCTS.map(p => [p.slug, [p.name, prodImg(p), p.cat]])))}
-const form = $('.qp form'), ql = $('.ql'), qs = new URLSearchParams(location.search)
-const CATK = { instant: 'instant', storage: 'storage', heatpump: 'heatpump', solar: 'solar', tank: 'tank', pump: 'tank', pipe: 'tank' }
-if (qs.get('add') && PROD[qs.get('add')]) quote.add(qs.get('add'), PROD[qs.get('add')][0])
-function list(l) {
-  ql.hidden = !l.length
-  $('ul', ql).innerHTML = l.map(x => { const p = PROD[x.s] || [x.n, '']; return '<li><span>' + (p[1] ? '<img src="${R}' + p[1] + '" alt="">' : '<span class="ni">' + p[0].split(' ')[0].toUpperCase() + '</span>') + '</span><a href="${R}products/' + x.s + '">' + p[0] + '</a><button type="button" data-rm="' + x.s + '" aria-label="Remove ' + p[0] + '">×</button></li>' }).join('')
-  form.products.value = l.map(x => (PROD[x.s] || [x.n])[0]).join('; ')
-  l.forEach(x => { const k = CATK[(PROD[x.s] || [])[2]]; const c = k && $('input[data-k="' + k + '"]', form); if (c) c.checked = true })
-}
-document.addEventListener('dpy:quote', e => list(e.detail)); list(quote.list())
-ql.addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) quote.remove(b.dataset.rm); if (e.target.closest('.clr')) quote.clear() })
+const form = $('.qp form'), qs = new URLSearchParams(location.search)
+// "Get a quote for this" links pass ?add=<product>; the list itself is drawn by site.js
+const pa = PROD[qs.get('add')]; if (pa) quote.add(qs.get('add'), pa[0], pa[1], pa[2])
 const bld = qs.get('building'); if (bld) $$('input[name=building]', form).forEach(r => r.checked = r.value === bld)
 const it = qs.get('interest'); if (it) { const c = $('input[data-k="' + it + '"]', form); if (c) c.checked = true }
 const sh = qs.get('showers'); if (sh) form.showers.value = { '1': '1', '2-3': '2 to 3', '4-10': '4 to 10', '10+': 'More than 10' }[sh] || ''

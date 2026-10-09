@@ -100,7 +100,7 @@ export default {
     const logos = cat => CLIENTS[cat].slice(0, 5).map(([f, n]) => img(R, `assets/img/clients/${f}.webp`, n, ' loading="lazy"')).join('')
     return `
 <section class="bh">
-  ${img(R, 'assets/img/dpy/resort-render.webp', '', ' fetchpriority="high"')}
+  ${img(R, 'assets/img/dpy/resort-render.webp', '', ` srcset="${R}assets/img/dpy/resort-render-800.webp 800w, ${R}assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:640px) 400px, 100vw" fetchpriority="high"`)}
   <div class="wrap">
     ${crumbsHtml(R, [['For Business']])}
     <span class="kick">For hotels, hospitals &amp; buildings</span>

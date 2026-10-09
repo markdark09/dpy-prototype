@@ -1,94 +1,7 @@
-/* DPY Mercantile: shared styles for the inner pages (the homepage keeps its own inline copy of the base below).
-   Same look as the homepage: soft and steamy, DPY's logo colours, Manrope. */
-@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(../fonts/manrope-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
-@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(../fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
-:root{
-  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#97A1AB; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8; --ice-bg:#EAF2FA; --sand:#FBF3EC;
-  --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
-  --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C; --night:#0A1830;
-  --font:'Manrope',system-ui,sans-serif;
-  --g:clamp(16px,4vw,56px); --max:1240px;
-  --ease:cubic-bezier(.2,.7,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
-  --sh:0 24px 50px -28px rgba(1,30,70,.35); --sh-s:0 10px 26px -16px rgba(1,30,70,.3);
-  --card:0 1px 0 rgba(1,30,70,.05),0 16px 34px -28px rgba(1,30,70,.4);
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
-img,svg,canvas{display:block;max-width:100%}
-img{height:auto}
-a{color:inherit;text-decoration:none}
-h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
-.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-weight:600}
-.skip:focus{top:16px}
-.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--g)}
-.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.off *,.off *::before,.off *::after{animation-play-state:paused!important}
-
-/* ---------- type ---------- */
-.thin{font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:0;background:linear-gradient(180deg,#14181E 10%,#7E8A97 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* DPY Mercantile: inner-page components (page heads, sections, product cards, forms, spec tables). Load after base.css. */
 .h1{font-size:clamp(2.4rem,4.8vw,4rem);padding-bottom:.06em}
-.h2{font-size:clamp(2rem,3.6vw,3.1rem);padding-bottom:.04em}
-.h3{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.25}
-.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-.kick::before{content:"";width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red))}
 .lede{color:var(--mute);font-size:15.5px;max-width:520px;margin:0}
-.dark .thin,.thin.on-dark{background-image:linear-gradient(180deg,#FFFFFF 10%,#8FA6C0 120%)}
-.dark .kick{color:#7CC0FF}
-.dark .lede{color:#9DB0C6}
-
-/* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;font-size:14px;white-space:nowrap;
-  box-shadow:0 14px 28px -14px rgba(14,17,22,.55);transition:transform .4s var(--ease),background .3s,color .3s,box-shadow .3s}
-.btn:hover{transform:translateY(-2px);background:#000}
-.btn.red{background:var(--red);box-shadow:0 14px 28px -14px rgba(199,10,14,.6)}
-.btn.red:hover{background:var(--red2)}
-.btn.ghost{background:#E4E8EC;color:var(--ink);box-shadow:none}
-.btn.ghost:hover{background:#D9DFE5}
-.btn.white{background:#fff;color:var(--ink)}
-.btn.white:hover{background:#EAF2FA}
-.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.btn.line:hover{background:var(--ink);color:#fff}
-.btn.sm{height:38px;padding:0 16px;font-size:13px}
-.btn svg{width:16px;height:16px;flex:none}
-.link{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
-.link svg{width:14px;height:14px;transition:transform .4s var(--ease)}
-.link:hover svg{transform:translateX(3px)}
-
-/* ---------- nav (same as the homepage, but links go to pages) ---------- */
-.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
-.nav.solid{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--line)}
-.nav.up{transform:translateY(-100%)}
-.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
-.brand img{width:132px;height:auto}
-.pill{position:relative;display:flex;gap:2px;list-style:none;margin:0;padding:4px;border-radius:999px;background:rgba(226,232,238,.85);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
-.pill li{position:relative;z-index:1}
-.pill a{display:block;padding:7px 15px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink2);transition:color .3s,background .3s}
-.pill a:hover{color:var(--ink)}
-.pill a[aria-current="page"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px -4px rgba(0,0,0,.25)}
-.nav-cta{justify-self:end;display:flex;align-items:center;gap:8px}
-.nav .btn{height:40px;padding:0 20px}
-.ql-n{display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-right:-8px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;font-weight:700;transition:transform .4s var(--spring)}
-.ql-n[hidden]{display:none}
-.ql-n.pop{transform:scale(1.35)}
-.menu-btn{display:none;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:var(--sh-s)}
-.menu-btn i{display:block;width:16px;height:1.5px;margin:4px auto;background:var(--ink);transition:transform .3s}
-.menu-open .menu-btn i:first-child{transform:translateY(2.75px) rotate(45deg)}
-.menu-open .menu-btn i:last-child{transform:translateY(-2.75px) rotate(-45deg)}
-.sheet{position:fixed;inset:0;z-index:55;background:rgba(255,255,255,.98);display:grid;align-content:center;gap:6px;padding:100px var(--g) 40px;opacity:0;pointer-events:none;transition:opacity .4s}
-.sheet a{font-size:32px;font-weight:300;letter-spacing:-.03em}
-.sheet a[aria-current="page"]{font-weight:600}
-.sheet .btn{justify-self:start;margin-top:18px;font-size:15px;font-weight:600;letter-spacing:0}
-.menu-open .sheet{opacity:1;pointer-events:auto}
-html.menu-lock{overflow:hidden}
-
-/* dark-hero pages: white logo until the nav turns solid */
-.pg-business:not(.menu-open) .nav:not(.solid) .brand img{content:url(../brand/dpy-logo-white.svg)}
-
+.h2{padding-bottom:.04em}
 /* ---------- page head: the steamy band every inner page opens with ---------- */
 .phead{position:relative;isolation:isolate;overflow:clip;padding:150px 0 70px;background:linear-gradient(180deg,#fff 0%,#F3F8FD 55%,var(--ice-bg) 100%)}
 .phead::before,.phead::after{content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0));animation:rise 20s ease-in-out infinite}
@@ -130,7 +43,7 @@ html.menu-lock{overflow:hidden}
 .chip{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;background:#fff;font-size:13.5px;font-weight:600;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line);transition:background .3s,color .3s,box-shadow .3s}
 .chip:hover{box-shadow:inset 0 0 0 1px #C9D3DD}
 .chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink);color:#fff;box-shadow:none}
-.chip small{font-size:11px;font-weight:700;opacity:.55}
+.chip small{font-size:11px;font-weight:700;opacity:.75}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
 
 /* ---------- cards ---------- */
@@ -195,7 +108,7 @@ html.menu-lock{overflow:hidden}
 .ok.bad span{color:var(--red)}
 .ok a,.f-sub small a{text-decoration:underline;text-underline-offset:2px}
 .f-sub{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:4px}
-.f-sub small{font-size:11.5px;color:var(--dim);max-width:300px}
+.f-sub small{font-size:11.5px;color:var(--mute);max-width:300px}
 .f-sub .btn{height:52px;padding:0 28px;font-size:15px}
 .f-done{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:10px;padding:40px;text-align:center;background:#fff;border-radius:inherit;opacity:0;pointer-events:none;transition:opacity .5s}
 .f-done.on{opacity:1;pointer-events:auto}
@@ -203,12 +116,6 @@ html.menu-lock{overflow:hidden}
 .f-done i svg{width:28px;height:28px}
 .f-done h3{margin:6px 0 0;font-size:24px;font-weight:600;letter-spacing:-.02em}
 .f-done p{margin:0;max-width:380px;font-size:14px;color:var(--mute)}
-
-/* messaging buttons */
-.msgr{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
-.msgr svg{width:18px;height:18px}
-.msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
-.msgr.vb{background:#7360F2}
 
 /* ---------- spec tables ---------- */
 .spec{margin:0 0 30px}
@@ -230,39 +137,11 @@ html.menu-lock{overflow:hidden}
 .tscroll.tall table{width:auto;min-width:100%}
 .tscroll.tall tbody th{font-weight:600;color:var(--ink2);white-space:normal;min-width:180px}
 
-/* ---------- footer ---------- */
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
-.foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:56px;padding:28px 30px;border-radius:26px;color:#fff;background:radial-gradient(90% 120% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(120deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);box-shadow:0 30px 60px -40px rgba(120,10,20,.7)}
-.foot-cta b{display:block;font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.02em}
-.foot-cta span{font-size:14px;color:rgba(255,255,255,.8)}
-.foot-cta .acts{display:flex;gap:10px;flex-wrap:wrap}
-.foot-cta .btn.line{color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
-.foot-cta .btn.line:hover{background:#fff;color:var(--ink)}
-.ft{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:30px}
-.ft .logo img{width:150px}
-.ft .logo p{font-size:13px;color:var(--mute);max-width:230px;margin:12px 0 16px}
-.ft .logo .gk{width:92px;opacity:.9}
-.ft h2{margin:4px 0 12px;font-size:13px;font-weight:600;letter-spacing:0}
-.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.ft ul a,.ft ul li{font-size:12.5px;color:var(--mute)}
-.ft ul a:hover{color:var(--red)}
-.ft .soc{display:flex;gap:8px;margin-top:14px}
-.ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
-.ft .soc a:hover{background:var(--ink);color:#fff}
-.ft .soc svg{width:16px;height:16px}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#9A8A80}
-.base a{text-decoration:underline;text-underline-offset:2px}
-
 /* ---------- responsive (shared) ---------- */
 @media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:980px){
-  .pill,.nav .btn.qt{display:none}
-  .menu-btn{display:block}
-  .nav-in{grid-template-columns:1fr auto}
   .ph-grid{grid-template-columns:1fr;align-items:start}
   .ph-stats{justify-content:flex-start}
-  .ft{grid-template-columns:1fr 1fr}
-  .ft .logo{grid-column:1/-1}
   .g3{grid-template-columns:repeat(2,1fr)}
   .sec-head{flex-direction:column;align-items:flex-start}
 }
@@ -276,7 +155,6 @@ html.menu-lock{overflow:hidden}
   .tabs,.chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:calc(var(--g) * -1);margin-right:calc(var(--g) * -1);padding:2px var(--g)}
   .tabs::-webkit-scrollbar,.chips.scroll::-webkit-scrollbar{display:none}
   .tabs li,.chips.scroll li{flex:none}
-  .foot-cta{padding:24px 22px}
   .ph-stats{flex-wrap:wrap;gap:16px 28px}
   /* product cards two to a row on phones: photo, name, one fact, add to quote (the card itself opens the product) */
   .grid.cat-grid,.grid.rel{grid-template-columns:1fr 1fr;gap:10px}
@@ -292,4 +170,4 @@ html.menu-lock{overflow:hidden}
   .addq{flex:1;height:34px;padding:0 8px;font-size:11.5px}
 }
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js [data-r]{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}

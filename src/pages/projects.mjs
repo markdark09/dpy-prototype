@@ -43,9 +43,9 @@ export default {
       <ul class="ph-stats"><li><b>${total}</b><small>Clients shown here</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>2001</b><small>In business since</small></li></ul>
     </div>
     <div class="pj-hero">
-      <figure data-r>${img(R, 'assets/img/dpy/haase-install.webp', 'A HAASE energy storage tank installed by DPY', ' fetchpriority="high"')}<figcaption>HAASE tank installation by DPY</figcaption></figure>
-      <figure data-r>${img(R, 'assets/img/dpy/resort-render.webp', 'Resort project', ' loading="lazy"')}<figcaption>Resort project</figcaption></figure>
-      <figure data-r>${img(R, 'assets/img/dpy/tower-render.webp', 'Residential tower project', ' loading="lazy"')}<figcaption>Residential tower</figcaption></figure>
+      <figure>${img(R, 'assets/img/dpy/haase-install.webp', 'A HAASE energy storage tank installed by DPY', ' fetchpriority="high"')}<figcaption>HAASE tank installation by DPY</figcaption></figure>
+      <figure>${img(R, 'assets/img/dpy/resort-render.webp', 'Resort project', ' loading="lazy"')}<figcaption>Resort project</figcaption></figure>
+      <figure>${img(R, 'assets/img/dpy/tower-render.webp', 'Residential tower project', ' loading="lazy"')}<figcaption>Residential tower</figcaption></figure>
     </div>
   </div>
 </section>

@@ -27,81 +27,22 @@
 <link rel="icon" href="assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="assets/css/base.css?v=dfac365e"> <!-- shared with every page: font, colours, buttons, header, footer, chat -->
 <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin> <!-- Manrope is hosted with the site: no render-blocking request to Google -->
 <style>
-/* Manrope (variable 300–800), from Google Fonts, served locally */
-@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
-@font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 /* soft and steamy, in DPY's logo colours: the drop's blues for water and cold, the gear's red for heat and the main
    action, the gear's black for type. Every product shown is a real unit DPY sells (photos from dpymi.com.ph). */
-:root{
-  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#97A1AB; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8;
-  --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
-  --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C;
-  --font:'Manrope',system-ui,sans-serif;
-  --g:clamp(16px,4vw,56px); --max:1240px;
-  --ease:cubic-bezier(.2,.7,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
-  --sh:0 24px 50px -28px rgba(1,30,70,.35); --sh-s:0 10px 26px -16px rgba(1,30,70,.3);
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
-img,svg,canvas{display:block;max-width:100%}
-img{height:auto}
-a{color:inherit;text-decoration:none}
-h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty} /* no lonely last words */
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
-.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-weight:600}
-.skip:focus{top:16px}
-.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--g)}
 main > section{overflow-x:clip}
-.off *,.off *::before,.off *::after{animation-play-state:paused!important} /* off-screen sections: every loop pauses, pseudo-elements too */
 
 /* ---------- type ---------- */
-.thin{font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:0;
-  background:linear-gradient(180deg,#14181E 10%,#7E8A97 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.h2{font-size:clamp(2rem,3.6vw,3.1rem)}
-.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-.kick::before{content:"";width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red))}
 .lede{color:var(--mute);font-size:15px;max-width:440px}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.18);margin-right:10px}
 .dot.b{background:var(--sky);box-shadow:0 0 0 4px rgba(95,168,236,.25)}
 
-/* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;padding:0 24px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;font-size:14px;
-  box-shadow:0 14px 28px -14px rgba(14,17,22,.55);transition:transform .4s var(--ease),background .3s,color .3s}
-.btn:hover{transform:translateY(-2px);background:#000}
-.btn.red{background:var(--red);box-shadow:0 14px 28px -14px rgba(199,10,14,.6)}
-.btn.red:hover{background:var(--red2)}
-.btn.ghost{background:#E4E8EC;color:var(--ink);box-shadow:none}
-.btn.ghost:hover{background:#D9DFE5}
-.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.btn.line:hover{background:var(--ink);color:#fff}
-.btn svg{width:16px;height:16px}
 
-/* ---------- nav ---------- */
-.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
-.nav.solid{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--line)}
-.nav.up{transform:translateY(-100%)}
-.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
-.brand img{width:132px;height:auto}
-.pill{position:relative;display:flex;gap:2px;list-style:none;margin:0;padding:4px;border-radius:999px;background:rgba(226,232,238,.85);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
 .pill .ind{position:absolute;top:4px;bottom:4px;left:0;border-radius:999px;background:#fff;box-shadow:0 2px 8px -4px rgba(0,0,0,.25);opacity:0;transition:transform .5s var(--ease),width .5s var(--ease),opacity .3s}
 .pill .ind.on{opacity:1}
-.pill li{position:relative;z-index:1}
-.pill a{display:block;padding:7px 15px;border-radius:999px;font-size:13px;font-weight:500;color:var(--ink2);transition:color .3s}
 .pill a.on,.pill a:hover{color:var(--ink)}
-.nav .btn{justify-self:end;height:40px;padding:0 20px}
-.menu-btn{display:none;justify-self:end;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:var(--sh-s)}
-.menu-btn i{display:block;width:16px;height:1.5px;margin:4px auto;background:var(--ink);transition:transform .3s}
-.menu-open .menu-btn i:first-child{transform:translateY(2.75px) rotate(45deg)}
-.menu-open .menu-btn i:last-child{transform:translateY(-2.75px) rotate(-45deg)}
-.sheet{position:fixed;inset:0;z-index:55;background:rgba(255,255,255,.98);display:grid;align-content:center;gap:6px;padding:100px var(--g) 40px;opacity:0;pointer-events:none;transition:opacity .4s}
-.sheet a{font-size:34px;font-weight:300;letter-spacing:-.03em}
-.menu-open .sheet{opacity:1;pointer-events:auto}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:max(100svh,860px);padding:102px 0 34px;display:flex;flex-direction:column;isolation:isolate;overflow:clip} /* clip: the drifting photo must never spill over the brand band */
@@ -551,62 +492,6 @@ main > section{overflow-x:clip}
   .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
 }
 
-/* ---------- "Ask DPY" assistant (front-end prototype: answers come from the site's own content) ---------- */
-.ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
-.ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
-.ask-btn:hover{transform:translateY(-2px)}
-.ask-btn .av{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
-.ask .drop{position:relative;display:block;width:28px;height:28px}
-.ask .drop svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ask .drop .hot{position:absolute;inset:0;opacity:0;animation:warm 7s ease-in-out infinite;will-change:opacity} /* cold to hot and back as an opacity cross-fade: the GPU handles it, nothing repaints */
-@keyframes warm{0%,40%{opacity:0}60%,70%{opacity:1}92%,100%{opacity:0}}
-.ask .av{position:relative}
-.ask .drop{transform-origin:50% 85%}
-.ask-btn .drop{animation:wobble 4.2s cubic-bezier(.3,.7,.3,1) infinite}
-@keyframes wobble{0%,62%,100%{transform:none}68%{transform:translateY(-3px) scale(.9,1.12)}76%{transform:translateY(0) scale(1.12,.86)}84%{transform:scale(.96,1.05)}92%{transform:scale(1.02,.98)}}
-.ask-btn .av::after{content:"";position:absolute;left:50%;bottom:5px;width:22px;height:6px;margin-left:-11px;border-radius:50%;border:1.5px solid rgba(13,104,195,.5);opacity:0;animation:ripple 4.2s ease-out infinite}
-@keyframes ripple{0%,74%{opacity:0;transform:scale(.4)}78%{opacity:1}100%{opacity:0;transform:scale(1.6)}}
-.ask.thinking .ask-hd .drop{animation:bob .7s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-3px) scale(.94,1.06)}}
-.ask-btn .dot{position:absolute;left:36px;top:7px;width:10px;height:10px;border-radius:50%;background:#2BD46A;box-shadow:0 0 0 2px var(--ink)}
-.ask.open .ask-btn{opacity:0;pointer-events:none;transform:scale(.9)}
-.ask-tip{position:absolute;right:0;bottom:66px;width:230px;padding:12px 32px 12px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font-size:13px;line-height:1.4;box-shadow:0 16px 36px -16px rgba(1,30,70,.5);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
-.ask-tip.on{opacity:1;transform:none;pointer-events:auto}
-.ask-tip button{position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;font-size:14px;line-height:1;color:var(--dim)}
-.ask-win{position:absolute;right:0;bottom:0;width:380px;height:min(600px,calc(100svh - 120px));display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(1,20,50,.55),0 0 0 1px rgba(1,30,70,.06);opacity:0;transform:translateY(16px) scale(.97);transform-origin:100% 100%;pointer-events:none;transition:opacity .35s,transform .5s var(--ease)}
-.ask.open .ask-win{opacity:1;transform:none;pointer-events:auto}
-.ask-hd{display:flex;align-items:center;gap:10px;padding:14px 14px 14px 16px;background:linear-gradient(135deg,#0A1830,#0D3A73);color:#fff}
-.ask-hd .av{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
-
-.ask-hd b{display:block;font-size:15px;font-weight:600}
-.ask-hd small{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#9DB4CF}
-.ask-hd small::before{content:"";width:7px;height:7px;border-radius:50%;background:#2BD46A}
-.ask-hd button{margin-left:auto;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:18px;line-height:1}
-.ask-log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px 14px 8px;display:flex;flex-direction:column;gap:10px;background:#F6F8FA}
-.msg{max-width:86%;padding:10px 13px;border-radius:16px;line-height:1.5;font-size:13.5px;animation:msgIn .4s var(--ease) both}
-@keyframes msgIn{from{opacity:0;transform:translateY(6px)}}
-.msg.bot{align-self:flex-start;background:#fff;color:var(--ink);border-bottom-left-radius:5px;box-shadow:0 1px 0 rgba(1,30,70,.06)}
-.msg.me{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:5px}
-.msg p{margin:0}.msg p + p,.msg ul{margin-top:6px}
-.msg ul{padding-left:18px;margin-bottom:0}
-.msg a{color:var(--blue);font-weight:600}
-.msg .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.msg .acts a{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px}
-.msg .acts a.l{background:var(--soft);color:var(--ink)}
-.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;border-radius:16px;background:#fff}
-.typing i{width:6px;height:6px;border-radius:50%;background:#A9B4BF;animation:tp 1s infinite}
-.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes tp{30%{transform:translateY(-4px);background:var(--ink2)}}
-.ask-chips{display:flex;gap:6px;overflow-x:auto;padding:8px 14px;background:#F6F8FA;scrollbar-width:none}
-.ask-chips button{flex:none;height:32px;padding:0 12px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:600;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line);transition:background .3s,color .3s}
-.ask-chips button:hover{background:var(--ink);color:#fff}
-.ask-in{display:flex;gap:8px;padding:10px 12px 12px;border-top:1px solid var(--line)}
-.ask-in input{flex:1;min-width:0;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font:inherit;font-size:14px;outline:none;background:#fff}
-.ask-in input:focus{border-color:var(--blue)}
-.ask-in button{flex:none;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center}
-.ask-in svg{width:16px;height:16px}
-.ask-note{margin:0;padding:0 14px 10px;font-size:10.5px;color:var(--dim);text-align:center}
-@media (max-width:560px){.ask{right:14px;bottom:14px}.ask-btn{height:50px;padding:0 8px}.ask-btn span{display:none}.ask-win{position:fixed;left:0;right:0;bottom:0;width:auto;height:88svh;border-radius:22px 22px 0 0}}
 
 /* ---------- find my water heater: 4 quick questions in a dialog ---------- */
 .qz-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;padding:18px 18px 18px 26px;border-radius:22px;background:linear-gradient(100deg,#0A1830,#0D3A73);color:#fff;box-shadow:0 24px 50px -34px rgba(1,30,70,.7)}
@@ -653,18 +538,7 @@ main > section{overflow-x:clip}
 .qz-also b{font-weight:600}
 .qz-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 @media (max-width:560px){.qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-res{grid-template-columns:1fr}.qz-res .pic{height:160px}.qz-res .pic img{max-height:136px}.qz-cta{flex-direction:column;align-items:flex-start}}
-/* messaging buttons */
-.msgr{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
-.msgr svg{width:18px;height:18px}
-.msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
-.msgr.vb{background:#7360F2}
 .qt-msg{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.ask-alt{display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px 10px;font-size:11.5px;color:var(--mute)}
-.ask-alt .msgr{height:28px;padding:0 10px;font-size:11.5px}.ask-alt .msgr svg{width:14px;height:14px}
-.ft .soc{display:flex;gap:8px;margin-top:4px}
-.ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
-.ft .soc a:hover{background:var(--ink);color:#fff}
-.ft .soc svg{width:16px;height:16px}
 
 /* ---------- get a free quote: the page's closing ask ---------- */
 .qt{padding:0 0 110px;background:#FBF3EC}
@@ -743,17 +617,6 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
 .lite .hc,.lite .mini,.lite .hs b::before,.lite .waves svg,.lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot,.lite .steps li.on > i::before{animation:none!important}
 .lite .waves svg{opacity:.8}
 
-/* ---------- footer ---------- */
-.foot{position:relative;padding:70px 0 26px;background:linear-gradient(180deg,#FBF3EC,#F5E4D7);overflow:hidden}
-.ft{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:30px}
-.ft .logo img{width:150px}
-.ft .logo p{font-size:13px;color:var(--mute);max-width:230px;margin:12px 0 16px}
-.ft .logo .gk{width:92px;opacity:.9}
-.ft h2{margin:4px 0 12px;font-size:13px;font-weight:600;letter-spacing:0}
-.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.ft ul a,.ft ul li{font-size:12.5px;color:var(--mute)}
-.ft ul a:hover{color:var(--red)}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#9A8A80}
 
 /* ---------- responsive ---------- */
 /* short laptop screens (768–820px tall): tighter headline block so the heater gets the room */
@@ -765,9 +628,6 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
 @media (max-width:1180px){ .models{grid-template-columns:repeat(2,1fr);row-gap:56px} }
 @media (max-width:1060px){ .hc-pair{transform:scale(.86);transform-origin:100% 0} .hc-gtk{transform-origin:0 0} }
 @media (max-width:900px){
-  .pill,.nav .btn{display:none}
-  .menu-btn{display:block}
-  .nav-in{grid-template-columns:1fr auto}
   .hero{min-height:auto;padding-top:104px}
   .stage{display:grid;justify-items:center;gap:16px;height:auto;margin-top:16px}
   .show{position:relative;left:auto;top:auto;bottom:auto;transform:none;width:min(340px,92vw);height:400px}
@@ -798,8 +658,6 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .big .frost::before{display:none}
   .big .frost::after{background:linear-gradient(160deg,rgba(1,40,90,.65),rgba(1,40,90,.45))}
   .tall{min-height:420px}
-  .ft{grid-template-columns:1fr 1fr}
-  .ft .logo{grid-column:1/-1}
 }
 @media (max-width:560px){ .models{grid-template-columns:1fr;row-gap:64px} .model .pic{height:230px} .pager button{padding:0 11px;font-size:12px} .cap{width:300px} }
 @media (max-width:560px){
@@ -828,15 +686,16 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
   <symbol id="ck" viewBox="0 0 16 16"><path d="M3.5 8.4l2.8 2.8 6-6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
 
+<!-- @nav: made by tools/build.mjs, same as every page; edit it in tools/lib.mjs -->
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="DPY Mercantile Inc., back to top"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
     <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="contact">Contact</a></li></ul>
-    <a class="btn line" href="#quote">Get a Quote</a>
-    <button class="menu-btn" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+    <div class="nav-cta"><a class="btn line qt" href="#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="sheet" aria-label="Mobile"><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact">Contact</a><a href="#quote">Get a Quote</a></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="#top">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact">Contact</a><a class="btn red" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<!-- /@nav -->
 
 <main id="main">
 <section class="hero" id="top">
@@ -1067,6 +926,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <div class="qt-call qt-mail"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M2 4l6 5 6-5"/></svg></i><div>Prefer email?<a href="mailto:sales@dpymi.com.ph?subject=Quote%20request">sales@dpymi.com.ph</a><small>Repairs &amp; maintenance: <a href="mailto:service@dpymi.com.ph?subject=Repair%20or%20maintenance%20request">service@dpymi.com.ph</a></small></div></div>
       </div>
       <form class="qt-form" novalidate>
+        <div class="ql full" data-ql hidden><h3>Your quote list <button type="button" class="clr">Clear</button></h3><ul></ul></div>
+        <input type="hidden" name="products">
         <div><label for="qN">Full name <i>*</i></label><input id="qN" name="fullname" autocomplete="name" required></div>
         <div><label for="qP">Mobile number <i>*</i></label><input id="qP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
         <div class="full"><label for="qE">Email</label><input id="qE" name="email" type="email" autocomplete="email" placeholder="you@email.com"></div>
@@ -1084,18 +945,22 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </section>
 </main>
 
-<footer class="foot" id="contact">
+<!-- @footer: made by tools/build.mjs, same as every page; edit it in tools/lib.mjs -->
+<footer class="foot">
   <div class="wrap">
+    
     <div class="ft">
-      <div class="logo"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42"><div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
+      <div class="logo"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
+        <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
       <div><h2>Water Heaters</h2><ul><li><a href="water-heaters?type=instant">Instant water heaters</a></li><li><a href="water-heaters?type=storage">Electric storage heaters</a></li><li><a href="water-heaters?type=heatpump">Heat pumps</a></li><li><a href="water-heaters?type=solar">Solar water heaters</a></li><li><a href="water-heaters?type=tank">Tanks, pumps &amp; pipes</a></li><li><a href="water-heaters">All products</a></li></ul></div>
-      <div><h2>Company</h2><ul><li><a href="about">About DPY &amp; Gratek</a></li><li><a href="business">For hotels &amp; buildings</a></li><li><a href="projects">Projects &amp; clients</a></li><li><a href="careers">Careers</a></li><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li></ul></div>
-      <div><h2>Branches</h2><ul><li><a href="contact#branches">Manila (head office, Pasig)</a></li><li><a href="contact#branches">Boracay · Iloilo</a></li><li><a href="contact#branches">Cebu · Davao</a></li><li>Also sold in Baguio &amp; Tagaytay</li></ul></div>
-      <div><h2>Contact</h2><ul><li><a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a> · quotes</li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a> · repairs</li><li><a href="https://www.dpymi.com.ph/">dpymi.com.ph</a></li><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="#quote">Get a free quote</a></li></ul></div>
+      <div><h2>Company</h2><ul><li><a href="about">About DPY &amp; Gratek</a></li><li><a href="business">For hotels &amp; buildings</a></li><li><a href="projects">Projects &amp; clients</a></li><li><a href="careers">Careers</a></li></ul></div>
+      <div><h2>Help</h2><ul><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
   </div>
 </footer>
+<!-- /@footer -->
 
 <dialog class="pv" aria-labelledby="pvT">
   <div class="pv-in">
@@ -1126,19 +991,9 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
   </div>
 </div>
 
-<div class="ask">
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="askDropC" gradientUnits="userSpaceOnUse" x1="12700" y1="4822" x2="12700" y2="16677"><stop offset="0" stop-color="#013C80"/><stop offset="1" stop-color="#0D68C3"/></linearGradient><linearGradient id="askDropH" gradientUnits="userSpaceOnUse" x1="12700" y1="4822" x2="12700" y2="16677"><stop offset="0" stop-color="#9C1A2E"/><stop offset="1" stop-color="#FF5A3C"/></linearGradient></defs><symbol id="askDrop" viewBox="6920 5100 12600 12600"><path d="M16703 12704c0,3860 -5587,5919 -6319,1408 -326,-2014 987,-3503 1504,-5406 -1987,2889 -3741,4693 -917,7609 -1345,-646 -2274,-2020 -2274,-3611 0,-2543 3497,-4744 4003,-7882 506,3138 4003,5339 4003,7882z" fill="url(#askDropC)"/></symbol><symbol id="askDropHot" viewBox="6920 5100 12600 12600"><path d="M16703 12704c0,3860 -5587,5919 -6319,1408 -326,-2014 987,-3503 1504,-5406 -1987,2889 -3741,4693 -917,7609 -1345,-646 -2274,-2020 -2274,-3611 0,-2543 3497,-4744 4003,-7882 506,3138 4003,5339 4003,7882z" fill="url(#askDropH)"/></symbol></svg>
-  <div class="ask-tip" role="status"><button aria-label="Dismiss">×</button>Not sure which water heater you need? Ask me.</div>
-  <button class="ask-btn" aria-expanded="false" aria-controls="askWin" aria-label="Ask DPY, the website assistant"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><span class="hot"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span></span><i class="dot"></i><span>Ask DPY</span></button>
-  <section class="ask-win" id="askWin" role="dialog" aria-label="DPY Assistant">
-    <header class="ask-hd"><span class="av"><span class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDrop"/></svg><span class="hot"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#askDropHot"/></svg></span></span></span><div><b>DPY Assistant</b><small>Online · answers right away</small></div><button class="x" aria-label="Close">×</button></header>
-    <div class="ask-log" aria-live="polite"></div>
-    <div class="ask-chips"></div>
-    <form class="ask-in"><input type="text" placeholder="Ask about heaters, prices, branches…" aria-label="Your question" autocomplete="off"><button aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button></form>
-    <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
-  </section>
-</div>
-
+<script>window.DPY_HOME = true</script>
+<script src="assets/js/site.js?v=4eafb977" defer></script>
+<script src="assets/js/ask.js?v=767c5d36" defer></script>
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
@@ -1467,7 +1322,7 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
     need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
     if (!ok) return form.consent.focus()
     const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ') || '-'
-    const body = [`Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, `Building: ${v('building')}`, `Interested in: ${v('interest')}`, `Nearest branch: ${form.branch.value}`, `Showers / bathrooms: ${form.showers.value || '-'}`, '', form.msg.value].join('\n')
+    const body = [...(form.products.value ? [`Products: ${form.products.value}`] : []), `Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, `Building: ${v('building')}`, `Interested in: ${v('interest')}`, `Nearest branch: ${form.branch.value}`, `Showers / bathrooms: ${form.showers.value || '-'}`, '', form.msg.value].join('\n')
     location.href = 'mailto:sales@dpymi.com.ph?subject=' + encodeURIComponent('Free quote request: ' + form.fullname.value) + '&body=' + encodeURIComponent(body)
     $('.who', done).textContent = ', ' + form.fullname.value.trim().split(' ')[0]; done.classList.add('on')
   })
@@ -1631,103 +1486,6 @@ async function entrances() { // one small task per group, with a break between e
   gsap.from('.ft > *', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', stagger: .06, scrollTrigger: { trigger: '.foot', start: 'top 90%' } }); await step()
 }
 painted.then(() => (window.requestIdleCallback || setTimeout)(entrances, { timeout: 1200 }))
-})()
-</script>
-<script>
-/* "Ask DPY": answers from the site's own content (products, buildings, brands, branches, services).
-   Front-end prototype: in production the same knowledge would feed an AI model behind a small server. */
-(() => {
-const $ = (s, r = document) => r.querySelector(s)
-const root = $('.ask'), win = $('.ask-win'), log = $('.ask-log'), chips = $('.ask-chips'), form = $('.ask-in'), input = $('input', form), btn = $('.ask-btn'), tip = $('.ask-tip')
-const CALL = '<a href="tel:+639338672954">Call 0933 867 2954</a>', MAIL = '<a class="l" href="mailto:hello@dpymi.com.ph?subject=Water%20heater%20inquiry">Email us</a>', SVC = '<a class="l" href="mailto:service@dpymi.com.ph?subject=Repair%20or%20maintenance%20request">Email service</a>'
-const QUOTE = '<a href="#quote" data-go>Request a free quote</a>', MSGR = '<a class="l" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener">Messenger</a>'
-const sec = (id, label) => `<a class="l" href="#${id}" data-go>${label}</a>`
-const BRANCH = {
-  manila: ['Manila (head office)', '778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City'],
-  boracay: ['Boracay', 'Station 2, Manoc-Manoc, Boracay Island'],
-  iloilo: ['Iloilo', '2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City'],
-  cebu: ['Cebu', '3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City'],
-  davao: ['Davao', 'Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City'],
-}
-const dir = a => `<a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(a + ', Philippines')}" target="_blank" rel="noopener">Directions</a>`
-const BRANDS = { rheem: ['Rheem', 'electric storage water heaters', 'electric-storage-water-heater'], everhot: ['Everhot', 'electric storage water heaters', 'electric-storage-water-heater'], aquapower: ['Aquapower', 'instant water heaters', 'instantaneous-water-heater'], haase: ['HAASE', 'heat exchange storage tanks', 'storage-tank'], deron: ['Deron', 'heat pumps', 'heat-pumps'], '5 star|five star|5star': ['5 Star', 'solar water heaters and heat pumps', 'solar-water-heater'], enermax: ['Enermax', 'hot water storage tanks', 'storage-tank'], champion: ['Champion', 'glass-lined storage tanks', 'storage-tank'], wilo: ['Wilo', 'circulation pumps', 'pump'], grundfos: ['Grundfos', 'pumps', 'pump'], systemair: ['Systemair', 'ventilation fans and blowers', ''], katen: ['Katen', 'exhaust fans', 'fan'], aquaplast: ['Aquaplast', 'PPR pipes and fittings', 'pipe'] }
-const BUILD = {
-  condo: '<p>For a <b>condo or apartment</b>, we usually recommend an <b>instant water heater</b> beside each shower: hot water in seconds, and no tank to fit into a small unit.</p><p>Popular picks: Aquapower and Gratek Aquarius.</p>',
-  home: '<p>For a <b>family home</b>, a <b>storage water heater</b> (Rheem or Everhot) keeps a tank of hot water ready for several taps at once.</p><p>Add <b>5 Star solar</b> on the roof to cut your power bill.</p>',
-  hotel: '<p>For <b>hotels and resorts</b>, we design <b>central heat-pump systems</b> (Deron) with HAASE storage tanks and Wilo circulation pumps, sized for full occupancy.</p><p>Our after-sales team keeps them running.</p>',
-  hospital: '<p>For <b>hospitals</b>, we recommend <b>heat pumps with backup heaters</b>, so wards, theatres and kitchens have hot water around the clock.</p><p>We add mixing valves and a maintenance plan.</p>',
-}
-// each intent: words that point to it (multi-word phrases count double) and the reply
-const I = [
-  { k: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'kumusta', 'musta'], a: () => ({ t: '<p>Hi! I\'m the DPY Assistant. I can help you pick a water heater, find a branch, or get a quote.</p>', c: ['Which heater for my condo?', 'Find a branch', 'How much does it cost?'] }) },
-  { k: ['not sure', 'help me choose', 'which heater', 'which water heater', 'recommend', 'find my', 'quiz', 'suggest', 'what should i'], a: () => ({ t: '<p>Happy to help you choose! Answer <b>4 quick questions</b> and I\'ll recommend the right water heater for your place.</p><p>Or just tell me: is it a condo, house, hotel or hospital?</p>', x: ['<a href="#heaters" data-quiz>Find my water heater</a>'], c: ['Condo', 'House', 'Hotel', 'Hospital'] }) },
-  { k: ['condo', 'apartment', 'studio', 'unit', 'dorm'], a: () => ({ t: BUILD.condo, x: [sec('heaters', 'See instant heaters'), QUOTE] }) },
-  { k: ['house', 'home', 'family', 'bungalow', 'townhouse'], a: () => ({ t: BUILD.home, x: [sec('heaters', 'See storage heaters'), QUOTE] }) },
-  { k: ['hotel', 'resort', 'inn', 'hostel', 'airbnb'], a: () => ({ t: BUILD.hotel, x: [sec('buildings', 'See solutions'), QUOTE] }) },
-  { k: ['hospital', 'clinic', 'medical', 'school', 'university', 'gym'], a: () => ({ t: BUILD.hospital, x: [sec('buildings', 'See solutions'), QUOTE] }) },
-  { k: ['difference', 'compare', 'versus', 'vs', 'which type', 'types', 'kind'], a: () => ({ t: '<p>The four water heater types we supply:</p><ul><li><b>Instant</b>: heats as water flows, compact, best for one shower.</li><li><b>Storage</b>: keeps a tank hot for several taps.</li><li><b>Heat pump</b>: moves heat from the air, uses far less power, best for hotels.</li><li><b>Solar</b>: heated by the sun, with electric backup.</li></ul>', x: [sec('heaters', 'Compare them'), sec('how', 'How a heater works')] }) },
-  { k: ['instant', 'tankless', 'aquarius', 'shower heater', 'single point'], a: () => ({ t: '<p><b>Instant water heaters</b> heat water as it flows, so a shower is hot in seconds and there\'s no tank.</p><p>Models: Aquapower A35M · S35M · Q6M and Gratek Aquarius.</p>', x: [`<a class="l" href="water-heaters?type=instant">View models</a>`, QUOTE] }) },
-  { k: ['storage', 'tank', 'gallon', 'litre', 'liter', 'boiler'], a: () => ({ t: '<p><b>Electric storage water heaters</b> keep a tank of hot water ready, so several taps can run at once.</p><p>We carry the Rheem series and Everhot.</p>', x: [`<a class="l" href="water-heaters?type=storage">View models</a>`, sec('how', 'See inside one')] }) },
-  { k: ['heat pump', 'heatpump', 'energy', 'save', 'saving', 'electricity', 'bill', 'efficient'], a: () => ({ t: '<p><b>Heat pumps</b> move warmth from the air into the water instead of making it, so they use far less electricity than a plain electric heater.</p><p>We install Deron and 5 Star heat pumps, ideal for hotels and hospitals.</p>', x: [`<a class="l" href="water-heaters?type=heatpump">View heat pumps</a>`, QUOTE] }) },
-  { k: ['how much save', 'savings', 'save money', 'calculator', 'running cost', 'power bill', 'electric bill', 'meralco'], a: () => ({ t: '<p>A heat pump uses roughly <b>a third of the electricity</b> of a plain electric heater, and solar can cover about two-thirds of the heat. For a mid-size hotel (60 showers a day at ₱12/kWh), that\'s about <b>₱140,000 a year</b> saved with a heat pump.</p><p>Try our calculator with your own numbers:</p>', x: [sec('savings', 'Open the calculator'), QUOTE] }) },
-  { k: ['solar', 'sun', 'roof', 'panel'], a: () => ({ t: '<p><b>Solar water heaters</b> (5 Star CZ2.0 and CZ4.0) heat water with the sun and have an electric backup for cloudy days.</p>', x: [`<a class="l" href="water-heaters?type=solar">View solar</a>`, QUOTE] }) },
-  { k: ['price', 'cost', 'how much', 'magkano', 'quote', 'quotation', 'rate', 'budget', 'cheap', 'expensive'], a: () => ({ t: '<p>Prices depend on the model, the size and the installation, so we don\'t list them online.</p><p>Our <b>site visit and written quotation are free</b>. Tell us your building and how many showers, and we\'ll size it for you.</p>', x: [QUOTE, CALL] }) },
-  { k: ['install', 'installation', 'set up', 'setup', 'site visit', 'inspection', 'inspect', 'sizing', 'consult'], a: () => ({ t: '<p>We handle it end to end: a <b>free site visit</b> and sizing, then supply and installation by our own technicians, testing and warranty registration.</p>', x: [sec('service', 'How it works'), QUOTE] }) },
-  { k: ['repair', 'broken', 'not working', 'leak', 'leaking', 'no hot water', 'maintenance', 'service', 'descale', 'anode', 'spare', 'parts', 'warranty', 'sira'], a: () => ({ t: '<p>Our after-sales team does <b>repairs, spare parts and preventive maintenance</b> (including descaling and anode checks) from our branches.</p><p>Tell us the brand and model and what\'s happening.</p>', x: [CALL, SVC] }) },
-  { k: ['branch', 'branches', 'location', 'where', 'address', 'near', 'office', 'store', 'shop', 'showroom'], a: q => {
-      const hit = Object.entries({ manila: ['manila', 'pasig', 'metro', 'ncr', 'quezon', 'makati', 'taguig'], boracay: ['boracay', 'aklan'], iloilo: ['iloilo'], cebu: ['cebu', 'mandaue'], davao: ['davao'] }).find(([, w]) => w.some(x => q.includes(x)))
-      if (hit) { const [n, a] = BRANCH[hit[0]]; return { t: `<p>Our <b>${n}</b> branch is at:</p><p>${a}</p>`, x: [dir(a), CALL] } }
-      if (/baguio|tagaytay/.test(q)) return { t: '<p>Our products are sold in <b>Baguio City</b> and <b>Tagaytay</b> too. For the nearest outlet, call us and we\'ll point you there.</p>', x: [CALL, sec('branches', 'All branches')] }
-      return { t: '<p>We have five branches: <b>Manila</b> (head office, Pasig), <b>Boracay</b>, <b>Iloilo</b>, <b>Cebu</b> and <b>Davao</b>. Our products are also sold in Baguio City and Tagaytay.</p><p>Which city are you in?</p>', x: [sec('branches', 'See the map')], c: ['Manila', 'Cebu', 'Davao', 'Iloilo'] } } },
-  { k: ['manila', 'pasig', 'cebu', 'mandaue', 'davao', 'iloilo', 'boracay', 'baguio', 'tagaytay', 'makati', 'quezon', 'taguig'], a: q => I.find(x => x.k.includes('branch')).a(q) },
-  { k: ['contact', 'phone', 'call', 'number', 'email', 'viber', 'reach', 'talk', 'agent', 'human', 'person', 'sales'], a: () => ({ t: '<p>You can reach our team at:</p><ul><li><b>Sales:</b> 0933 867 2954 · 0915 245 3528</li><li><b>Office:</b> (02) 7956 0521</li><li><b>Customer service:</b> 0956 416 0815</li><li><b>Quotes:</b> sales@dpymi.com.ph</li><li><b>Repairs &amp; maintenance:</b> service@dpymi.com.ph</li><li><b>Everything else:</b> hello@dpymi.com.ph</li></ul>', x: [CALL, MAIL, MSGR] }) },
-  { k: ['storage tank', 'buffer tank', 'tanks', 'pump', 'pumps', 'circulation', 'booster', 'pipe', 'pipes', 'ppr', 'fittings', 'fitting', 'valve', 'aquaplast', 'ac thor', 'acthor', 'thor', 'my pv', 'mypv', 'surplus', 'system', 'systems', 'accessories'], a: () => ({ t: '<p>Besides water heaters, we supply the <b>whole hot water system</b>:</p><ul><li><b>Storage tanks</b>: Champion, HAASE, Enermax</li><li><b>Circulation pumps</b>: Wilo, Grundfos</li><li><b>PPR pipes &amp; fittings</b>: Aquaplast</li><li><b>AC·THOR</b> (my-PV): sends surplus solar-panel power into heating water</li></ul>', x: [`<a class="l" href="water-heaters?type=tank">Tanks</a>`, '<a class="l" href="products/wilo-pumps">Pumps</a>', '<a class="l" href="products/aquaplast-ppr-pipes">Pipes</a>', '<a class="l" href="water-heaters?type=control">AC·THOR</a>', QUOTE] }) },
-  { k: ['brand', 'brands', 'carry', 'sell', 'distributor', 'supplier', 'dealer'], a: q => {
-      const b = Object.entries(BRANDS).find(([k]) => k.split('|').some(w => q.includes(w)))
-      if (b) { const [n, what, url] = b[1]; return { t: `<p>Yes, we supply <b>${n}</b> ${what}.</p>`, x: [url ? `<a class="l" href="water-heaters?type=${url}">View ${n}</a>` : '', QUOTE].filter(Boolean) } }
-      return { t: '<p>We supply, install and service <b>Rheem, Everhot, Aquapower, HAASE, Deron, 5 Star, Enermax, Champion</b>, plus Wilo and Grundfos pumps, Systemair and Katen fans, and Aquaplast pipes. Gratek is our own home brand.</p>', x: [sec('heaters', 'Our water heaters')] } } },
-  { k: Object.keys(BRANDS).flatMap(k => k.split('|')), a: q => I.find(x => x.k.includes('brands')).a(q) },
-  { k: ['gratek'], a: () => ({ t: '<p><b>Gratek Smart Water Corp.</b> is the DPY company for homes and shops, your one-stop hub for hot water at home: sales consultation, on-site inspection, repairs and maintenance.</p>', x: ['<a class="l" href="about#gratek">About Gratek</a>'] }) },
-  { k: ['client', 'clients', 'project', 'projects', 'reference', 'experience', 'trusted', 'portfolio'], a: () => ({ t: '<p>We\'ve supplied hot water systems for hotels, hospitals and businesses across the Philippines, including <b>Shangri-La, City of Dreams Manila, Dusit Thani, Makati Medical Center</b> and <b>Chong Hua Hospital</b>.</p>', x: [sec('clients', 'See our clients')] }) },
-  { k: ['about', 'who are you', 'company', 'since', 'history', 'dpy', 'mercantile'], a: () => ({ t: '<p><b>DPY Mercantile Inc.</b> has supplied, installed and serviced water heaters since 2001: instant, storage, heat pump and solar, for homes, hotels and hospitals across the Philippines.</p>', x: [sec('heaters', 'Our water heaters'), sec('clients', 'Our clients')] }) },
-  { k: ['hours', 'open', 'opening', 'schedule', 'weekend', 'sunday', 'saturday'], a: () => ({ t: '<p>Our branches are open <b>Monday to Saturday, 8:00 AM to 5:00 PM</b>, closed on Sundays and holidays.</p><p>For repairs outside those hours, call our customer service line: 0956 416 0815.</p>', x: [CALL, sec('branches', 'Find a branch')] }) },
-  { k: ['thanks', 'thank you', 'salamat', 'ty', 'ok', 'okay', 'great'], a: () => ({ t: '<p>You\'re welcome! Anything else I can help with?</p>', c: ['Find a branch', 'Get a quote'] }) },
-]
-const START = ['Which heater for my condo?', 'Instant vs storage?', 'How much does it cost?', 'Find a branch', 'Repair or maintenance']
-const norm = s => ' ' + s.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ') + ' '
-function answer(raw) {
-  const q = norm(raw); let best = null, top = 0
-  for (const it of I) { let s = 0; for (const w of it.k) if (q.includes(' ' + w + ' ') || (w.length > 4 && q.includes(w))) s += w.includes(' ') ? 3 : 1 /* a matched phrase beats single words */; if (s > top) { top = s; best = it } }
-  if (best) return best.a(q)
-  return { t: '<p>I\'m not sure about that one yet. Our team can answer it directly:</p>', x: [CALL, MAIL], c: START.slice(0, 3) }
-}
-const scroll = () => log.scrollTop = log.scrollHeight
-function bot({ t, x = [], c }) {
-  const m = document.createElement('div'); m.className = 'msg bot'; m.innerHTML = t + (x.length ? `<div class="acts">${x.join('')}</div>` : ''); log.append(m)
-  setChips(c || []); scroll()
-}
-function me(s) { const m = document.createElement('div'); m.className = 'msg me'; m.textContent = s; log.append(m); scroll() }
-function setChips(c) { chips.innerHTML = c.map(s => `<button type="button">${s}</button>`).join(''); chips.hidden = !c.length }
-let busy = false
-function ask(s) {
-  s = s.trim(); if (!s || busy) return; busy = true; root.classList.add('thinking'); me(s); input.value = ''; setChips([])
-  const ty = document.createElement('div'); ty.className = 'typing'; ty.innerHTML = '<i></i><i></i><i></i>'; log.append(ty); scroll()
-  setTimeout(() => { ty.remove(); bot(answer(s)); busy = false; root.classList.remove('thinking') }, RM ? 0 : 550 + Math.min(700, s.length * 12))
-}
-chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent) })
-form.addEventListener('submit', e => { e.preventDefault(); ask(input.value) })
-log.addEventListener('click', e => { if (e.target.closest('[data-quiz]')) return toggle(false); const a = e.target.closest('a[data-go]'); if (!a) return; e.preventDefault(); toggle(false); window.DPYgo?.(a.getAttribute('href')) })
-let started = false
-function toggle(o) {
-  root.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); tip.classList.remove('on')
-  if (o && !started) { started = true; bot({ t: '<p>Hi! 👋 I\'m the DPY Assistant.</p><p>I can help you choose a water heater, find a branch, or get a free quote. What do you need?</p>', c: START }) }
-  if (o) setTimeout(() => input.focus({ preventScroll: true }), 300)
-}
-btn.addEventListener('click', () => toggle(true)); $('.x', win).addEventListener('click', () => toggle(false))
-addEventListener('keydown', e => { if (e.key === 'Escape' && root.classList.contains('open')) toggle(false) })
-// a gentle nudge once, after the visitor has had time to look around
-let tipT = setTimeout(() => { if (started) return; tip.classList.add('on'); tipT = setTimeout(() => tip.classList.remove('on'), 7000) }, 9000)
-$('button', tip).addEventListener('click', () => { tip.classList.remove('on'); clearTimeout(tipT) })
 })()
 </script>
 <script>/* Three.js is served from our own site; opened straight from disk (file://) the browser blocks local modules, so the preview borrows unpkg */

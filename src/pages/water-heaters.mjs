@@ -234,6 +234,7 @@ function result() {
 function open(from) { opener = from; step = 0; ans = {}; box.classList.add('on'); DPY.lock(true); render() }
 function close() { box.classList.remove('on'); DPY.lock(false); opener?.focus({ preventScroll: true }) }
 $$('[data-finder]').forEach(b => b.addEventListener('click', () => open(b)))
+window.DPYquiz = open // the chat's "Find my water heater" opens it here
 $('.x', box).addEventListener('click', close); box.addEventListener('click', e => e.target === box && close())
 addEventListener('keydown', e => e.key === 'Escape' && box.classList.contains('on') && close())
 if (location.hash === '#finder') open()
