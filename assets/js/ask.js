@@ -3,8 +3,13 @@
 (() => {
 const SRC = document.currentScript.src
 if (!document.querySelector('.ask')) return // the page has no chat markup
-// wired up in the first idle moment: the button is already on the page, so nothing moves
-;(window.requestIdleCallback || setTimeout)(() => {
+// nothing runs while the page opens: the chat wakes when the visitor reaches for it (hover, focus, tap), or for the nudge at 9 s
+const BTN = document.querySelector('.ask-btn'); let ready = false
+const boot = () => { if (!ready) { ready = true; init() } }
+BTN.addEventListener('pointerenter', boot, { once: true }); BTN.addEventListener('focus', boot, { once: true })
+BTN.addEventListener('click', () => { if (!ready) { boot(); BTN.click() } }, { once: true })
+setTimeout(boot, 8500)
+function init() {
 const $ = (s, r = document) => r.querySelector(s)
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches
 // the site root, from this script's own address (pages live at / and /products/)
@@ -103,7 +108,7 @@ function toggle(o) {
 btn.addEventListener('click', () => toggle(true)); $('.x', win).addEventListener('click', () => toggle(false))
 addEventListener('keydown', e => { if (e.key === 'Escape' && root.classList.contains('open')) toggle(false) })
 // a gentle nudge once, after the visitor has had time to look around
-let tipT = setTimeout(() => { if (started) return; tip.classList.add('on'); tipT = setTimeout(() => tip.classList.remove('on'), 7000) }, 9000)
+let tipT = setTimeout(() => { if (started) return; tip.classList.add('on'); tipT = setTimeout(() => tip.classList.remove('on'), 7000) }, Math.max(300, 9000 - performance.now()))
 $('button', tip).addEventListener('click', () => { tip.classList.remove('on'); clearTimeout(tipT) })
-}, { timeout: 1500 })
+}
 })()
