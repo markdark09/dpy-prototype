@@ -11,6 +11,10 @@ export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const SPECS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/specs.json'), 'utf8'))
 export const SITE = 'https://prototype.dpy-mi.workers.dev/' // swap to the real domain at launch
 // /assets/* is cached for 30 days (_headers), so the shared files carry a content hash: a change gets a new address
+// the shared styles are written into each page (no stylesheet request to wait for before the first paint);
+// minified a little, and their relative font and image addresses pointed at the right folder for the page
+export const inlineCss = (R, files) => files.map(f => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('\n')
+  .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\n\s*\n+/g, '\n').replace(/url\(\.\.\//g, `url(${R}assets/`).trim()
 export const ver = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -28,7 +32,13 @@ export function dims(rel) {
   else if (b[0] === 0xFF) { let i = 2; while (i < b.length) { const m = b[i + 1], L = b.readUInt16BE(i + 2); if (m >= 0xC0 && m <= 0xC3) { d = [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)]; break } i += 2 + L } }
   return (dimCache[rel] = d)
 }
-export const img = (R, rel, alt, extra = '') => { const [w, h] = dims(rel); return `<img src="${R}${rel}" width="${w}" height="${h}" alt="${esc(alt)}"${extra}>` }
+// large photos that have a phone-size copy (name-800.webp) get a srcset, so phones download the small one;
+// sizes = how wide the photo shows on the page (default: full width on phones, about 60% of the screen otherwise)
+export const img = (R, rel, alt, extra = '', sizes = '(max-width:640px) 100vw, 60vw') => {
+  const [w, h] = dims(rel), small = rel.replace(/\.webp$/, '-800.webp')
+  const set = w > 800 && !extra.includes('srcset') && rel !== small && fs.existsSync(path.join(ROOT, small)) ? ` srcset="${R}${small} 800w, ${R}${rel} ${w}w" sizes="${sizes}"` : ''
+  return `<img src="${R}${rel}" width="${w}" height="${h}" alt="${esc(alt)}"${set}${extra}>`
+}
 
 // ---------- icons ----------
 export const I = {
@@ -43,6 +53,8 @@ export const I = {
   fb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>',
   vb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>',
 }
+// the "Ask DPY" chat (behaviour in assets/js/ask.js)
+export const ASK = fs.readFileSync(path.join(ROOT, 'src/ask.html'), 'utf8').trim()
 export const MSGR = `<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener">${I.fb}Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954">${I.vb}Viber</a>`
 
 // ---------- shared data ----------
@@ -141,9 +153,11 @@ ${ld.length ? `<script type="application/ld+json">${JSON.stringify({ '@context':
 <link rel="apple-touch-icon" href="${R}assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="${R}site.webmanifest">
 <link rel="preload" href="${R}assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${R}assets/css/base.css?v=${ver('assets/css/base.css')}">
-<link rel="stylesheet" href="${R}assets/css/site.css?v=${ver('assets/css/site.css')}">
-${pg.css ? `<style>\n${pg.css.trim()}\n</style>\n` : ''}</head>`
+<style>
+${inlineCss(R, ['assets/css/base.css', 'assets/css/site.css'])}
+${(pg.css || '').trim()}
+</style>
+</head>`
 }
 const SYMBOLS = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -197,6 +211,7 @@ ${nav(pg, R)}
 ${body.trim()}
 </main>
 ${foot(R, pg)}
+${ASK}
 <script src="${R}assets/vendor/lenis.min.js" defer></script>
 <script src="${R}assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
 <script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>

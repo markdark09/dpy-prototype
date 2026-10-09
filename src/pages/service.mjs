@@ -83,7 +83,7 @@ export default {
       <p class="lede">Repairs, installation and preventive maintenance for every brand we sell, from our service teams in Manila, Boracay, Iloilo, Cebu and Davao.</p>
       <div class="ph-acts"><a class="btn red" href="#book">Book a service visit ${I.arr}</a><a class="btn ghost" href="#checks">Try these quick checks first</a></div>
     </div>
-    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A DPY technician servicing a water heater', ' fetchpriority="high"')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 5 PM</span></div>
+    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A DPY technician servicing a water heater', ' fetchpriority="high"', '(max-width:980px) 100vw, 560px')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 5 PM</span></div>
   </div>
 </section>
 

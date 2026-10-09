@@ -70,7 +70,7 @@ export default {
 .qz-top{display:flex;align-items:center;gap:14px;padding:22px 24px 0}
 .qz-top .bar{flex:1;height:6px;border-radius:9px;background:#EDF1F5;overflow:hidden}
 .qz-top .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--sky),var(--red));transform-origin:0 50%;transform:scaleX(.25);transition:transform .6s var(--ease)}
-.qz-top small{font-size:12px;font-weight:700;color:var(--dim);min-width:34px;text-align:right}
+.qz-top small{font-size:12px;font-weight:700;color:var(--mute);min-width:34px;text-align:right}
 .qz-top button{width:36px;height:36px;border-radius:50%;background:var(--soft);font-size:18px;line-height:1}
 .qz-step{padding:24px 28px 28px;animation:qzIn .5s var(--ease) both}
 @keyframes qzIn{from{opacity:0;transform:translateX(24px)}}

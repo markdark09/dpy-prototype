@@ -78,7 +78,7 @@ export default {
       <div><span class="kick">About us</span><h1 class="thin h1">25 Years of<br>Hot Water Done Right</h1><p class="lede">DPY Mercantile Inc. and its home company, Gratek Smart Water Corp., supply, install and service water heaters for homes, hotels and hospitals across the Philippines.</p></div>
       <ul class="ph-stats"><li><b>2001</b><small>Founded</small></li><li><b>5</b><small>Branches</small></li><li><b>12</b><small>Brands</small></li></ul>
     </div>
-    <figure class="ab-photo">${img(R, 'assets/img/dpy/team.webp', 'The DPY Mercantile team', ' fetchpriority="high"')}<figcaption>The DPY team</figcaption></figure>
+    <figure class="ab-photo">${img(R, 'assets/img/dpy/team.webp', 'The DPY Mercantile team', ' fetchpriority="high"', '(max-width:1240px) 100vw, 1128px')}<figcaption>The DPY team</figcaption></figure>
   </div>
 </section>
 

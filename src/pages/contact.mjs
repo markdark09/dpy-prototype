@@ -125,7 +125,7 @@ function pick(i) {
 }
 btns.forEach((b, i) => b.addEventListener('click', () => pick(i)))
 // load the map only when the section comes near (saves data on phones)
-new IntersectionObserver(([e], o) => { if (e.isIntersecting) { pick(0); o.disconnect() } }, { rootMargin: '300px' }).observe($('.map'))
+addEventListener('load', () => new IntersectionObserver(([e], o) => { if (e.isIntersecting) { pick(0); o.disconnect() } }, { rootMargin: '200px' }).observe($('.map')))
 fr.addEventListener('load', () => $('.map .ld').remove(), { once: true })
 `,
 }

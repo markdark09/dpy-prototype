@@ -69,6 +69,13 @@ The old site was organised around DPY's two companies and its suppliers' categor
 | `assets/js/site.js` | The quote list and the email forms everywhere; on inner pages also smooth scrolling, the header and the scroll reveals (the homepage keeps its own, tied to its GSAP animations) | Every page |
 | `assets/js/ask.js` | The "Ask DPY" chat. It builds itself on any page; its links scroll on the homepage and open the right page elsewhere (e.g. "See our clients" opens Projects). | Every page |
 
+**Speed of the inner pages (Lighthouse, mobile, October 2026, local server with compression):** 98–100 on every page checked. How:
+- **No stylesheet to wait for.** The build writes the shared styles straight into each page (about 8 KB compressed), so the first paint needs no extra request. `base.css` and `site.css` stay the files you edit.
+- **Phones get phone-size photos.** Large photos have a `-800.webp` copy and a `srcset`, so a phone downloads about 30–60 KB instead of 100–200 KB.
+- **Nothing hidden that the visitor sees first.** Photos at the top of a page don't wait for the fade-in. The "By building" photos on For Business load after the page settles, and the Contact map loads only once it scrolls into view.
+- **Scripts wait their turn.** Smooth scrolling and the chat are set up in the first idle moment. The chat's markup is already in the page, so nothing shifts when it starts. No script forces a layout while the page is loading.
+- **The homepage** scores about 81–88 on the same test (83–85 before these pages were added). Its cost is the hero intro and the GSAP animations, which delay the first heater's appearance on a slow phone.
+
 The homepage keeps inline only what is unique to it (the hero, the 3D tank, the map, the calculator and so on). When the shared styles moved out, its layout was checked element by element at desktop and phone width: identical, apart from the quote list added to its form. `/assets/*` is cached for 30 days, so the build stamps each shared file with a version (`base.css?v=…`). A change reaches returning visitors straight away.
 
 ## Real DPY content

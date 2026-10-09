@@ -116,7 +116,7 @@ export default {
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
     <ul class="tabs" role="tablist" aria-label="Building type">${SECTORS.map((s, i) => `<li role="presentation"><button class="chip" role="tab" id="t-${s.k}" aria-controls="p-${s.k}" aria-selected="${!i}" tabindex="${i ? -1 : 0}">${s.t}</button></li>`).join('')}</ul>
     <div class="sx">
-      <div class="sx-pic">${SECTORS.map((s, i) => img(R, `assets/img/${s.img}.webp`, '', ` class="${i ? '' : 'on'}" data-k="${s.k}" loading="${i ? 'lazy' : 'eager'}"`)).join('')}</div>
+      <div class="sx-pic">${SECTORS.map((s, i) => { const t = img(R, `assets/img/${s.img}.webp`, '', ` class="${i ? '' : 'on'}" data-k="${s.k}"`, '(max-width:980px) 100vw, 640px'); return i ? t.replace(' src=', ' data-src=').replace(' srcset=', ' data-srcset=') : t }).join('')}</div>
       <div class="sx-txt">${SECTORS.map((s, i) => `<div class="sx-panel" role="tabpanel" id="p-${s.k}" aria-labelledby="t-${s.k}"${i ? ' hidden' : ''}>
         <h3>${s.t}</h3><p class="q">The challenge</p><p>${s.need}</p><p class="q b">What we install</p><p>${s.we}</p>
         <ul class="sx-parts">${s.parts.map(([n, u]) => `<li><a href="${L(u)}">${n}${I.arr}</a></li>`).join('')}</ul>
@@ -183,10 +183,13 @@ export default {
   },
   js: `
 const tabs = $$('[role=tab]'), panels = $$('.sx-panel'), pics = $$('.sx-pic img')
+// the other buildings' photos load once the page has settled (or at once, when their tab is picked)
+const load = p => { if (!p.dataset.src) return; if (p.dataset.srcset) p.srcset = p.dataset.srcset; p.src = p.dataset.src; delete p.dataset.src }
+addEventListener('load', () => (window.requestIdleCallback || setTimeout)(() => pics.forEach(load), { timeout: 3000 }))
 function show(i, focus) {
   tabs.forEach((t, j) => { t.setAttribute('aria-selected', i === j); t.tabIndex = i === j ? 0 : -1 })
   panels.forEach((p, j) => { p.hidden = i !== j; if (i === j && !RM) p.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.2,.7,0,1)' }) })
-  pics.forEach((p, j) => { if (i === j) p.loading = 'eager'; p.classList.toggle('on', i === j) })
+  pics.forEach((p, j) => { if (i === j) load(p); p.classList.toggle('on', i === j) })
   if (focus) tabs[i].focus()
 }
 tabs.forEach((t, i) => { t.addEventListener('click', () => show(i)); t.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); show((i + d + tabs.length) % tabs.length, true) } }) })
