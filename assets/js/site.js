@@ -1,27 +1,16 @@
 /* DPY Mercantile: shared script for every page.
-   The quote list (kept in this browser) and the email forms run everywhere. On the inner pages it also runs smooth scrolling,
-   the header and menu, and the scroll reveals; the homepage runs its own (window.DPY_HOME), tied to its GSAP animations. */
+   The quote list (kept in this browser) and the email forms run everywhere. On the inner pages it also runs the header and menu
+   and the scroll reveals; the homepage runs its own (window.DPY_HOME), tied to its GSAP animations. */
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)]
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches, HOME = !!window.DPY_HOME
 const DPY = window.DPY = { $, $$, RM }
 
-/* ---------- smooth scrolling (mouse and trackpad only; the loop runs only while the page moves) ---------- */
-let lenis = null
-// set up in the first idle moment, so it never delays the first paint
-if (!HOME && !RM && window.Lenis && matchMedia('(pointer:fine)').matches) (window.requestIdleCallback || setTimeout)(() => {
-  lenis = DPY.lenis = new Lenis({ lerp: .1 })
-  let on = false, last = 0
-  const raf = t => { lenis.raf(t); if (lenis.isScrolling || performance.now() - last < 600) requestAnimationFrame(raf); else on = false }
-  const kick = () => { last = performance.now(); if (!on) { on = true; requestAnimationFrame(raf) } }
-  addEventListener('wheel', kick, { passive: true }); addEventListener('keydown', kick)
-  DPY.kick = kick
-}, { timeout: 1500 })
-DPY.lenis = lenis
-DPY.lock = on => { document.documentElement.classList.toggle('modal-open', on); on ? lenis?.stop() : lenis?.start() } // dialogs: page stays put behind them
+/* ---------- scrolling is the browser's own (a smooth-scroll library made pages repaint every frame on integrated graphics) ---------- */
+DPY.lock = on => document.documentElement.classList.toggle('modal-open', on) // dialogs: the page stays put behind them
 const go = DPY.go = HOME ? (el => window.DPYgo?.(el)) : (el, off = -80) => {
   if (typeof el === 'string') el = $(el); if (!el) return
-  if (lenis) { DPY.kick(); lenis.scrollTo(el, { offset: off, duration: 1.2 }) } else scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: RM ? 'auto' : 'smooth' })
+  scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: RM ? 'auto' : 'smooth' })
 }
 
 if (!HOME) {
@@ -34,8 +23,8 @@ if (!HOME) {
   const onScroll = () => { const y = scrollY; nav.classList.toggle('solid', y > 30); nav.classList.toggle('up', y > lastY && y > 500 && !document.body.classList.contains('menu-open')); lastY = y }
   addEventListener('scroll', onScroll, { passive: true }); requestAnimationFrame(onScroll) // not straight away: reading the scroll position would force the first layout inside this script
   const mb = $('.menu-btn')
-  var closeMenu = () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('menu-lock'); mb?.setAttribute('aria-expanded', 'false'); lenis?.start() }
-  mb?.addEventListener('click', () => { const o = document.body.classList.toggle('menu-open'); document.documentElement.classList.toggle('menu-lock', o); mb.setAttribute('aria-expanded', o); o ? lenis?.stop() : lenis?.start() })
+  var closeMenu = () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('menu-lock'); mb?.setAttribute('aria-expanded', 'false') }
+  mb?.addEventListener('click', () => { const o = document.body.classList.toggle('menu-open'); document.documentElement.classList.toggle('menu-lock', o); mb.setAttribute('aria-expanded', o) })
   addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) closeMenu() })
 
   /* ---------- reveal on scroll, in small staggered groups ---------- */

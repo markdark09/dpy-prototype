@@ -36,8 +36,6 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
@@ -227,11 +225,15 @@ html.menu-lock{overflow:hidden}
   .ct-note{display:none}.ct-go{margin-left:auto;padding:0 12px}.ct-x{padding:0 4px}
   .ctray-on .ask{bottom:80px}.qbar-on .ctray{bottom:80px}.qbar-on.ctray-on .ask{bottom:148px}
 }
-.bir{display:flex;align-items:center;gap:22px;margin-top:40px;padding:16px 22px;border-radius:20px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9)}
-.bir img{flex:none;width:430px;height:auto} 
-.bir p{margin:0;font-size:12.5px;line-height:1.5;color:var(--mute);max-width:320px}
-.bir b{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:2px}
-@media (max-width:640px){.bir{flex-direction:column;align-items:flex-start;gap:12px;padding:14px}.bir img{width:100%;max-width:360px}}
+.trust{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;margin-top:44px;padding-top:26px;border-top:1px solid rgba(120,70,40,.15)}
+.trust .k{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.trust ul{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;margin:0;padding:0;font-size:13px;font-weight:600;color:var(--ink2)}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#1E9E55;color:#fff}
+.trust li svg{width:11px;height:11px}
+.trust img{flex:none;width:340px;height:auto} 
+.trust + .base{margin-top:26px}
+@media (max-width:640px){.trust{gap:18px}.trust img{width:100%;max-width:360px}}
 .h1{font-size:clamp(2.4rem,4.8vw,4rem);padding-bottom:.06em}
 .lede{color:var(--mute);font-size:15.5px;max-width:520px;margin:0}
 .h2{padding-bottom:.04em}
@@ -554,7 +556,7 @@ html.menu-lock{overflow:hidden}
       <div><h2>Help</h2><ul><li><a href="../service">Repairs &amp; maintenance</a></li><li><a href="../service#book">Book a service visit</a></li><li><a href="../contact#branches">Find a branch</a></li><li><a href="../contact#quote">Get a free quote</a></li><li><a href="../privacy">Privacy notice</a></li></ul></div>
       <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
-    <div class="bir"><img src="../assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041, with a QR code to verify" loading="lazy"><p><b>Registered with the Bureau of Internal Revenue</b>Gratek Smart Water Corp. Scan the QR code to verify our registration with the BIR.</p></div>
+    <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><img src="../assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041, with a QR code to verify" loading="lazy"></div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="../privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
   </div>
 </footer>
@@ -570,8 +572,7 @@ html.menu-lock{overflow:hidden}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="../assets/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/site.js?v=0d88b474" defer></script>
+<script src="../assets/js/site.js?v=a8bca181" defer></script>
 <script src="../assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready

@@ -192,7 +192,7 @@ export function foot(R, pg) {
       <div><h2>Help</h2><ul><li><a href="${R}service">Repairs &amp; maintenance</a></li><li><a href="${R}service#book">Book a service visit</a></li><li><a href="${R}contact#branches">Find a branch</a></li><li><a href="${R}contact#quote">Get a free quote</a></li><li><a href="${R}privacy">Privacy notice</a></li></ul></div>
       <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
-    <div class="bir"><img src="${R}assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041, with a QR code to verify" loading="lazy"><p><b>Registered with the Bureau of Internal Revenue</b>Gratek Smart Water Corp. Scan the QR code to verify our registration with the BIR.</p></div>
+    <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i>${I.ck}</i>DTI registered</li><li><i>${I.ck}</i>SEC registered (2011)</li><li><i>${I.ck}</i>BIR registered</li><li><i>${I.ck}</i>Golden Globe awardee 2021</li></ul></div><img src="${R}assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041, with a QR code to verify" loading="lazy"></div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="${R}privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
   </div>
 </footer>`
@@ -214,7 +214,6 @@ ${body.trim()}
 </main>
 ${foot(R, pg)}
 ${ASK}
-<script src="${R}assets/vendor/lenis.min.js" defer></script>
 <script src="${R}assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
 <script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>
 ${pg.js ? `<script>\naddEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready\nconst { $, $$, RM, go, quote } = DPY\n${(typeof pg.js === 'function' ? pg.js(R) : pg.js).trim()}\n})\n</script>\n` : ''}</body>
