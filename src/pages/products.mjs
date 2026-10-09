@@ -26,7 +26,7 @@ const css = `
 .best li:first-child{background:none;box-shadow:none;padding-left:0;color:var(--mute);font-weight:600}
 .pd .ph-acts{margin-top:26px;align-items:center}
 .pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px}
-.pd .msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
+.pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
 .ft-c{position:relative;padding:22px 22px 20px;border-radius:22px;background:#fff;box-shadow:var(--card);counter-increment:f}
@@ -79,8 +79,8 @@ function pg(p) {
         <p class="lede">${p.short}</p>
         <div class="facts">${p.key.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
         <ul class="best"><li>Best for</li>${p.best.map(b => `<li>${b}</li>`).join('')}</ul>
-        <div class="ph-acts"><a class="btn red" href="${R}contact?add=${p.slug}#quote" data-quote-now="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}">Get a quote for this ${I.arr}</a><button class="addq" type="button" data-add="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote list</span><span class="on">In your quote list</span></button></div>
-        <div class="msg">Questions first? ${MSGR}<a class="msgr" style="background:var(--ink)" href="tel:+639338672954">${I.tel}Call</a></div>
+        <div class="ph-acts"><a class="btn red" href="${R}contact?add=${p.slug}#quote" data-quote-now="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}">Get a quote for this ${I.arr}</a><button class="addq" type="button" data-add="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote list</span><span class="on">In your quote list</span></button><button class="cmpb wide" type="button" data-cmp="${p.slug}" data-name="${p.name}" data-img="${src}" aria-pressed="false">${I.cmp}<span class="of">Compare</span><span class="on">Comparing</span></button></div>
+        <div class="pd-msg">Questions first? ${MSGR}<a class="msgr" style="background:var(--ink)" href="tel:+639338672954">${I.tel}Call</a></div>
       </div>
       <div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span>${src ? img(R, src, p.name, ` class="main${p.photo ? ' photo' : ''}" fetchpriority="high"`) : `<span class="noimg"><span>${p.brand.toUpperCase()}<small>Photo to follow</small></span></span>`}</div>
     </div>
@@ -123,7 +123,7 @@ ${tables ? `
 
 <section class="sec" aria-labelledby="rlT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Also consider</span><h2 class="thin h2" id="rlT">Related Products</h2></div><a class="link" href="${R}water-heaters">See all products ${I.arr}</a></div>
+    <div class="sec-head"><div><span class="kick">Also consider</span><h2 class="thin h2" id="rlT">Related Products</h2></div><span style="display:flex;gap:18px;flex-wrap:wrap"><a class="link" href="${R}compare?p=${[p, ...rel.filter(x => x.cat === p.cat)].slice(0, 3).map(x => x.slug).join(',')}">Compare with similar ${I.arr}</a><a class="link" href="${R}water-heaters">See all products ${I.arr}</a></span></div>
     <div class="grid rel">${rel.map(x => card(x, R)).join('')}</div>
   </div>
 </section>

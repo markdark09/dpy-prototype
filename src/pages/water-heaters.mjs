@@ -145,7 +145,7 @@ html.modal-open{overflow:hidden}
 
 <section class="sec soft" id="range" aria-labelledby="raT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">The full range</span><h2 class="thin h2" id="raT">Every Product<br>We Carry</h2></div><p class="lede">Add anything to your quote list as you browse. We'll price it all in one written quotation.</p></div>
+    <div class="sec-head"><div><span class="kick">The full range</span><h2 class="thin h2" id="raT">Every Product<br>We Carry</h2></div><div><p class="lede">Add anything to your quote list as you browse. We'll price it all in one written quotation. Tap ${I.cmp.replace('<svg', '<svg style="display:inline;width:15px;height:15px;vertical-align:-2px"')} to compare up to four.</p><p style="margin:10px 0 0"><a class="link" href="${R}compare">Open the comparison ${I.arr}</a></p></div></div>
     <div class="cat-bar">
       <ul class="chips" aria-label="Filter by type"><li><button class="chip" type="button" data-cat="" aria-pressed="true">All <small>${PRODUCTS.length}</small></button></li>${ORDER.map(k => `<li><button class="chip" type="button" data-cat="${k}" aria-pressed="false">${CATS[k].t.replace(' water heaters', '').replace('Electric storage heaters', 'Storage').replace(/^./, c => c.toUpperCase())} <small>${counts[k]}</small></button></li>`).join('')}</ul>
       <div class="seg" role="group" aria-label="Who it's for"><button type="button" data-for="" aria-pressed="true">Everyone</button><button type="button" data-for="home" aria-pressed="false">For homes</button><button type="button" data-for="business" aria-pressed="false">For business</button></div>

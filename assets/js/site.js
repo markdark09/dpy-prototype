@@ -90,6 +90,47 @@ document.addEventListener('click', e => {
 })
 Q.sync()
 
+/* ---------- compare: up to 4 products, kept in this browser; a bar at the bottom shows them and opens the Compare page ---------- */
+const CKEY = 'dpy-compare', CMAX = 4
+const cread = () => { try { return JSON.parse(localStorage.getItem(CKEY)) || [] } catch { return [] } }
+const cwrite = l => { try { localStorage.setItem(CKEY, JSON.stringify(l.slice(0, CMAX))) } catch {} }
+const COMPARE_PAGE = /\/compare$/.test(location.pathname.replace(/\.html$/, ''))
+let tray = null, trayT
+const C = DPY.compare = {
+  list: cread, max: CMAX,
+  set(l) { cwrite(l); C.sync() },
+  toggle(s, n, i) {
+    const l = cread()
+    if (l.some(x => x.s === s)) return C.set(l.filter(x => x.s !== s))
+    if (l.length >= CMAX) return C.sync(`Compare up to ${CMAX} at a time. Remove one first.`)
+    l.push({ s, n, i }); C.set(l)
+  },
+  sync(note) {
+    const l = cread()
+    $$('[data-cmp]').forEach(b => b.setAttribute('aria-pressed', l.some(x => x.s === b.dataset.cmp)))
+    if (!COMPARE_PAGE) drawTray(l, note)
+    document.dispatchEvent(new CustomEvent('dpy:compare', { detail: l }))
+  },
+}
+function drawTray(l, note) {
+  if (!tray) {
+    tray = document.createElement('div'); tray.className = 'ctray'; tray.setAttribute('role', 'region'); tray.setAttribute('aria-label', 'Products to compare')
+    tray.innerHTML = '<div class="ct-in"><span class="ct-k">Compare</span><ul></ul><p class="ct-note" aria-live="polite"></p><a class="btn red sm ct-go">Compare <b></b></a><button class="ct-x" type="button" aria-label="Clear the comparison">Clear</button></div>'
+    document.body.append(tray)
+    tray.addEventListener('click', e => { const r = e.target.closest('[data-crm]'); if (r) C.set(cread().filter(x => x.s !== r.dataset.crm)); if (e.target.closest('.ct-x')) C.set([]) })
+  }
+  $('ul', tray).innerHTML = l.map(x => `<li><span>${x.i ? `<img src="${ROOT + x.i}" alt="">` : esc(x.n.split(' ')[0])}</span><button type="button" data-crm="${x.s}" aria-label="Remove ${esc(x.n)}">×</button></li>`).join('') + Array.from({ length: CMAX - l.length }, () => '<li class="e"></li>').join('')
+  $('.ct-go', tray).href = ROOT + 'compare?p=' + l.map(x => x.s).join(',')
+  $('.ct-go b', tray).textContent = l.length
+  $('.ct-go', tray).classList.toggle('dis', l.length < 2)
+  $('.ct-note', tray).textContent = note || (l.length === 1 ? 'Pick one more to compare' : '')
+  clearTimeout(trayT); if (note) trayT = setTimeout(() => $('.ct-note', tray).textContent = l.length === 1 ? 'Pick one more to compare' : '', 3500)
+  tray.classList.toggle('on', l.length > 0); document.body.classList.toggle('ctray-on', l.length > 0)
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-cmp]'); if (!b) return; e.preventDefault(); C.toggle(b.dataset.cmp, b.dataset.name, b.dataset.img) })
+addEventListener('storage', e => e.key === CKEY && C.sync())
+C.sync()
+
 /* ---------- forms: the prototype sends by opening the visitor's email app (production would post to DPY's inbox or CRM) ---------- */
 $$('form[data-mail]').forEach(form => {
   const done = $('.f-done', form)

@@ -53,6 +53,7 @@ The old site was organised around DPY's two companies and its suppliers' categor
 | Projects | `/projects` | The 32 client logos with names, filtered by building type, and real DPY project photos. |
 | About | `/about` | The story (2001, incorporation in 2011, Gratek, the 2021 award), DPY for buildings vs Gratek for homes, mission, vision and the five values (they spell PRIZE). Registration numbers are left out on purpose: it says "Registered with DTI and SEC". |
 | Contact | `/contact` | The quote form, every phone number and email, Messenger and Viber, and the five branches with a Google map. |
+| Compare | `/compare` | Up to four products side by side (power, running cost, tank, hot water, what it serves, power supply, where it goes, size, models, features, warranty, best for), with "show only the differences" and quick sets (instant heaters, heat pumps, lowest running cost...). Products are added from the compare button on any card or product page; a bar at the bottom collects them. A comparison can be shared by link (`/compare?p=...`). |
 | Careers | `/careers` | The six openings listed on the live site, each with an Apply-by-email button. |
 | Privacy | `/privacy` | The privacy notice as a page (the homepage keeps its dialog). |
 
@@ -146,6 +147,8 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **Navigation (all pages):** Water Heaters · For Business · Service · Projects · About · Contact, plus "Get a Quote". On the homepage "Get a Quote" still glides to its own form. The footer links to the new pages.
 
 ## Privacy, search and sharing
+
+- **BIR Registration Seal Badge** in the footer of every page, as the BIR requires for businesses online. It's `assets/brand/bir-seal.png`, cut from the badge file BIR issued (GRATEK_BIR_REGISTRATION_SEAL_BADGE.png): the grey panels were cleared and the QR code kept its exact pixels on a white square, so it scans on any background. It shows at about 110 px for the QR. **To confirm:** this badge is Gratek Smart Water Corp.'s; if DPY Mercantile Inc. has its own BIR badge (it's a separate company), add that one beside it.
 
 - **Privacy Notice** (Data Privacy Act, RA 10173). It opens from the quote form and the footer. The form now needs a consent tick before it sends. **The text is a draft:** DPY must confirm the Data Protection Officer contact, the retention period and the service providers.
 - **Prototype: kept out of search results** (robots meta `noindex`, the `X-Robots-Tag` header and `robots.txt`). The SEO below is ready for when it goes live.
