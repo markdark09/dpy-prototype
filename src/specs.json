@@ -1,0 +1,210 @@
+{
+  "Solar-Water-Heater-Specifications": {
+    "title": "Solar water heater (hot water tank, solar collector panel, heating unit)",
+    "columns": ["Model", "Capacity", "External diameter of tank", "Length of tank", "Thickness of inner tank", "Size of tank joints", "Size of circulation pipe joints", "Material of thermal insulation (tank)", "Thickness of thermal insulation (tank)", "Working pressure", "Collector panel dimension", "Absorber area", "Material of absorber", "Head material diameter", "Riser material diameter", "Thickness of thermal insulation (collector)", "Insulation material (collector)", "Glass", "Heating unit electrical specification"],
+    "rows": [
+      ["CZ2.0", "40 Gals", "525mm", "1400mm", "2mm steel Q235+4mm CL PE*", "G 1\" outer thread", "G 1\" outer thread", "Polyurethane", "62mm", "0.6 Mpa", "2000mm x 1000mm", "2m", "Black Chrome Copper Absorber", "TP2 / 22mm", "TP2 / 10mm", "50mm", "Fiber Glass Cotton", "Polycarbonate Glass", "2 Kw / 220 VAC / 1P / 60Hz"],
+      ["CZ4.0", "80 Gallons", "525mm", "2408mm", "2mm steel Q235+ 4mm CL PE*", "G 1\" outer thread", "G 1\" outer thread", "Polyurethane", "62mm", "0.6 Mpa", "2000mm x 1000mm", "2m", "Black Chrome Copper Absorber", "TP2 / 22mm", "TP2 / 10mm", "50mm", "Fiber Glass Cotton", "Polycarbonate Glass", "2 Kw / 220 VAC / 1P / 60Hz"]
+    ],
+    "notes": ["(*Also Available in Split type Solar Water Heater)", "Absorber area printed as '2m' (no superscript) on the sheet"],
+    "unclear": []
+  },
+  "5-Star-Integral-Heat-Pump-Specifications-": {
+    "title": "5-Star integral (all-in-one) heat pump water heaters",
+    "columns": ["Model", "Heating capacity (kW)", "Power input (W)", "COP (W/W)", "Power supply (V/N/Hz)", "Compressor", "Refrigerant type", "Water tank volume (L)", "Net dimensions (mm)", "Packing dimensions (mm)", "Net weight (kg)", "Gross weight (kg)", "Noise level (dB(A))"],
+    "rows": [
+      ["FSHW-28A-100 L", "2.8", "700", "4", "220-240/150", "Rotary", "R410A", "100", "560/1370", "590x580x1570", "65", "72", "47"],
+      ["FSHW-28A-150 L", "2.8", "700", "4", "220-240/150", "Rotary", "R410A", "150", "560x1560", "590x580x1760", "74", "78", "48"],
+      ["FSHW-28A-200 L", "2.8", "700", "4", "220-240/150", "Rotary", "R410A", "200", "560x1740", "590x580x1940", "82", "87", "48"],
+      ["FSHW-28A-250 L", "2.8", "700", "4", "220-240/150", "Rotary", "R410A", "250", "560x1970", "590x580x2120", "92", "100", "48"],
+      ["FSHW-28A-300 L", "2.8", "700", "4", "220-240/150", "Rotary", "R410A", "300", "640x1860", "680x660x2060", "103", "112", "48"]
+    ],
+    "notes": [
+      "Features included (all models): 1.5 kw auxillary electrical heater; Electronic expansion valve; Magnesium stick; Relieve / Safety Valve; One extra set of heat exchanger, such as Solar coil (optional, if you need please claim in advance)",
+      "Power supply printed as '220-240/150' and 100 L net dimensions printed as '560/1370' (transcribed as printed; likely typos on the sheet)"
+    ],
+    "unclear": []
+  },
+  "Aquapower-A35M-and-A55": {
+    "title": "Aquapower multipoint instant water heaters A35M / A55",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["A35M", "Multipoint", "220V", "3.5", "1.2", "100", "135", "205", "20", "2 Liters/minute", "2 psi"],
+      ["A55", "Multipoint", "220V", "5.5", "1.2", "100", "135", "205", "30", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "Aquapower-Q35M-1": {
+    "title": "Aquapower singlepoint instant water heater Q35M",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["Q35M", "Singlepoint", "220V", "3.5", "1.7", "100", "220", "300", "20", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "Aquapower-Q6M-and-Q9M": {
+    "title": "Aquapower multipoint instant water heaters Q6M / Q9M",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["Q6M", "Multipoint", "220V", "6.0", "1.7", "100", "220", "300", "30", "2 Liters/minute", "2 psi"],
+      ["Q9M", "Multipoint", "220V", "9.0", "1.7", "100", "220", "300", "40", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "Aquapower-S35M-and-S45M": {
+    "title": "Aquapower singlepoint instant water heaters S35M / S45M",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["S35M", "Singlepoint", "220V", "3.5", "1.2", "100", "135", "205", "20", "2 Liters/minute", "2 psi"],
+      ["S45M", "Singlepoint", "220V", "4.5", "1.2", "100", "135", "205", "30", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "AQUARIUS-AQA30-and-AQA55": {
+    "title": "Aquarius singlepoint instant water heaters AQA-30 / AQA-55",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["AQA-30", "Singlepoint", "220V", "3.5", "1.7", "300", "95", "185", "20", "2 Liters/minute", "2 psi"],
+      ["AQA-55", "Singlepoint", "220V", "5.5", "1.7", "300", "95", "185", "30", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "AQUARIUS-AQA30E-and-AQA55E": {
+    "title": "Aquarius multipoint instant water heaters AQA-30E / AQA-55E",
+    "columns": ["Model", "Type", "Heating element voltage", "Heating element power (kW)", "Weight (kg)", "Length (mm)", "Width (mm)", "Height (mm)", "Required breaker (amps)", "Flow rate", "Maximum activating pressure"],
+    "rows": [
+      ["AQA-30E", "Multipoint", "220V", "3.5", "1.7", "300", "95", "185", "20", "2 Liters/minute", "2 psi"],
+      ["AQA-55E", "Multipoint", "220V", "5.5", "1.7", "300", "95", "185", "30", "2 Liters/minute", "2 psi"]
+    ],
+    "notes": [],
+    "unclear": []
+  },
+  "CHAMPION-STORAGE-TANK-SPECS": {
+    "title": "Champion storage tanks (DR series)",
+    "columns": ["Model", "Capacity (Gallons)", "A", "B", "C", "D", "E", "F"],
+    "rows": [
+      ["DR 7700", "2000", "50", "3050", "2000", "475", "1650", "200"],
+      ["DR 4850", "1250", "50", "2650", "1600", "350", "1800", "200"],
+      ["DR 3850", "1000", "50", "2350", "1600", "350", "1500", "200"],
+      ["DR 2850", "750", "50", "2570", "1300", "475", "1500", "200"],
+      ["DR 1950", "500", "50", "2120", "1200", "350", "1300", "200"],
+      ["DR 1350", "350", "50", "2120", "1000", "350", "1200", "200"]
+    ],
+    "notes": ["Dimension columns A-F have no unit printed on the sheet (presumably mm, referring to a dimension drawing)"],
+    "unclear": []
+  },
+  "Air-to-Water-Specifications": {
+    "title": "Air-to-water heat pumps (DE-WB series)",
+    "columns": ["Model", "Power supply (V/Ph/Hz)", "1) Heating capacity (kW)", "1) Heating capacity (BTU)", "1) Rated power input (kW)", "2) Heating capacity (kW)", "2) Heating capacity (BTU)", "2) Rated power input (kW)", "Refrigerant", "Compressor type", "Fan (qty)", "Required hot water flow rate (m3/h)", "Water connection", "Noise (dB(A))", "Max. current (A)", "Max. water temp. (°C)", "Operation temp. range (°C)", "Net weight (kg)", "Net size L/W/H (mm)"],
+    "rows": [
+      ["DE-9WB", "220/1/60", "3.4", "11601", "0.85", "2.7", "9212", "0.75", "R410A", "Rotary", "1", "1.2", "G3/4\"", "≤48", "7", "60", "-10-45°", "52", "835x285x820"],
+      ["DE-13WB", "220/1/60", "4.8", "16378", "1.2", "4", "13648", "1.1", "R410A", "Rotary", "1", "1.2", "G3/4\"", "≤48", "9.5", "60", "-10-45°", "58", "835x285x820"],
+      ["DE-18WB", "220/1/60", "7", "23884", "1.8", "5.6", "19107", "1.6", "R410A", "Rotary", "1", "1.6", "G3/4\"", "≤48", "13", "60", "-10-45°", "67", "835x285x870"],
+      ["DE-27WB", "220/1/60", "10.8", "36850", "2.7", "8.8", "30026", "2.5", "R410A", "Rotary", "1", "2", "G1\"", "≤48", "25", "60", "-10-45°", "84", "835x315x985"],
+      ["DE-36WB", "380/3/60", "13.8", "47086", "3.6", "11", "37532", "3", "R410A", "Scroll", "1", "3", "G1\"", "≤50", "7.5", "60", "-10-45°", "95", "1195x390x920"],
+      ["DE-46WB", "380/3/60", "17.5", "59710", "4.6", "14.1", "48109", "3.9", "R410A", "Scroll", "2", "4", "G1\"", "≤52", "10", "60", "-10-45°", "110", "1345x350x1260"],
+      ["DE-52WB", "220/1/60", "20", "68240", "5.2", "16.5", "56298", "4.7", "R410A", "Scroll", "2", "4", "G1\"", "≤52", "13", "60", "-10-45°", "110", "1345x350x1260"]
+    ],
+    "notes": [
+      "1) Heating by Ambient temp. (DB/WB):20°C /15°C and water temp. (in/out): 15°C/55°C",
+      "2) Heating by Ambient temp. (DB/WB):7°C /6°C and water temp. (in/out): 30°C/35°C"
+    ],
+    "unclear": []
+  },
+  "Water-to-Water-Heatpump-Specifications": {
+    "title": "Water-to-water (water source) heat pumps (DE-W/S series)",
+    "columns": ["Model", "Power supply (V/Ph/Hz)", "1) Heating capacity (kW)", "1) Heating capacity (BTU)", "1) Rated power input (kW)", "2) Heating capacity (kW)", "2) Heating capacity (BTU)", "2) Rated power input (kW)", "Cooling capacity (kW)", "Cooling capacity (BTU)", "Cooling rated power input (kW)", "Refrigerant", "Evaporator type", "Condenser/heat exchanger type", "Throttling device", "Controller", "Required hot water flow rate (m3/h)", "Required water source flow rate (m3/h)", "Water connection", "Suggested tank capacity (t)", "Sound pressure level at 1m (dB(A))", "Max. current (A)", "Level against electric shock", "Water proof grade", "Max. water output temp. (°C)", "Water source temp. range (°C)", "Net weight (kg)", "Dimension L/W/H (mm)"],
+    "rows": [
+      ["DE-27W/S", "380/3/60", "11.5", "39238", "2.7", "10.5", "35826", "2.2", "9", "30708", "2.1", "R410a", "Stainless steel plate", "Stainless steel plate", "Emerson thermal expansion valve", "Light touch pad control panel", "2.2", "1.8", "G1\"", "3", "≤40", "7.5", "I", "IPX4", "60°", "5~35", "80", "690X620X840"],
+      ["DE-46W/S", "380/3/60", "20", "68240", "4.6", "18.5", "63122", "3.7", "15", "51180", "3.6", "R410a", "Stainless steel plate", "Stainless steel plate", "Emerson thermal expansion valve", "Light touch pad control panel", "4", "3.2", "G1\"", "5", "≤42", "13", "I", "IPX4", "60°", "5~35", "120", "790X620X850"],
+      ["DE-92W/S", "380/3/60", "40", "136480", "9.2", "37.5", "127950", "7.2", "30", "102360", "7.1", "R410a", "Stainless steel plate", "Stainless steel plate", "Emerson thermal expansion valve", "Light touch pad control panel", "8", "6.4", "G1-1/4\"", "10", "≤44", "25", "I", "IPX4", "60°", "5~35", "250", "700X720X1290"]
+    ],
+    "notes": [
+      "1) Heating test condition: Water source temp. (In/Out): 15°C /7°C, Water temp. (In/Out): 15°C/55°C.",
+      "2) Heating test condition: Water source temp. (In/Out): 10°C /7°C, Water temp. (In/Out): 30°C/35°C.",
+      "Cooling test condition: Water source temp. (In/Out): 25°C /30°C, Water temp. (In/Out): 12°C/7°C.",
+      "Evaporator, condenser, throttling device and controller are printed as single merged cells spanning all models.",
+      "The technical data above are for reference only and the accurate data should be subject to the testing report or nameplate."
+    ],
+    "unclear": []
+  },
+  "Everhot-Floor-Stand-Specifications": {
+    "title": "Everhot floor-stand storage water heaters (ERAS large)",
+    "columns": ["Model", "Tank capacity (USG)", "Tank capacity (Liters)", "Heating element voltage", "Heating element power (kW)", "Operating weight (kg)", "Diameter (mm)", "Height (mm)", "Current draw (amps)", "Over current protection (amps)"],
+    "rows": [
+      ["ERAS150", "40 Gals", "151", "220V", "3.6", "49", "458", "1364", "16.3", "20"],
+      ["ERAS195", "50 Gals", "189", "220V", "3.6", "58.5", "458", "1714", "16.3", "20"],
+      ["ERAS245", "65 Gals", "246", "220V", "4.8", "65.5", "569", "1409", "21.8", "20"],
+      ["ERAS320", "85 Gals", "322", "220V", "4.8", "79", "569", "1759", "21.8", "20"],
+      ["ERAS400", "108 Gals", "409", "220V", "4.8", "102", "610", "1900", "21.8", "20"],
+      ["ERAS495", "130 Gals", "492", "220V", "4.8", "115", "681", "1911", "21.8", "20"]
+    ],
+    "notes": ["Sheet heading: FLOOR STAND"],
+    "unclear": []
+  },
+  "Everhot-Floor-Stand-or-Wall-Hung-Specifications": {
+    "title": "Everhot floor-stand or wall-hung storage water heaters (ERAS small)",
+    "columns": ["Model", "Tank capacity (USG)", "Tank capacity (Liters)", "Heating element voltage", "Heating element power (kW)", "Operating weight (kg)", "Diameter (mm)", "Height (mm)", "Current draw (amps)", "Over current protection (amps)"],
+    "rows": [
+      ["ERAS025G", "6.5 Gals", "25", "220V", "1.5", "13", "370", "440", "6.25", "15"],
+      ["ERAS040G", "10.5 Gals", "40", "220V", "1.5", "22", "458", "454", "6.8", "15"],
+      ["ERAS060G", "15 Gals", "57", "220V", "3.6", "27", "458", "614", "16.3", "20"],
+      ["ERAS090G", "23 Gals", "87", "220V", "3.6", "34", "458", "864", "16.3", "20"],
+      ["ERAS0120", "32 Gals", "121", "220V", "3.6", "42", "458", "1114", "16.3", "20"]
+    ],
+    "notes": ["Sheet heading: FLOOR STAND OR WALL HUNG", "Last model printed as 'ERAS0120' (no trailing G)"],
+    "unclear": []
+  },
+  "Rheem-1-Specifications-": {
+    "title": "Rheem horizontal storage heaters (86H series)",
+    "columns": ["Model", "Tank capacity (Litres)", "Mounting", "Dimensions (mm) A", "Dimensions (mm) B", "Dimensions (mm) C", "Dimensions (mm) D", "Dimensions (mm) E", "Dimensions (mm) F", "Dimensions (mm) G", "Heating time (mins)*", "Preset temperature (°C)", "Heating element input kW (240V)", "Empty tank weight (kg)", "Operating tank weight (kg)"],
+    "rows": [
+      ["86H-25", "25", "Horizontal", "460", "320", "70", "377", "396", "150", "426", "20", "60", "3", "17", "42"],
+      ["86H-40", "40", "Horizontal", "664", "340", "162", "377", "396", "150", "426", "32", "60", "3", "22", "62"],
+      ["86H-55", "55", "Horizontal", "868", "477", "196", "377", "396", "150", "426", "44", "60", "3", "25", "80"],
+      ["86H-75", "75", "Horizontal", "1140", "812", "164", "377", "396", "150", "426", "60", "60", "3", "31", "106"],
+      ["86H-100", "100", "Horizontal", "973", "643", "165", "461", "480", "240", "510", "80", "60", "3", "36", "136"]
+    ],
+    "notes": ["Heating time is marked with * but the footnote text is not printed on the sheet"],
+    "unclear": []
+  },
+  "Rheem-2-Specifications": {
+    "title": "Rheem vertical storage heaters (85V series)",
+    "columns": ["Model", "Tank capacity (USG)", "Tank capacity (Litres)", "Stainless steel element voltage (single phase)", "Stainless steel element (kW)", "Operating weight (kg)", "Heater diameter (mm)", "Heater height (mm)", "Shipping weight (kg)", "Shipping dim. L (mm)", "Shipping dim. B (mm)", "Shipping dim. Ht (mm)", "Current draw (amps)", "Over current protection (amps)"],
+    "rows": [
+      ["85V30-1", "30", "114", "240", "4.5", "154", "452", "1165", "40", "470", "470", "1200", "18.75", "25"],
+      ["85V40-1", "40", "151", "240", "4.5", "200", "503", "1200", "48", "520", "520", "1230", "18.75", "25"],
+      ["85V52-1", "50", "169", "240", "4.5", "244", "485", "1455", "54", "500", "500", "1490", "18.75", "25"],
+      ["85V66-1", "65", "246", "240", "5.5", "318", "530", "1500", "71", "560", "560", "1530", "22.9", "30"],
+      ["85V80-1", "80", "303", "240", "5.5", "388", "585", "1500", "84", "605", "605", "1530", "22.9", "30"],
+      ["85V120-1", "120", "454", "240", "5.5", "609", "720", "1590", "153", "850", "850", "1770", "22.9", "30"]
+    ],
+    "notes": ["Shipping dimensions are approximate (sheet header: 'Shipping Dim. (Approx.)')"],
+    "unclear": []
+  },
+  "Swimming-Pool-Heat-Pump-Specifications-2": {
+    "title": "Swimming pool heat pumps (DE-W/DY series)",
+    "columns": ["Model", "Power supply (V/Ph/Hz)", "1) Heating capacity (kW)", "1) Heating capacity (BTU)", "1) Rated power input (kW)", "2) Heating capacity (kW)", "2) Heating capacity (BTU)", "2) Power input (kW)", "Cooling capacity (kW)", "Cooling capacity (BTU)", "Cooling rated power input (kW)", "Refrigerant", "Evaporator", "Condenser/heat exchanger", "Throttling device", "Controller", "Water flow rate (m3/h)", "Water connection (mm)", "Sound pressure level at 1m (dB(A))", "Max. current (A)", "Level against electric shock", "Water proof grade", "Rated water temp. (°C)", "Max. water temp. (°C)", "Operation temp. range (°C)", "Net weight (kg)", "Dimension L/W/H (mm)"],
+    "rows": [
+      ["DE-75W/DY", "380/3/50", "34", "123003", "6", "30", "102389", "5.8", "22", "75085", "9", "R410a", "Aluminum/Cu lamellar tube evaporator", "Titanium-in-PVC heat exchanger", "Emerson thermal expansion valve", "Indoor Digital Controller", "12", "63", "≤60", "21", "I", "IPX4", "28", "45", "-10-45°", "250", "1200x990x1225"],
+      ["DE-92W/DY", "380/3/50", "44", "141092", "8", "39", "133106", "7.5", "26", "88737", "11", "R410a", "Aluminum/Cu lamellar tube evaporator", "Titanium-in-PVC heat exchanger", "Emerson thermal expansion valve", "Indoor Digital Controller", "15", "63", "≤60", "25", "I", "IPX4", "28", "45", "-10-45°", "250", "1200x990x1225"],
+      ["DE-105W/DY", "380/3/50", "53", "168225", "9", "46.5", "158703", "8.9", "29.8", "101706", "12", "R410a", "Aluminum/Cu lamellar tube evaporator", "Titanium-in-PVC heat exchanger", "Emerson thermal expansion valve", "Indoor Digital Controller", "15", "63", "≤60", "30", "I", "IPX4", "28", "45", "-10-45°", "290", "1200x990x1425"],
+      ["DE-150W/DY", "380/3/50", "62", "198976", "11", "55", "187713", "10.6", "40", "136519", "17", "R410a", "Aluminum/Cu lamellar tube evaporator", "Titanium-in-PVC heat exchanger", "Emerson thermal expansion valve", "Indoor Digital Controller", "25", "75", "≤62", "40", "I", "IPX4", "28", "45", "-10-45°", "465", "2140x1280x1670"],
+      ["DE-180W/DY", "380/3/50", "86", "289420", "15", "76", "259386", "14.6", "55", "187713", "23", "R410a", "Aluminum/Cu lamellar tube evaporator", "Titanium-in-PVC heat exchanger", "Emerson thermal expansion valve", "Indoor Digital Controller", "30", "75", "≤64", "50", "I", "IPX4", "28", "45", "-10-45°", "622", "2200x1315x2080"]
+    ],
+    "notes": [
+      "1) Heating test condition: *Ambient temp. (Dry Bulb): 26°C , Water temp. 26°C",
+      "2) Heating test condition: *Ambient temp. (Dry Bulb): 20°C , Water temp. 26°C",
+      "Cooling test condition: *Ambient temp. (Dry Bulb): 35°C , Water temp. 27°C",
+      "Evaporator, condenser, throttling device and controller are printed as single merged cells spanning all models.",
+      "'Rated water temp.' is printed as 'Rated water temo.' on the sheet.",
+      "The technical data above are for reference only and the accurate data should be subject to the testing report or nameplate."
+    ],
+    "unclear": []
+  }
+}

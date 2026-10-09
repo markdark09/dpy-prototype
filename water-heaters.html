@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en-PH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Heaters, Heat Pumps &amp; Solar Heaters | DPY Mercantile</title>
+<meta name="description" content="Every water heater DPY and Gratek supply: instant, storage, heat pump and solar, plus tanks, pumps and pipes. Compare types, see specs and get a free quote.">
+<meta name="robots" content="noindex,nofollow"> <!-- prototype: kept out of search results; use index,follow on the live site -->
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DPY Mercantile Inc.">
+<meta property="og:title" content="Water Heaters, Heat Pumps &amp; Solar Heaters | DPY Mercantile">
+<meta property="og:description" content="Every water heater DPY and Gratek supply: instant, storage, heat pump and solar, plus tanks, pumps and pipes. Compare types, see specs and get a free quote.">
+<meta property="og:url" content="https://prototype.dpy-mi.workers.dev/water-heaters">
+<meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/og-cover.jpg">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"}]}]}</script>
+<link rel="icon" href="assets/brand/dpy-icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=7ef97ab1">
+<style>
+.lineup{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:clamp(6px,1.4vw,18px);height:300px;padding:0 10px 34px}
+.lineup::before{content:"";position:absolute;left:4%;right:4%;bottom:18px;height:40px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,.3) 60%,rgba(255,255,255,0))}
+.lineup::after{content:"";position:absolute;left:14%;right:14%;bottom:28px;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(1,30,70,.22),rgba(1,30,70,0))}
+.lineup img{position:relative;z-index:1;width:auto;filter:drop-shadow(0 18px 16px rgba(1,30,70,.18));transition:transform .8s var(--ease)}
+.lineup img:hover{transform:translateY(-8px)}
+.lineup .a{height:150px}.lineup .b{height:210px}.lineup .c{height:250px}.lineup .d{height:170px}
+/* type cards */
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ty{position:relative;display:flex;flex-direction:column;text-align:left;padding:18px;border-radius:24px;background:#fff;box-shadow:var(--card);transition:transform .6s var(--ease),box-shadow .6s}
+.ty:hover{transform:translateY(-5px)}
+.ty[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ink),var(--card)}
+.ty .ph{height:150px;display:grid;place-items:end center;border-radius:18px;background:radial-gradient(70% 70% at 50% 45%,#fff,#E6EFF8)}
+.ty .ph img{max-height:132px;width:auto;margin-bottom:6px;transition:transform .7s var(--ease)}
+.ty:hover .ph img{transform:translateY(-6px)}
+.ty b{display:block;margin:14px 0 2px;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.ty small{display:block;font-size:13px;line-height:1.45;color:var(--mute)}
+.ty .n{position:absolute;right:16px;top:16px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
+/* compare table */
+.cmp{margin-top:26px;border-radius:24px;background:#fff;box-shadow:var(--card);overflow:hidden}
+.cmp table{width:100%;border-collapse:collapse;font-size:13.5px}
+.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+.cmp tr:last-child > *{border-bottom:0}
+.cmp thead th{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:#F7FAFD}
+.cmp tbody th{width:170px;font-size:12.5px;font-weight:700;color:var(--mute)}
+.mt{display:inline-flex;align-items:center;gap:3px}
+.mt i{width:16px;height:6px;border-radius:4px;background:#E3EAF1}
+.mt i.f{background:linear-gradient(90deg,var(--sky),var(--blue))}
+.run .mt i.f,.up .mt i.f{background:linear-gradient(90deg,#FFB08F,var(--red2))}
+.mt em{margin-left:8px;font-style:normal;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.run .mt.low i.f{background:linear-gradient(90deg,#8FD9AE,#1E9E55)}
+/* catalogue */
+.cat-bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 0;margin-bottom:26px;background:linear-gradient(180deg,#F4F7FA 80%,rgba(244,247,250,0));transition:top .6s var(--ease)}
+.nav:not(.up) ~ main .cat-bar{top:76px}
+.seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:#E4E9EE}
+.seg button{height:32px;padding:0 14px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink2);transition:background .3s,color .3s}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px -4px rgba(0,0,0,.25)}
+.cat-grid{grid-template-columns:repeat(4,1fr)}
+.pc[hidden]{display:none}
+.cat-empty{padding:40px;text-align:center;color:var(--mute)}
+.cat-count{font-size:13px;color:var(--mute)}
+/* finder */
+.finder{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:clamp(26px,4vw,48px);border-radius:30px;color:#fff;background:radial-gradient(70% 90% at 100% 100%,rgba(199,10,14,.5),transparent 70%),radial-gradient(60% 80% at 0% 0%,rgba(13,104,195,.55),transparent 70%),linear-gradient(160deg,#06264D,#0A1830)}
+.finder h2{margin:0}
+.finder p{margin:14px 0 24px;color:#A9C2DE;max-width:440px}
+.finder ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.finder ol li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:14px}
+.finder ol i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;background:#fff;color:var(--ink)}
+/* finder dialog */
+.qz{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:rgba(6,16,31,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+.qz.on{opacity:1;pointer-events:auto}
+.qz-box{position:relative;width:min(680px,100%);max-height:calc(100svh - 40px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;border-radius:28px;background:#fff;box-shadow:0 50px 100px -40px rgba(0,0,0,.6);transform:translateY(20px) scale(.98);transition:transform .5s var(--ease)}
+.qz.on .qz-box{transform:none}
+.qz-top{display:flex;align-items:center;gap:14px;padding:22px 24px 0}
+.qz-top .bar{flex:1;height:6px;border-radius:9px;background:#EDF1F5;overflow:hidden}
+.qz-top .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--sky),var(--red));transform-origin:0 50%;transform:scaleX(.25);transition:transform .6s var(--ease)}
+.qz-top small{font-size:12px;font-weight:700;color:var(--dim);min-width:34px;text-align:right}
+.qz-top button{width:36px;height:36px;border-radius:50%;background:var(--soft);font-size:18px;line-height:1}
+.qz-step{padding:24px 28px 28px;animation:qzIn .5s var(--ease) both}
+@keyframes qzIn{from{opacity:0;transform:translateX(24px)}}
+.qz-step.back{animation-name:qzBack}@keyframes qzBack{from{opacity:0;transform:translateX(-24px)}}
+.qz-step h3{margin:0 0 6px;font-size:26px;font-weight:600;letter-spacing:-.03em;line-height:1.15}
+.qz-step > p{margin:0 0 20px;font-size:14px;color:var(--mute)}
+.qz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qz-opts button{display:flex;align-items:center;gap:12px;min-height:64px;padding:12px 16px;border-radius:18px;text-align:left;background:#F5F8FB;transition:background .25s,box-shadow .25s,transform .4s var(--ease)}
+.qz-opts button:hover{background:#EDF3F9;transform:translateY(-2px)}
+.qz-opts button[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 2px var(--ink)}
+.qz-opts .e{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#fff;font-size:19px}
+.qz-opts b{display:block;font-size:14.5px;font-weight:600}
+.qz-opts small{display:block;font-size:12px;color:var(--mute)}
+.qz-bk{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--mute);padding:8px 4px}
+.qz-res .k{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.qz-res h3{margin:6px 0 4px}
+.qz-res .why{list-style:none;margin:10px 0 16px;padding:0;display:grid;gap:6px}
+.qz-res .why li{display:flex;gap:8px;font-size:13.5px;color:var(--ink2)}
+.qz-res .why li::before{content:"✓";color:var(--blue);font-weight:700}
+.qz-picks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 16px}
+.qz-picks a{display:grid;justify-items:center;gap:6px;padding:12px 10px;border-radius:16px;background:#F5F8FB;text-align:center;font-size:12.5px;font-weight:600;line-height:1.3;transition:background .3s,transform .4s var(--ease)}
+.qz-picks a:hover{background:#EDF3F9;transform:translateY(-2px)}
+.qz-picks img{height:84px;width:auto}
+.qz-also{margin:0 0 14px;padding:12px 14px;border-radius:14px;background:#F5F8FB;font-size:13px;color:var(--ink2)}
+.qz-acts{display:flex;flex-wrap:wrap;gap:10px}
+html.modal-open{overflow:hidden}
+@media (max-width:1180px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:980px){.types{grid-template-columns:repeat(2,1fr)}.cat-grid{grid-template-columns:repeat(2,1fr)}.finder{grid-template-columns:1fr}.lineup{height:240px}.lineup .a{height:120px}.lineup .b{height:170px}.lineup .c{height:200px}.lineup .d{height:136px}
+  .cmp{overflow-x:auto}.cmp table{min-width:760px}.nav:not(.up) ~ main .cat-bar{top:76px}}
+@media (max-width:560px){.lineup .d{display:none}.lineup{height:210px}.types{gap:10px}.ty{padding:12px}.ty .ph{height:110px}.ty .ph img{max-height:96px}.ty b{font-size:15.5px}.ty small{font-size:12px}
+  .qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-picks{grid-template-columns:1fr 1fr 1fr}.qz-picks img{height:64px}
+  .cat-bar{gap:8px}.cat-bar .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--g) * -1);padding:2px var(--g);width:calc(100% + var(--g) * 2)}.cat-bar .chips li{flex:none}}
+</style>
+</head>
+<body class="pg-water-heaters">
+<script>document.documentElement.classList.add('js');if(matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||navigator.connection?.saveData)document.documentElement.classList.add('lite')</script>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ext" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ck" viewBox="0 0 16 16"><path d="M3.5 8.4l2.8 2.8 6-6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <linearGradient id="gHeat" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5FA8EC"/><stop offset="1" stop-color="#C70A0E"/></linearGradient>
+</defs></svg>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="./" aria-label="DPY Mercantile Inc., home"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
+    <ul class="pill"><li><a href="water-heaters" aria-current="page">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="contact">Contact</a></li></ul>
+    <div class="nav-cta"><a class="btn line qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+  </div>
+</header>
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters" aria-current="page">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<main id="main">
+<section class="phead">
+  <span class="glow"></span>
+  <div class="wrap ph-grid">
+    <div>
+      <ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">Water Heaters</span></li></ol>
+      <span class="kick">Our range</span>
+      <h1 class="thin h1">Water Heaters &amp;<br>Hot Water Systems</h1>
+      <p class="lede">24 products from 14 brands, for a single shower or a whole hotel. Every one is supplied, installed and serviced by our own team.</p>
+      <div class="ph-acts"><button class="btn red" type="button" data-finder>Help me choose <svg aria-hidden="true"><use href="#arr"/></svg></button><a class="btn ghost" href="#range">Browse all products</a></div>
+    </div>
+    <div class="lineup" aria-hidden="true"><img src="assets/img/dpy/aquapower-a35.webp" width="365" height="600" alt="" class="a"><img src="assets/img/dpy/rheem.webp" width="270" height="452" alt="" class="b"><img src="assets/img/dpy/heatpump-5star.webp" width="138" height="410" alt="" class="c"><img src="assets/img/dpy/deron-wizard.webp" width="450" height="470" alt="" class="d"></div>
+  </div>
+</section>
+
+<section class="sec" id="types" aria-labelledby="tyT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Start here</span><h2 class="thin h2" id="tyT">Four Ways to<br>Heat Water</h2></div><p class="lede">Pick a type to see the models we carry, or compare them side by side below.</p></div>
+    <div class="types"><button class="ty" type="button" data-type="instant" aria-pressed="false" data-r><span class="n">7 models</span><span class="ph"><img src="assets/img/dpy/aquapower-a35.webp" width="365" height="600" alt="" loading="lazy"></span><b>Instant</b><small>Heats water as it flows, so the shower is hot in seconds. Compact, with no tank.</small></button><button class="ty" type="button" data-type="storage" aria-pressed="false" data-r><span class="n">2 models</span><span class="ph"><img src="assets/img/dpy/rheem.webp" width="270" height="452" alt="" loading="lazy"></span><b>Electric storage</b><small>Keeps a tank of hot water ready, so several taps can run at once.</small></button><button class="ty" type="button" data-type="heatpump" aria-pressed="false" data-r><span class="n">4 models</span><span class="ph"><img src="assets/img/dpy/heatpump-5star.webp" width="138" height="410" alt="" loading="lazy"></span><b>Heat pump</b><small>Moves warmth from the air into the water, using far less electricity.</small></button><button class="ty" type="button" data-type="solar" aria-pressed="false" data-r><span class="n">1 models</span><span class="ph"><img src="assets/img/dpy/solar-5star.webp" width="720" height="711" alt="" loading="lazy"></span><b>Solar</b><small>Heated by the sun on your roof, with an electric backup for cloudy days.</small></button></div>
+    <div class="cmp" data-r>
+      <table>
+        <caption class="vh">The four types of water heater compared</caption>
+        <thead><tr><th scope="col"><span class="vh">Compare</span></th><th scope="col">Instant</th><th scope="col">Electric storage</th><th scope="col">Heat pump</th><th scope="col">Solar</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">How it heats</th><td>Heats water as it flows</td><td>Heats and stores a tank</td><td>Moves heat from the air</td><td>Heated by the sun</td></tr>
+          <tr><th scope="row">Hot water ready</th><td>In seconds, no waiting</td><td>Always, until the tank runs low</td><td>Always, from a tank</td><td>Always, with electric backup</td></tr>
+          <tr><th scope="row">Taps at once</th><td><span class="mt" role="img" aria-label="Taps at once: low"><i class="f"></i><i class=""></i><i class=""></i><em>1 or 2</em></span></td><td><span class="mt" role="img" aria-label="Taps at once: medium"><i class="f"></i><i class="f"></i><i class=""></i><em>Several</em></span></td><td><span class="mt" role="img" aria-label="Taps at once: high"><i class="f"></i><i class="f"></i><i class="f"></i><em>A whole building</em></span></td><td><span class="mt" role="img" aria-label="Taps at once: medium"><i class="f"></i><i class="f"></i><i class=""></i><em>Several</em></span></td></tr>
+          <tr class="up"><th scope="row">Upfront cost</th><td><span class="mt" role="img" aria-label="Upfront cost: low"><i class="f"></i><i class=""></i><i class=""></i><em>Low</em></span></td><td><span class="mt" role="img" aria-label="Upfront cost: medium"><i class="f"></i><i class="f"></i><i class=""></i><em>Medium</em></span></td><td><span class="mt" role="img" aria-label="Upfront cost: high"><i class="f"></i><i class="f"></i><i class="f"></i><em>High</em></span></td><td><span class="mt" role="img" aria-label="Upfront cost: high"><i class="f"></i><i class="f"></i><i class="f"></i><em>High</em></span></td></tr>
+          <tr class="run"><th scope="row">Running cost</th><td><span class="mt" role="img" aria-label="Running cost: medium"><i class="f"></i><i class="f"></i><i class=""></i><em>Medium</em></span></td><td><span class="mt" role="img" aria-label="Running cost: medium"><i class="f"></i><i class="f"></i><i class=""></i><em>Medium</em></span></td><td><span class="mt low" role="img" aria-label="Running cost: low"><i class="f"></i><i class=""></i><i class=""></i><em>Low</em></span></td><td><span class="mt low" role="img" aria-label="Running cost: low"><i class="f"></i><i class=""></i><i class=""></i><em>Low</em></span></td></tr>
+          <tr><th scope="row">Space needed</th><td>Smallest: fits beside the shower</td><td>A tank on the wall or floor</td><td>Outdoor unit or tall tank</td><td>Panels and tank on the roof</td></tr>
+          <tr><th scope="row">Best for</th><td><b>Condos, single bathrooms</b></td><td><b>Family homes, several taps</b></td><td><b>Hotels, hospitals, big homes</b></td><td><b>Sunny roofs, resorts</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec soft" id="range" aria-labelledby="raT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">The full range</span><h2 class="thin h2" id="raT">Every Product<br>We Carry</h2></div><p class="lede">Add anything to your quote list as you browse. We'll price it all in one written quotation.</p></div>
+    <div class="cat-bar">
+      <ul class="chips" aria-label="Filter by type"><li><button class="chip" type="button" data-cat="" aria-pressed="true">All <small>24</small></button></li><li><button class="chip" type="button" data-cat="instant" aria-pressed="false">Instant <small>7</small></button></li><li><button class="chip" type="button" data-cat="storage" aria-pressed="false">Storage <small>2</small></button></li><li><button class="chip" type="button" data-cat="heatpump" aria-pressed="false">Heat pumps <small>4</small></button></li><li><button class="chip" type="button" data-cat="solar" aria-pressed="false">Solar <small>1</small></button></li><li><button class="chip" type="button" data-cat="tank" aria-pressed="false">Storage tanks <small>4</small></button></li><li><button class="chip" type="button" data-cat="pump" aria-pressed="false">Pumps <small>1</small></button></li><li><button class="chip" type="button" data-cat="pipe" aria-pressed="false">Pipes & fittings <small>1</small></button></li><li><button class="chip" type="button" data-cat="control" aria-pressed="false">Solar power control <small>3</small></button></li><li><button class="chip" type="button" data-cat="fan" aria-pressed="false">Exhaust fans <small>1</small></button></li></ul>
+      <div class="seg" role="group" aria-label="Who it's for"><button type="button" data-for="" aria-pressed="true">Everyone</button><button type="button" data-for="home" aria-pressed="false">For homes</button><button type="button" data-for="business" aria-pressed="false">For business</button></div>
+    </div>
+    <p class="cat-count" aria-live="polite"></p>
+    <div class="grid cat-grid"><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquapower-a35.webp" width="365" height="600" alt="Aquapower A35M / A55" loading="lazy"></div>
+  <p class="br">Aquapower · Multipoint</p>
+  <h3><a href="products/aquapower-a35m-a55">Aquapower A35M / A55</a></h3>
+  <p>A multipoint instant heater: one unit can feed the shower and the sink.</p>
+  <div class="kf"><span><b>3.5 / 5.5</b> kW</span><span><b>2</b> L/min to start</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquapower-a35m-a55">Details</a><button class="addq" type="button" data-add="aquapower-a35m-a55" data-name="Aquapower A35M / A55" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquapower-aqp28n.webp" width="462" height="560" alt="Aquapower AQP-28N" loading="lazy"></div>
+  <p class="br">Aquapower · Singlepoint</p>
+  <h3><a href="products/aquapower-aqp-28n">Aquapower AQP-28N</a></h3>
+  <p>A slim single-point heater with a modern black finish, for one shower.</p>
+  <div class="kf"><span><b>3.5</b> kW</span><span><b>2</b> L/min to start</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquapower-aqp-28n">Details</a><button class="addq" type="button" data-add="aquapower-aqp-28n" data-name="Aquapower AQP-28N" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquapower-q35m.webp" width="331" height="413" alt="Aquapower Q35M" loading="lazy"></div>
+  <p class="br">Aquapower · Singlepoint</p>
+  <h3><a href="products/aquapower-q35m">Aquapower Q35M</a></h3>
+  <p>A single-point heater with its own shower set, ready for one bathroom.</p>
+  <div class="kf"><span><b>3.5</b> kW</span><span><b>2</b> L/min to start</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquapower-q35m">Details</a><button class="addq" type="button" data-add="aquapower-q35m" data-name="Aquapower Q35M" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home business" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquapower-q6.webp" width="514" height="900" alt="Aquapower Q6M / Q9M" loading="lazy"></div>
+  <p class="br">Aquapower · Multipoint</p>
+  <h3><a href="products/aquapower-q6m-q9m">Aquapower Q6M / Q9M</a></h3>
+  <p>Our most powerful instant heaters, for several taps or a strong rain shower.</p>
+  <div class="kf"><span><b>6 / 9</b> kW</span><span><b>2</b> L/min to start</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquapower-q6m-q9m">Details</a><button class="addq" type="button" data-add="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquapower-s35.webp" width="976" height="1100" alt="Aquapower S35M / S45M" loading="lazy"></div>
+  <p class="br">Aquapower · Singlepoint</p>
+  <h3><a href="products/aquapower-s35m-s45m">Aquapower S35M / S45M</a></h3>
+  <p>A compact single-point heater for one shower, in two power sizes.</p>
+  <div class="kf"><span><b>3.5 / 4.5</b> kW</span><span><b>1.2</b> kg</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquapower-s35m-s45m">Details</a><button class="addq" type="button" data-add="aquapower-s35m-s45m" data-name="Aquapower S35M / S45M" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/gratek-aquarius-shower.webp" width="355" height="287" alt="Gratek Aquarius AQA-30 / AQA-55" loading="lazy"></div>
+  <p class="br">Gratek · Singlepoint</p>
+  <h3><a href="products/gratek-aquarius-aqa-30">Gratek Aquarius AQA-30 / AQA-55</a></h3>
+  <p>Gratek's own single-point heater, with a built-in pump for weak water pressure.</p>
+  <div class="kf"><span><b>3.5 / 5.5</b> kW</span><span><b>Pump</b> built in</span></div>
+  <div class="acts"><a class="btn ghost" href="products/gratek-aquarius-aqa-30">Details</a><button class="addq" type="button" data-add="gratek-aquarius-aqa-30" data-name="Gratek Aquarius AQA-30 / AQA-55" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="instant" data-for="home" data-r>
+  <span class="tag">Instant</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/gratek-aquarius.webp" width="327" height="206" alt="Gratek Aquarius AQA-30E / AQA-55E" loading="lazy"></div>
+  <p class="br">Gratek · Multipoint</p>
+  <h3><a href="products/gratek-aquarius-aqa-30e">Gratek Aquarius AQA-30E / AQA-55E</a></h3>
+  <p>Gratek's multipoint heater with a built-in pump: shower and sink from one unit.</p>
+  <div class="kf"><span><b>3.5 / 5.5</b> kW</span><span><b>Pump</b> built in</span></div>
+  <div class="acts"><a class="btn ghost" href="products/gratek-aquarius-aqa-30e">Details</a><button class="addq" type="button" data-add="gratek-aquarius-aqa-30e" data-name="Gratek Aquarius AQA-30E / AQA-55E" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="storage" data-for="home business" data-r>
+  <span class="tag">Storage</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/rheem.webp" width="270" height="452" alt="Rheem Storage Water Heaters" loading="lazy"></div>
+  <p class="br">Rheem · Wall-hung and floor-standing</p>
+  <h3><a href="products/rheem">Rheem Storage Water Heaters</a></h3>
+  <p>Rheem's glass-lined tanks keep 25 to 454 liters of hot water ready for the whole house.</p>
+  <div class="kf"><span><b>25–454</b> liters</span><span><b>60°C</b> preset</span></div>
+  <div class="acts"><a class="btn ghost" href="products/rheem">Details</a><button class="addq" type="button" data-add="rheem" data-name="Rheem Storage Water Heaters" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="storage" data-for="home business" data-r>
+  <span class="tag">Storage</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/everhot.webp" width="407" height="720" alt="Everhot Storage Water Heaters" loading="lazy"></div>
+  <p class="br">Everhot · Floor-standing or wall-hung</p>
+  <h3><a href="products/everhot">Everhot Storage Water Heaters</a></h3>
+  <p>An Australian-designed tank heater in 11 sizes, from 25 liters for one bathroom to 492 for a building.</p>
+  <div class="kf"><span><b>25–492</b> liters</span><span><b>11</b> sizes</span></div>
+  <div class="acts"><a class="btn ghost" href="products/everhot">Details</a><button class="addq" type="button" data-add="everhot" data-name="Everhot Storage Water Heaters" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="heatpump" data-for="home business" data-r>
+  <span class="tag">Heat pump</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/heatpump-5star.webp" width="138" height="410" alt="5 Star Integral Heat Pump" loading="lazy"></div>
+  <p class="br">5 Star · All-in-one, 100 to 300 L</p>
+  <h3><a href="products/5-star-integral-heat-pump">5 Star Integral Heat Pump</a></h3>
+  <p>A heat pump and hot water tank in one tall unit. Uses about a quarter of the power of an electric heater.</p>
+  <div class="kf"><span><b>4</b> COP</span><span><b>100–300</b> liters</span></div>
+  <div class="acts"><a class="btn ghost" href="products/5-star-integral-heat-pump">Details</a><button class="addq" type="button" data-add="5-star-integral-heat-pump" data-name="5 Star Integral Heat Pump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="heatpump" data-for="business" data-r>
+  <span class="tag">Heat pump</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/deron-wizard.webp" width="450" height="470" alt="Deron Air to Water Heat Pump" loading="lazy"></div>
+  <p class="br">Deron · 3.4 to 20 kW</p>
+  <h3><a href="products/deron-air-to-water-heat-pump">Deron Air to Water Heat Pump</a></h3>
+  <p>Commercial heat pumps that heat water to 60°C for hotels, hospitals and buildings, and can cut heating costs by up to 70%.</p>
+  <div class="kf"><span><b>Up to 70%</b> lower heating cost</span><span><b>60°C</b> hot water</span></div>
+  <div class="acts"><a class="btn ghost" href="products/deron-air-to-water-heat-pump">Details</a><button class="addq" type="button" data-add="deron-air-to-water-heat-pump" data-name="Deron Air to Water Heat Pump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="heatpump" data-for="business" data-r>
+  <span class="tag">Heat pump</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/deron-w2w.webp" width="446" height="533" alt="Deron Water to Water Heat Pump" loading="lazy"></div>
+  <p class="br">Deron · 11.5 to 40 kW</p>
+  <h3><a href="products/deron-water-to-water-heat-pump">Deron Water to Water Heat Pump</a></h3>
+  <p>Takes heat from ground, lake or river water to make hot water, and can cool at the same time.</p>
+  <div class="kf"><span><b>4.4</b> COP</span><span><b>11.5–40</b> kW</span></div>
+  <div class="acts"><a class="btn ghost" href="products/deron-water-to-water-heat-pump">Details</a><button class="addq" type="button" data-add="deron-water-to-water-heat-pump" data-name="Deron Water to Water Heat Pump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="heatpump" data-for="business" data-r>
+  <span class="tag">Heat pump</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/deron-pool.webp" width="355" height="400" alt="Deron Swimming Pool Heat Pump" loading="lazy"></div>
+  <p class="br">Deron · 34 to 86 kW</p>
+  <h3><a href="products/deron-swimming-pool-heat-pump">Deron Swimming Pool Heat Pump</a></h3>
+  <p>Keeps resort and hotel pools at a comfortable temperature, with a corrosion-proof titanium heat exchanger.</p>
+  <div class="kf"><span><b>34–86</b> kW</span><span><b>Titanium</b> heat exchanger</span></div>
+  <div class="acts"><a class="btn ghost" href="products/deron-swimming-pool-heat-pump">Details</a><button class="addq" type="button" data-add="deron-swimming-pool-heat-pump" data-name="Deron Swimming Pool Heat Pump" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="solar" data-for="home business" data-r>
+  <span class="tag">Solar</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/solar-5star.webp" width="720" height="711" alt="5 Star CZ2.0 / CZ4.0 Solar Water Heater" loading="lazy"></div>
+  <p class="br">5 Star · 40 or 80 gallons</p>
+  <h3><a href="products/5-star-solar-water-heater">5 Star CZ2.0 / CZ4.0 Solar Water Heater</a></h3>
+  <p>A rooftop solar heater with a 150 or 300 liter tank, and a 2 kW electric backup for cloudy days.</p>
+  <div class="kf"><span><b>40 / 80</b> gallons</span><span><b>92–96%</b> sunlight absorbed</span></div>
+  <div class="acts"><a class="btn ghost" href="products/5-star-solar-water-heater">Details</a><button class="addq" type="button" data-add="5-star-solar-water-heater" data-name="5 Star CZ2.0 / CZ4.0 Solar Water Heater" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="tank" data-for="business" data-r>
+  <span class="tag">Tank</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/haase-tank.webp" width="422" height="428" alt="HAASE Energy Storage Tank" loading="lazy"></div>
+  <p class="br">HAASE · 1,000 to 40,000 liters</p>
+  <h3><a href="products/haase-energy-storage-tank">HAASE Energy Storage Tank</a></h3>
+  <p>A German-made tank that stores heat, not just water, and delivers clean hot water to a whole building.</p>
+  <div class="kf"><span><b>1,000–40,000</b> liters</span><span><b>93%</b> storage efficiency</span></div>
+  <div class="acts"><a class="btn ghost" href="products/haase-energy-storage-tank">Details</a><button class="addq" type="button" data-add="haase-energy-storage-tank" data-name="HAASE Energy Storage Tank" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="tank" data-for="business" data-r>
+  <span class="tag">Tank</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/champion-tank.webp" width="215" height="440" alt="Champion Glass-Lined Storage Tank" loading="lazy"></div>
+  <p class="br">Champion · 350 to 2,000 gallons</p>
+  <h3><a href="products/champion-storage-tank">Champion Glass-Lined Storage Tank</a></h3>
+  <p>Custom hot water storage tanks with a tough blue glass lining, for buildings that use a lot of hot water.</p>
+  <div class="kf"><span><b>350–2,000</b> gallons</span><span><b>125 PSI</b> standard rating</span></div>
+  <div class="acts"><a class="btn ghost" href="products/champion-storage-tank">Details</a><button class="addq" type="button" data-add="champion-storage-tank" data-name="Champion Glass-Lined Storage Tank" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="tank" data-for="business" data-r>
+  <span class="tag">Tank</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic photo"><img src="assets/img/dpy/enermax-web.webp" width="671" height="700" alt="Enermax Smart Hot Water Storage Tank" loading="lazy"></div>
+  <p class="br">Enermax · Heat exchanger tank</p>
+  <h3><a href="products/enermax-storage-tank">Enermax Smart Hot Water Storage Tank</a></h3>
+  <p>A storage and heat exchange tank that takes heat from several sources and serves several uses.</p>
+  <div class="kf"><span><b>Multiple</b> heat sources</span><span><b>Multiple</b> hot water uses</span></div>
+  <div class="acts"><a class="btn ghost" href="products/enermax-storage-tank">Details</a><button class="addq" type="button" data-add="enermax-storage-tank" data-name="Enermax Smart Hot Water Storage Tank" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="tank" data-for="business" data-r>
+  <span class="tag">Tank</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><span class="noimg">ROTEX</span></div>
+  <p class="br">Rotex · German made</p>
+  <h3><a href="products/rotex-sanicube">Rotex Sanicube Heat Exchanger Tank</a></h3>
+  <p>A hygienic German tank that heats water as it passes through stainless coils, so no water sits and goes stale.</p>
+  <div class="kf"><span><b>50 years</b> engineering life</span><span><b>316</b> stainless coils</span></div>
+  <div class="acts"><a class="btn ghost" href="products/rotex-sanicube">Details</a><button class="addq" type="button" data-add="rotex-sanicube" data-name="Rotex Sanicube Heat Exchanger Tank" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="pump" data-for="business" data-r>
+  <span class="tag">Pump</span><span class="who"><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/wilo-pump.webp" width="340" height="284" alt="Wilo Pumps" loading="lazy"></div>
+  <p class="br">Wilo · Circulation and booster pumps</p>
+  <h3><a href="products/wilo-pumps">Wilo Pumps</a></h3>
+  <p>Premium German pumps for building services, water supply and industry.</p>
+  <div class="kf"><span><b>Circulation</b> pumps</span><span><b>Booster</b> sets</span></div>
+  <div class="acts"><a class="btn ghost" href="products/wilo-pumps">Details</a><button class="addq" type="button" data-add="wilo-pumps" data-name="Wilo Pumps" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="pipe" data-for="home business" data-r>
+  <span class="tag">Pipes</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/aquaplast.webp" width="340" height="276" alt="Aquaplast PPR Pipes &amp; Fittings" loading="lazy"></div>
+  <p class="br">Aquaplast · Pipes, elbows and valves</p>
+  <h3><a href="products/aquaplast-ppr-pipes">Aquaplast PPR Pipes &amp; Fittings</a></h3>
+  <p>Heat-resistant PPR pipes, elbows and valves for hot water lines.</p>
+  <div class="kf"><span><b>PPR</b> heat resistant</span><span><b>Pipes</b> and fittings</span></div>
+  <div class="acts"><a class="btn ghost" href="products/aquaplast-ppr-pipes">Details</a><button class="addq" type="button" data-add="aquaplast-ppr-pipes" data-name="Aquaplast PPR Pipes &amp; Fittings" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="control" data-for="home business" data-r>
+  <span class="tag">Solar control</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/acthor-9s.webp" width="640" height="553" alt="my-PV AC·THOR 9s" loading="lazy"></div>
+  <p class="br">my-PV · Up to 9 kW, 1 to 3 phase</p>
+  <h3><a href="products/my-pv-ac-thor-9s">my-PV AC·THOR 9s</a></h3>
+  <p>Sends spare power from your solar panels into your water heater, instead of exporting it.</p>
+  <div class="kf"><span><b>3 × 3,000</b> W output</span><span><b>1–3</b> phase</span></div>
+  <div class="acts"><a class="btn ghost" href="products/my-pv-ac-thor-9s">Details</a><button class="addq" type="button" data-add="my-pv-ac-thor-9s" data-name="my-PV AC·THOR 9s" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="control" data-for="home" data-r>
+  <span class="tag">Solar control</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/acthor-i.webp" width="640" height="552" alt="my-PV AC·THORi" loading="lazy"></div>
+  <p class="br">my-PV · Single phase</p>
+  <h3><a href="products/my-pv-ac-thor-i">my-PV AC·THORi</a></h3>
+  <p>The single-phase AC·THOR for homes: uses spare solar power to heat water.</p>
+  <div class="kf"><span><b>0–3</b> kW output</span><span><b>1</b> phase</span></div>
+  <div class="acts"><a class="btn ghost" href="products/my-pv-ac-thor-i">Details</a><button class="addq" type="button" data-add="my-pv-ac-thor-i" data-name="my-PV AC·THORi" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="control" data-for="home business" data-r>
+  <span class="tag">Solar control</span><span class="who"><span>Home</span><span class="b">Business</span></span>
+  <div class="pic"><img src="assets/img/dpy/power-meter.webp" width="498" height="560" alt="my-PV Power Meter" loading="lazy"></div>
+  <p class="br">my-PV · 3-phase meter</p>
+  <h3><a href="products/my-pv-power-meter">my-PV Power Meter</a></h3>
+  <p>Measures your solar surplus so the AC·THOR knows how much power it can use.</p>
+  <div class="kf"><span><b>3</b> phase</span><span><b>3 × 60 A</b> clamps</span></div>
+  <div class="acts"><a class="btn ghost" href="products/my-pv-power-meter">Details</a><button class="addq" type="button" data-add="my-pv-power-meter" data-name="my-PV Power Meter" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article><article class="pc" data-cat="fan" data-for="home" data-r>
+  <span class="tag">Fan</span><span class="who"><span>Home</span></span>
+  <div class="pic"><img src="assets/img/dpy/katen-fan.webp" width="640" height="580" alt="Katen Exhaust Fans" loading="lazy"></div>
+  <p class="br">Katen · Wall and window fans</p>
+  <h3><a href="products/katen-exhaust-fans">Katen Exhaust Fans</a></h3>
+  <p>Exhaust fans that clear steam from the bathroom and heat from the kitchen.</p>
+  <div class="kf"><span><b>3</b> models</span><span><b>Wall</b> or window</span></div>
+  <div class="acts"><a class="btn ghost" href="products/katen-exhaust-fans">Details</a><button class="addq" type="button" data-add="katen-exhaust-fans" data-name="Katen Exhaust Fans" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+</article></div>
+    <p class="cat-empty" hidden>No products match. <button class="link" type="button" data-reset>Show everything</button></p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="fdT">
+  <div class="wrap">
+    <div class="finder" data-r>
+      <div><span class="kick" style="color:#FFC9C2">Not sure?</span><h2 class="thin h2 on-dark" id="fdT">Find the Right<br>Water Heater</h2><p>Answer four quick questions. We'll suggest the type that fits, and the models to look at.</p><button class="btn white" type="button" data-finder>Start the finder <svg aria-hidden="true"><use href="#arr"/></svg></button></div>
+      <ol><li><i>1</i>Where you need hot water</li><li><i>2</i>How many showers</li><li><i>3</i>What matters most to you</li><li><i>4</i>Whether you have a sunny roof</li></ol>
+    </div>
+  </div>
+</section>
+
+<div class="qz" role="dialog" aria-modal="true" aria-label="Find my water heater"><div class="qz-box"><div class="qz-top"><span class="bar"><i></i></span><small class="cnt">1/4</small><button class="x" type="button" aria-label="Close">×</button></div><div class="qz-body"></div></div></div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
+    <div class="ft">
+      <div class="logo"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
+        <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
+      <div><h2>Water Heaters</h2><ul><li><a href="water-heaters?type=instant">Instant water heaters</a></li><li><a href="water-heaters?type=storage">Electric storage heaters</a></li><li><a href="water-heaters?type=heatpump">Heat pumps</a></li><li><a href="water-heaters?type=solar">Solar water heaters</a></li><li><a href="water-heaters?type=tank">Tanks, pumps &amp; pipes</a></li><li><a href="water-heaters">All products</a></li></ul></div>
+      <div><h2>Company</h2><ul><li><a href="about">About DPY &amp; Gratek</a></li><li><a href="business">For hotels &amp; buildings</a></li><li><a href="projects">Projects &amp; clients</a></li><li><a href="careers">Careers</a></li></ul></div>
+      <div><h2>Help</h2><ul><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
+    </div>
+    <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
+  </div>
+</footer>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/site.js?v=dd6d3aeb" defer></script>
+<script>
+addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
+const { $, $$, RM, go, quote } = DPY
+/* ---------- filters (kept in the address, so a filtered view can be shared) ---------- */
+const cards = $$('.cat-grid .pc'), chips = $$('.cat-bar [data-cat]'), segs = $$('.seg button'), tys = $$('.ty'), count = $('.cat-count'), empty = $('.cat-empty')
+const NAMES = {"instant":"instant water heaters","storage":"electric storage heaters","heatpump":"heat pumps","solar":"solar water heaters","tank":"storage tanks","pump":"pumps","pipe":"pipes & fittings","control":"solar power control","fan":"exhaust fans"}
+let cat = '', who = ''
+function apply(push) {
+  let n = 0
+  cards.forEach(c => { const on = (!cat || c.dataset.cat === cat) && (!who || c.dataset.for.includes(who)); c.hidden = !on; if (on) { n++; c.classList.add('in') } })
+  chips.forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === cat)); segs.forEach(b => b.setAttribute('aria-pressed', b.dataset.for === who)); tys.forEach(b => b.setAttribute('aria-pressed', b.dataset.type === cat))
+  count.textContent = n + (n === 1 ? ' product' : ' products') + (cat ? ' · ' + NAMES[cat] : '') + (who ? (who === 'home' ? ' · for homes' : ' · for business') : '')
+  empty.hidden = n > 0
+  if (push) { const u = new URL(location); cat ? u.searchParams.set('type', cat) : u.searchParams.delete('type'); who ? u.searchParams.set('for', who) : u.searchParams.delete('for'); u.hash = ''; history.replaceState(null, '', u) }
+}
+chips.forEach(b => b.addEventListener('click', () => { cat = b.dataset.cat; apply(true) }))
+segs.forEach(b => b.addEventListener('click', () => { who = b.dataset.for; apply(true) }))
+tys.forEach(b => b.addEventListener('click', () => { cat = cat === b.dataset.type ? '' : b.dataset.type; apply(true); go('#range', -70) }))
+$('[data-reset]').addEventListener('click', () => { cat = who = ''; apply(true) })
+const qs = new URLSearchParams(location.search); cat = NAMES[qs.get('type')] ? qs.get('type') : ''; who = ['home', 'business'].includes(qs.get('for')) ? qs.get('for') : ''
+apply(false); if (cat || who) addEventListener('load', () => setTimeout(() => go('#range', -70), 80))
+
+/* ---------- the finder: 4 questions, a type and the models to look at ---------- */
+const P = [{"s":"aquapower-a35m-a55","n":"Aquapower A35M / A55","c":"instant","i":"assets/img/dpy/aquapower-a35.webp","f":["home"]},{"s":"aquapower-aqp-28n","n":"Aquapower AQP-28N","c":"instant","i":"assets/img/dpy/aquapower-aqp28n.webp","f":["home"]},{"s":"aquapower-q35m","n":"Aquapower Q35M","c":"instant","i":"assets/img/dpy/aquapower-q35m.webp","f":["home"]},{"s":"aquapower-q6m-q9m","n":"Aquapower Q6M / Q9M","c":"instant","i":"assets/img/dpy/aquapower-q6.webp","f":["home","business"]},{"s":"aquapower-s35m-s45m","n":"Aquapower S35M / S45M","c":"instant","i":"assets/img/dpy/aquapower-s35.webp","f":["home"]},{"s":"gratek-aquarius-aqa-30","n":"Gratek Aquarius AQA-30 / AQA-55","c":"instant","i":"assets/img/dpy/gratek-aquarius-shower.webp","f":["home"]},{"s":"gratek-aquarius-aqa-30e","n":"Gratek Aquarius AQA-30E / AQA-55E","c":"instant","i":"assets/img/dpy/gratek-aquarius.webp","f":["home"]},{"s":"rheem","n":"Rheem Storage Water Heaters","c":"storage","i":"assets/img/dpy/rheem.webp","f":["home","business"]},{"s":"everhot","n":"Everhot Storage Water Heaters","c":"storage","i":"assets/img/dpy/everhot.webp","f":["home","business"]},{"s":"5-star-integral-heat-pump","n":"5 Star Integral Heat Pump","c":"heatpump","i":"assets/img/dpy/heatpump-5star.webp","f":["home","business"]},{"s":"deron-air-to-water-heat-pump","n":"Deron Air to Water Heat Pump","c":"heatpump","i":"assets/img/dpy/deron-wizard.webp","f":["business"]},{"s":"deron-water-to-water-heat-pump","n":"Deron Water to Water Heat Pump","c":"heatpump","i":"assets/img/dpy/deron-w2w.webp","f":["business"]},{"s":"deron-swimming-pool-heat-pump","n":"Deron Swimming Pool Heat Pump","c":"heatpump","i":"assets/img/dpy/deron-pool.webp","f":["business"]},{"s":"5-star-solar-water-heater","n":"5 Star CZ2.0 / CZ4.0 Solar Water Heater","c":"solar","i":"assets/img/dpy/solar-5star.webp","f":["home","business"]},{"s":"haase-energy-storage-tank","n":"HAASE Energy Storage Tank","c":"tank","i":"assets/img/dpy/haase-tank.webp","f":["business"]},{"s":"champion-storage-tank","n":"Champion Glass-Lined Storage Tank","c":"tank","i":"assets/img/dpy/champion-tank.webp","f":["business"]},{"s":"enermax-storage-tank","n":"Enermax Smart Hot Water Storage Tank","c":"tank","i":"assets/img/dpy/enermax-web.webp","f":["business"]},{"s":"rotex-sanicube","n":"Rotex Sanicube Heat Exchanger Tank","c":"tank","i":"","f":["business"]},{"s":"wilo-pumps","n":"Wilo Pumps","c":"pump","i":"assets/img/dpy/wilo-pump.webp","f":["business"]},{"s":"aquaplast-ppr-pipes","n":"Aquaplast PPR Pipes & Fittings","c":"pipe","i":"assets/img/dpy/aquaplast.webp","f":["home","business"]},{"s":"my-pv-ac-thor-9s","n":"my-PV AC·THOR 9s","c":"control","i":"assets/img/dpy/acthor-9s.webp","f":["home","business"]},{"s":"my-pv-ac-thor-i","n":"my-PV AC·THORi","c":"control","i":"assets/img/dpy/acthor-i.webp","f":["home"]},{"s":"my-pv-power-meter","n":"my-PV Power Meter","c":"control","i":"assets/img/dpy/power-meter.webp","f":["home","business"]},{"s":"katen-exhaust-fans","n":"Katen Exhaust Fans","c":"fan","i":"assets/img/dpy/katen-fan.webp","f":["home"]}]
+const Q = [
+  { k: 'where', h: 'Where do you need hot water?', p: 'Pick the closest match.', o: [['condo', '🏢', 'Condo or apartment', 'A unit in a building'], ['house', '🏠', 'House', 'A family home'], ['hotel', '🏨', 'Hotel or resort', 'Guest rooms, kitchens, pools'], ['hospital', '🏥', 'Hospital or clinic', 'Round-the-clock hot water'], ['commercial', '🏬', 'Commercial', 'Restaurant, gym, office, school']] },
+  { k: 'showers', h: 'How many showers or bathrooms need hot water?', p: 'A rough number is fine.', o: [['1', '🚿', 'Just 1', ''], ['2-3', '🚿', '2 to 3', ''], ['4-10', '🚿', '4 to 10', ''], ['10+', '🚿', 'More than 10', 'Whole building']] },
+  { k: 'want', h: 'What matters most to you?', p: "Pick one. We'll weigh the rest at your site visit.", o: [['fast', '⚡', 'Hot water instantly', 'And a compact unit'], ['many', '💧', 'Lots of hot water at once', 'Several taps running together'], ['save', '💰', 'Low power bills', 'Running cost over the years'], ['budget', '🏷️', 'Low upfront cost', 'Simple and affordable']] },
+  { k: 'roof', h: 'Do you have a sunny roof you can use?', p: 'Solar heaters need a few square meters of open sun.', o: [['yes', '☀️', 'Yes', 'Open roof with good sun'], ['no', '🌥️', 'No', 'Shaded, shared or no roof'], ['unsure', '🤔', 'Not sure', '']] },
+]
+const T = {
+  instant: { t: 'Instant Water Heater', why: ['Hot in seconds, heated as it flows', 'Compact and wall-mounted, with no tank', 'The lowest upfront cost'] },
+  storage: { t: 'Electric Storage Water Heater', why: ['A tank of hot water always ready', 'Several showers and taps at once', 'Simple to install in most homes'] },
+  heatpump: { t: 'Heat Pump Water Heater', why: ['Moves heat from the air: about a quarter of the power', 'Sized with storage tanks for many showers at once', 'The lowest running cost for big hot water use'] },
+  solar: { t: 'Solar Water Heater', why: ['Heated by the sun, with electric backup for cloudy days', 'Cuts the power bill the most for homes', 'Uses the sunny roof you already have'] },
+}
+function pick(a) {
+  const big = a.where === 'hotel' || a.where === 'hospital' || a.showers === '10+' || (a.where === 'commercial' && a.showers !== '1')
+  if (big) return ['heatpump', a.roof === 'yes' ? 'solar' : 'storage']
+  if (a.want === 'fast' || a.showers === '1' || (a.where === 'condo' && a.want !== 'many')) return ['instant', a.want === 'many' ? 'storage' : (a.roof === 'yes' && a.where !== 'condo' ? 'solar' : 'storage')]
+  if (a.want === 'save') return a.roof === 'yes' ? ['solar', 'heatpump'] : ['heatpump', 'storage']
+  if (a.showers === '4-10') return a.roof === 'yes' ? ['solar', 'heatpump'] : ['heatpump', 'storage']
+  if (a.want === 'budget') return ['storage', 'instant']
+  return ['storage', a.roof === 'yes' ? 'solar' : 'heatpump']
+}
+const box = $('.qz'), body = $('.qz-body', box), bar = $('.qz-top .bar i', box), cnt = $('.qz-top .cnt', box)
+let step = 0, ans = {}, opener = null
+function render(dir = 1) {
+  bar.style.transform = 'scaleX(' + Math.min(1, (step + 1) / Q.length) + ')'; cnt.textContent = step < Q.length ? (step + 1) + '/' + Q.length : 'Done'
+  if (step >= Q.length) return result()
+  const q = Q[step]
+  body.innerHTML = '<div class="qz-step' + (dir < 0 ? ' back' : '') + '"><h3>' + q.h + '</h3><p>' + q.p + '</p><div class="qz-opts">' + q.o.map(([v, e, b, s]) => '<button type="button" data-v="' + v + '" aria-pressed="' + (ans[q.k] === v) + '"><span class="e" aria-hidden="true">' + e + '</span><span><b>' + b + '</b>' + (s ? '<small>' + s + '</small>' : '') + '</span></button>').join('') + '</div>' + (step ? '<button class="qz-bk" type="button">← Back</button>' : '') + '</div>'
+  $$('.qz-opts button', body).forEach(b => b.addEventListener('click', () => { ans[q.k] = b.dataset.v; $$('.qz-opts button', body).forEach(x => x.setAttribute('aria-pressed', x === b)); setTimeout(() => { step++; render() }, RM ? 0 : 220) }))
+  $('.qz-bk', body)?.addEventListener('click', () => { step--; render(-1) })
+  $('.qz-opts button', body).focus({ preventScroll: true })
+}
+function result() {
+  const [a, b] = pick(ans), r = T[a], biz = ['hotel', 'hospital', 'commercial'].includes(ans.where)
+  const picks = P.filter(p => p.c === a && (biz ? p.f.includes('business') : p.f.includes('home'))).concat(P.filter(p => p.c === a)).filter((p, i, l) => l.indexOf(p) === i).slice(0, 3)
+  const bld = { condo: 'Condo', house: 'House', hotel: 'Hotel / Resort', hospital: 'Hospital', commercial: 'Commercial' }[ans.where]
+  const quote = 'contact?building=' + encodeURIComponent(bld) + '&interest=' + encodeURIComponent(a) + '&showers=' + encodeURIComponent(ans.showers) + '&note=' + encodeURIComponent('Finder result: ' + r.t + '. Sunny roof: ' + ans.roof + '.') + '#quote'
+  body.innerHTML = '<div class="qz-step qz-res"><span class="k">We recommend</span><h3>' + r.t + '</h3><ul class="why">' + r.why.map(x => '<li>' + x + '</li>').join('') + '</ul><div class="qz-picks">' + picks.map(p => '<a href="products/' + p.s + '">' + (p.i ? '<img src="' + p.i + '" alt="">' : '') + p.n + '</a>').join('') + '</div>' + (biz ? '<p class="qz-also">For ' + bld.toLowerCase() + 's we design the whole system: heaters, storage tanks and pumps, sized to your peak hours. <a class="link" href="business">How we do it</a></p>' : '') + '<p class="qz-also">Also worth a look: <b>' + T[b].t + '</b>. We\'ll compare both at your free site visit.</p><div class="qz-acts"><a class="btn red" href="' + quote + '">Get a free quote for this <svg aria-hidden=\"true\"><use href=\"#arr\"/></svg></a><button class="btn ghost show" type="button">Show these models</button><button class="btn line again" type="button">Start over</button></div></div>'
+  $('.again', body).addEventListener('click', () => { step = 0; ans = {}; render(-1) })
+  $('.show', body).addEventListener('click', () => { close(); cat = a; who = ''; apply(true); go('#range', -70) })
+  $('.btn.red', body).focus({ preventScroll: true })
+}
+function open(from) { opener = from; step = 0; ans = {}; box.classList.add('on'); DPY.lock(true); render() }
+function close() { box.classList.remove('on'); DPY.lock(false); opener?.focus({ preventScroll: true }) }
+$$('[data-finder]').forEach(b => b.addEventListener('click', () => open(b)))
+$('.x', box).addEventListener('click', close); box.addEventListener('click', e => e.target === box && close())
+addEventListener('keydown', e => e.key === 'Escape' && box.classList.contains('on') && close())
+if (location.hash === '#finder') open()
+})
+</script>
+</body>
+</html>

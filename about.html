@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-PH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About DPY Mercantile &amp; Gratek Smart Water</title>
+<meta name="description" content="Since 2001, DPY Mercantile Inc. and Gratek Smart Water Corp. have supplied, installed and serviced water heaters for homes, hotels and hospitals across the Philippines.">
+<meta name="robots" content="noindex,nofollow"> <!-- prototype: kept out of search results; use index,follow on the live site -->
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DPY Mercantile Inc.">
+<meta property="og:title" content="About DPY Mercantile &amp; Gratek Smart Water">
+<meta property="og:description" content="Since 2001, DPY Mercantile Inc. and Gratek Smart Water Corp. have supplied, installed and serviced water heaters for homes, hotels and hospitals across the Philippines.">
+<meta property="og:url" content="https://prototype.dpy-mi.workers.dev/about">
+<meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/og-cover.jpg">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"About","item":"https://prototype.dpy-mi.workers.dev/about"}]}]}</script>
+<link rel="icon" href="assets/brand/dpy-icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=7ef97ab1">
+<style>
+.ab-photo{position:relative;margin-top:48px;border-radius:30px;overflow:hidden;aspect-ratio:1600/538;box-shadow:var(--sh)}
+.ab-photo img{width:100%;height:100%;object-fit:cover}
+.ab-photo figcaption{position:absolute;left:16px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px)}
+.intro p{margin:0 0 16px;font-size:17px;line-height:1.65;color:var(--ink2)}
+.intro > div:first-child p:first-child::first-letter{float:left;font-size:64px;line-height:.9;font-weight:300;margin:6px 10px 0 0;color:var(--red)}
+/* timeline: a thin cold-to-hot rail */
+.tl{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.tl::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:linear-gradient(90deg,var(--sky),#FF8A3D 60%,var(--red2));opacity:.6}
+.tl li{position:relative;padding-top:34px}
+.tl li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px var(--blue),0 0 0 5px rgba(95,168,236,.18)}
+.tl li:nth-child(3)::before{box-shadow:inset 0 0 0 3px #FF8A3D,0 0 0 5px rgba(255,138,61,.18)}
+.tl li:nth-child(n+4)::before{box-shadow:inset 0 0 0 3px var(--red2),0 0 0 5px rgba(227,38,43,.15)}
+.tl em{display:block;font-style:normal;font-size:28px;font-weight:300;letter-spacing:-.03em}
+.tl b{display:block;margin:4px 0 6px;font-size:15.5px;font-weight:600}
+.tl p{margin:0;font-size:13.5px;line-height:1.55;color:var(--mute)}
+/* two companies */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.co{display:flex;flex-direction:column;gap:12px;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
+.co img.lg{height:48px;width:auto;align-self:flex-start}
+.co .k{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.co.g .k{color:var(--red)}
+.co h3{margin:0;font-size:24px;font-weight:600;letter-spacing:-.03em}
+.co p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink2)}
+.co ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.co li{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:#F4F7FA}
+.co .link{margin-top:auto;align-self:flex-start}
+/* mission & values */
+.mv{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:56px}
+.mv div{padding:28px;border-radius:24px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.mv h3{margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7CC0FF}
+.mv p,.mv li{font-size:16px;line-height:1.6;color:#E3ECF6}
+.mv p{margin:0}.mv ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.prize{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.prize div{padding:22px 18px;border-radius:22px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);transition:background .4s}
+.prize div:hover{background:rgba(255,255,255,.08)}
+.prize em{display:block;font-style:normal;font-size:56px;font-weight:200;line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#fff,#5FA8EC);-webkit-background-clip:text;background-clip:text;color:transparent}
+.prize b{display:block;margin:10px 0 4px;font-size:15px;font-weight:600}
+.prize span{font-size:13px;color:#9DB0C6;line-height:1.5}
+.award{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 30px;border-radius:26px;background:linear-gradient(120deg,#FFF8E8,#FFFFFF);box-shadow:var(--card)}
+.award .medal{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#FFE9A8,#E2A93B 60%,#B97A16);box-shadow:0 10px 24px -10px rgba(185,122,22,.7)}
+.award .medal svg{width:34px;height:34px;color:#fff}
+.award b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em}
+.award p{margin:4px 0 0;font-size:14px;color:var(--mute)}
+.legit{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.legit span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:13px;font-weight:600}
+.legit svg{width:14px;height:14px;color:#1E9E55}
+.join{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
+.join b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.join p{margin:6px 0 0;color:var(--mute);font-size:14.5px}
+@media (max-width:980px){.intro,.duo,.mv{grid-template-columns:1fr}.tl{grid-template-columns:1fr;gap:0}.tl::before{left:7px;right:auto;top:0;bottom:0;width:2px;height:auto;background:linear-gradient(180deg,var(--sky),#FF8A3D 60%,var(--red2))}.tl li{padding:0 0 28px 40px}.tl li::before{top:6px}.prize{grid-template-columns:1fr 1fr}.award{grid-template-columns:auto 1fr}.award .btn{grid-column:1/-1;justify-self:start}}
+@media (max-width:640px){.ab-photo{aspect-ratio:4/3}.join{grid-template-columns:1fr}.co{padding:24px}.prize div:last-child{grid-column:1/-1}}
+</style>
+</head>
+<body class="pg-about">
+<script>document.documentElement.classList.add('js');if(matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||navigator.connection?.saveData)document.documentElement.classList.add('lite')</script>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ext" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ck" viewBox="0 0 16 16"><path d="M3.5 8.4l2.8 2.8 6-6.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <linearGradient id="gHeat" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5FA8EC"/><stop offset="1" stop-color="#C70A0E"/></linearGradient>
+</defs></svg>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="./" aria-label="DPY Mercantile Inc., home"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
+    <ul class="pill"><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about" aria-current="page">About</a></li><li><a href="contact">Contact</a></li></ul>
+    <div class="nav-cta"><a class="btn line qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+  </div>
+</header>
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about" aria-current="page">About</a><a href="contact">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<main id="main">
+<section class="phead">
+  <span class="glow warm"></span>
+  <div class="wrap">
+    <ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">About</span></li></ol>
+    <div class="ph-grid">
+      <div><span class="kick">About us</span><h1 class="thin h1">25 Years of<br>Hot Water Done Right</h1><p class="lede">DPY Mercantile Inc. and its home company, Gratek Smart Water Corp., supply, install and service water heaters for homes, hotels and hospitals across the Philippines.</p></div>
+      <ul class="ph-stats"><li><b>2001</b><small>Founded</small></li><li><b>5</b><small>Branches</small></li><li><b>12</b><small>Brands</small></li></ul>
+    </div>
+    <figure class="ab-photo" data-r><img src="assets/img/dpy/team.webp" width="1600" height="538" alt="The DPY Mercantile team" fetchpriority="high"><figcaption>The DPY team</figcaption></figure>
+  </div>
+</section>
+
+<section class="sec" aria-label="Who we are">
+  <div class="wrap intro">
+    <div data-r><p>DPY Mercantile was set up in 2001 by Mr. Danilo P. Yap with one aim: to supply the most complete range of quality water heaters for homes, businesses and industry in the Philippines.</p><p>Partnerships with manufacturers from Germany, Australia and beyond give us the technology and the technical support to solve real engineering problems, and to recommend the most cost-effective system for each client.</p></div>
+    <div data-r><p>What sets us apart is what happens after the sale. Our own technicians install every system, and our after-sales team keeps it running, from a single condo shower to a hospital's round-the-clock supply.</p><p>Everything we do follows world-class quality standards, and the same five values our team has worked by from the start.</p><div class="legit"><span><svg aria-hidden="true"><use href="#ck"/></svg>Registered with DTI and SEC</span><span><svg aria-hidden="true"><use href="#ck"/></svg>Incorporated 2011</span><span><svg aria-hidden="true"><use href="#ck"/></svg>Golden Globe awardee 2021</span></div></div>
+  </div>
+</section>
+
+<section class="sec soft" aria-labelledby="tlT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Our story</span><h2 class="thin h2" id="tlT">From One Business<br>to Two Companies</h2></div></div>
+    <ol class="tl"><li data-r><em>2001</em><b>DPY Mercantile begins</b><p>Mr. Danilo P. Yap sets up DPY Mercantile in August 2001 to supply quality water heaters for homes, businesses and industry.</p></li><li data-r><em>2011</em><b>DPY Mercantile, Inc.</b><p>On May 27, 2011 the business becomes a corporation, to grow into a leading supplier of water heaters, heat exchangers and after-sales service.</p></li><li data-r><em>Gratek</em><b>A company for homes</b><p>Gratek Smart Water Corp. is formed to serve homeowners, condo developers and resorts with water heaters and hassle-free service.</p></li><li data-r><em>2021</em><b>Golden Globe awardee</b><p>DPY is named an awardee of the Golden Globe Annual Awards for Business Excellence.</p></li><li data-r><em>Today</em><b>Five branches, twelve brands</b><p>Sales and service from Manila, Boracay, Iloilo, Cebu and Davao, with partners from Germany, Australia and beyond.</p></li></ol>
+  </div>
+</section>
+
+<section class="sec" id="gratek" aria-labelledby="duoT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Two companies, one team</span><h2 class="thin h2" id="duoT">DPY for Buildings,<br>Gratek for Homes</h2></div><p class="lede">Whichever you call, you get the same engineers, the same brands and the same after-sales service.</p></div>
+    <div class="duo">
+      <article class="co" data-r><img class="lg" src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><span class="k">Projects &amp; commercial</span><h3>DPY Mercantile Inc.</h3><p>Hot water systems for hotels, hospitals, condo towers and industry: heat pumps, storage and heat exchange tanks, pumps and pipes, designed and installed as one system.</p><ul><li>Deron</li><li>HAASE</li><li>Enermax</li><li>Champion</li><li>Wilo</li><li>Grundfos</li></ul><a class="link" href="business">Hot water for buildings <svg aria-hidden="true"><use href="#arr"/></svg></a></article>
+      <article class="co g" data-r><img src="assets/brand/gratek-logo.png" width="183" height="84" alt="Gratek Smart Water Corp." class="lg" loading="lazy"><span class="k">Homes &amp; retail</span><h3>Gratek Smart Water Corp.</h3><p>"Your one-stop hub for hot water at home." Instant, storage and solar water heaters for homeowners, condo developers and resorts, with free consultation, on-site inspection, repairs and preventive maintenance.</p><ul><li>Rheem</li><li>Everhot</li><li>Aquapower</li><li>5 Star</li><li>Aquaplast</li><li>Katen</li></ul><a class="link" href="water-heaters?for=home">Water heaters for homes <svg aria-hidden="true"><use href="#arr"/></svg></a></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" aria-labelledby="mvT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">What drives us</span><h2 class="thin h2" id="mvT">Mission, Vision<br>&amp; Values</h2></div></div>
+    <div class="mv">
+      <div data-r><h3>Our mission</h3><ul><li>We provide world-class products and systems.</li><li>We build partnerships with established global brands to meet growing market demand.</li><li>We develop our people into a reliable, professional, service-minded team.</li></ul></div>
+      <div data-r><h3>Our vision</h3><p>To be the most trusted and sought-after name in water heating systems, innovation and technical service in the Philippines.</p></div>
+    </div>
+    <div class="prize"><div data-r><em>P</em><b>Professionalism</b><span>We do the job right, on time, and stand behind it.</span></div><div data-r><em>R</em><b>Respect</b><span>For our customers, our partners and each other.</span></div><div data-r><em>I</em><b>Integrity</b><span>Honest advice, even when the right heater is the cheaper one.</span></div><div data-r><em>Z</em><b>Zeal</b><span>We care about getting hot water right, every time.</span></div><div data-r><em>E</em><b>Excellence</b><span>World-class products, installed to a high standard.</span></div></div>
+  </div>
+</section>
+
+<section class="sec" aria-label="Award and careers">
+  <div class="wrap" style="display:grid;gap:20px">
+    <div class="award" data-r><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg></span><div><b>Golden Globe Annual Awards for Business Excellence, 2021</b><p>A joint undertaking of the National Data Research Examiner and Marketing Services Inc., SINAG News Magazine and SINAG Foundation.</p></div></div>
+    <div class="join" data-r><div><b>Grow with us</b><p>We see our people as our most valuable asset. We're hiring in Manila and Cebu.</p></div><a class="btn" href="careers">See open roles <svg aria-hidden="true"><use href="#arr"/></svg></a></div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
+    <div class="ft">
+      <div class="logo"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
+        <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
+      <div><h2>Water Heaters</h2><ul><li><a href="water-heaters?type=instant">Instant water heaters</a></li><li><a href="water-heaters?type=storage">Electric storage heaters</a></li><li><a href="water-heaters?type=heatpump">Heat pumps</a></li><li><a href="water-heaters?type=solar">Solar water heaters</a></li><li><a href="water-heaters?type=tank">Tanks, pumps &amp; pipes</a></li><li><a href="water-heaters">All products</a></li></ul></div>
+      <div><h2>Company</h2><ul><li><a href="about">About DPY &amp; Gratek</a></li><li><a href="business">For hotels &amp; buildings</a></li><li><a href="projects">Projects &amp; clients</a></li><li><a href="careers">Careers</a></li></ul></div>
+      <div><h2>Help</h2><ul><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
+    </div>
+    <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
+  </div>
+</footer>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/site.js?v=dd6d3aeb" defer></script>
+</body>
+</html>
