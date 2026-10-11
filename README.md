@@ -52,7 +52,7 @@ The old site was organised around DPY's two companies and its suppliers' categor
 | Service | `/service` | Repair, installation and maintenance (the live site's page is empty). Quick checks a customer can safely try first, what a maintenance visit covers, warranty, and a booking form that goes to service@. |
 | Projects | `/projects` | The 32 client logos with names, filtered by building type, and real DPY project photos. |
 | About | `/about` | The story (2001, incorporation in 2011, Gratek, the 2021 award), DPY for buildings vs Gratek for homes, mission, vision and the five values (they spell PRIZE). Registration numbers are left out on purpose: it says "Registered with DTI and SEC". |
-| Contact | `/contact` | The quote form, every phone number and email, Messenger and Viber, and the five branches with a Google map. |
+| Contact | `/contact` | The quote form, every phone number and email, Messenger and Viber, and the same branch map as the homepage (satellite fly-in and Street View). |
 | Compare | `/compare` | Up to four products side by side (power, running cost, tank, hot water, what it serves, power supply, where it goes, size, models, features, warranty, best for), with "show only the differences" and quick sets (instant heaters, heat pumps, lowest running cost...). Products are added from the compare button on any card or product page; a bar at the bottom collects them. A comparison can be shared by link (`/compare?p=...`). |
 | Careers | `/careers` | The six openings listed on the live site, each with an Apply-by-email button. |
 | Privacy | `/privacy` | The privacy notice as a page (the homepage keeps its dialog). |
@@ -68,6 +68,7 @@ The old site was organised around DPY's two companies and its suppliers' categor
 | `assets/css/base.css` | Font, colours, type, buttons, the header and phone menu, the footer, Messenger and Viber buttons, the quote list, the "Ask DPY" chat | Every page, the homepage included |
 | `assets/css/site.css` | Page heads, sections, product cards, filters, forms, spec tables | Inner pages |
 | `assets/js/site.js` | The quote list and the email forms everywhere; on inner pages also smooth scrolling, the header and the scroll reveals (the homepage keeps its own, tied to its GSAP animations) | Every page |
+| `assets/js/branches.js` + `src/branches.html` + `src/branches.css` | The branch map (satellite fly-in, pins, Street View). One map for both pages: the build writes the markup and styles into each. | Homepage and Contact |
 | `assets/js/ask.js` | The "Ask DPY" chat. It builds itself on any page; its links scroll on the homepage and open the right page elsewhere (e.g. "See our clients" opens Projects). | Every page |
 
 **Speed of the inner pages (Lighthouse, mobile, October 2026, local server with compression):** 98–100 on every page checked. How:
@@ -144,7 +145,7 @@ Each product card now links to its category on the new Water Heaters page, and t
   It offers suggested questions and action buttons (call, email, quote, scroll to a section). After 9 seconds a one-time nudge appears for 7 seconds, and on phones it opens as a bottom sheet. It understands simple Taglish such as "magkano", "sira" and "salamat".
   **It is a front-end prototype:** answers come from keyword matching over a built-in knowledge list, not a live AI. For production, put the same knowledge behind a small server that calls an AI model (for example Claude), so it can handle any phrasing, and add a "talk to a person" handoff.
 - **Phones and tablets:** in How It Works the tank stays pinned at the top while the four steps scroll under it, so you always see what each step does. Labels near the screen edge flip inward. The Solutions and Clients tabs are a single swipeable row, and section spacing is tighter.
-- **Navigation (all pages):** Water Heaters · For Business · Service · Projects · About · Contact, plus "Get a Quote". On the homepage "Get a Quote" still glides to its own form. The footer links to the new pages.
+- **Navigation (all pages):** Home · Water Heaters · For Business · Service · Projects · About · Careers · Contact, plus "Get a Quote". The current page is highlighted. Below 1180 px the bar folds into the menu button (eight links need the room). Compare and Privacy are reached from the footer. On the homepage "Get a Quote" still glides to its own form. The footer links to the new pages.
 
 ## Privacy, search and sharing
 
