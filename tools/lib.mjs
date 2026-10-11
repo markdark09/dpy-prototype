@@ -56,6 +56,9 @@ export const I = {
 }
 // the "Ask DPY" chat (behaviour in assets/js/ask.js)
 export const ASK = fs.readFileSync(path.join(ROOT, 'src/ask.html'), 'utf8').trim()
+// the branch map (markup and styles; behaviour in assets/js/branches.js), shared by the homepage and the Contact page
+export const BRMAP = fs.readFileSync(path.join(ROOT, 'src/branches.html'), 'utf8').trim()
+export const BRMAP_CSS = fs.readFileSync(path.join(ROOT, 'src/branches.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').trim()
 export const MSGR = `<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener">${I.fb}Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954">${I.vb}Viber</a>`
 
 // ---------- shared data ----------
@@ -127,7 +130,7 @@ export function card(p, R, { h = 'h3' } = {}) {
 }
 
 // ---------- layout ----------
-const NAV = [['water-heaters', 'Water Heaters'], ['business', 'For Business'], ['service', 'Service'], ['projects', 'Projects'], ['about', 'About'], ['contact', 'Contact']]
+const NAV = [['water-heaters', 'Water Heaters'], ['business', 'For Business'], ['service', 'Service'], ['projects', 'Projects'], ['about', 'About'], ['careers', 'Careers'], ['contact', 'Contact']]
 function head(pg, R) {
   const url = SITE + (pg.path === 'index' ? '' : pg.path), title = pg.title.includes('DPY') ? pg.title : pg.title + ' | DPY Mercantile'
   const crumbs = pg.crumbs ? { '@type': 'BreadcrumbList', itemListElement: [['Home', SITE], ...pg.crumbs.map(([n, u]) => [n, u ? SITE + u : url])].map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: u })) } : null
@@ -173,11 +176,11 @@ export function nav(pg, R) {
   return `<header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="${pg.home ? '#top' : R || './'}" aria-label="DPY Mercantile Inc., ${pg.home ? 'back to top' : 'home'}"><img src="${R}assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill">${pg.home ? '<li class="ind" aria-hidden="true"></li>' : ''}${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
+    <ul class="pill">${pg.home ? '<li class="ind" aria-hidden="true"></li>' : ''}<li><a href="${pg.home ? '#top' : R || './'}"${cur('home')}>Home</a></li>${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
     <div class="nav-cta"><a class="btn line qt" href="${quote}">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="${pg.home ? '#top' : R || './'}">Home</a>${NAV.map(([k, t]) => `<a href="${R}${k}"${cur(k)}>${t}</a>`).join('')}<a class="btn red" href="${quote}">Get a Free Quote ${I.arr}</a></nav>`
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="${pg.home ? '#top' : R || './'}"${cur('home')}>Home</a>${NAV.map(([k, t]) => `<a href="${R}${k}"${cur(k)}>${t}</a>`).join('')}<a class="btn red" href="${quote}">Get a Free Quote ${I.arr}</a></nav>`
 }
 export function foot(R, pg) {
   const cat = k => `${R}water-heaters?type=${k}`
@@ -233,7 +236,7 @@ ${body.trim()}
 ${foot(R, pg).replace('<footer class="foot">', B.last && B.last !== '#FBF3EC' ? `<footer class="foot" style="--from:${B.last}">` : '<footer class="foot">')}
 ${ASK}
 <script src="${R}assets/js/site.js?v=${ver('assets/js/site.js')}" defer></script>
-<script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>
+${(pg.scripts || []).map(f => `<script src="${R}${f}?v=${ver(f)}" defer></script>\n`).join('')}<script src="${R}assets/js/ask.js?v=${ver('assets/js/ask.js')}" defer></script>
 ${pg.js ? `<script>\naddEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready\nconst { $, $$, RM, go, quote } = DPY\n${(typeof pg.js === 'function' ? pg.js(R) : pg.js).trim()}\n})\n</script>\n` : ''}</body>
 </html>
 `

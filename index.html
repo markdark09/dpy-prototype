@@ -197,7 +197,8 @@ html.menu-lock{overflow:hidden}
 .ql li button{width:30px;height:30px;border-radius:50%;color:var(--mute);font-size:16px}
 .ql li button:hover{background:#FFF0F0;color:var(--red)}
 .ql .more{margin-top:10px;font-size:12.5px}
-@media (max-width:980px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
+@media (max-width:1180px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:980px){.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
 @media (max-width:640px){.foot-cta{padding:24px 22px}}
 .lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot{animation:none!important}
 @media (max-width:640px){.qbar-on .ask{bottom:84px}}
@@ -241,6 +242,81 @@ html.menu-lock{overflow:hidden}
 .trust img{flex:none;width:340px;height:auto} 
 .trust + .base{margin-top:26px}
 @media (max-width:640px){.trust{gap:18px}.trust img{width:100%;max-width:360px}}
+</style>
+<style id="br-css">
+.br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
+#brMap{position:absolute;inset:0}
+#brMap .maplibregl-ctrl-attrib{font-size:10px;background:rgba(255,255,255,.7)}
+.br-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(6,16,31,.75),rgba(6,16,31,0) 42%),linear-gradient(0deg,rgba(6,16,31,.55),rgba(6,16,31,0) 30%)}
+.br-ld{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:#5E7896;font-size:13px}
+
+.br-ov{position:absolute;left:22px;top:22px;bottom:22px;z-index:3;width:300px;display:flex;flex-direction:column;gap:6px;color:#fff}
+.br-ov h3{margin:4px 4px 10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9DC2EC}
+.br-ov ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.br-ov button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-align:left;background:rgba(8,20,40,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .35s,box-shadow .35s,transform .5s var(--ease)}
+.br-ov button:hover{background:rgba(14,32,62,.86);transform:translateX(3px)}
+.br-ov button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:none}
+.br-ov .n{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:700;background:rgba(255,255,255,.12)}
+.br-ov button[aria-pressed="true"] .n{background:var(--red);color:#fff}
+.br-ov b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.br-ov small{display:block;font-size:11.5px;color:#9DB0C6}
+.br-ov button[aria-pressed="true"] small{color:var(--mute)}
+.br-ov .all{margin-top:auto;justify-content:center;font-size:13px;font-weight:600;background:rgba(255,255,255,.1)}
+.br-ov .all svg{width:16px;height:16px}
+.br-ov .all[aria-pressed="true"]{background:rgba(255,255,255,.18);color:#fff}
+
+.br-info{position:absolute;right:22px;bottom:22px;z-index:3;width:330px;padding:18px 18px 16px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -24px rgba(0,0,0,.6);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .45s,transform .6s var(--ease)}
+.br-info.on{opacity:1;transform:none;pointer-events:auto}
+.br-info .k{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.br-info .k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.15)}
+.br-info h3{margin:6px 0 4px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.br-info p{margin:0;font-size:13px;line-height:1.5;color:var(--ink2)}
+.br-info .acts{display:flex;gap:8px;margin-top:14px}
+.br-info .btn{height:40px;font-size:13px;padding:0 14px;gap:6px}
+.br-info .acts{flex-wrap:wrap}
+.br-info .tel{width:40px;padding:0;justify-content:center}.br-info .tel svg{width:16px;height:16px}
+
+.br-ov h3{transition:opacity .3s}.br-ov{transition:top .6s var(--ease)}
+.br-stage.walking .br-ov h3{opacity:0}.br-stage.walking .br-ov{top:84px}
+.br-info .ph{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+.br-info .ph a{color:var(--ink);font-weight:600}
+.br-hint{position:absolute;right:22px;top:22px;z-index:3;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.72);color:#CFE0F3;font-size:12px;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s}
+.br-stage.zoomed .br-hint{opacity:0}
+
+.br-sv{position:absolute;inset:0;z-index:2;background:#06101F;opacity:0;pointer-events:none;transition:opacity .9s}
+.br-sv.on{opacity:1;pointer-events:auto}
+.br-sv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.br-sv .tag{position:absolute;left:50%;top:18px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.85);color:#fff;font-size:12.5px;font-weight:600;pointer-events:none;white-space:nowrap}
+.br-sv .tag svg{width:14px;height:14px}
+.br-dive{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,0) 30%,rgba(255,255,255,.95) 75%);opacity:0;transition:opacity .7s}
+.br-dive.on{opacity:1}
+.br-info .acts .vw{display:inline-flex;align-items:center;gap:6px}
+.br-info .acts .vw svg{width:15px;height:15px}
+.br-info .note{display:block;margin-top:8px;font-size:11px;color:var(--dim)}
+
+.mk{position:relative;width:0;height:0;cursor:pointer}
+.mk i{position:absolute;left:-8px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--red2);box-shadow:0 0 0 3px #fff,0 6px 14px rgba(0,0,0,.55)}
+.mk i::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid #fff;opacity:0;animation:ring 2.2s ease-out infinite}
+.mk span{position:absolute;left:14px;top:-13px;white-space:nowrap;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);font:700 12px/1.2 var(--font);box-shadow:0 8px 18px -8px rgba(0,0,0,.6)}
+.mk.l span{left:auto;right:14px}
+.mk.sm i{left:-5px;top:-5px;width:10px;height:10px;background:#9EC4EE;box-shadow:0 0 0 2px #fff}
+.mk.sm i::after{display:none}
+.mk.sm span{font-weight:600;font-size:11px;opacity:.85}
+.mk.on span{background:var(--red2);color:#fff}
+.br-stage.zoomed .mk:not(.on){pointer-events:none}.br-stage.zoomed .mk:not(.on) > *{opacity:0;transition:opacity .4s}
+@media (max-width:860px){
+  .br-stage{height:600px}
+  .br-ov{left:12px;right:12px;top:12px;bottom:auto;width:auto}
+  .br-ov h3,.br-ov small,.br-ov .n{display:none}
+  .br-ov ul{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .br-ov li{flex:none}
+  .br-ov button{padding:9px 14px}.br-ov b{font-size:13.5px}
+  .br-ov .all{position:absolute;right:0;top:48px;width:auto;padding:8px 12px}
+  .br-hint,.br-sv .tag{display:none}
+  .br-info{left:12px;right:12px;bottom:12px;width:auto}
+  .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
+}
+@media (max-width:560px){.br-info .ph{line-height:2}}
 </style>
 <link rel="preload" as="image" href="assets/img/dpy/aquapower-aqp28n.webp" fetchpriority="high">
 <link rel="preload" as="script" href="assets/vendor/gsap.min.js"><link rel="preload" as="script" href="assets/vendor/ScrollTrigger.min.js"> <!-- downloaded now, run after the first paint --> <!-- the first heater in the hero: the script adds it, so tell the browser early -->
@@ -635,78 +711,6 @@ main > section{overflow-x:clip}
 
 /* ---------- branches: a satellite map that flies from the whole country down to each branch (renders only while moving) ---------- */
 .br{padding:10px 0 110px;background:#FBF3EC}
-.br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
-#brMap{position:absolute;inset:0}
-#brMap .maplibregl-ctrl-attrib{font-size:10px;background:rgba(255,255,255,.7)}
-.br-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(6,16,31,.75),rgba(6,16,31,0) 42%),linear-gradient(0deg,rgba(6,16,31,.55),rgba(6,16,31,0) 30%)}
-.br-ld{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:#5E7896;font-size:13px}
-/* branch list over the map */
-.br-ov{position:absolute;left:22px;top:22px;bottom:22px;z-index:3;width:300px;display:flex;flex-direction:column;gap:6px;color:#fff}
-.br-ov h3{margin:4px 4px 10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9DC2EC}
-.br-ov ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.br-ov button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-align:left;background:rgba(8,20,40,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .35s,box-shadow .35s,transform .5s var(--ease)}
-.br-ov button:hover{background:rgba(14,32,62,.86);transform:translateX(3px)}
-.br-ov button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:none}
-.br-ov .n{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:700;background:rgba(255,255,255,.12)}
-.br-ov button[aria-pressed="true"] .n{background:var(--red);color:#fff}
-.br-ov b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
-.br-ov small{display:block;font-size:11.5px;color:#9DB0C6}
-.br-ov button[aria-pressed="true"] small{color:var(--mute)}
-.br-ov .all{margin-top:auto;justify-content:center;font-size:13px;font-weight:600;background:rgba(255,255,255,.1)}
-.br-ov .all svg{width:16px;height:16px}
-.br-ov .all[aria-pressed="true"]{background:rgba(255,255,255,.18);color:#fff}
-/* info card for the chosen branch */
-.br-info{position:absolute;right:22px;bottom:22px;z-index:3;width:330px;padding:18px 18px 16px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -24px rgba(0,0,0,.6);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .45s,transform .6s var(--ease)}
-.br-info.on{opacity:1;transform:none;pointer-events:auto}
-.br-info .k{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.br-info .k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.15)}
-.br-info h3{margin:6px 0 4px;font-size:22px;font-weight:600;letter-spacing:-.02em}
-.br-info p{margin:0;font-size:13px;line-height:1.5;color:var(--ink2)}
-.br-info .acts{display:flex;gap:8px;margin-top:14px}
-.br-info .btn{height:40px;font-size:13px;padding:0 14px;gap:6px}
-.br-info .acts{flex-wrap:wrap}
-.br-info .tel{width:40px;padding:0;justify-content:center}.br-info .tel svg{width:16px;height:16px}
-/* in walk view, keep clear of Google's address box in the top-left */
-.br-ov h3{transition:opacity .3s}.br-ov{transition:top .6s var(--ease)}
-.br-stage.walking .br-ov h3{opacity:0}.br-stage.walking .br-ov{top:84px}
-.br-info .ph{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
-.br-info .ph a{color:var(--ink);font-weight:600}
-.br-hint{position:absolute;right:22px;top:22px;z-index:3;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.72);color:#CFE0F3;font-size:12px;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s}
-.br-stage.zoomed .br-hint{opacity:0}
-/* walk view: Google Street View facing the office, faded in over the map */
-.br-sv{position:absolute;inset:0;z-index:2;background:#06101F;opacity:0;pointer-events:none;transition:opacity .9s}
-.br-sv.on{opacity:1;pointer-events:auto}
-.br-sv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.br-sv .tag{position:absolute;left:50%;top:18px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.85);color:#fff;font-size:12.5px;font-weight:600;pointer-events:none;white-space:nowrap}
-.br-sv .tag svg{width:14px;height:14px}
-.br-dive{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,0) 30%,rgba(255,255,255,.95) 75%);opacity:0;transition:opacity .7s}
-.br-dive.on{opacity:1}
-.br-info .acts .vw{display:inline-flex;align-items:center;gap:6px}
-.br-info .acts .vw svg{width:15px;height:15px}
-.br-info .note{display:block;margin-top:8px;font-size:11px;color:var(--dim)}
-/* pins */
-.mk{position:relative;width:0;height:0;cursor:pointer}
-.mk i{position:absolute;left:-8px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--red2);box-shadow:0 0 0 3px #fff,0 6px 14px rgba(0,0,0,.55)}
-.mk i::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid #fff;opacity:0;animation:ring 2.2s ease-out infinite}
-.mk span{position:absolute;left:14px;top:-13px;white-space:nowrap;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);font:700 12px/1.2 var(--font);box-shadow:0 8px 18px -8px rgba(0,0,0,.6)}
-.mk.l span{left:auto;right:14px}
-.mk.sm i{left:-5px;top:-5px;width:10px;height:10px;background:#9EC4EE;box-shadow:0 0 0 2px #fff}
-.mk.sm i::after{display:none}
-.mk.sm span{font-weight:600;font-size:11px;opacity:.85}
-.mk.on span{background:var(--red2);color:#fff}
-.br-stage.zoomed .mk:not(.on){pointer-events:none}.br-stage.zoomed .mk:not(.on) > *{opacity:0;transition:opacity .4s}
-@media (max-width:860px){
-  .br-stage{height:600px}
-  .br-ov{left:12px;right:12px;top:12px;bottom:auto;width:auto}
-  .br-ov h3,.br-ov small,.br-ov .n{display:none}
-  .br-ov ul{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-  .br-ov li{flex:none}
-  .br-ov button{padding:9px 14px}.br-ov b{font-size:13.5px}
-  .br-ov .all{position:absolute;right:0;top:48px;width:auto;padding:8px 12px}
-  .br-hint,.br-sv .tag{display:none}
-  .br-info{left:12px;right:12px;bottom:12px;width:auto}
-  .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
-}
 
 
 /* ---------- find my water heater: 4 quick questions in a dialog ---------- */
@@ -909,11 +913,11 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="DPY Mercantile Inc., back to top"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="contact">Contact</a></li></ul>
+    <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="#top" aria-current="page">Home</a></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers">Careers</a></li><li><a href="contact">Contact</a></li></ul>
     <div class="nav-cta"><a class="btn line qt" href="#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="#top">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact">Contact</a><a class="btn red" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="#top" aria-current="page">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="careers">Careers</a><a href="contact">Contact</a><a class="btn red" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
 <!-- /@nav -->
 
 <main id="main">
@@ -1109,23 +1113,25 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
       <div><span class="kick">Branches</span><h2 class="thin h2" id="brt">Visit a Branch<br>Near You</h2></div>
       <p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p>
     </div>
-    <div class="br-stage">
-      <div class="br-ld">Loading the map…</div>
-      <div id="brMap" aria-label="Map of DPY branches"></div>
-      <div class="br-dive" aria-hidden="true"></div>
-      <div class="br-sv"><iframe title="Street view of the branch" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><span class="tag"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="3" r="2"/><path d="M6 6h4l1 5H9.5l-.5 4h-2l-.5-4H5z"/></svg><span class="tn"></span></span></div>
-      <div class="br-ov">
-        <h3>Our branches</h3>
-        <ul></ul>
-        <button class="all" aria-pressed="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/></svg>All branches</button>
+    <!-- @branchmap: made by tools/build.mjs, shared with the Contact page; edit it in src/branches.html -->
+      <div class="br-stage">
+        <div class="br-ld">Loading the map…</div>
+        <div id="brMap" aria-label="Map of DPY branches"></div>
+        <div class="br-dive" aria-hidden="true"></div>
+        <div class="br-sv"><iframe title="Street view of the branch" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><span class="tag"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="3" r="2"/><path d="M6 6h4l1 5H9.5l-.5 4h-2l-.5-4H5z"/></svg><span class="tn"></span></span></div>
+        <div class="br-ov">
+          <h3>Our branches</h3>
+          <ul></ul>
+          <button class="all" aria-pressed="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/></svg>All branches</button>
+        </div>
+        <span class="br-hint">Also sold in Baguio City &amp; Tagaytay</span>
+        <div class="br-info" aria-live="polite">
+          <span class="k"></span><h3></h3><p class="ad"></p>
+          <div class="acts"><a class="btn red dirs" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
+          <div class="ph"><b style="color:var(--ink);font-weight:600">Mon–Sat · 8:00 AM – 5:00 PM</b><br><a href="tel:+639338672954">0933 867 2954</a> · <a href="tel:+639152453528">0915 245 3528</a> · <a href="tel:+63279560521">(02) 7956 0521</a></div>
+        </div>
       </div>
-      <span class="br-hint">Also sold in Baguio City &amp; Tagaytay</span>
-      <div class="br-info" aria-live="polite">
-        <span class="k"></span><h3></h3><p class="ad"></p>
-        <div class="acts"><a class="btn red dirs" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
-        <div class="ph"><b style="color:var(--ink);font-weight:600">Mon–Sat · 8:00 AM – 5:00 PM</b><br><a href="tel:+639338672954">0933 867 2954</a> · <a href="tel:+639152453528">0915 245 3528</a> · <a href="tel:+63279560521">(02) 7956 0521</a></div>
-      </div>
-    </div>
+<!-- /@branchmap -->
   </div>
 </section>
 
@@ -1228,6 +1234,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
 <script src="assets/js/site.js?v=a8bca181" defer></script>
+<script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
 // paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
@@ -1306,70 +1313,6 @@ const CLIENTS = {
   }))
 }
 
-/* ---------- branches (dpymi.com.ph/branches; Baguio and Tagaytay from "Where to buy") ---------- */
-{
-  // pin = the office on Google Maps; sv = the nearest Street View spot and the heading/pitch that faces the office
-  const BR = [
-    { k: 'manila', n: 'Manila', rg: 'Head office', a: '778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City', pin: [121.0954281, 14.6111876], sv: [14.6112029, 121.0953304, 99, -4], bearing: -24 },
-    { k: 'boracay', n: 'Boracay', rg: 'Visayas', a: 'Station 2, Manoc-Manoc, Boracay Island, Malay, Aklan', pin: [121.9246445, 11.9609959], sv: [11.9609959, 121.9246445, 0, -2], bearing: 18, area: true, side: 'l' },
-    { k: 'iloilo', n: 'Iloilo', rg: 'Visayas', a: '2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City', pin: [122.5586473, 10.7162841], sv: [10.7163347, 122.5585963, 135, -4], bearing: -12, side: 'l' },
-    { k: 'cebu', n: 'Cebu', rg: 'Visayas', a: '3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City', pin: [123.9450424, 10.3350685], sv: [10.3350473, 123.9449658, 60, -6], bearing: 28 },
-    { k: 'davao', n: 'Davao', rg: 'Mindanao', a: 'Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City', pin: [125.613112, 7.0964317], sv: [7.0962733, 125.6130287, 62, -14], bearing: -30 },
-  ]
-  const ALSO = [['Baguio City', 120.5960, 16.4023, ''], ['Tagaytay', 120.9620, 14.1153, 'l']]
-  const stage = $('.br-stage'), ov = $('.br-ov'), info = $('.br-info'), all = $('.all', ov), sv = $('.br-sv'), svf = $('iframe', sv), dive = $('.br-dive'), vw = $('.vw', info)
-  const WALK = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="3" r="2"/><path d="M6 6h4l1 5H9.5l-.5 4h-2l-.5-4H5z"/></svg>Street view', MAPV = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1.5 4l4-1.5 5 1.5 4-1.5v9.5l-4 1.5-5-1.5-4 1.5z"/><path d="M5.5 2.5v10M10.5 4v10"/></svg>Map view'
-  $('ul', ov).innerHTML = BR.map((b, i) => `<li><button data-i="${i}" aria-pressed="false"><span class="n">0${i + 1}</span><span><b>${b.n}</b><small>${b.rg}</small></span></button></li>`).join('')
-  const B = $$('ul button', ov)
-  const HOME = innerWidth < 860 ? { center: [122.6, 11.0], zoom: 4.55, pitch: 20, bearing: -6 } : { center: [120.9, 11.3], zoom: 5.05, pitch: 26, bearing: -8 } // the country sits right of the list
-  let map = null, mk = [], cur = -1, step = 0, T = []
-  const later = (fn, ms) => T.push(setTimeout(fn, RM ? 0 : ms)), stop = () => { T.forEach(clearTimeout); T = []; step++ }
-  const press = i => { B.forEach((b, j) => b.setAttribute('aria-pressed', j === i)); all.setAttribute('aria-pressed', i < 0); mk.forEach((m, j) => m.classList.toggle('on', j === i)); stage.classList.toggle('zoomed', i >= 0) }
-  const svURL = ([la, ln, h, p]) => `https://maps.google.com/maps?layer=c&cbll=${la},${ln}&cbp=12,${h},0,0,${p}&output=svembed`
-  function walkIn(i) { // dive to the street, then fade into the walk view facing the office
-    const s = ++step, b = BR[i]
-    vw.innerHTML = MAPV; $('.tn', sv).textContent = b.area ? 'Street view · ' + b.n + ' (area)' : 'Street view · DPY ' + b.n
-    svf.onload = () => { if (s !== step) return; later(() => { dive.classList.remove('on'); sv.classList.add('on'); stage.classList.add('walking') }, 250) }
-    svf.src = svURL(b.sv)
-    if (map && !RM) { dive.classList.add('on'); map.easeTo({ center: b.pin, zoom: 18.4, pitch: 76, duration: 1400, easing: x => x * x }) }
-    later(() => s === step && (dive.classList.remove('on'), sv.classList.add('on'), stage.classList.add('walking')), 4000) // in case the iframe is slow, never leave a white screen
-  }
-  function walkOut(i) { stop(); sv.classList.remove('on'); stage.classList.remove('walking'); dive.classList.remove('on'); vw.innerHTML = WALK; if (i >= 0) map?.easeTo({ center: BR[i].pin, zoom: 15.6, pitch: 62, duration: RM ? 0 : 1200 }) }
-  function fly(i) {
-    stop(); sv.classList.remove('on'); stage.classList.remove('walking'); dive.classList.remove('on'); vw.innerHTML = WALK; cur = i; press(i)
-    if (i < 0) { info.classList.remove('on'); map?.flyTo({ ...HOME, duration: RM ? 0 : 3000, curve: 1.5, essential: true }); return }
-    const b = BR[i], s = step
-    $('.k', info).textContent = i ? b.rg + ' branch' : 'Head office'; $('h3', info).textContent = b.n; $('.ad', info).textContent = b.a
-    $('.dirs', info).href = 'https://www.google.com/maps/dir/?api=1&destination=' + b.pin[1] + ',' + b.pin[0]
-    info.classList.remove('on'); later(() => cur === i && info.classList.add('on'), 1800)
-    if (!map) return
-    map.flyTo({ center: b.pin, zoom: 15.6, pitch: 62, bearing: b.bearing, duration: RM ? 0 : 4200, curve: 1.6, essential: true })
-    map.once('moveend', () => s === step && cur === i && later(() => s === step && walkIn(i), 700)) // land, take a breath, then walk in
-  }
-  B.forEach((b, i) => b.addEventListener('click', () => fly(i))); all.addEventListener('click', () => fly(-1))
-  vw.addEventListener('click', () => sv.classList.contains('on') || dive.classList.contains('on') ? walkOut(cur) : walkIn(cur))
-  // MapLibre loads only when the section comes near, so the page opens as fast as before
-  function boot() {
-    const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'assets/vendor/maplibre-gl.css'; document.head.append(css)
-    const s = document.createElement('script'); s.src = 'assets/vendor/maplibre-gl.js'; s.onerror = () => $('.br-ld').textContent = 'The map could not load. Please refresh the page.'
-    s.onload = () => {
-      const E = 'https://server.arcgisonline.com/ArcGIS/rest/services/'
-      map = new maplibregl.Map({ container: 'brMap', ...HOME, zoom: HOME.zoom - 1.2, pitch: 0, bearing: 0, attributionControl: { compact: true }, pixelRatio: Math.min(devicePixelRatio, 1.5), maxPitch: 78, maxZoom: 19, cooperativeGestures: true, fadeDuration: 150,
-        style: { version: 8, sources: {
-          sat: { type: 'raster', tiles: [E + 'World_Imagery/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 19, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics' },
-          ref: { type: 'raster', tiles: [E + 'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'], tileSize: 256, maxzoom: 18 } },
-          layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#06101F' } }, { id: 'sat', type: 'raster', source: 'sat', paint: { 'raster-saturation': -.15, 'raster-contrast': .05 } }, { id: 'ref', type: 'raster', source: 'ref', minzoom: 9, paint: { 'raster-opacity': .7 } } /* place names only up close, so they don't crowd our pins */] } })
-      map.scrollZoom.disable() // the page scroll stays the page scroll
-      const pin = (lng, lat, label, cls, onClick) => { const el = document.createElement('div'); el.className = 'mk ' + cls; el.innerHTML = `<i></i><span>${label}</span>`; if (onClick) el.addEventListener('click', onClick); new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map); return el }
-      mk = BR.map((b, i) => pin(b.pin[0], b.pin[1], b.n, b.side || '', () => fly(i)))
-      ALSO.forEach(([n, lng, lat, side]) => pin(lng, lat, n, 'sm ' + side))
-      map.once('load', () => { $('.br-ld').remove(); new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); if (cur < 0) map.flyTo({ ...HOME, duration: RM ? 0 : 2600, essential: true }) }, { threshold: .35 }).observe(stage) })
-    }
-    document.head.append(s)
-  }
-  vw.innerHTML = WALK
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); (window.requestIdleCallback || setTimeout)(boot, { timeout: 1500 }) } }, { rootMargin: '900px' }).observe(stage)
-}
 
 /* ---------- hero showcase: real DPY heaters on a glass plinth ---------- */
 const SHOW = [

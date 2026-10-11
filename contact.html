@@ -191,7 +191,8 @@ html.menu-lock{overflow:hidden}
 .ql li button{width:30px;height:30px;border-radius:50%;color:var(--mute);font-size:16px}
 .ql li button:hover{background:#FFF0F0;color:var(--red)}
 .ql .more{margin-top:10px;font-size:12.5px}
-@media (max-width:980px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
+@media (max-width:1180px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:980px){.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
 @media (max-width:640px){.foot-cta{padding:24px 22px}}
 .lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot{animation:none!important}
 @media (max-width:640px){.qbar-on .ask{bottom:84px}}
@@ -407,28 +408,81 @@ html.menu-lock{overflow:hidden}
 .qp-hd p{margin:6px 0 0;font-size:14px;color:var(--mute)}
 .qp .ql{margin:20px 34px 0}
 .qp .form{padding:24px 34px 34px}
-/* branches */
-.bx{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;align-items:stretch}
-.bl{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:start}
-.bl button{width:100%;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:16px 18px;border-radius:20px;text-align:left;background:#fff;box-shadow:var(--card);transition:box-shadow .3s,transform .5s var(--ease)}
-.bl button:hover{transform:translateX(3px)}
-.bl button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ink),var(--card)}
-.bl .n{grid-row:1/3;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--soft)}
-.bl button[aria-pressed="true"] .n{background:var(--red);color:#fff}
-.bl b{font-size:16px;font-weight:600}
-.bl b small{margin-left:8px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
-.bl span.a{font-size:13px;color:var(--mute);line-height:1.45}
-.bl .also b{font-size:inherit;font-weight:700;color:var(--ink2)}
-.bl .also{padding:14px 18px;border-radius:20px;background:rgba(255,255,255,.6);font-size:13px;color:var(--mute)}
-.map{position:relative;min-height:460px;border-radius:26px;overflow:hidden;background:#DCE6F0;box-shadow:var(--card)}
-.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.map .ld{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:var(--mute)}
-.map-card{position:absolute;left:14px;right:14px;bottom:14px;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.97);box-shadow:var(--sh)}
-.map-card b{display:block;font-size:15px;font-weight:600}
-.map-card span{font-size:12.5px;color:var(--mute)}
-.map-card .acts{display:flex;gap:8px}
-@media (max-width:980px){.ct-top,.bx{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
-@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}.map{min-height:380px}}
+.br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
+#brMap{position:absolute;inset:0}
+#brMap .maplibregl-ctrl-attrib{font-size:10px;background:rgba(255,255,255,.7)}
+.br-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(6,16,31,.75),rgba(6,16,31,0) 42%),linear-gradient(0deg,rgba(6,16,31,.55),rgba(6,16,31,0) 30%)}
+.br-ld{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:#5E7896;font-size:13px}
+
+.br-ov{position:absolute;left:22px;top:22px;bottom:22px;z-index:3;width:300px;display:flex;flex-direction:column;gap:6px;color:#fff}
+.br-ov h3{margin:4px 4px 10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9DC2EC}
+.br-ov ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.br-ov button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-align:left;background:rgba(8,20,40,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .35s,box-shadow .35s,transform .5s var(--ease)}
+.br-ov button:hover{background:rgba(14,32,62,.86);transform:translateX(3px)}
+.br-ov button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:none}
+.br-ov .n{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:700;background:rgba(255,255,255,.12)}
+.br-ov button[aria-pressed="true"] .n{background:var(--red);color:#fff}
+.br-ov b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.br-ov small{display:block;font-size:11.5px;color:#9DB0C6}
+.br-ov button[aria-pressed="true"] small{color:var(--mute)}
+.br-ov .all{margin-top:auto;justify-content:center;font-size:13px;font-weight:600;background:rgba(255,255,255,.1)}
+.br-ov .all svg{width:16px;height:16px}
+.br-ov .all[aria-pressed="true"]{background:rgba(255,255,255,.18);color:#fff}
+
+.br-info{position:absolute;right:22px;bottom:22px;z-index:3;width:330px;padding:18px 18px 16px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -24px rgba(0,0,0,.6);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .45s,transform .6s var(--ease)}
+.br-info.on{opacity:1;transform:none;pointer-events:auto}
+.br-info .k{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.br-info .k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.15)}
+.br-info h3{margin:6px 0 4px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.br-info p{margin:0;font-size:13px;line-height:1.5;color:var(--ink2)}
+.br-info .acts{display:flex;gap:8px;margin-top:14px}
+.br-info .btn{height:40px;font-size:13px;padding:0 14px;gap:6px}
+.br-info .acts{flex-wrap:wrap}
+.br-info .tel{width:40px;padding:0;justify-content:center}.br-info .tel svg{width:16px;height:16px}
+
+.br-ov h3{transition:opacity .3s}.br-ov{transition:top .6s var(--ease)}
+.br-stage.walking .br-ov h3{opacity:0}.br-stage.walking .br-ov{top:84px}
+.br-info .ph{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+.br-info .ph a{color:var(--ink);font-weight:600}
+.br-hint{position:absolute;right:22px;top:22px;z-index:3;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.72);color:#CFE0F3;font-size:12px;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s}
+.br-stage.zoomed .br-hint{opacity:0}
+
+.br-sv{position:absolute;inset:0;z-index:2;background:#06101F;opacity:0;pointer-events:none;transition:opacity .9s}
+.br-sv.on{opacity:1;pointer-events:auto}
+.br-sv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.br-sv .tag{position:absolute;left:50%;top:18px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.85);color:#fff;font-size:12.5px;font-weight:600;pointer-events:none;white-space:nowrap}
+.br-sv .tag svg{width:14px;height:14px}
+.br-dive{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,0) 30%,rgba(255,255,255,.95) 75%);opacity:0;transition:opacity .7s}
+.br-dive.on{opacity:1}
+.br-info .acts .vw{display:inline-flex;align-items:center;gap:6px}
+.br-info .acts .vw svg{width:15px;height:15px}
+.br-info .note{display:block;margin-top:8px;font-size:11px;color:var(--dim)}
+
+.mk{position:relative;width:0;height:0;cursor:pointer}
+.mk i{position:absolute;left:-8px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--red2);box-shadow:0 0 0 3px #fff,0 6px 14px rgba(0,0,0,.55)}
+.mk i::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid #fff;opacity:0;animation:ring 2.2s ease-out infinite}
+.mk span{position:absolute;left:14px;top:-13px;white-space:nowrap;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);font:700 12px/1.2 var(--font);box-shadow:0 8px 18px -8px rgba(0,0,0,.6)}
+.mk.l span{left:auto;right:14px}
+.mk.sm i{left:-5px;top:-5px;width:10px;height:10px;background:#9EC4EE;box-shadow:0 0 0 2px #fff}
+.mk.sm i::after{display:none}
+.mk.sm span{font-weight:600;font-size:11px;opacity:.85}
+.mk.on span{background:var(--red2);color:#fff}
+.br-stage.zoomed .mk:not(.on){pointer-events:none}.br-stage.zoomed .mk:not(.on) > *{opacity:0;transition:opacity .4s}
+@media (max-width:860px){
+  .br-stage{height:600px}
+  .br-ov{left:12px;right:12px;top:12px;bottom:auto;width:auto}
+  .br-ov h3,.br-ov small,.br-ov .n{display:none}
+  .br-ov ul{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .br-ov li{flex:none}
+  .br-ov button{padding:9px 14px}.br-ov b{font-size:13.5px}
+  .br-ov .all{position:absolute;right:0;top:48px;width:auto;padding:8px 12px}
+  .br-hint,.br-sv .tag{display:none}
+  .br-info{left:12px;right:12px;bottom:12px;width:auto}
+  .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
+}
+@media (max-width:560px){.br-info .ph{line-height:2}}
+@media (max-width:980px){.ct-top{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
+@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}}
 </style>
 </head>
 <body class="pg-contact">
@@ -444,11 +498,11 @@ html.menu-lock{overflow:hidden}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="./" aria-label="DPY Mercantile Inc., home"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill"><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="contact" aria-current="page">Contact</a></li></ul>
+    <ul class="pill"><li><a href="./">Home</a></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers">Careers</a></li><li><a href="contact" aria-current="page">Contact</a></li></ul>
     <div class="nav-cta"><a class="btn line qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="contact" aria-current="page">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="careers">Careers</a><a href="contact" aria-current="page">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
 <main id="main">
 <section class="phead" style="padding-bottom:40px">
   <span class="glow"></span>
@@ -496,11 +550,24 @@ html.menu-lock{overflow:hidden}
 
 <section class="sec soft" id="branches" aria-labelledby="brT" style="--from:#FFFFFF">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Open Monday to Saturday, 8 AM to 5 PM.</p></div>
-    <div class="bx">
-      <ul class="bl"><li><button type="button" data-i="0" aria-pressed="true"><span class="n">01</span><b>Manila<small>Head office · Luzon</small></b><span class="a">778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City</span></button></li><li><button type="button" data-i="1" aria-pressed="false"><span class="n">02</span><b>Boracay<small>Visayas</small></b><span class="a">Station 2, Manoc-Manoc, Boracay Island, Malay, Aklan</span></button></li><li><button type="button" data-i="2" aria-pressed="false"><span class="n">03</span><b>Iloilo<small>Visayas</small></b><span class="a">2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City</span></button></li><li><button type="button" data-i="3" aria-pressed="false"><span class="n">04</span><b>Cebu<small>Visayas</small></b><span class="a">3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City</span></button></li><li><button type="button" data-i="4" aria-pressed="false"><span class="n">05</span><b>Davao<small>Mindanao</small></b><span class="a">Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City</span></button></li><li class="also">Our products are also sold in <b>Baguio City</b> and <b>Tagaytay</b>.</li></ul>
-      <div class="map"><span class="ld">Loading the map…</span><iframe title="Map of the selected branch" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-card"><div><b class="mn"></b><span class="ma"></span></div><div class="acts"><a class="btn red sm dir" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn ghost sm" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div></div></div>
-    </div>
+    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
+    <div class="br-stage">
+  <div class="br-ld">Loading the map…</div>
+  <div id="brMap" aria-label="Map of DPY branches"></div>
+  <div class="br-dive" aria-hidden="true"></div>
+  <div class="br-sv"><iframe title="Street view of the branch" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><span class="tag"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="3" r="2"/><path d="M6 6h4l1 5H9.5l-.5 4h-2l-.5-4H5z"/></svg><span class="tn"></span></span></div>
+  <div class="br-ov">
+    <h3>Our branches</h3>
+    <ul></ul>
+    <button class="all" aria-pressed="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/></svg>All branches</button>
+  </div>
+  <span class="br-hint">Also sold in Baguio City &amp; Tagaytay</span>
+  <div class="br-info" aria-live="polite">
+    <span class="k"></span><h3></h3><p class="ad"></p>
+    <div class="acts"><a class="btn red dirs" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
+    <div class="ph"><b style="color:var(--ink);font-weight:600">Mon–Sat · 8:00 AM – 5:00 PM</b><br><a href="tel:+639338672954">0933 867 2954</a> · <a href="tel:+639152453528">0915 245 3528</a> · <a href="tel:+63279560521">(02) 7956 0521</a></div>
+  </div>
+</div>
   </div>
 </section>
 </main>
@@ -532,6 +599,7 @@ html.menu-lock{overflow:hidden}
   </section>
 </div>
 <script src="assets/js/site.js?v=a8bca181" defer></script>
+<script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
@@ -546,20 +614,6 @@ const it = qs.get('interest'); if (it) { const c = $('input[data-k="' + it + '"]
 const sh = qs.get('showers'); if (sh) form.showers.value = { '1': '1', '2-3': '2 to 3', '4-10': '4 to 10', '10+': 'More than 10' }[sh] || ''
 if (qs.get('note')) form.msg.value = qs.get('note')
 if (qs.get('type') === 'project') { form.msg.placeholder = 'Tell us about the project: building type, number of rooms or floors, and your timeline.'; $('.qp-hd h2').textContent = 'Book a free site survey' }
-
-/* ---------- branches: a Google map of the chosen office (no key needed for this embed) ---------- */
-const BR = [{"k":"manila","n":"Manila","rg":"Head office · Luzon","a":"778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City","ll":[14.6111876,121.0954281]},{"k":"boracay","n":"Boracay","rg":"Visayas","a":"Station 2, Manoc-Manoc, Boracay Island, Malay, Aklan","ll":[11.9609959,121.9246445]},{"k":"iloilo","n":"Iloilo","rg":"Visayas","a":"2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City","ll":[10.7162841,122.5586473]},{"k":"cebu","n":"Cebu","rg":"Visayas","a":"3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City","ll":[10.3350685,123.9450424]},{"k":"davao","n":"Davao","rg":"Mindanao","a":"Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City","ll":[7.0964317,125.613112]}]
-const btns = $$('.bl button'), fr = $('.map iframe')
-function pick(i) {
-  const b = BR[i]; btns.forEach((x, j) => x.setAttribute('aria-pressed', i === j))
-  fr.src = 'https://maps.google.com/maps?q=' + b.ll.join(',') + '&z=16&output=embed'
-  $('.mn').textContent = 'DPY ' + b.n + (i ? '' : ' · Head office'); $('.ma').textContent = b.a
-  $('.dir').href = 'https://www.google.com/maps/dir/?api=1&destination=' + b.ll.join(',')
-}
-btns.forEach((b, i) => b.addEventListener('click', () => pick(i)))
-// load the map only when the section comes near (saves data on phones)
-addEventListener('load', () => new IntersectionObserver(([e], o) => { if (e.isIntersecting) { pick(0); o.disconnect() } }, { rootMargin: '200px' }).observe($('.map')))
-fr.addEventListener('load', () => $('.map .ld').remove(), { once: true })
 })
 </script>
 </body>

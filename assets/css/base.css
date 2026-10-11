@@ -188,7 +188,8 @@ html.menu-lock{overflow:hidden}
 .ql .more{margin-top:10px;font-size:12.5px}
 
 /* ---------- shared breakpoints: the menu folds into the button below 980px (six links and the quote button need the room) ---------- */
-@media (max-width:980px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
+@media (max-width:1180px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} /* eight links and the quote button need about 1180px */
+@media (max-width:980px){.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
 @media (max-width:640px){.foot-cta{padding:24px 22px}}
 .lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot{animation:none!important}
 /* phones: lift the chat button above a page's own bottom bar (product pages) */

@@ -10,10 +10,10 @@ const JOBS = [
   ['Sales Executive', 'Cebu', 'Serve homes and businesses across Cebu, from inquiry to after-sales.'],
 ]
 export default {
-  path: 'careers', nav: 'about',
+  path: 'careers', nav: 'careers',
   title: 'Careers at DPY Mercantile',
   desc: 'Join DPY Mercantile Inc. Openings for sales engineers, sales executives, accounting staff and technicians in Manila and Cebu.',
-  crumbs: [['About', 'about'], ['Careers']],
+  crumbs: [['Careers']],
   css: `
 .why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .why div{padding:24px;border-radius:22px;background:#fff;box-shadow:var(--card)}
@@ -36,7 +36,7 @@ export default {
 <section class="phead">
   <span class="glow warm"></span>
   <div class="wrap ph-grid">
-    <div>${crumbsHtml(R, [['About', 'about'], ['Careers']])}<span class="kick">Careers</span><h1 class="thin h1">Discover<br>Your Potential</h1><p class="lede">We see our people as our most valuable asset. We train you, give you room to grow, and make you part of a reliable, professional team.</p><div class="ph-acts"><a class="btn red" href="#roles">See open roles ${I.arr}</a></div></div>
+    <div>${crumbsHtml(R, [['Careers']])}<span class="kick">Careers</span><h1 class="thin h1">Discover<br>Your Potential</h1><p class="lede">We see our people as our most valuable asset. We train you, give you room to grow, and make you part of a reliable, professional team.</p><div class="ph-acts"><a class="btn red" href="#roles">See open roles ${I.arr}</a></div></div>
     <ul class="ph-stats"><li><b>${JOBS.length}</b><small>Open roles</small></li><li><b>2</b><small>Cities hiring</small></li><li><b>5</b><small>Core values</small></li></ul>
   </div>
 </section>

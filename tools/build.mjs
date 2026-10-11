@@ -4,7 +4,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { ROOT, page, nav, foot, ver, inlineCss, ASK } from './lib.mjs'
+import { ROOT, page, nav, foot, ver, inlineCss, ASK, BRMAP, BRMAP_CSS } from './lib.mjs'
 
 const dir = path.join(ROOT, 'src/pages'), out = []
 for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.mjs')).sort()) {
@@ -21,11 +21,14 @@ console.log(`built ${out.length} pages: ${out.join(', ')}`)
 const H = path.join(ROOT, 'index.html')
 let home = fs.readFileSync(H, 'utf8')
 const fill = (name, html) => { const re = new RegExp(`(<!-- @${name}:[^>]*-->\\n)[\\s\\S]*?(<!-- /@${name} -->)`); if (!re.test(home)) throw new Error('index.html: missing @' + name); home = home.replace(re, (m, a, b) => a + html + '\n' + b) }
-fill('nav', nav({ home: true, nav: '' }, ''))
+fill('nav', nav({ home: true, nav: 'home' }, ''))
+fill('branchmap', BRMAP.split('\n').map(l => '      ' + l).join('\n'))
 fill('footer', foot('', { noCta: true }))
 fill('ask', ASK)
 // base.css written in, like the other pages (the homepage's own styles follow it)
 home = home.replace(/<link rel="stylesheet" href="assets\/css\/base\.css\?v=\w+">[^\n]*\n|<style id="base-css">[\s\S]*?<\/style>\n/, () => `<style id="base-css">\n${inlineCss('', ['assets/css/base.css'])}\n</style>\n`)
-for (const f of ['assets/js/site.js', 'assets/js/ask.js']) home = home.replace(new RegExp(`${f.replace(/\./g, '\\.')}\\?v=\\w+`), `${f}?v=${ver(f)}`)
+// the branch map's styles, shared with the Contact page
+home = home.replace(/(<style id="base-css">[\s\S]*?<\/style>\n)(?:<style id="br-css">[\s\S]*?<\/style>\n)?/, (m, a) => a + `<style id="br-css">\n${BRMAP_CSS}\n</style>\n`)
+for (const f of ['assets/js/site.js', 'assets/js/ask.js', 'assets/js/branches.js']) home = home.replace(new RegExp(`${f.replace(/\./g, '\\.')}\\?v=\\w+`), `${f}?v=${ver(f)}`)
 fs.writeFileSync(H, home)
 console.log('homepage: header, footer and versions updated')

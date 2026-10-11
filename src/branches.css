@@ -1,0 +1,75 @@
+/* The branch map: a satellite map that flies from the whole country down to each branch, then into Street View facing the office.
+   Shared by the homepage and the Contact page (the build writes it into both). */
+.br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
+#brMap{position:absolute;inset:0}
+#brMap .maplibregl-ctrl-attrib{font-size:10px;background:rgba(255,255,255,.7)}
+.br-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(6,16,31,.75),rgba(6,16,31,0) 42%),linear-gradient(0deg,rgba(6,16,31,.55),rgba(6,16,31,0) 30%)}
+.br-ld{position:absolute;inset:0;z-index:0;display:grid;place-items:center;color:#5E7896;font-size:13px}
+/* branch list over the map */
+.br-ov{position:absolute;left:22px;top:22px;bottom:22px;z-index:3;width:300px;display:flex;flex-direction:column;gap:6px;color:#fff}
+.br-ov h3{margin:4px 4px 10px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9DC2EC}
+.br-ov ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.br-ov button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;text-align:left;background:rgba(8,20,40,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .35s,box-shadow .35s,transform .5s var(--ease)}
+.br-ov button:hover{background:rgba(14,32,62,.86);transform:translateX(3px)}
+.br-ov button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:none}
+.br-ov .n{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:700;background:rgba(255,255,255,.12)}
+.br-ov button[aria-pressed="true"] .n{background:var(--red);color:#fff}
+.br-ov b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.br-ov small{display:block;font-size:11.5px;color:#9DB0C6}
+.br-ov button[aria-pressed="true"] small{color:var(--mute)}
+.br-ov .all{margin-top:auto;justify-content:center;font-size:13px;font-weight:600;background:rgba(255,255,255,.1)}
+.br-ov .all svg{width:16px;height:16px}
+.br-ov .all[aria-pressed="true"]{background:rgba(255,255,255,.18);color:#fff}
+/* info card for the chosen branch */
+.br-info{position:absolute;right:22px;bottom:22px;z-index:3;width:330px;padding:18px 18px 16px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -24px rgba(0,0,0,.6);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .45s,transform .6s var(--ease)}
+.br-info.on{opacity:1;transform:none;pointer-events:auto}
+.br-info .k{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.br-info .k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.15)}
+.br-info h3{margin:6px 0 4px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.br-info p{margin:0;font-size:13px;line-height:1.5;color:var(--ink2)}
+.br-info .acts{display:flex;gap:8px;margin-top:14px}
+.br-info .btn{height:40px;font-size:13px;padding:0 14px;gap:6px}
+.br-info .acts{flex-wrap:wrap}
+.br-info .tel{width:40px;padding:0;justify-content:center}.br-info .tel svg{width:16px;height:16px}
+/* in walk view, keep clear of Google's address box in the top-left */
+.br-ov h3{transition:opacity .3s}.br-ov{transition:top .6s var(--ease)}
+.br-stage.walking .br-ov h3{opacity:0}.br-stage.walking .br-ov{top:84px}
+.br-info .ph{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+.br-info .ph a{color:var(--ink);font-weight:600}
+.br-hint{position:absolute;right:22px;top:22px;z-index:3;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.72);color:#CFE0F3;font-size:12px;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s}
+.br-stage.zoomed .br-hint{opacity:0}
+/* walk view: Google Street View facing the office, faded in over the map */
+.br-sv{position:absolute;inset:0;z-index:2;background:#06101F;opacity:0;pointer-events:none;transition:opacity .9s}
+.br-sv.on{opacity:1;pointer-events:auto}
+.br-sv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.br-sv .tag{position:absolute;left:50%;top:18px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.85);color:#fff;font-size:12.5px;font-weight:600;pointer-events:none;white-space:nowrap}
+.br-sv .tag svg{width:14px;height:14px}
+.br-dive{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,0) 30%,rgba(255,255,255,.95) 75%);opacity:0;transition:opacity .7s}
+.br-dive.on{opacity:1}
+.br-info .acts .vw{display:inline-flex;align-items:center;gap:6px}
+.br-info .acts .vw svg{width:15px;height:15px}
+.br-info .note{display:block;margin-top:8px;font-size:11px;color:var(--dim)}
+/* pins */
+.mk{position:relative;width:0;height:0;cursor:pointer}
+.mk i{position:absolute;left:-8px;top:-8px;width:16px;height:16px;border-radius:50%;background:var(--red2);box-shadow:0 0 0 3px #fff,0 6px 14px rgba(0,0,0,.55)}
+.mk i::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid #fff;opacity:0;animation:ring 2.2s ease-out infinite}
+.mk span{position:absolute;left:14px;top:-13px;white-space:nowrap;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);font:700 12px/1.2 var(--font);box-shadow:0 8px 18px -8px rgba(0,0,0,.6)}
+.mk.l span{left:auto;right:14px}
+.mk.sm i{left:-5px;top:-5px;width:10px;height:10px;background:#9EC4EE;box-shadow:0 0 0 2px #fff}
+.mk.sm i::after{display:none}
+.mk.sm span{font-weight:600;font-size:11px;opacity:.85}
+.mk.on span{background:var(--red2);color:#fff}
+.br-stage.zoomed .mk:not(.on){pointer-events:none}.br-stage.zoomed .mk:not(.on) > *{opacity:0;transition:opacity .4s}
+@media (max-width:860px){
+  .br-stage{height:600px}
+  .br-ov{left:12px;right:12px;top:12px;bottom:auto;width:auto}
+  .br-ov h3,.br-ov small,.br-ov .n{display:none}
+  .br-ov ul{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .br-ov li{flex:none}
+  .br-ov button{padding:9px 14px}.br-ov b{font-size:13.5px}
+  .br-ov .all{position:absolute;right:0;top:48px;width:auto;padding:8px 12px}
+  .br-hint,.br-sv .tag{display:none}
+  .br-info{left:12px;right:12px;bottom:12px;width:auto}
+  .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
+}
+@media (max-width:560px){.br-info .ph{line-height:2}}

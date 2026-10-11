@@ -1,4 +1,4 @@
-import { BRANCHES, PRODUCTS, crumbsHtml, I, MSGR, img, prodImg } from '../../tools/lib.mjs'
+import { BRANCHES, PRODUCTS, crumbsHtml, I, MSGR, img, prodImg, BRMAP, BRMAP_CSS } from '../../tools/lib.mjs'
 
 const INTEREST = [['instant', 'Instant'], ['storage', 'Storage'], ['heatpump', 'Heat pump'], ['solar', 'Solar'], ['tank', 'Tanks & pumps'], ['unsure', 'Not sure yet']]
 export default {
@@ -7,6 +7,7 @@ export default {
   desc: 'Get a free water heater quote from DPY Mercantile, call or message our sales and service teams, or visit a branch in Manila, Boracay, Iloilo, Cebu or Davao.',
   crumbs: [['Contact']],
   noCta: true,
+  scripts: ['assets/js/branches.js'],
   css: `
 .ct-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:start}
 .ch{display:grid;gap:12px}
@@ -25,28 +26,9 @@ export default {
 .qp-hd p{margin:6px 0 0;font-size:14px;color:var(--mute)}
 .qp .ql{margin:20px 34px 0}
 .qp .form{padding:24px 34px 34px}
-/* branches */
-.bx{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;align-items:stretch}
-.bl{list-style:none;margin:0;padding:0;display:grid;gap:10px;align-content:start}
-.bl button{width:100%;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:16px 18px;border-radius:20px;text-align:left;background:#fff;box-shadow:var(--card);transition:box-shadow .3s,transform .5s var(--ease)}
-.bl button:hover{transform:translateX(3px)}
-.bl button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--ink),var(--card)}
-.bl .n{grid-row:1/3;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--soft)}
-.bl button[aria-pressed="true"] .n{background:var(--red);color:#fff}
-.bl b{font-size:16px;font-weight:600}
-.bl b small{margin-left:8px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
-.bl span.a{font-size:13px;color:var(--mute);line-height:1.45}
-.bl .also b{font-size:inherit;font-weight:700;color:var(--ink2)}
-.bl .also{padding:14px 18px;border-radius:20px;background:rgba(255,255,255,.6);font-size:13px;color:var(--mute)}
-.map{position:relative;min-height:460px;border-radius:26px;overflow:hidden;background:#DCE6F0;box-shadow:var(--card)}
-.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.map .ld{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:var(--mute)}
-.map-card{position:absolute;left:14px;right:14px;bottom:14px;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.97);box-shadow:var(--sh)}
-.map-card b{display:block;font-size:15px;font-weight:600}
-.map-card span{font-size:12.5px;color:var(--mute)}
-.map-card .acts{display:flex;gap:8px}
-@media (max-width:980px){.ct-top,.bx{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
-@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}.map{min-height:380px}}
+${BRMAP_CSS}
+@media (max-width:980px){.ct-top{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
+@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}}
 `,
   body: R => `
 <section class="phead" style="padding-bottom:40px">
@@ -95,11 +77,8 @@ export default {
 
 <section class="sec soft" id="branches" aria-labelledby="brT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Open Monday to Saturday, 8 AM to 5 PM.</p></div>
-    <div class="bx">
-      <ul class="bl">${BRANCHES.map((b, i) => `<li><button type="button" data-i="${i}" aria-pressed="${!i}"><span class="n">0${i + 1}</span><b>${b.n}<small>${b.rg}</small></b><span class="a">${b.a}</span></button></li>`).join('')}<li class="also">Our products are also sold in <b>Baguio City</b> and <b>Tagaytay</b>.</li></ul>
-      <div class="map"><span class="ld">Loading the map…</span><iframe title="Map of the selected branch" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-card"><div><b class="mn"></b><span class="ma"></span></div><div class="acts"><a class="btn red sm dir" href="https://www.google.com/maps/dir/?api=1&amp;destination=${BRANCHES[0].ll.join(',')}" target="_blank" rel="noopener">Directions ${I.arr}</a><a class="btn ghost sm" href="tel:+639338672954" aria-label="Call">${I.tel}</a></div></div></div>
-    </div>
+    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
+    ${BRMAP}
   </div>
 </section>`,
   js: R => `
@@ -114,18 +93,6 @@ const sh = qs.get('showers'); if (sh) form.showers.value = { '1': '1', '2-3': '2
 if (qs.get('note')) form.msg.value = qs.get('note')
 if (qs.get('type') === 'project') { form.msg.placeholder = 'Tell us about the project: building type, number of rooms or floors, and your timeline.'; $('.qp-hd h2').textContent = 'Book a free site survey' }
 
-/* ---------- branches: a Google map of the chosen office (no key needed for this embed) ---------- */
-const BR = ${JSON.stringify(BRANCHES)}
-const btns = $$('.bl button'), fr = $('.map iframe')
-function pick(i) {
-  const b = BR[i]; btns.forEach((x, j) => x.setAttribute('aria-pressed', i === j))
-  fr.src = 'https://maps.google.com/maps?q=' + b.ll.join(',') + '&z=16&output=embed'
-  $('.mn').textContent = 'DPY ' + b.n + (i ? '' : ' · Head office'); $('.ma').textContent = b.a
-  $('.dir').href = 'https://www.google.com/maps/dir/?api=1&destination=' + b.ll.join(',')
-}
-btns.forEach((b, i) => b.addEventListener('click', () => pick(i)))
-// load the map only when the section comes near (saves data on phones)
-addEventListener('load', () => new IntersectionObserver(([e], o) => { if (e.isIntersecting) { pick(0); o.disconnect() } }, { rootMargin: '200px' }).observe($('.map')))
-fr.addEventListener('load', () => $('.map .ld').remove(), { once: true })
+
 `,
 }
