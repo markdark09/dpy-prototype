@@ -233,9 +233,10 @@ html.menu-lock{overflow:hidden}
 .trust li{display:flex;align-items:center;gap:8px}
 .trust li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#1E9E55;color:#fff}
 .trust li svg{width:11px;height:11px}
-.trust img{flex:none;width:340px;height:auto} 
+.trust .seal{flex:none;display:block;border-radius:10px;transition:opacity .3s}.trust .seal:hover{opacity:.8}
+.trust img{display:block;width:340px;height:auto} 
 .trust + .base{margin-top:26px}
-@media (max-width:640px){.trust{gap:18px}.trust img{width:100%;max-width:360px}}
+@media (max-width:640px){.trust{gap:18px}.trust .seal{flex:1 1 100%;max-width:360px}.trust img{width:100%}}
 .h1{font-size:clamp(2.4rem,4.8vw,4rem);padding-bottom:.06em}
 .lede{color:var(--mute);font-size:15.5px;max-width:520px;margin:0}
 .h2{padding-bottom:.04em}
@@ -763,7 +764,7 @@ html.modal-open{overflow:hidden}
       <div><h2>Help</h2><ul><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
       <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
-    <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><img src="assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041, with a QR code to verify" loading="lazy"></div>
+    <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><a class="seal" href="https://verify.bir.gov.ph/correspondence/" target="_blank" rel="noopener" title="Verify on the BIR website (opens in a new tab)"><img src="assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041. Open the BIR verification page" loading="lazy"></a></div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
   </div>
 </footer>

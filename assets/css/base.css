@@ -235,6 +235,7 @@ html.menu-lock{overflow:hidden}
 .trust li{display:flex;align-items:center;gap:8px}
 .trust li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#1E9E55;color:#fff}
 .trust li svg{width:11px;height:11px}
-.trust img{flex:none;width:340px;height:auto} /* QR about 90 px: scannable from a screen */
+.trust .seal{flex:none;display:block;border-radius:10px;transition:opacity .3s}.trust .seal:hover{opacity:.8}
+.trust img{display:block;width:340px;height:auto} /* QR about 90 px: scannable from a screen; the badge opens the same page the QR does */
 .trust + .base{margin-top:26px}
-@media (max-width:640px){.trust{gap:18px}.trust img{width:100%;max-width:360px}}
+@media (max-width:640px){.trust{gap:18px}.trust .seal{flex:1 1 100%;max-width:360px}.trust img{width:100%}}
