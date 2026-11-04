@@ -2,7 +2,7 @@
 <html lang="en-PH">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Water Heaters & Heat Pumps Philippines | DPY Mercantile Inc.</title>
 <meta name="description" content="Instant, storage, heat pump and solar water heaters for homes, hotels and hospitals in the Philippines. Free site visit, installation and service since 2001.">
 <meta name="robots" content="noindex,nofollow"> <!-- prototype: kept out of search results; use index,follow on the live site -->
@@ -35,7 +35,7 @@
   --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
   --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C; --night:#0A1830;
   --font:'Manrope',system-ui,sans-serif;
-  --g:clamp(16px,4vw,56px); --max:1240px;
+  --g:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px)); --max:1240px;
   --ease:cubic-bezier(.2,.7,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
   --sh:0 24px 50px -28px rgba(1,30,70,.35); --sh-s:0 10px 26px -16px rgba(1,30,70,.3);
   --card:0 1px 0 rgba(1,30,70,.05),0 16px 34px -28px rgba(1,30,70,.4);
@@ -243,6 +243,27 @@ html.menu-lock{overflow:hidden}
 .trust img{display:block;width:340px;height:auto} 
 .trust + .base{margin-top:26px}
 @media (max-width:640px){.trust{gap:18px}.trust .seal{flex:1 1 100%;max-width:360px}.trust img{width:100%}}
+.hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
+.f-err{grid-column:1/-1;margin:0;font-size:13.5px;font-weight:600;color:var(--red)}
+.f-err:empty{display:none}
+button.busy{cursor:progress;opacity:.85}
+.spin{width:16px;height:16px;margin-right:8px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+@media (hover:none),(max-width:760px){:is(input:not([type=checkbox],[type=radio],[type=range],[type=hidden]),select,textarea){font-size:16px!important}}
+:root{--sb:env(safe-area-inset-bottom,0px);--sr:env(safe-area-inset-right,0px)}
+.ask{right:calc(22px + var(--sr));bottom:calc(22px + var(--sb))}
+.ctray{bottom:calc(20px + var(--sb))}
+.ctray-on .ask{bottom:calc(94px + var(--sb))}
+.sheet{padding-bottom:calc(40px + var(--sb))}
+@media (max-width:640px){.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
+@media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
+@view-transition{navigation:auto}
+.nav{view-transition-name:site-nav}
+.ask{view-transition-name:ask}
+.plinth ~ img.main{view-transition-name:product-photo}
+::view-transition-group(*){animation-duration:.32s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.2s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 </style>
 <style id="br-css">
 .br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
@@ -758,7 +779,7 @@ main > section{overflow-x:clip}
 .qz-also{margin:18px 0 0;padding:12px 14px;border-radius:14px;background:#F5F8FB;font-size:13px;color:var(--ink2)}
 .qz-also b{font-weight:600}
 .qz-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-@media (max-width:560px){.qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-res{grid-template-columns:1fr}.qz-res .pic{height:160px}.qz-res .pic img{max-height:136px}.qz-cta{flex-direction:column;align-items:flex-start}}
+@media (max-width:560px){.qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh;padding-bottom:env(safe-area-inset-bottom,0px)}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-res{grid-template-columns:1fr}.qz-res .pic{height:160px}.qz-res .pic img{max-height:136px}.qz-cta{flex-direction:column;align-items:flex-start}}
 .qt-msg{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 
 /* ---------- get a free quote: the page's closing ask ---------- */
@@ -1234,7 +1255,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </div>
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
-<script src="assets/js/site.js?v=a8bca181" defer></script>
+<script src="assets/js/site.js?v=74396f4a" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
@@ -1482,9 +1503,12 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
   pv.addEventListener('close', () => { lenis?.start(); lockPage(false) })
 }
 
-/* ---------- get a free quote (prototype: composes an email; production would post to DPY's CRM) ---------- */
+/* ---------- get a free quote: sent through DPY.send (site.js), which falls back to the visitor's email app ---------- */
 {
   const form = $('.qt-form'), done = $('.qt-done', form)
+  let kit // site.js loads after this script, so its helpers are picked up when first needed
+  const K = () => kit ||= window.DPY.formKit(form)
+  addEventListener('DOMContentLoaded', () => K())
   // any "Get a Quote" button: pre-tick what the visitor was looking at, then glide to the form
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-quote]'); if (!a) return
@@ -1493,18 +1517,28 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
     if (a.dataset.note && !form.msg.value) form.msg.value = a.dataset.note + ': '
     go('#quote'); setTimeout(() => form.fullname.focus({ preventScroll: true }), RM ? 0 : 1300)
   })
-  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.qt-ok')?.classList.remove('bad') })
-  form.addEventListener('submit', e => {
+  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.qt-ok')?.classList.remove('bad'); K().error('') })
+  form.addEventListener('submit', async e => {
     e.preventDefault()
+    if ($('.busy', form)) return
     const need = [form.fullname, form.phone].filter(x => !x.value.trim())
     if (!/^[0-9+()\s-]{7,}$/.test(form.phone.value.trim()) && !need.includes(form.phone)) need.push(form.phone)
     const ok = form.consent.checked; form.consent.closest('.qt-ok').classList.toggle('bad', !ok)
     need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
     if (!ok) return form.consent.focus()
-    const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ') || '-'
-    const body = [...(form.products.value ? [`Products: ${form.products.value}`] : []), `Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, `Building: ${v('building')}`, `Interested in: ${v('interest')}`, `Nearest branch: ${form.branch.value}`, `Showers / bathrooms: ${form.showers.value || '-'}`, '', form.msg.value].join('\n')
-    location.href = 'mailto:sales@dpymi.com.ph?subject=' + encodeURIComponent('Free quote request: ' + form.fullname.value) + '&body=' + encodeURIComponent(body)
-    $('.who', done).textContent = ', ' + form.fullname.value.trim().split(' ')[0]; done.classList.add('on')
+    const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ')
+    const fields = [['Products', form.products.value], ['Building', v('building')], ['Interested in', v('interest')], ['Nearest branch', form.branch.value],
+      ['Showers / bathrooms', form.showers.value], ['Message', form.msg.value]].map(([k, x]) => [k, (x || '').trim()]).filter(([, x]) => x)
+    const body = [`Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, ...fields.map(([k, x]) => `${k}: ${x}`)].join('\n')
+    K().busy(true)
+    const res = await window.DPY.send({
+      form, kind: 'quote', name: form.fullname.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(), fields,
+      mailto: 'mailto:sales@dpymi.com.ph?subject=' + encodeURIComponent('Free quote request: ' + form.fullname.value) + '&body=' + encodeURIComponent(body),
+    })
+    K().busy(false)
+    if (res.error) return K().error(res.error, res.field)
+    K().done(res, 'quote', done)
+    $('.who', done).textContent = ', ' + form.fullname.value.trim().split(' ')[0]; done.classList.add('on'); $('.again', done).focus()
   })
   $('.again', done).addEventListener('click', () => done.classList.remove('on'))
 }

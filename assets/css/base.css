@@ -7,7 +7,7 @@
   --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
   --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C; --night:#0A1830;
   --font:'Manrope',system-ui,sans-serif;
-  --g:clamp(16px,4vw,56px); --max:1240px;
+  --g:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px)); --max:1240px;
   --ease:cubic-bezier(.2,.7,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
   --sh:0 24px 50px -28px rgba(1,30,70,.35); --sh-s:0 10px 26px -16px rgba(1,30,70,.3);
   --card:0 1px 0 rgba(1,30,70,.05),0 16px 34px -28px rgba(1,30,70,.4);
@@ -239,3 +239,33 @@ html.menu-lock{overflow:hidden}
 .trust img{display:block;width:340px;height:auto} /* QR about 90 px: scannable from a screen; the badge opens the same page the QR does */
 .trust + .base{margin-top:26px}
 @media (max-width:640px){.trust{gap:18px}.trust .seal{flex:1 1 100%;max-width:360px}.trust img{width:100%}}
+/* forms, shared by every page: the spam trap people never see, the line that says what to fix, the busy button */
+.hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
+.f-err{grid-column:1/-1;margin:0;font-size:13.5px;font-weight:600;color:var(--red)}
+.f-err:empty{display:none}
+button.busy{cursor:progress;opacity:.85}
+.spin{width:16px;height:16px;margin-right:8px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+/* phones and tablets: 16px fields, or iOS zooms the page when one is tapped */
+@media (hover:none),(max-width:760px){:is(input:not([type=checkbox],[type=radio],[type=range],[type=hidden]),select,textarea){font-size:16px!important}}
+
+/* iPhones: fixed controls stay clear of the notch and the home bar (the viewport meta has viewport-fit=cover).
+   --sb is 0 everywhere else, so these match the positions above. */
+:root{--sb:env(safe-area-inset-bottom,0px);--sr:env(safe-area-inset-right,0px)}
+.ask{right:calc(22px + var(--sr));bottom:calc(22px + var(--sb))}
+.ctray{bottom:calc(20px + var(--sb))}
+.ctray-on .ask{bottom:calc(94px + var(--sb))}
+.sheet{padding-bottom:calc(40px + var(--sb))}
+@media (max-width:640px){.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
+@media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
+
+/* moving between pages: a short cross-fade with the header and the chat button held still, and a product's photo
+   carried from its card to its page (site.js names the clicked card's photo). Chrome, Edge and Safari 18.2+;
+   other browsers simply load the page. Off for reduced motion. */
+@view-transition{navigation:auto}
+.nav{view-transition-name:site-nav}
+.ask{view-transition-name:ask}
+.plinth ~ img.main{view-transition-name:product-photo}
+::view-transition-group(*){animation-duration:.32s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.2s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}

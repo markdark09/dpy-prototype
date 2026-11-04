@@ -27,6 +27,13 @@ export default {
 .cp thead th{position:relative;padding:18px 16px 16px;vertical-align:bottom;background:#fff}
 .cp thead th:first-child{position:sticky;left:0;z-index:2;width:170px;background:#F7FAFD;box-shadow:1px 0 0 var(--line);vertical-align:middle;font-size:12px;color:var(--mute)}
 .cp td + td,.cp thead th + th{box-shadow:inset 1px 0 0 var(--line)}
+.cp-pin{position:fixed;top:0;z-index:45;overflow:hidden;background:rgba(255,255,255,.97);border-radius:0 0 16px 16px;box-shadow:0 12px 26px -18px rgba(1,30,70,.45),0 1px 0 var(--line);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.cp-pin.on{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+.cp-pin-in{display:flex}
+.cp-pin span,.cp-pin .k{flex:none;padding:11px 16px;font-size:13px;font-weight:700;line-height:1.3;color:var(--ink)}
+.cp-pin span + span{box-shadow:inset 1px 0 0 var(--line)}
+.cp-pin .k{position:absolute;left:0;top:0;bottom:0;z-index:1;display:flex;align-items:center;background:#F7FAFD;box-shadow:1px 0 0 var(--line);font-size:12px;font-weight:600;color:var(--mute)}
+@media (max-width:640px){.cp-pin span,.cp-pin .k{padding:9px 10px;font-size:12px}.cp-pin .k{font-size:10.5px}}
 .ph-c{display:grid;gap:8px}
 .ph-c .pic{height:150px;display:grid;place-items:end center;border-radius:16px;background:radial-gradient(70% 70% at 50% 45%,#fff,#E9F1F8)}
 .ph-c .pic img{max-height:136px;max-width:82%;width:auto;object-fit:contain;margin-bottom:6px}
@@ -92,12 +99,36 @@ const cell = (k, p) => {
   if (k === 'f') return '<span class="who">' + (v.includes('home') ? '<span>Homes</span>' : '') + (v.includes('business') ? '<span class="b">Business</span>' : '') + '</span>'
   return v ? esc(v) : ''
 }
+// the table scrolls sideways, so its header can't stick to the page: a slim strip of the product names pins under
+// the menu while the table is on screen, sized from the real columns and sliding sideways with the table
+const pin = document.createElement('div'); pin.className = 'cp-pin'; pin.setAttribute('aria-hidden', 'true'); box.after(pin)
+const nav = $('.nav')
+let pinRaf = 0
+function pinDraw() {
+  const ths = $$('thead th', box)
+  pin.innerHTML = ths.length < 2 ? '' : '<b class="k" style="width:' + ths[0].offsetWidth + 'px">' + esc(ths[0].textContent) + '</b><div class="cp-pin-in">' + ths.map((th, i) => '<span style="width:' + th.offsetWidth + 'px">' + (i ? esc(th.querySelector('.nm')?.textContent || '') : '') + '</span>').join('') + '</div>'
+  pinPlace()
+}
+function pinPlace() {
+  pinRaf = 0
+  const head = $('thead', box), inner = $('.cp-pin-in', pin)
+  if (!head || !inner) return pin.classList.remove('on')
+  const top = nav && !nav.classList.contains('up') ? nav.getBoundingClientRect().bottom : 0
+  const b = box.getBoundingClientRect(), h = head.getBoundingClientRect()
+  pin.classList.toggle('on', h.bottom < top + 4 && b.bottom > top + 90)
+  pin.style.cssText = 'top:' + Math.max(0, top) + 'px;left:' + b.left + 'px;width:' + box.clientWidth + 'px'
+  inner.style.transform = 'translateX(' + -box.scrollLeft + 'px)'
+}
+const pinLater = () => { if (!pinRaf) pinRaf = requestAnimationFrame(pinPlace) }
+addEventListener('scroll', pinLater, { passive: true })
+box.addEventListener('scroll', pinLater, { passive: true })
+addEventListener('resize', () => requestAnimationFrame(pinDraw))
 function draw() {
   const l = pick(), slots = l.length < MAX ? [...l, ''] : l
   count.textContent = l.length ? l.length + ' of ' + MAX + ' picked' : ''
   foot.hidden = !l.length
   history.replaceState(null, '', l.length ? '?p=' + l.join(',') : location.pathname)
-  if (!l.length) { box.innerHTML = '<div class="empty"><b>Nothing to compare yet</b><p>Pick a quick comparison above, choose products below, or tap the compare button on any product.</p>' + picker([]) + '</div>'; return }
+  if (!l.length) { pin.innerHTML = ''; pin.classList.remove('on'); box.innerHTML ='<div class="empty"><b>Nothing to compare yet</b><p>Pick a quick comparison above, choose products below, or tap the compare button on any product.</p>' + picker([]) + '</div>'; return }
   const ph = innerWidth < 640 // phones: two products side by side, the rest a swipe away
   box.style.setProperty('--min', (ph ? 104 + slots.length * 140 : 170 + slots.length * 230) + 'px')
   const head = '<thead><tr><th scope="col">' + l.length + (l.length === 1 ? ' product' : ' products') + '</th>' + slots.map(s => s ? '<th scope="col"><div class="ph-c"><div class="pic">' + (D[s].i ? '<img src="${R}' + D[s].i + '" alt="">' : '<span>' + esc(D[s].b.toUpperCase()) + '</span>') + '</div><small>' + esc(D[s].b) + '</small><a class="nm" href="${R}products/' + s + '">' + esc(D[s].n) + '</a><div class="acts"><button class="addq" type="button" data-add="' + s + '" data-name="' + esc(D[s].n) + '" data-img="' + D[s].i + '" data-cat="' + D[s].c + '" aria-pressed="false">${I.plus.replace(/"/g, '\\"')}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div></div><button class="rm" type="button" data-rm-c="' + s + '" aria-label="Remove ' + esc(D[s].n) + '">×</button></th>' : '<th scope="col"><div class="add-c"><b>Add a product</b>' + picker(l) + '</div></th>').join('') + '</tr></thead>'
@@ -110,6 +141,7 @@ function draw() {
   }).join('') + '</tbody>'
   box.innerHTML = '<table>' + head + body + '</table>'
   DPY.quote.sync()
+  pinDraw()
 }
 box.addEventListener('change', e => { if (e.target.matches('select') && e.target.value) setList([...pick(), e.target.value]) })
 box.addEventListener('click', e => { const r = e.target.closest('[data-rm-c]'); if (r) setList(pick().filter(s => s !== r.dataset.rmC)) })
