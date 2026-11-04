@@ -25,7 +25,7 @@ const css = `
 .best li{padding:5px 11px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-weight:600;color:var(--ink2)}
 .best li:first-child{background:none;box-shadow:none;padding-left:0;color:var(--mute);font-weight:600}
 .pd .ph-acts{margin-top:26px;align-items:center}
-.pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px}
+.pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px;white-space:nowrap}
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
