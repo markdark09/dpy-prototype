@@ -259,6 +259,17 @@ button.busy{cursor:progress;opacity:.85}
 @media (max-width:640px){.qbar-on .ask{bottom:calc(84px + var(--sb))}.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
 @media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
 
+/* phones: on the long forms (quote, service) the send button stays at the bottom of the screen while the form is on
+   screen, and the note beside it stays in place. The chat button steps aside meanwhile (site.js sets .form-on). */
+@media (max-width:640px){
+  .form .f-sub,.qt-form .qt-sub{display:contents}
+  .form .f-sub small,.qt-form .qt-sub small{grid-column:1/-1;max-width:none}
+  .form .f-sub .btn,.qt-form .qt-sub .btn{grid-column:1/-1;position:sticky;bottom:calc(12px + var(--sb));z-index:2;width:100%;justify-content:center;box-shadow:0 0 0 6px #fff,0 18px 36px -12px rgba(1,20,50,.45)}
+  .qt-form .qt-done{z-index:3}
+  .ask{transition:opacity .3s,transform .3s,visibility 0s}
+  .form-on .ask:not(.open){opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,transform .3s,visibility 0s .3s}
+}
+
 /* moving between pages: a short cross-fade with the header and the chat button held still, and a product's photo
    carried from its card to its page (site.js names the clicked card's photo). Chrome, Edge and Safari 18.2+;
    other browsers simply load the page. Off for reduced motion. */

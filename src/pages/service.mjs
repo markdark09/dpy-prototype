@@ -59,7 +59,7 @@ export default {
 .war b{display:block;font-size:17px;font-weight:600;margin-bottom:6px}
 .war p{margin:0;font-size:14px;color:var(--mute);line-height:1.55}
 /* booking */
-.book{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:30px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
+.book{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:30px;overflow:hidden;overflow:clip;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
 .book-side{padding:40px 36px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,rgba(43,182,115,.35),transparent 60%),linear-gradient(160deg,#0D3A73,#0A1830)}
 .book-side h2{margin:0}
 .book-side p{color:#A9C2DE;font-size:14.5px;margin:14px 0 22px}
@@ -161,6 +161,7 @@ export default {
   js: `
 // the three cards pre-pick the service type in the form
 $$('[data-svc]').forEach(a => a.addEventListener('click', () => { const r = $('input[name=service][value="' + a.dataset.svc + '"]'); if (r) r.checked = true; setTimeout(() => $('#sN').focus({ preventScroll: true }), RM ? 0 : 1100) }))
-const t = new Date(); t.setDate(t.getDate() + 1); $('#sD').min = t.toISOString().slice(0, 10)
+// earliest day: tomorrow, in the visitor's own date (toISOString would give the UTC date, a day off in the early morning in the Philippines)
+const t = new Date(); t.setDate(t.getDate() + 1); $('#sD').min = [t.getFullYear(), String(t.getMonth() + 1).padStart(2, '0'), String(t.getDate()).padStart(2, '0')].join('-')
 `,
 }

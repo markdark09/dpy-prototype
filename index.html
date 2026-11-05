@@ -257,6 +257,14 @@ button.busy{cursor:progress;opacity:.85}
 .sheet{padding-bottom:calc(40px + var(--sb))}
 @media (max-width:640px){.qbar-on .ask{bottom:calc(84px + var(--sb))}.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
 @media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
+@media (max-width:640px){
+  .form .f-sub,.qt-form .qt-sub{display:contents}
+  .form .f-sub small,.qt-form .qt-sub small{grid-column:1/-1;max-width:none}
+  .form .f-sub .btn,.qt-form .qt-sub .btn{grid-column:1/-1;position:sticky;bottom:calc(12px + var(--sb));z-index:2;width:100%;justify-content:center;box-shadow:0 0 0 6px #fff,0 18px 36px -12px rgba(1,20,50,.45)}
+  .qt-form .qt-done{z-index:3}
+  .ask{transition:opacity .3s,transform .3s,visibility 0s}
+  .form-on .ask:not(.open){opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,transform .3s,visibility 0s .3s}
+}
 @view-transition{navigation:auto}
 .nav{view-transition-name:site-nav}
 .ask{view-transition-name:ask}
@@ -704,6 +712,10 @@ main > section{overflow-x:clip}
 .tm figure:nth-child(2) figcaption i{background:linear-gradient(135deg,#E3262B,#7A0F2E)}
 .tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
 @media (max-width:900px){.tm{grid-template-columns:1fr}}
+/* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
+.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13px;color:var(--mute)}
+.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tm-note + .tm{margin-top:16px}
 .cl-cta{margin:34px 0 0;text-align:center;font-size:15px;color:var(--mute)}
 .cl-cta a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .cl-cta svg{width:14px;height:14px}
@@ -784,7 +796,7 @@ main > section{overflow-x:clip}
 
 /* ---------- get a free quote: the page's closing ask ---------- */
 .qt{padding:0 0 110px;background:#FBF3EC}
-.qt-panel{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:30px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
+.qt-panel{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:30px;overflow:hidden;overflow:clip;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
 .qt-side{position:relative;padding:44px 40px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(160deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);overflow:hidden}
 .qt-side::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 40px rgba(255,255,255,.03),0 0 0 80px rgba(255,255,255,.02)}
 .qt-side .kick{color:#FFC9C2}
@@ -1040,7 +1052,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
             <span><small>Set point</small><b>50°C</b></span>
             <span><small>Element</small><b class="i-e"><i class="led"></i><em>Off</em></b></span>
           </div>
-          <img class="h3d-fb" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
+          <img class="h3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
           <span class="model-cap">Shown: Rheem electric storage heater · supplied &amp; installed by DPY</span>
         </div>
       </div>
@@ -1069,7 +1081,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <path d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10V240H0Z" fill="url(#gRiseA)"/>
           <path class="rl" d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10" fill="none" stroke="url(#gRise)" stroke-width="3"/>
         </svg>
-        <img class="hp" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump" width="355" height="400">
+        <img class="hp" loading="lazy" decoding="async" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump" width="355" height="400">
         <div class="mini a"><b>Air → Hot Water</b>Heat moved, not made</div>
         <div class="mini b"><b>Deron · 5 Star</b>Heat pumps we install</div>
       </article>
@@ -1112,6 +1124,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     </div>
     <ul class="tabs cl-tabs" role="tablist" aria-label="Client type"></ul>
     <ul class="cl-grid"></ul>
+    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
     <div class="tm">
       <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.”</blockquote><figcaption><i>R</i><div><b>Ramon S.</b>Engineering Manager · Resort, Boracay</div></figcaption></figure>
       <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter.”</blockquote><figcaption><i>M</i><div><b>Maricel D.</b>Facilities Head · Hospital, Iloilo</div></figcaption></figure>
@@ -1255,7 +1268,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </div>
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
-<script src="assets/js/site.js?v=74396f4a" defer></script>
+<script src="assets/js/site.js?v=4e7fffe9" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>

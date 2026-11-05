@@ -217,4 +217,21 @@ $$('form[data-mail]').forEach(form => {
   })
   $('.again', form)?.addEventListener('click', () => done.classList.remove('on'))
 })
+
+/* ---------- phones: on the long forms the send button stays at the bottom of the screen (CSS, base.css). The chat button
+   steps aside while a form fills the bottom of the screen or a field has focus, so it never covers that button or the text
+   being typed. It comes back past the form and once the thank-you shows. ---------- */
+{
+  const forms = $$('form.form, form.qt-form'), near = new Set()
+  if (forms.length && 'IntersectionObserver' in window) {
+    const typing = () => { const a = document.activeElement; return forms.some(f => f.contains(a)) && a.matches('input:not([type=checkbox],[type=radio]),select,textarea') }
+    const set = () => document.body.classList.toggle('form-on', [...near].some(f => !$('.f-done.on, .qt-done.on', f)) || typing())
+    // the bottom 18% of the screen: a form there means its sticky button is there too
+    const io = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); set() }, { rootMargin: '-82% 0px 0px 0px' })
+    forms.forEach(f => {
+      io.observe(f); f.addEventListener('focusin', set); f.addEventListener('focusout', () => setTimeout(set))
+      const d = $('.f-done, .qt-done', f); if (d) new MutationObserver(set).observe(d, { attributes: true, attributeFilter: ['class'] })
+    })
+  }
+}
 })()
