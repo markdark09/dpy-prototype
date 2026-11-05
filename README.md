@@ -39,22 +39,35 @@ The quote forms (homepage and Contact) and the service booking form post to `/ap
 
 **Until it is set up, nothing breaks:** the server answers "not set up" and the page opens the visitor's email app with the request written out, as the prototype always did. The thank-you message says which one happened. The same fallback covers a failed send and a page opened from disk.
 
-To switch it on, in Cloudflare > Workers > `prototype` > Settings > Variables and secrets:
+So the code can be merged and deployed before any of this is set. Switching it on has two stages, both in Cloudflare > Workers > `prototype` > Settings > Variables and secrets.
+
+**Stage 1, a test (we can do this alone).** Until `dpymi.com.ph` is verified in Resend, Resend only delivers to the Resend account owner's own address. So for a test, send both kinds of request there:
 
 | Name | Type | Value |
 |---|---|---|
 | `RESEND_API_KEY` | Secret | the Resend key (`re_...`) |
-| `QUOTE_TO` | Text | `sales@dpymi.com.ph` |
-| `SERVICE_TO` | Text | `service@dpymi.com.ph` |
-| `MAIL_FROM` | Text | `DPY Website <website@dpymi.com.ph>`, once `dpymi.com.ph` is verified in Resend (DKIM records in DNS) |
+| `QUOTE_TO` | Text | the Resend account's own email |
+| `SERVICE_TO` | Text | the Resend account's own email |
 
-Optional: bind a KV namespace as `RATE_LIMIT` to turn on the per-visitor limit. `keep_vars` in `wrangler.jsonc` stops a deploy from wiping these. Before the domain is verified, Resend only delivers to the Resend account's own address, which is enough for a test.
+Leave `MAIL_FROM` unset; it defaults to `DPY Website <onboarding@resend.dev>`, which works without a verified domain.
 
-Tests: `node --test worker/send.test.mjs` (10 checks, nothing is sent).
+**Stage 2, real delivery (needs DPY).** Whoever manages DNS for `dpymi.com.ph` adds the records Resend gives (DKIM, SPF, return path) to verify the domain. Then change:
+
+| Name | Type | Value |
+|---|---|---|
+| `QUOTE_TO` | Text | `sales@dpymi.com.ph` (must exist as a mailbox or forward) |
+| `SERVICE_TO` | Text | `service@dpymi.com.ph` (must exist as a mailbox or forward) |
+| `MAIL_FROM` | Text | `DPY Website <website@dpymi.com.ph>` |
+
+Optional: bind a KV namespace as `RATE_LIMIT` to turn on the per-visitor limit. `keep_vars` in `wrangler.jsonc` stops a deploy from wiping these.
+
+Tests: `node --test worker/send.test.mjs` (10 checks). They stand in for Resend's replies, so nothing is sent; a real email has not gone through yet. Stage 1 above is that check.
 
 ### Old addresses
 
 `_redirects` sends every address the WordPress site at dpymi.com.ph had (both of its sitemaps and its menu: 48 addresses) to the page that replaces it, with a permanent (301) redirect. For example, `/product/aquapower-s35m/` goes to `/products/aquapower-s35m-s45m` and `/products/heat-pumps/` goes to `/water-heaters?type=heatpump`. This keeps the site's Google ranking and the old links on Facebook, Lazada and in old emails working. Any other `/product/...` address goes to Water Heaters, and the old sitemap addresses go to `/sitemap.xml`. Product addresses come from `from` in `src/products.mjs`; the other pages are listed in `tools/build.mjs`.
+
+Checked on 2026-11-05 against both live sitemaps: all 48 addresses have a rule, and every rule leads to a page that exists. The redirects only matter to visitors once `dpymi.com.ph` points to this Worker; on the preview link nobody arrives on the old addresses.
 
 **When it becomes the live site:**
 - Change `SITE` in `tools/lib.mjs` to `https://www.dpymi.com.ph/` and run the build. This updates the sitemap too.
@@ -188,9 +201,9 @@ Each product card now links to its category on the new Water Heaters page, and t
 
 ## Phones, pages and motion (November 2026 pass)
 
-- **Moving between pages** is a short cross-fade (0.2 s) instead of a white flash. The header and the chat button stay put. Tapping a product card carries its photo into the product page's photo position. It is a CSS View Transition (`@view-transition` in `base.css`, plus a few lines in `site.js`): Chrome, Edge and Safari 18.2+ show it, and other browsers simply load the page. It is off when the visitor has asked for reduced motion.
+- **Moving between pages** is a short cross-fade (0.2 s) instead of a white flash. The header and the chat button stay put. Tapping a product card carries its photo into the product page's photo position. It is a CSS View Transition (`@view-transition` in `base.css`, plus a few lines in `site.js`): browsers that support it (Chrome and Edge 126+, and by the published support tables Safari 18.2+) show it, and others, like Firefox, simply load the page. It is off when the visitor has asked for reduced motion. Tested in Chromium: the transition runs, the product photo moves, Back works, and with reduced motion there is none. Not yet seen in Safari: WebKit can't run on our test machine, so check it on a real iPhone.
 - **Compare:** the table scrolls sideways, so its header can't stick to the page. A slim strip of the product names now pins under the menu while the table is on screen. It is sized from the real columns and slides sideways with the table, so halfway down "Warranty" you can still see which column is which.
-- **iPhones:** the pages use `viewport-fit=cover`, and the side margins, the chat button, the compare bar, the product page's quote bar, the phone menu and the bottom sheets (chat, quiz) keep clear of the notch and the home bar.
+- **iPhones:** the pages use `viewport-fit=cover`, and the side margins, the chat button, the compare bar, the product page's quote bar, the phone menu and the bottom sheets (chat, quiz) keep clear of the notch and the home bar. Tested in Chromium with an iPhone's insets set by hand (34 px home bar in portrait; 47 px notch sides and 21 px home bar in landscape) on the homepage, a product page, Compare and Water Heaters. That test found the chat button sitting on the quote bar's Call button on product pages; fixed. Still worth one look on a real iPhone.
 - **No zoom on tap:** on phones and tablets every text box, list and message box is 16px, so iOS no longer zooms the page when one is tapped. Before, the forms, the savings calculator's rate and the Compare picker were 13 to 15px.
 - **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three forms were driven through each outcome (sent, not set up, a field to fix, too many requests).
 
@@ -275,4 +288,4 @@ Added in the November 2026 check:
 - **`robots.txt` says "Sitenap"** instead of "Sitemap", so search engines don't find the sitemap from it.
 - **The sitemaps are stale:** the product list was last updated in October 2024.
 - **The footer says © 2022.**
-- **Phone numbers to confirm:** the top bar shows **6733 3712**, which this prototype doesn't list. The footer's landlines **576-14-37** and **400-83-69** have 7 digits, but Metro Manila numbers have needed a leading 8 since 2019 (so 8576-1437 and 8400-8369), if they still work at all. The live site's only email is admin@dpymi.com.ph, so every address this prototype uses (see **Email addresses**) must be created or forwarded before launch.
+- **Phone numbers to confirm:** the top bar shows **6733 3712**, which this prototype doesn't list. The footer's landlines **576-14-37** and **400-83-69** have 7 digits, but Metro Manila numbers have needed a leading 8 since 2019 (so 8576-1437 and 8400-8369), if they still work at all. The only email shown on the live site is admin@dpymi.com.ph (we can't see which mailboxes actually exist), so DPY should confirm that every address this prototype uses (see **Email addresses**) exists, or is created or forwarded, before launch.

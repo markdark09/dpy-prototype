@@ -256,7 +256,7 @@ button.busy{cursor:progress;opacity:.85}
 .ctray{bottom:calc(20px + var(--sb))}
 .ctray-on .ask{bottom:calc(94px + var(--sb))}
 .sheet{padding-bottom:calc(40px + var(--sb))}
-@media (max-width:640px){.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
+@media (max-width:640px){.qbar-on .ask{bottom:calc(84px + var(--sb))}.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
 @media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
 
 /* moving between pages: a short cross-fade with the header and the chat button held still, and a product's photo
