@@ -91,6 +91,24 @@ for (const url of products) {
   await p.close()
 }
 
+// For Business: the system section lights one part per step, and on phones the diagram slides to it
+for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
+  const ctx = await b.newContext(opts)
+  const p = await open(ctx, '/business', { wait: 600 })
+  const seen = []
+  for (const k of ['heat', 'store', 'move', 'return']) {
+    await p.evaluate(k => { const li = document.querySelector(`.sys-steps li[data-step="${k}"]`); const r = li.getBoundingClientRect(); scrollBy(0, r.top + r.height / 2 - innerHeight * 0.55) }, k)
+    await p.waitForTimeout(900)
+    seen.push(await p.evaluate(() => ({ step: document.querySelector('.sys .sch').dataset.step, x: Math.round(document.querySelector('.sys [data-x]').scrollLeft), stuck: Math.round(document.querySelector('.sys-vis').getBoundingClientRect().top) })))
+  }
+  const steps = seen.map(s => s.step).join(',')
+  check(`${name} For Business: each step lights its part`, steps === 'heat,store,move,return', seen)
+  if (name === 'phone') check('phone For Business: the diagram slides to each part', seen[3].x > seen[1].x && seen[1].x > seen[0].x, seen.map(s => s.x))
+  check(`${name} For Business: the diagram stays in view`, seen.slice(1).every(s => s.stuck >= 0 && s.stuck < 400), seen.map(s => s.stuck))
+  check(`${name} For Business: no script errors`, !p.errors.length, p.errors)
+  await ctx.close()
+}
+
 // text size floors on every page: reading text (a sentence, normal weight) 12.5px and up; nothing under 11px (10.5px on phones)
 {
   const { sitemapPaths } = await import('./lib.mjs')

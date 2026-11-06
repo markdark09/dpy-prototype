@@ -41,8 +41,8 @@ export default {
 .sch .flow.slow{animation-duration:2.4s}
 @keyframes flow{to{stroke-dashoffset:-36}}
 .sch .box{fill:#132B4E;stroke:rgba(255,255,255,.18);stroke-width:1.5}
-.sch .lbl{font:600 13px var(--font);fill:#fff}
-.sch .sub{font:500 11px var(--font);fill:#8FA6C0}
+.sch .lbl{font:600 17px var(--font);fill:#fff}
+.sch .sub{font:500 14px var(--font);fill:#8FA6C0}
 .sch a:hover .box,.sch a:focus-visible .box{fill:#1B3A66;stroke:#7CC0FF}
 .sch a{outline:none}
 .sch .fin{stroke:rgba(255,255,255,.22);stroke-width:1.5}
@@ -57,6 +57,28 @@ export default {
 .sch-steps b{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px}
 .sch-steps p{margin:0;font-size:14px;line-height:1.5;color:#9DB0C6}
 .sch-steps em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:#7CC0FF}
+/* the system section: dark like the hero above it; the diagram stays in view while the parts scroll past */
+.sys{background:#0A1830;color:#fff;padding:96px 0 40px}
+.sys .sec-head .lede{color:#9DB0C6}
+.sys .kick{color:#7CC0FF}
+.sys-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:56px;align-items:start}
+.sys-vis{position:sticky;top:calc(50vh - 230px);z-index:2}
+.sys-steps{list-style:none;margin:0;padding:0}
+.sys-steps li{min-height:56vh;display:flex;flex-direction:column;justify-content:center;gap:10px;opacity:.7;transition:opacity .5s var(--ease)}
+.sys-steps li:first-child{min-height:44vh;justify-content:flex-start;padding-top:40px}
+.sys-steps li.on{opacity:1}
+.sys-steps em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7CC0FF}
+.sys-steps h3{margin:0;font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.sys-steps p{margin:0;max-width:440px;font-size:15.5px;line-height:1.6;color:#B4C3D4}
+.sys-steps .link{align-self:flex-start;color:#fff;font-size:14.5px}
+/* one part at a time: the rest dims and its pipes stop */
+.sch [data-part]{transition:opacity .5s var(--ease)}
+.sch:not([data-step="all"]) [data-part]{opacity:.2}
+.sch:not([data-step="all"]) .flow[data-part]{opacity:0}
+.sch[data-step="heat"] [data-part~="heat"],.sch[data-step="store"] [data-part~="store"],.sch[data-step="move"] [data-part~="move"],.sch[data-step="return"] [data-part~="return"]{opacity:1}
+.sch[data-step="heat"] .flow[data-part~="heat"],.sch[data-step="store"] .flow[data-part~="store"],.sch[data-step="move"] .flow[data-part~="move"],.sch[data-step="return"] .flow[data-part~="return"]{opacity:.75}
+.sch[data-step="heat"] [data-part~="heat"] .box,.sch[data-step="store"] [data-part~="store"] .box,.sch[data-step="move"] [data-part~="move"] .box,.sch[data-step="return"] [data-part~="return"] .box{stroke:#7CC0FF}
+@media (prefers-reduced-motion:reduce){.sch [data-part],.sys-steps li{transition:none}}
 /* sectors */
 .sx{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}
 .sx-pic{position:relative;min-height:420px;border-radius:26px;overflow:hidden;background:#dfe8f1}
@@ -92,8 +114,8 @@ export default {
 .save{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
 .save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
-@media (max-width:980px){.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:640px){.sch svg{width:680px;max-width:none}.sch .swipe{display:block}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
+@media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
 `,
   body: R => {
     const L = s => s.startsWith('../') ? R + s.slice(3) : `${R}products/${s}`
@@ -111,6 +133,50 @@ export default {
   </div>
 </section>
 
+<!-- the signature section: the diagram stays in view while its four parts are told one at a time -->
+<section class="sys" aria-labelledby="scT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">How a central system works</span><h2 class="thin h2 on-dark" id="scT">One System,<br>Four Parts</h2></div><p class="lede">A typical central hot water system for a hotel or hospital. Scroll through it part by part, or tap a part to see the equipment we use.</p></div>
+    <div class="sys-grid">
+      <div class="sys-vis">
+        <div class="sch" data-loop data-step="all">
+          <div class="sch-x" data-x><svg viewBox="0 0 1000 440" role="img" aria-labelledby="schT">
+        <title id="schT">Diagram: heat pumps and solar panels heat water into a storage tank, a circulation pump sends it to every floor, and cooled water returns to be reheated.</title>
+        <defs><linearGradient id="tankFill" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient></defs>
+        <!-- pipes -->
+        <path data-part="heat" class="pipe hot" d="M190 210 H300 V140 H372"/><path data-part="heat" class="flow" d="M190 210 H300 V140 H372"/>
+        <path data-part="heat" class="pipe cold" d="M372 330 H300 V260 H190"/><path data-part="heat" class="flow slow" d="M372 330 H300 V260 H190"/>
+        <path data-part="heat" class="pipe warm" d="M220 70 H330 V160 H372"/><path data-part="heat" class="flow slow" d="M220 70 H330 V160 H372"/>
+        <path data-part="move" class="pipe hot" d="M488 140 H560 V200 H600"/><path data-part="move" class="flow" d="M488 140 H560 V200 H600"/>
+        <!-- the riser: up to floor 5 and down to floor 1, a branch to every floor at its middle -->
+        <path data-part="move" class="pipe hot" d="M690 200 H760 V66 H790"/><path data-part="move" class="flow" d="M690 200 H760 V66 H790"/>
+        <path data-part="move" class="pipe hot" d="M760 200 V306 H790"/><path data-part="move" class="flow" d="M760 200 V306 H790"/>
+        <path data-part="move" class="pipe hot" d="M760 126 H790 M760 186 H790 M760 246 H790"/>
+        <path data-part="return" class="pipe cold" d="M950 360 V400 H540 V330 H488"/><path data-part="return" class="flow slow" d="M950 360 V400 H540 V330 H488"/>
+        <!-- solar -->
+        <a data-part="heat" href="${R}products/5-star-solar-water-heater"><g><rect class="box" x="40" y="30" width="180" height="80" rx="14"/><g transform="translate(58 46)"><rect x="0" y="0" width="46" height="30" rx="3" fill="#24477A" class="fin"/><path class="fin" d="M15 0v30M31 0v30M0 15h46"/><circle class="sun" cx="58" cy="6" r="6"/></g><text class="lbl" x="132" y="68">Solar</text><text class="sub" x="132" y="87">optional</text></g></a>
+        <!-- heat pump -->
+        <a data-part="heat" href="${R}products/deron-air-to-water-heat-pump"><g><rect class="box" x="40" y="180" width="150" height="110" rx="14"/><circle cx="82" cy="235" r="26" fill="none" class="fin"/><path class="fin" d="M82 209v52M56 235h52M64 217l36 36M100 217l-36 36" opacity=".7"/><text class="lbl" x="118" y="230">Heat</text><text class="lbl" x="118" y="247">pumps</text><text class="sub" x="118" y="266">Deron</text></g></a>
+        <!-- tank -->
+        <a data-part="store" href="${R}products/haase-energy-storage-tank"><g><rect class="box" x="372" y="110" width="116" height="250" rx="22"/><rect class="hotfill" x="384" y="122" width="92" height="226" rx="16" opacity=".85"/><text class="lbl" x="430" y="236" text-anchor="middle">Storage</text><text class="lbl" x="430" y="253" text-anchor="middle">tank</text><text class="sub" x="430" y="384" text-anchor="middle" style="fill:#8FA6C0">HAASE · Champion</text></g></a>
+        <!-- pump -->
+        <a data-part="move" href="${R}products/wilo-pumps"><g><rect class="box" x="600" y="160" width="90" height="80" rx="40"/><circle cx="645" cy="200" r="20" fill="none" class="fin"/><path d="M637 188l18 12-18 12z" fill="#7CC0FF"/><text class="sub" x="645" y="264" text-anchor="middle">Wilo pump</text></g></a>
+        <!-- building -->
+        <g data-part="move return"><rect class="box" x="790" y="30" width="160" height="330" rx="14"/>${[0, 1, 2, 3, 4].map(i => `<g transform="translate(806 ${44 + i * 60})"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor ${5 - i}</text></g>`).join('')}</g>
+      </svg></div>
+          <div class="leg"><span><i style="background:#E3473B"></i>Hot water</span><span><i style="background:#F08A4B"></i>Solar heat</span><span><i style="background:#4C9BE8"></i>Return to be reheated</span></div>
+        </div>
+      </div>
+      <ol class="sys-steps">
+        <li data-step="heat"><em>01 · Heat</em><h3>Heat pumps, plus solar if the roof allows</h3><p>Heat pumps move warmth from the air into the water, using about a quarter of the power of an electric heater. Solar panels on the roof add free heat on sunny days.</p><a class="link" href="${R}products/deron-air-to-water-heat-pump">Deron air-to-water heat pumps ${I.arr}</a></li>
+        <li data-step="store"><em>02 · Store</em><h3>A storage tank sized for your busiest hour</h3><p>An insulated tank holds enough hot water for the morning rush, so the last guest gets the same hot shower as the first.</p><a class="link" href="${R}products/haase-energy-storage-tank">HAASE energy storage tanks ${I.arr}</a></li>
+        <li data-step="move"><em>03 · Move</em><h3>A pump that keeps every floor hot</h3><p>A circulation pump sends hot water up the riser and round every floor, so the tap on the top floor runs hot in seconds.</p><a class="link" href="${R}products/wilo-pumps">Wilo circulation pumps ${I.arr}</a></li>
+        <li data-step="return"><em>04 · Return</em><h3>A return loop, so nothing is wasted</h3><p>Water that cools in the pipes flows back to the tank to be reheated, instead of running down the drain while someone waits for hot water.</p><a class="link" href="${R}products/aquaplast-ppr-pipes">Aquaplast heat-resistant pipes ${I.arr}</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="sec" aria-labelledby="sxT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
@@ -121,46 +187,6 @@ export default {
         <h3>${s.t}</h3><p class="q">The challenge</p><p>${s.need}</p><p class="q b">What we install</p><p>${s.we}</p>
         <ul class="sx-parts">${s.parts.map(([n, u]) => `<li><a href="${L(u)}">${n}${I.arr}</a></li>`).join('')}</ul>
         <div class="sx-logos"><small>Trusted by</small>${logos(s.cl)}</div></div>`).join('')}</div>
-    </div>
-  </div>
-</section>
-
-<section class="sec soft" aria-labelledby="scT">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="scT">One System, Four Parts</h2></div><p class="lede">A typical central system for a hotel or hospital. Tap any part to see the equipment we use.</p></div>
-    <div class="sch" data-loop data-r>
-      <div class="sch-x" data-x><svg viewBox="0 0 1000 440" role="img" aria-labelledby="schT">
-        <title id="schT">Diagram: heat pumps and solar panels heat water into a storage tank, a circulation pump sends it to every floor, and cooled water returns to be reheated.</title>
-        <defs><linearGradient id="tankFill" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient></defs>
-        <!-- pipes -->
-        <path class="pipe hot" d="M190 210 H300 V140 H372"/><path class="flow" d="M190 210 H300 V140 H372"/>
-        <path class="pipe cold" d="M372 330 H300 V260 H190"/><path class="flow slow" d="M372 330 H300 V260 H190"/>
-        <path class="pipe warm" d="M220 70 H330 V160 H372"/><path class="flow slow" d="M220 70 H330 V160 H372"/>
-        <path class="pipe hot" d="M488 140 H560 V200 H600"/><path class="flow" d="M488 140 H560 V200 H600"/>
-        <!-- the riser: up to floor 5 and down to floor 1, a branch to every floor at its middle -->
-        <path class="pipe hot" d="M690 200 H760 V66 H790"/><path class="flow" d="M690 200 H760 V66 H790"/>
-        <path class="pipe hot" d="M760 200 V306 H790"/><path class="flow" d="M760 200 V306 H790"/>
-        <path class="pipe hot" d="M760 126 H790 M760 186 H790 M760 246 H790"/>
-        <path class="pipe cold" d="M950 360 V400 H540 V330 H488"/><path class="flow slow" d="M950 360 V400 H540 V330 H488"/>
-        <!-- solar -->
-        <a href="${R}products/5-star-solar-water-heater"><g><rect class="box" x="40" y="30" width="180" height="80" rx="14"/><g transform="translate(58 46)"><rect x="0" y="0" width="46" height="30" rx="3" fill="#24477A" class="fin"/><path class="fin" d="M15 0v30M31 0v30M0 15h46"/><circle class="sun" cx="58" cy="6" r="6"/></g><text class="lbl" x="122" y="66">Solar</text><text class="sub" x="122" y="84">optional</text></g></a>
-        <!-- heat pump -->
-        <a href="${R}products/deron-air-to-water-heat-pump"><g><rect class="box" x="40" y="180" width="150" height="110" rx="14"/><circle cx="82" cy="235" r="26" fill="none" class="fin"/><path class="fin" d="M82 209v52M56 235h52M64 217l36 36M100 217l-36 36" opacity=".7"/><text class="lbl" x="118" y="230">Heat</text><text class="lbl" x="118" y="247">pumps</text><text class="sub" x="118" y="266">Deron</text></g></a>
-        <!-- tank -->
-        <a href="${R}products/haase-energy-storage-tank"><g><rect class="box" x="372" y="110" width="116" height="250" rx="22"/><rect class="hotfill" x="384" y="122" width="92" height="226" rx="16" opacity=".85"/><text class="lbl" x="430" y="236" text-anchor="middle">Storage</text><text class="lbl" x="430" y="253" text-anchor="middle">tank</text><text class="sub" x="430" y="384" text-anchor="middle" style="fill:#8FA6C0">HAASE · Champion</text></g></a>
-        <!-- pump -->
-        <a href="${R}products/wilo-pumps"><g><rect class="box" x="600" y="160" width="90" height="80" rx="40"/><circle cx="645" cy="200" r="20" fill="none" class="fin"/><path d="M637 188l18 12-18 12z" fill="#7CC0FF"/><text class="sub" x="645" y="264" text-anchor="middle">Wilo pump</text></g></a>
-        <!-- building -->
-        <g><rect class="box" x="790" y="30" width="160" height="330" rx="14"/>${[0, 1, 2, 3, 4].map(i => `<g transform="translate(806 ${44 + i * 60})"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor ${5 - i}</text></g>`).join('')}</g>
-      </svg></div>
-      <p class="swipe">Swipe to see the whole system.</p>
-      <div class="leg"><span><i style="background:#E3473B"></i>Hot water</span><span><i style="background:#F08A4B"></i>Solar heat</span><span><i style="background:#4C9BE8"></i>Return to be reheated</span></div>
-      <div class="sch-steps">
-        <div><em>01 · HEAT</em><b>Heat pumps</b><p>Move heat from the air into the water, using about a quarter of the power of electric heaters.</p></div>
-        <div><em>02 · STORE</em><b>Storage tank</b><p>Holds enough hot water for your busiest hour, ready before the morning rush.</p></div>
-        <div><em>03 · MOVE</em><b>Circulation pump</b><p>Keeps hot water moving in a loop, so every tap on every floor runs hot in seconds.</p></div>
-        <div><em>04 · RETURN</em><b>Return loop</b><p>Cooled water flows back to the tank to be reheated. Nothing is wasted down the drain while you wait.</p></div>
-      </div>
     </div>
   </div>
 </section>
@@ -184,6 +210,22 @@ export default {
 </section>`
   },
   js: `
+// the system section: the step in the middle of the screen lights its parts; on narrow screens the diagram slides to them
+{
+  const sch = $('.sys .sch'), x = $('[data-x]', sch), steps = $$('.sys-steps li'), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const CX = { all: 0, heat: 170, store: 430, move: 700, return: 760 }
+  const set = k => {
+    if (sch.dataset.step === k) return
+    sch.dataset.step = k
+    steps.forEach(li => li.classList.toggle('on', li.dataset.step === k))
+    if (x.scrollWidth > x.clientWidth + 4) x.scrollTo({ left: CX[k] * x.scrollWidth / 1000 - x.clientWidth / 2, behavior: RM ? 'auto' : 'smooth' })
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) set(e.target.dataset.step)
+    else if (e.target === steps[0] && e.boundingClientRect.top > 0) set('all')
+  }), { rootMargin: '-50% 0px -40% 0px' })
+  steps.forEach(li => io.observe(li))
+}
 const tabs = $$('[role=tab]'), panels = $$('.sx-panel'), pics = $$('.sx-pic img')
 // the other buildings' photos load once the page has settled (or at once, when their tab is picked)
 const load = p => { if (!p.dataset.src) return; if (p.dataset.srcset) p.srcset = p.dataset.srcset; p.src = p.dataset.src; delete p.dataset.src }
