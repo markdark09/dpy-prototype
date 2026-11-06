@@ -33,6 +33,8 @@ const css = `
 .how-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
 .how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
 .how-vis svg{display:block;width:100%;height:auto;overflow:visible}
+.how-img{margin:0;padding:14px;border-radius:28px;background:#fff;box-shadow:var(--card)}.how-img img{display:block;width:100%;height:auto;border-radius:18px}
+.how-img figcaption{margin:10px 4px 0;font-size:13px;color:var(--mute)}
 .how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
 .how-vis .leg span{display:inline-flex;align-items:center;gap:8px}.how-vis .leg i{width:22px;height:5px;border-radius:4px}
 .how-vis .pipe{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
@@ -159,7 +161,7 @@ ${(h => h ? `
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="hwT">${h.title[0]}<br>${h.title[1]}</h2></div><p class="lede">${h.lede}</p></div>
     <div class="how-grid">
-      <figure class="how-vis" data-loop>${h.svg}${h.legendHtml ? `<figcaption class="leg">${h.legendHtml}</figcaption>` : ''}</figure>
+      ${h.image ? `<figure class="how-img">${img(R, `assets/img/dpy/${h.image[0]}.webp`, h.image[1], ' loading="lazy"')}<figcaption>${h.image[1]}</figcaption></figure>` : `<figure class="how-vis" data-loop>${h.svg}${h.legendHtml ? `<figcaption class="leg">${h.legendHtml}</figcaption>` : ''}</figure>`}
       <ol class="how-steps">${h.steps.map(([t, d], i) => `<li data-n="${i + 1}"><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
     </div>
     <div class="use">
@@ -174,7 +176,7 @@ ${tables ? `
     <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
     ${tables}
   </div>
-</section>` : ''}${p.diagram ? `
+</section>` : ''}${p.diagram && !howto(p)?.image ? `
 <section class="sec${tables ? '' : ' soft'}" aria-labelledby="dgT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How it fits in</span><h2 class="thin h2" id="dgT">Part of a Complete System</h2></div><p class="lede">We design the whole system around the tank: heat sources, pumps and pipes.</p></div>

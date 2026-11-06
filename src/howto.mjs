@@ -49,7 +49,7 @@ const KINDS = {
       ['Open the tap first', 'Start the shower or tap so water is flowing before the heater comes on.'],
       ['Switch it on', 'Turn on the heater at its power switch.'],
       ['Set the dial', 'Start low and turn it up until the water feels right.'],
-      ['Switch off after', 'Turn it off when you finish. Have it installed with its own breaker and earthing, and never run it without water.'],
+      ['Heater off, then the tap', 'When you finish, switch the heater off first and then close the tap, so it never heats without water flowing. It needs its own breaker and earthing.'],
     ]
     return { title: ['Hot Water the', 'Moment You Need It'], lede: 'An instant heater warms water only while it flows, so nothing is kept hot while you are not using it.', alt: `How an instant water heater works: cold water flows through heating elements and comes out hot at the ${multi ? 'shower and sink' : 'shower'}.`, body, steps, use, legend: ['cold', 'hot'] }
   },
@@ -109,7 +109,7 @@ const KINDS = {
       src === 'air' ? ['Warmth from the air', 'A fan draws outdoor air over a coil, and a refrigerant inside picks up its warmth. Philippine air has plenty, day and night.'] : ['Warmth from water', 'Ground or river water passes through, and a refrigerant picks up its warmth.'],
       ['The compressor concentrates it', "Squeezing the refrigerant raises its temperature well above the water's."],
       ['Heat passes to the water', pool ? 'A titanium heat exchanger, which stands up to pool chemicals, passes the heat to the pool water.' : `In the heat exchanger the hot refrigerant heats your water${hot60 ? ' up to 60°C' : ''}, then goes back for more.`],
-      pool ? ['Back to the pool', 'Warmed water returns to the pool and keeps it at a comfortable temperature.'] : ['Stored, ready to use', `${integral ? 'The tank sits right under the heat pump, in one unit. ' : 'Hot water waits in an insulated tank. '}The electricity only moves heat, so it uses roughly a quarter to a third of a plain electric heater's.`],
+      pool ? ['Back to the pool', 'Warmed water returns to the pool and keeps it at a comfortable temperature.'] : ['Stored, ready to use', `${integral ? 'The heat pump and its insulated tank are built as one unit. ' : 'Hot water waits in an insulated tank. '}The electricity only moves heat, so it uses roughly a quarter to a third of a plain electric heater's.`],
     ]
     const use = pool ? [
       ['Set the pool temperature', 'Once, on the controller. It runs by itself after that.'],
@@ -119,7 +119,7 @@ const KINDS = {
     ] : [
       ['Set the temperature once', 'On the controller. It runs by itself after that.'],
       [src === 'air' ? 'Give it room to breathe' : 'Keep the source flowing', src === 'air' ? 'Keep the space around the unit open, so it can draw air freely.' : 'Your installer sets the flow of the ground or river water.'],
-      [src === 'air' ? 'Keep the coil clean' : 'Watch the gauges', src === 'air' ? 'Clean the air filter and coil fins every few months.' : 'Check the controller and pressure gauges now and then.'],
+      [src === 'air' ? 'Keep the coil clean' : 'Check the controller', src === 'air' ? 'Clean the air filter and coil fins every few months.' : 'Look at the controller now and then for any alerts.'],
       ['Yearly service', 'Have it serviced once a year to keep it efficient.'],
     ]
     return { title: pool ? ['Warm Pool Water', 'From the Air'] : ['Heat Moved,', 'Not Made'], lede: 'A heat pump works like an air conditioner in reverse: it moves heat into the water instead of making it.', alt: `How a heat pump works: ${src === 'air' ? 'outdoor air' : 'ground or river water'} warms a refrigerant, the compressor makes it hotter, and a heat exchanger passes that heat to the ${pool ? 'pool' : 'water tank'}.`, body, steps, use, legend: pool ? ['cold', 'hot', 'ref'] : ['cold', 'hot', 'ref'] }
@@ -147,7 +147,7 @@ const KINDS = {
     ]
     const use = [
       ['Sunny days: nothing to do', 'The sun does the work.'],
-      ['Cloudy days: use the backup', 'Switch on the electric backup, or let its timer do it.'],
+      ['Cloudy days: use the backup', 'Switch on the electric backup when the sun has not heated the tank enough.'],
       ['Keep the panel clear', 'Rinse off dust and leaves now and then.'],
       ['Yearly check', 'Have the system checked once a year.'],
     ]
@@ -155,28 +155,48 @@ const KINDS = {
   },
 
   tank(p) {
-    const rotex = /rotex/.test(p.slug), coil = rotex || /enermax|haase/.test(p.slug)
+    // HAASE: DPY's own diagram shows how it works (an energy store; a fresh water unit heats the showers' water)
+    if (/haase/.test(p.slug)) return {
+      title: ['The Heart of a', 'Hot Water System'], lede: 'A HAASE tank stores heat from several sources, and a fresh water unit turns it into hot water for the whole building.',
+      image: ['haase-diagram', 'How a HAASE tank connects thermal solar, solar panels, a boiler and a chiller to the showers through a fresh water unit (diagram from DPY)'],
+      steps: [
+        ['Heat from several sources', 'Thermal solar panels, solar PV power, a boiler or heat recovered from a chiller all warm the water in the tank.'],
+        ['Stored in layers', 'Hot water rises, so the top stays hottest, and the insulation keeps the heat with little loss.'],
+        ['Fresh water heated on the way', "A fresh water unit, a heat exchanger beside the tank, passes the stored heat to clean water on its way to the showers. The tank's own water never reaches a tap."],
+        ['Back for more heat', 'The cooled tank water returns to the bottom, where the heat sources warm it again.'],
+      ],
+      use: [
+        ['Sized by our engineers', 'We size the tank to your busiest hour and connect it to the heat sources and the fresh water unit.'],
+        ['Glance at the temperature', 'Check the tank temperature now and then on the system controller.'],
+        ['Keep the plant room tidy', 'Keep the area around the tank dry and easy to reach.'],
+        ['Yearly service', 'Valves, the fresh water unit and fittings checked once a year.'],
+      ],
+      legend: [],
+    }
+    const rotex = /rotex/.test(p.slug), coil = rotex || /enermax/.test(p.slug)
     const body = [
       BOX(20, 60, 150, 80), T(95, 96, 'Heat pump', 'middle'), T(95, 120, 'or boiler', 'middle', 's'),
       BOX(20, 250, 150, 80), T(95, 286, 'Solar', 'middle'), T(95, 310, 'panels', 'middle', 's'),
       `<rect class="shell" x="250" y="30" width="140" height="340" rx="34"/><rect x="264" y="44" width="112" height="312" rx="24" fill="url(#hwTank)" opacity=".85"/>`,
       P('hot', 'M170 100 H264'), P('warm', 'M170 290 H220 V250 H264', true, true),
       coil ? COIL(282, 320, 76, 8, 30) : '',
-      rotex ? P('cold', 'M520 340 H400 V330 H282', true) + P('hot', 'M358 80 H460 V90') : P('hot', 'M390 80 H460 V90') + P('cold', 'M520 330 H390'),
+      coil ? P('cold', 'M520 340 H400 V330 H282', true) + P('hot', 'M358 80 H460 V90') : P('hot', 'M390 80 H460 V90') + P('cold', 'M520 330 H390'),
       `<rect class="box" x="460" y="60" width="160" height="230" rx="16"/>${[0, 1, 2].map(i => `<rect class="floor" x="476" y="${78 + i * 66}" width="128" height="48" rx="8"/>`).join('')}`,
       T(540, 312, 'Building', 'middle', 's'), T(320, 22, rotex ? 'Sanicube' : 'Storage tank', 'middle'),
-      T(640, 360, rotex ? 'Drinking water in' : 'Cold water in', 'end', 's'),
+      T(640, 360, coil ? 'Fresh water in' : 'Cold water in', 'end', 's'),
       M(1, 210, 70), M(2, 320, 200), M(3, 430, 52), M(4, 440, 312),
     ].join('')
     const steps = [
       ['Heat comes in', 'Heat pumps, solar panels or a boiler heat the water in the tank. One tank can take heat from several sources at once.'],
       ['Stored in layers', 'Hot water rises, so the top stays hottest, and the insulation keeps the heat for hours.'],
-      rotex ? ['Drinking water heated on the way', "Your drinking water runs through stainless steel coils inside the tank and is heated as it passes. It's never stored, which keeps it fresh and hygienic."] : ['Drawn from the top', 'The building takes hot water from the top, and circulation pumps carry it to every floor.'],
-      [rotex ? 'Fresh water every time' : 'Topped up from the bottom', rotex ? 'Cold drinking water comes in at the bottom of the coil, so what you get is always freshly heated.' : 'Cold water refills the tank at the bottom, away from the hot layer, to be heated.'],
+      rotex ? ['Drinking water heated on the way', "Your drinking water runs through stainless steel coils inside the tank and is heated as it passes. It's never stored, which keeps it fresh and hygienic."]
+        : coil ? ['Fresh water heated through the coil', 'Fresh water runs through a heat exchanger coil inside the tank and picks up the stored heat on its way to the taps.']
+        : ['Drawn from the top', 'The building takes hot water from the top, and circulation pumps carry it to every floor.'],
+      coil ? ['Fresh water every time', 'Cold water comes in at the bottom of the coil, so what reaches the taps is always freshly heated.'] : ['Topped up from the bottom', 'Cold water refills the tank at the bottom, away from the hot layer, to be heated.'],
     ]
     const use = [
       ['Sized by our engineers', 'We size the tank to your busiest hour and connect it to the heat sources and pumps.'],
-      ['Glance at the gauges', 'Check the temperature and pressure gauges now and then.'],
+      ['Glance at the temperature', 'Check the tank temperature now and then, on its gauge or the system controller.'],
       ['Keep the plant room tidy', 'Keep the area around the tank dry and easy to reach.'],
       ['Yearly service', 'Valves, gauges and fittings checked once a year.'],
     ]
@@ -202,7 +222,7 @@ const KINDS = {
       ['Runs by itself', 'Usually on a timer or a temperature sensor our engineers set.'],
       ['Look and listen', 'Report unusual noise, vibration or leaks early.'],
       ['Keep the pump room dry', 'And well ventilated.'],
-      ['Yearly service', 'Seals, bearings and settings checked once a year.'],
+      ['Yearly service', 'The pump, its connections and its settings checked once a year.'],
     ]
     return { title: ['Hot Water on', 'Every Floor'], lede: 'Pumps keep hot water moving through a building, so nobody waits at the tap.', alt: 'How a circulation pump works: it pushes hot water from the tank up to every floor, and cooled water returns to the tank.', body, steps, use, legend: ['cold', 'hot'] }
   },
@@ -255,7 +275,7 @@ const KINDS = {
     const use = [
       ['Set up by our installer', 'Connected to your water heater, with the target temperature set.'],
       ['Runs every sunny day', 'Nothing to switch on: it follows the spare power by itself.'],
-      ['Check the display', 'See how much solar power went into hot water.'],
+      ['See what the sun did', 'Your installer shows you where to see how much solar power went into hot water.'],
       ['Cloudy days are covered', "The heater's own thermostat or timer keeps the water hot."],
     ]
     return { title: ['Spare Solar Power', 'Into Hot Water'], lede: 'AC·THOR uses the solar power your house does not need to heat water, instead of sending it to the grid.', alt: 'How AC·THOR works: solar panels power the house, a meter measures the spare power, and AC·THOR sends it into the water heater.', body, steps, use, legend: ['pow'] }
@@ -296,7 +316,7 @@ export function howto(p) {
   const h = k(p)
   return {
     ...h,
-    svg: svg(h.alt, h.body),
+    svg: h.body ? svg(h.alt, h.body) : '',
     legendHtml: h.legend.map(l => `<span><i style="background:${LEG[l][0]}"></i>${LEG[l][1]}</span>`).join(''),
   }
 }
