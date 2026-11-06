@@ -188,8 +188,14 @@ $$('form[data-mail]').forEach(form => {
     const need = $$('[required]:not([type=checkbox])', form).filter(x => !x.value.trim())
     const tel = $('input[type=tel]', form); if (tel && tel.value.trim() && !/^[0-9+()\s-]{7,}$/.test(tel.value.trim())) need.push(tel)
     const ok = $('.ok input', form); ok?.closest('.ok').classList.toggle('bad', !ok.checked)
-    need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
-    if (ok && !ok.checked) return ok.focus()
+    // mark what's missing (the CV's visible box too, its input is hidden) and say so, for screen readers as well
+    need.forEach(x => { x.classList.add('bad'); x.closest('.drop')?.classList.add('bad') })
+    if (need.length) {
+      const onlyCv = need.length === 1 && need[0].type === 'file'
+      kit.error(onlyCv ? 'Please attach your CV (PDF or Word).' : 'Please fill in the marked fields.')
+      return need[0].focus()
+    }
+    if (ok && !ok.checked) { kit.error('Please tick the box to agree to the privacy notice.'); return ok.focus() }
     const lines = []
     for (const el of $$('input,select,textarea', form)) {
       if (!el.name || el.name === 'consent' || el.name === 'hp_field' || el.type === 'file') continue

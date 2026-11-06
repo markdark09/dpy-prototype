@@ -29,8 +29,10 @@ const css = `
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
-/* rows always fill: 3 a row by default, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
+/* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
+.feats > .ft-c:only-child{grid-column:1/-1}
+.feats > .ft-c:first-child:nth-last-child(2),.feats > .ft-c:first-child:nth-last-child(2) ~ .ft-c{grid-column:span 6}
 .feats > .ft-c:first-child:nth-last-child(4),.feats > .ft-c:first-child:nth-last-child(4) ~ .ft-c{grid-column:span 3}
 .feats > .ft-c:first-child:nth-last-child(5) ~ .ft-c:nth-child(n+4){grid-column:span 6}
 .feats > .ft-c:first-child:nth-last-child(7),.feats > .ft-c:first-child:nth-last-child(7) ~ .ft-c:nth-child(-n+4){grid-column:span 3}
@@ -55,7 +57,9 @@ const css = `
 .qbar{display:none}
 @media (max-width:980px){.pd-grid{grid-template-columns:1fr}.stage{height:360px;order:-1;margin-top:-10px}.feats,.prom{grid-template-columns:1fr 1fr}.feats > .ft-c{grid-column:auto!important}.feats > .ft-c:last-child:nth-child(odd){grid-column:1/-1!important}.rel{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.feats,.prom{grid-template-columns:1fr}.feats > .ft-c:last-child:nth-child(odd){grid-column:auto!important}.facts{gap:8px}.facts div{padding:12px 10px}.facts b{font-size:17px}.rel{grid-template-columns:1fr}.stage{height:300px;padding-bottom:56px}.stage .plinth{bottom:30px}.stage .floor{bottom:44px}
-  .qbar{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 18px 40px -14px rgba(1,20,50,.45),0 0 0 1px var(--line);transform:translateY(140%);transition:transform .5s var(--ease)}
+  .qbar{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 18px 40px -14px rgba(1,20,50,.45),0 0 0 1px var(--line);transform:translateY(calc(100% + 24px + env(safe-area-inset-bottom,0px)));transition:transform .5s var(--ease)}
+  /* off: fully below the home bar, and out of the keyboard order */
+  .qbar:not(.on){visibility:hidden;transition:transform .5s var(--ease),visibility 0s .5s}
   .qbar.on{transform:none}.qbar .btn{flex:1;height:44px}.qbar .tel{flex:none;width:44px;padding:0}
   .foot{padding-bottom:90px}}
 `

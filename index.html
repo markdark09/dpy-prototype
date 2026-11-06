@@ -1295,7 +1295,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </div>
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
-<script src="assets/js/site.js?v=211550ae" defer></script>
+<script src="assets/js/site.js?v=b9b01fc8" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
@@ -1564,8 +1564,9 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
     const need = [form.fullname, form.phone].filter(x => !x.value.trim())
     if (!/^[0-9+()\s-]{7,}$/.test(form.phone.value.trim()) && !need.includes(form.phone)) need.push(form.phone)
     const ok = form.consent.checked; form.consent.closest('.qt-ok').classList.toggle('bad', !ok)
-    need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
-    if (!ok) return form.consent.focus()
+    need.forEach(x => x.classList.add('bad'))
+    if (need.length) { K().error('Please fill in the marked fields.'); return need[0].focus() }
+    if (!ok) { K().error('Please tick the box to agree to the privacy notice.'); return form.consent.focus() }
     const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ')
     const fields = [['Products', form.products.value], ['Building', v('building')], ['Interested in', v('interest')], ['Nearest branch', form.branch.value],
       ['Showers / bathrooms', form.showers.value], ['Message', form.msg.value]].map(([k, x]) => [k, (x || '').trim()]).filter(([, x]) => x)

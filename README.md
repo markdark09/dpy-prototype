@@ -20,6 +20,23 @@ The green is replaced with **DPY's logo colours**:
 
 **Open it:** double-click `index.html`. GSAP, Lenis, Three.js and MapLibre are bundled in `assets/vendor/`. Opened from disk, the 3D borrows Three.js from unpkg, because browsers block local modules on `file://`. Online, everything except the Manrope font, the map tiles and Street View comes from the site itself.
 
+## Testing
+
+Run `npm install` once, then:
+
+- `npm test`: the form sender's 13 unit checks (no browser, nothing is emailed).
+- `npm run test:pages`: every browser check in `tools/test/`, against the local site. It starts `wrangler dev` on port 8787 if nothing is running there, and stops it after. It prints only failures and a pass/FAIL line per set, and exits with an error if anything failed. Run it before every PR.
+  - `server`: all 107 rules in `_redirects` answer 301 to a page that exists; the repo's own files (config, sources, tests, `node_modules`, `.dev.vars`) answer 404; the form sender refuses GET and other sites.
+  - `pages`: every page in `sitemap.xml` at phone, tablet and desktop size: loads, no script errors, no sideways scroll, no text field under 16px on touch screens.
+  - `forms`: the homepage, Contact and Service forms on a phone (pinned send button, chat button stepping aside, both sending outcomes, the earliest service day) and their desktop send row.
+  - `careers`: Apply, every validation path, the CV box, sending with the CV, and the email fallback.
+  - `design`: rules that broke before: the header number on For Business, benefit cards filling their rows, spec tables, the hidden quote bar, one-line Add buttons, small-text contrast.
+  - `motion`: page transitions (and none with reduced motion), and iPhone home-bar and notch spacing in portrait and landscape.
+- Options: `ONLY=forms,careers` runs some sets; `SHOTS=/some/folder` saves screenshots; `BASE=https://prototype.dpy-mi.workers.dev` checks the live copy.
+- First time on a machine: `npx playwright install chromium`. On Linux it also needs `npx playwright install-deps chromium` (admin rights). WebKit (Safari's engine) runs too if installed; otherwise the transition check says it skipped it.
+
+**Not covered by the checks:** a real iPhone or Safari, a real email through Resend, and Cloudflare itself (redirects and caching on the live domain). Those are checked by hand at launch.
+
 ## Deploying (Cloudflare Workers)
 
 Live at **https://prototype.dpy-mi.workers.dev**. It is a Cloudflare Worker named `prototype` (account subdomain `dpy-mi`), connected to the GitHub repo markdark09/dpy-prototype. Every push to `main` goes live in about 30 seconds. There's no build step.
@@ -206,7 +223,7 @@ Each product card now links to its category on the new Water Heaters page, and t
 
 - **Moving between pages** is a short cross-fade (0.2 s) instead of a white flash. The header and the chat button stay put. Tapping a product card carries its photo into the product page's photo position. It is a CSS View Transition (`@view-transition` in `base.css`, plus a few lines in `site.js`): browsers that support it (Chrome and Edge 126+, and by the published support tables Safari 18.2+) show it, and others, like Firefox, simply load the page. It is off when the visitor has asked for reduced motion. Tested in Chromium: the transition runs, the product photo moves, Back works, and with reduced motion there is none. Not yet seen in Safari: WebKit can't run on our test machine, so check it on a real iPhone.
 - **Compare:** the table scrolls sideways, so its header can't stick to the page. A slim strip of the product names now pins under the menu while the table is on screen. It is sized from the real columns and slides sideways with the table, so halfway down "Warranty" you can still see which column is which.
-- **iPhones:** the pages use `viewport-fit=cover`, and the side margins, the chat button, the compare bar, the product page's quote bar, the phone menu and the bottom sheets (chat, quiz) keep clear of the notch and the home bar. Tested in Chromium with an iPhone's insets set by hand (34 px home bar in portrait; 47 px notch sides and 21 px home bar in landscape) on the homepage, a product page, Compare and Water Heaters. That test found the chat button sitting on the quote bar's Call button on product pages; fixed. Still worth one look on a real iPhone.
+- **iPhones:** the pages use `viewport-fit=cover`, and the side margins, the chat button, the compare bar, the product page's quote bar, the phone menu and the bottom sheets (chat, quiz) keep clear of the notch and the home bar. Tested in Chromium with an iPhone's insets set by hand (34 px home bar in portrait; 47 px notch sides and 21 px home bar in landscape) on the homepage, a product page, Compare and Water Heaters. That test found the chat button sitting on the quote bar's Call button on product pages; fixed. Still worth one look on a real iPhone. The header has no top inset because the site always opens in the browser (`"display": "browser"` in `site.webmanifest`), where the status bar sits outside the page. If it ever becomes an installable full-screen app, give `.nav` `padding-top: env(safe-area-inset-top)` and push the page tops down by the same amount.
 - **Long forms on phones** (homepage and Contact quote, Service booking): the send button stays at the bottom of the screen while the form is on screen, the way the product page's quote bar does, so nobody has to scroll to the end to find it. The chat button steps aside while a form fills the bottom of the screen or a field is being typed in, so it never covers that button or the text, and comes back past the form. The three form cards clip their rounded corners with `overflow:clip`, because `overflow:hidden` stops a button from sticking. Desktop is unchanged.
 - **Service booking's preferred day** starts from tomorrow in the visitor's own date (it used the UTC date before, a day off before 8 AM in the Philippines), and the date field keeps the look of the other fields on iPhones.
 - **No zoom on tap:** on phones and tablets every text box, list and message box is 16px, so iOS no longer zooms the page when one is tapped. Before, the forms, the savings calculator's rate and the Compare picker were 13 to 15px.
