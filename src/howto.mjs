@@ -155,23 +155,47 @@ const KINDS = {
   },
 
   tank(p) {
-    // HAASE: DPY's own diagram shows how it works (an energy store; a fresh water unit heats the showers' water)
-    if (/haase/.test(p.slug)) return {
-      title: ['The Heart of a', 'Hot Water System'], lede: 'A HAASE tank stores heat from several sources, and a fresh water unit turns it into hot water for the whole building.',
-      image: ['haase-diagram', 'How a HAASE tank connects thermal solar, solar panels, a boiler and a chiller to the showers through a fresh water unit (diagram from DPY)'],
-      steps: [
-        ['Heat from several sources', 'Thermal solar panels, solar PV power, a boiler or heat recovered from a chiller all warm the water in the tank.'],
-        ['Stored in layers', 'Hot water rises, so the top stays hottest, and the insulation keeps the heat with little loss.'],
-        ['Fresh water heated on the way', "A fresh water unit, a heat exchanger beside the tank, passes the stored heat to clean water on its way to the showers. The tank's own water never reaches a tap."],
-        ['Back for more heat', 'The cooled tank water returns to the bottom, where the heat sources warm it again.'],
-      ],
-      use: [
-        ['Sized by our engineers', 'We size the tank to your busiest hour and connect it to the heat sources and the fresh water unit.'],
-        ['Glance at the temperature', 'Check the tank temperature now and then on the system controller.'],
-        ['Keep the plant room tidy', 'Keep the area around the tank dry and easy to reach.'],
-        ['Yearly service', 'Valves, the fresh water unit and fittings checked once a year.'],
-      ],
-      legend: [],
+    // HAASE: an energy store. Solar thermal, solar PV (through an element), a boiler and chiller heat warm the tank;
+    // a fresh water unit beside it passes that heat to clean water for the showers (as in DPY's own diagram)
+    if (/haase/.test(p.slug)) {
+      const src = (y, a, b) => BOX(16, y, 136, 54, 12) + T(84, y + 24, a, 'middle') + (b ? T(84, y + 44, b, 'middle', 's') : '')
+      const body = [
+        src(26, 'Solar', 'thermal'), src(96, 'Solar PV', 'power'), src(166, 'Boiler', ''), src(236, 'Chiller', 'heat'),
+        P('warm', 'M152 53 H200 V100 H254', true, true),
+        P('pow', 'M152 123 H184 V300 H272'),
+        P('hot', 'M152 193 H254'),
+        P('warm', 'M152 263 H212 V230 H254', true, true),
+        P('cold', 'M254 336 H176 V316 H152', true, true),
+        `<rect class="shell" x="240" y="40" width="130" height="320" rx="34"/><rect x="254" y="54" width="102" height="292" rx="24" fill="url(#hwTank)" opacity=".85"/>`,
+        `<path class="coil hotc" d="M272 306 h66 v-10 h-66 v-10 h66"/>`,
+        T(305, 30, 'HAASE tank', 'middle'),
+        P('hot', 'M370 84 H436 V150'),
+        `<rect class="part" x="406" y="150" width="60" height="84" rx="10"/>${[0, 1, 2].map(i => `<path class="fin" d="M${418 + i * 18} 160 v64"/>`).join('')}`,
+        T(482, 268, 'Fresh water', 'start', 's'), T(482, 288, 'unit', 'start', 's'),
+        P('cold', 'M414 234 V324 H370', true, true),
+        P('cold', 'M640 360 H452 V234', true, true), T(636, 386, 'Fresh water in', 'end', 's'),
+        P('hot', 'M466 170 H508 V64 H612'),
+        SHOWER(548, 72), SHOWER(604, 72), T(576, 140, 'Showers', 'middle', 's'),
+        M(1, 200, 160), M(2, 305, 200), M(3, 496, 120), M(4, 392, 300),
+      ].join('')
+      return {
+        title: ['The Heart of a', 'Hot Water System'], lede: 'A HAASE tank stores heat from several sources and passes it to clean water for the whole building.',
+        alt: "How a HAASE tank works: solar thermal panels, solar PV power, a boiler and chiller heat warm the tank; a fresh water unit beside it heats clean water for the showers, and the cooled tank water goes back to be heated again.",
+        body,
+        steps: [
+          ['Heat from several sources', 'Thermal solar panels, solar PV power, a boiler or heat recovered from a chiller all warm the water in the tank.'],
+          ['Stored in layers', 'Hot water rises, so the top stays hottest, and the insulation keeps the heat with little loss.'],
+          ['Fresh water heated on the way', "Clean water runs through stainless steel coils in the tank, or a fresh water unit beside it as drawn here, and picks up the stored heat on its way to the showers. The tank's own water never reaches a tap."],
+          ['Back for more heat', 'The cooled tank water returns to the bottom, where the heat sources warm it again.'],
+        ],
+        use: [
+          ['Sized by our engineers', 'We size the tank to your busiest hour and connect it to the heat sources and the fresh water unit.'],
+          ['Glance at the temperature', 'Check the tank temperature now and then on the system controller.'],
+          ['Keep the plant room tidy', 'Keep the area around the tank dry and easy to reach.'],
+          ['Yearly service', 'Valves, the fresh water unit and fittings checked once a year.'],
+        ],
+        legend: ['cold', 'warm', 'hot', 'pow'],
+      }
     }
     const rotex = /rotex/.test(p.slug), coil = rotex || /enermax/.test(p.slug)
     const body = [
@@ -294,7 +318,7 @@ const KINDS = {
     ].join('')
     const steps = [
       ['Steam and smells rise', 'Showers and cooking fill the air with moisture and odours.'],
-      ['The fan draws them out', 'It pulls that air out through the wall or window.'],
+      ['The fan draws them out', 'It pulls that air out through a wall, a window or a duct.'],
       ['Outside, not on your walls', 'Moisture leaves before it can settle and grow mould.'],
       ['Fresh air comes in', 'Fresh air flows in under the door to replace it.'],
     ]

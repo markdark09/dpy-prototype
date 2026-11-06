@@ -82,6 +82,8 @@ const css = `
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
+.spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -176,7 +178,13 @@ ${tables ? `
     <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
     ${tables}
   </div>
-</section>` : ''}${p.diagram && !howto(p)?.image ? `
+</section>` : `
+<section class="sec soft" id="specs" aria-labelledby="spT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">${p.specsNone || 'The maker does not publish a spec sheet online for this product.'}</p></div>
+    <div class="spec-none" data-r><div><b>We'll send the spec sheet with your quote</b><p>Tell us the model or the job, and we send the full specifications for it, checked by our engineers.</p></div><a class="btn red" href="${R}contact?add=${p.slug}&amp;note=${encodeURIComponent('Please send the spec sheet for the ' + p.name)}#quote">Ask for the spec sheet ${I.arr}</a></div>
+  </div>
+</section>`}${p.diagram && !howto(p)?.image ? `
 <section class="sec${tables ? '' : ' soft'}" aria-labelledby="dgT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How it fits in</span><h2 class="thin h2" id="dgT">Part of a Complete System</h2></div><p class="lede">We design the whole system around the tank: heat sources, pumps and pipes.</p></div>

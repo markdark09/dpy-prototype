@@ -150,6 +150,17 @@ for (const [name, opts] of [['desktop', DESKTOP], ['tablet', TABLET], ['phone', 
   await ctx.close()
 }
 
+// every product page: an animated how-it-works diagram, and a Specs section (a table, or how to get the sheet)
+for (const url of products) {
+  const p = await open(desk, url, { wait: 0 })
+  const r = await p.evaluate(() => ({
+    diagram: !!document.querySelector('.how-vis svg .mk'), steps: document.querySelectorAll('.how-steps li').length, use: document.querySelectorAll('.use-steps li').length,
+    specs: !!document.querySelector('#specs'), table: !!document.querySelector('#specs table'), ask: !!document.querySelector('#specs .spec-none a[href*="contact"]'),
+  }))
+  check(`${url}: how-it-works diagram, steps and specs`, r.diagram && r.steps === 4 && r.use === 4 && r.specs && (r.table || r.ask), r)
+  await p.close()
+}
+
 // text size floors on every page: reading text (a sentence, normal weight) 12.5px and up; nothing under 11px (10.5px on phones)
 {
   const { sitemapPaths } = await import('./lib.mjs')

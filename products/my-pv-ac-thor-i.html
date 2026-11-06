@@ -540,6 +540,8 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
+.spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -638,7 +640,13 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec ice" aria-label="Our promise" style="--from:#FFFFFF">
+<section class="sec soft" id="specs" aria-labelledby="spT" style="--from:#FFFFFF">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
+    <div class="spec" data-r><h3>AC·THOR i by my-PV</h3><div class="tscroll tall"><table><thead><tr><th scope="col">Model</th><th scope="col">AC·THOR i</th></tr></thead><tbody><tr><th scope="row">Supply voltage (V, Hz)</th><td>220 to 240, 45 to 65</td></tr><tr><th scope="row">Mains connection</th><td>Single phase, mains plug</td></tr><tr><th scope="row">Power control (W)</th><td>0 to 3,600 (240 V x 15 A max.)</td></tr><tr><th scope="row">Relay output (A)</th><td>16</td></tr><tr><th scope="row">Load connection</th><td>Plug for resistive loads</td></tr><tr><th scope="row">Fuse protection (A)</th><td>13 or 16</td></tr><tr><th scope="row">Self-consumption (W)</th><td>&lt; 1.5</td></tr><tr><th scope="row">Efficiency (%)</th><td>&gt; 98 at nominal power</td></tr><tr><th scope="row">Operating temperature (°C)</th><td>0 to 40</td></tr><tr><th scope="row">Size L x H x D (mm)</th><td>135 x 210 x 65</td></tr><tr><th scope="row">Weight (kg)</th><td>1.5 with cable</td></tr><tr><th scope="row">Cable (m)</th><td>2.8</td></tr><tr><th scope="row">Communication</th><td>Ethernet (RJ45), RS485</td></tr></tbody></table></div><ul class="notes"><li>From my-PV's AC·THOR i datasheet (international 220 to 240 V version). The 6 kW figure sometimes quoted applies with a second 3 kW heating element, not to the unit alone.</li></ul></div>
+  </div>
+</section>
+<section class="sec ice" aria-label="Our promise" style="--from:#F4F7FA">
   <div class="wrap prom">
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>

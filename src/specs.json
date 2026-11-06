@@ -206,5 +206,65 @@
       "The technical data above are for reference only and the accurate data should be subject to the testing report or nameplate."
     ],
     "unclear": []
+  },
+  "myPV-ACTHOR-9s": {
+    "title": "AC·THOR 9s by my-PV",
+    "columns": ["Model", "Supply voltage (V, Hz)", "Mains connection", "Power control (W)", "Relay output", "Fuse protection", "Self-consumption (W)", "Efficiency (%)", "Operating temperature (°C)", "Protection", "Size L x H x D (mm)", "Weight (kg)", "Communication", "Item no."],
+    "rows": [
+      ["AC·THOR 9s", "3 x 230, 45 to 65", "3-phase with neutral", "0 to 3,000 per output, 3 outputs, max. 9,000", "230 V AC, 16 A max.", "4 x 16 A, type B or C", "< 1.5", "> 98 at nominal power", "0 to 40", "IP20", "135 x 195 x 65", "1.3", "Ethernet (RJ45), RS485", "20-0300"]
+    ],
+    "notes": ["From my-PV's datasheet (version 260324) and assembly manual. DPY's listing says it suits single, two or three phase supplies; my-PV's datasheet lists a three-phase connection with neutral, so ask us about your setup."]
+  },
+  "myPV-ACTHOR-i": {
+    "title": "AC·THOR i by my-PV",
+    "columns": ["Model", "Supply voltage (V, Hz)", "Mains connection", "Power control (W)", "Relay output (A)", "Load connection", "Fuse protection (A)", "Self-consumption (W)", "Efficiency (%)", "Operating temperature (°C)", "Size L x H x D (mm)", "Weight (kg)", "Cable (m)", "Communication"],
+    "rows": [
+      ["AC·THOR i", "220 to 240, 45 to 65", "Single phase, mains plug", "0 to 3,600 (240 V x 15 A max.)", "16", "Plug for resistive loads", "13 or 16", "< 1.5", "> 98 at nominal power", "0 to 40", "135 x 210 x 65", "1.5 with cable", "2.8", "Ethernet (RJ45), RS485"]
+    ],
+    "notes": ["From my-PV's AC·THOR i datasheet (international 220 to 240 V version). The 6 kW figure sometimes quoted applies with a second 3 kW heating element, not to the unit alone."]
+  },
+  "myPV-Power-Meter": {
+    "title": "Power Meter by my-PV",
+    "columns": ["Model", "Phases", "Measuring range (A)", "Measuring voltage (V AC)", "Interface", "Power supply", "Current sensors", "Sensor wire size", "Ambient temperature (°C)", "Protection", "Mounting", "Size L x H x D (mm)", "Weight (g)"],
+    "rows": [
+      ["Power Meter", "3", "0 to 60 (more with larger sensors)", "230 (±10%)", "Ethernet (encrypted)", "From L1", "3 clamp-on, 39 x 26 x 23 mm", "Up to 10 mm across", "0 to 50", "IP20", "35 mm DIN rail", "71 x 90 x 58", "About 175"]
+    ],
+    "notes": ["From my-PV's Power Meter datasheet (version 210521). Larger clamp-on sensors (100 to 600 A) are available for bigger cables."]
+  },
+  "HAASE-Common-Sizes": {
+    "title": "HAASE energy tank, common sizes",
+    "columns": ["Model", "Capacity (liters)", "Diameter (mm)", "Height (mm)", "Weight full (kg)", "Floor loading (kg/m²)"],
+    "rows": [
+      ["T4-13-22", "2,050", "1,500", "1,950", "2,360", "1,340"],
+      ["T4-15-31", "3,080", "1,700", "2,150", "3,440", "1,520"],
+      ["T4-15-36", "3,680", "1,700", "2,500", "4,080", "1,800"],
+      ["T4-17-40", "3,960", "1,920", "2,150", "4,370", "1,510"],
+      ["T4-17-48", "4,740", "1,920", "2,500", "5,180", "1,790"],
+      ["T4-17-55", "5,410", "1,920", "2,800", "5,870", "2,030"],
+      ["T4-19-58", "6,060", "2,200", "2,500", "6,530", "1,720"],
+      ["T4-19-67", "6,920", "2,200", "2,800", "7,410", "1,950"],
+      ["T4-22-77", "7,980", "2,500", "2,500", "8,480", "1,730"],
+      ["T4-22-87", "9,100", "2,500", "2,800", "9,640", "1,970"],
+      ["T4-22-105", "10,980", "2,500", "3,300", "11,570", "2,360"]
+    ],
+    "notes": ["From DPY's HAASE catalogue. Weight full and floor loading are with 3 stainless steel heat exchanger coils.", "Standard range 1,000 to 40,000 liters; special tanks up to 100,000 liters. 316L stainless steel corrugated coils; unpressurised tank, pressurised drinking-water circuit; up to 95°C; glass-fibre reinforced inner and outer walls."]
+  },
+  "Rotex-Sanicube": {
+    "title": "Rotex Sanicube",
+    "columns": ["Model", "Storage tank volume (liters)", "Weight empty (kg)", "Weight filled (kg)", "Size L x W x H (mm)", "Max. temperature (°C)", "Heat loss (W/K)", "Tank material", "Insulation", "Drinking water in coil (liters)", "Max. operating pressure (bar)", "Coil material", "Coil surface (m²)", "Heat transmission (W/K)", "Pipe connections"],
+    "rows": [
+      ["SC 328/0/0", "300", "55", "355", "595 x 615 x 1,658", "85", "1.3", "Shock resistant polypropylene", "CFC-free polyurethane foam, 80 mm", "19", "6", "Stainless steel SS316L", "4.1", "1,820", "1\" male"],
+      ["HYC 544/0/0", "500", "78", "578", "790 x 790 x 1,658", "85", "1.4", "Shock resistant polypropylene", "CFC-free polyurethane foam, 80 mm", "29", "6", "Stainless steel SS316L", "6.4", "2,860", "1\" male"]
+    ],
+    "notes": ["From DPY's Rotex brochure. Other operating pressures are available."]
+  },
+  "Aquaplast-PPR": {
+    "title": "Aquaplast PP-R pipes",
+    "columns": ["Product", "Pressure class", "Outer diameter (mm)", "Max. temperature (°C)", "Standards"],
+    "rows": [
+      ["PP-R composite pipe", "PN 20, PN 25", "20, 25, 32, 40, 50, 63, 75, 90, 110, 125", "95", "DIN 8077, DIN 8078, EN ISO 15874, ASTM F 2389"],
+      ["PP-R pipe", "PN 10, PN 16, PN 20", "20, 25, 32, 40, 50, 63, 75, 90, 110, 125", "95", "DIN 8077, DIN 8078, EN ISO 15874, ASTM F 2389"]
+    ],
+    "notes": ["From the maker's published product lines (Aquaplast by Formül Plastik, Turkey). Rated for 50 years at 20°C and 20 bar. Elbows, couplings, adapters and valves come in the same sizes. Ask us which classes we have in stock."]
   }
 }

@@ -540,6 +540,8 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
+.spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -617,7 +619,7 @@ button.busy{cursor:progress;opacity:.85}
 <section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
-    <div class="feats"><div class="ft-c" data-r><h3>Clip-on measuring</h3><p>Comes with three clamp-on current sensors (60 A, 10 mm²). No rewiring of your cables.</p></div></div>
+    <div class="feats"><div class="ft-c" data-r><h3>Clip-on measuring</h3><p>Comes with three clamp-on current sensors (60 A, for cables up to 10 mm across). No rewiring of your cables.</p></div></div>
   </div>
 </section>
 
@@ -638,7 +640,13 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec ice" aria-label="Our promise" style="--from:#FFFFFF">
+<section class="sec soft" id="specs" aria-labelledby="spT" style="--from:#FFFFFF">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
+    <div class="spec" data-r><h3>Power Meter by my-PV</h3><div class="tscroll tall"><table><thead><tr><th scope="col">Model</th><th scope="col">Power Meter</th></tr></thead><tbody><tr><th scope="row">Phases</th><td>3</td></tr><tr><th scope="row">Measuring range (A)</th><td>0 to 60 (more with larger sensors)</td></tr><tr><th scope="row">Measuring voltage (V AC)</th><td>230 (±10%)</td></tr><tr><th scope="row">Interface</th><td>Ethernet (encrypted)</td></tr><tr><th scope="row">Power supply</th><td>From L1</td></tr><tr><th scope="row">Current sensors</th><td>3 clamp-on, 39 x 26 x 23 mm</td></tr><tr><th scope="row">Sensor wire size</th><td>Up to 10 mm across</td></tr><tr><th scope="row">Ambient temperature (°C)</th><td>0 to 50</td></tr><tr><th scope="row">Protection</th><td>IP20</td></tr><tr><th scope="row">Mounting</th><td>35 mm DIN rail</td></tr><tr><th scope="row">Size L x H x D (mm)</th><td>71 x 90 x 58</td></tr><tr><th scope="row">Weight (g)</th><td>About 175</td></tr></tbody></table></div><ul class="notes"><li>From my-PV's Power Meter datasheet (version 210521). Larger clamp-on sensors (100 to 600 A) are available for bigger cables.</li></ul></div>
+  </div>
+</section>
+<section class="sec ice" aria-label="Our promise" style="--from:#F4F7FA">
   <div class="wrap prom">
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>

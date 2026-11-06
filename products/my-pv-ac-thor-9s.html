@@ -540,6 +540,8 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
+.spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -638,7 +640,13 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec ice" aria-label="Our promise" style="--from:#FFFFFF">
+<section class="sec soft" id="specs" aria-labelledby="spT" style="--from:#FFFFFF">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">From the manufacturer's spec sheets. Not sure which size? We'll work it out at your free site visit.</p></div>
+    <div class="spec" data-r><h3>AC·THOR 9s by my-PV</h3><div class="tscroll tall"><table><thead><tr><th scope="col">Model</th><th scope="col">AC·THOR 9s</th></tr></thead><tbody><tr><th scope="row">Supply voltage (V, Hz)</th><td>3 x 230, 45 to 65</td></tr><tr><th scope="row">Mains connection</th><td>3-phase with neutral</td></tr><tr><th scope="row">Power control (W)</th><td>0 to 3,000 per output, 3 outputs, max. 9,000</td></tr><tr><th scope="row">Relay output</th><td>230 V AC, 16 A max.</td></tr><tr><th scope="row">Fuse protection</th><td>4 x 16 A, type B or C</td></tr><tr><th scope="row">Self-consumption (W)</th><td>&lt; 1.5</td></tr><tr><th scope="row">Efficiency (%)</th><td>&gt; 98 at nominal power</td></tr><tr><th scope="row">Operating temperature (°C)</th><td>0 to 40</td></tr><tr><th scope="row">Protection</th><td>IP20</td></tr><tr><th scope="row">Size L x H x D (mm)</th><td>135 x 195 x 65</td></tr><tr><th scope="row">Weight (kg)</th><td>1.3</td></tr><tr><th scope="row">Communication</th><td>Ethernet (RJ45), RS485</td></tr><tr><th scope="row">Item no.</th><td>20-0300</td></tr></tbody></table></div><ul class="notes"><li>From my-PV's datasheet (version 260324) and assembly manual. DPY's listing says it suits single, two or three phase supplies; my-PV's datasheet lists a three-phase connection with neutral, so ask us about your setup.</li></ul></div>
+  </div>
+</section>
+<section class="sec ice" aria-label="Our promise" style="--from:#F4F7FA">
   <div class="wrap prom">
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i><svg aria-hidden="true"><use href="#ck"/></svg></i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>
