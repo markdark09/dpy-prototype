@@ -137,17 +137,18 @@ document.addEventListener('click', e => {
 const SENT = {
   quote: 'We have your request. Our team will call you to arrange your free site visit.',
   service: 'We have your request. Our service team will call you to confirm a visit.',
+  careers: 'We have your application and CV. Our team will be in touch if your experience fits the role.',
 }
-DPY.send = async ({ form, kind, name, phone, email, fields, mailto }) => {
+DPY.send = async ({ form, kind, name, phone, email, fields, cv, mailto }) => {
   if (/^https?:$/.test(location.protocol)) {
     try {
       const r = await fetch('/api/send', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ kind, name, phone, email, consent: true, fields, hp_field: form?.elements.hp_field?.value || '' }),
+        body: JSON.stringify({ kind, name, phone, email, consent: true, fields, ...(cv ? { cv } : {}), hp_field: form?.elements.hp_field?.value || '' }),
       })
       if (r.ok) return 'sent'
       const j = await r.json().catch(() => ({}))
-      if (r.status === 400 && j.field) return { error: j.error, field: j.field }
+      if ((r.status === 400 || r.status === 413) && j.field) return { error: j.error, field: j.field }
       if (r.status === 429) return { error: j.error }
     } catch { /* offline or blocked: the email app below still gets the request out */ }
   }
@@ -168,7 +169,7 @@ DPY.formKit = form => {
     error(msg, field) {
       err.textContent = msg || ''
       const el = field && form.elements[field]
-      if (el?.focus) { (el.closest('.ok, .qt-ok') || el).classList.add('bad'); el.focus() }
+      if (el?.focus) { (el.closest('.ok, .qt-ok, .drop') || el).classList.add('bad'); el.focus() }
     },
     done(result, kind, doneEl) {
       const p = $('p', doneEl); if (!p.dataset.mail) p.dataset.mail = p.textContent
@@ -180,7 +181,7 @@ DPY.formKit = form => {
 $$('form[data-mail]').forEach(form => {
   const done = $('.f-done', form), kit = DPY.formKit(form)
   const kind = form.dataset.kind || (form.dataset.mail.startsWith('service') ? 'service' : 'quote')
-  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.ok')?.classList.remove('bad'); kit.error('') })
+  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.ok, .drop')?.classList.remove('bad'); kit.error('') })
   form.addEventListener('submit', async e => {
     e.preventDefault()
     if ($('.busy', form)) return
@@ -191,7 +192,7 @@ $$('form[data-mail]').forEach(form => {
     if (ok && !ok.checked) return ok.focus()
     const lines = []
     for (const el of $$('input,select,textarea', form)) {
-      if (!el.name || el.name === 'consent' || el.name === 'hp_field') continue
+      if (!el.name || el.name === 'consent' || el.name === 'hp_field' || el.type === 'file') continue
       if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) continue
       const lb = el.dataset.label || form.querySelector(`label[for="${el.id}"]`)?.textContent.replace('*', '').trim() || el.closest('[data-group]')?.dataset.group || el.name
       if (el.value.trim()) lines.push([lb, el.value.trim(), el.name])
@@ -199,13 +200,23 @@ $$('form[data-mail]').forEach(form => {
     const merged = {}; lines.forEach(([k, v]) => merged[k] = merged[k] ? merged[k] + ', ' + v : v)
     const body = Object.entries(merged).map(([k, v]) => `${k}: ${v}`).join('\n')
     const val = n => (form.elements[n]?.value || '').trim(), who = val('fullname')
+    // a CV (Careers): checked here first, then sent as base64 with the request
+    const file = $('input[type=file]', form)?.files?.[0]
+    let cv
+    if (file) {
+      if (!/\.(pdf|docx?)$/i.test(file.name)) return kit.error('Please attach your CV as a PDF or Word file.', 'cv')
+      if (file.size > 5 * 1024 * 1024) return kit.error('That file is too large. Please send a CV under 5 MB.', 'cv')
+      cv = { name: file.name, data: await new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1] || ''); r.onerror = no; r.readAsDataURL(file) }).catch(() => '') }
+    }
+    // an email app can't be handed a file, so the fallback email asks for it
+    const note = $('input[type=file]', form) ? '\n\n(Please attach your CV to this email before sending.)' : ''
     // name, mobile and email travel on their own; everything else as labelled lines
     const own = new Set(lines.filter(([, , n]) => ['fullname', 'phone', 'email'].includes(n)).map(([lb]) => lb))
     const fields = Object.entries(merged).filter(([k]) => !own.has(k))
     kit.busy(true)
     const res = await DPY.send({
-      form, kind, name: who, phone: val('phone'), email: val('email'), fields,
-      mailto: `mailto:${form.dataset.mail}?subject=${encodeURIComponent((form.dataset.subject || 'Website request') + (who ? ': ' + who : ''))}&body=${encodeURIComponent(body)}`,
+      form, kind, name: who, phone: val('phone'), email: val('email'), fields, cv,
+      mailto: `mailto:${form.dataset.mail}?subject=${encodeURIComponent((form.dataset.subject || 'Website request') + (who ? ': ' + who : ''))}&body=${encodeURIComponent(body + note)}`,
     })
     kit.busy(false)
     if (res.error) return kit.error(res.error, res.field)

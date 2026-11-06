@@ -6,6 +6,7 @@
      RESEND_API_KEY  secret. Without it the endpoint answers 503 and the page falls back to the visitor's email app.
      QUOTE_TO        where quote requests go, e.g. sales@dpymi.com.ph
      SERVICE_TO      where service requests go, e.g. service@dpymi.com.ph
+     CAREERS_TO      where job applications go (with the CV attached), e.g. careers@dpymi.com.ph
      MAIL_FROM       a sender on a domain verified in Resend, e.g. "DPY Website <website@dpymi.com.ph>".
                      Defaults to Resend's test sender, which only delivers to the Resend account's own address.
    Optional: a KV namespace bound as RATE_LIMIT caps each visitor at 5 requests per 10 minutes.
@@ -15,7 +16,11 @@
 const KINDS = {
   quote: { to: 'QUOTE_TO', subject: 'Free quote request', label: 'New quote request', reply: 'Call within one business day to arrange the free site visit.' },
   service: { to: 'SERVICE_TO', subject: 'Service request', label: 'New service request', reply: 'Call within one business day to confirm the visit.' },
+  careers: { to: 'CAREERS_TO', subject: 'Job application', label: 'New job application', reply: 'The CV is attached. Reply to the applicant by email or call them.', email: true, cv: true },
 }
+// a CV: PDF or Word, up to 5 MB, checked by its first bytes as well as its name
+const CV_MAX = 5 * 1024 * 1024
+const CV_TYPES = { pdf: [0x25, 0x50, 0x44, 0x46], docx: [0x50, 0x4B, 0x03, 0x04], doc: [0xD0, 0xCF, 0x11, 0xE0] }
 const DEFAULT_FROM = 'DPY Website <onboarding@resend.dev>'
 const FROM_RE = /^(?:[^<>]*<\s*[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+\s*>|[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+)$/
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -31,6 +36,8 @@ export async function send(request, env) {
   const origin = request.headers.get('Origin')
   try { if (!origin || new URL(origin).host !== new URL(request.url).host) return json({ error: 'Forbidden' }, 403) } catch { return json({ error: 'Forbidden' }, 403) }
 
+  // a CV in base64 is about 7 MB at most; anything much bigger isn't from our form
+  if (Number(request.headers.get('Content-Length') || 0) > 8 * 1024 * 1024) return json({ error: 'That file is too large. Please send a CV under 5 MB.', field: 'cv' }, 413)
   let body
   try { body = await request.json() } catch { return json({ error: 'Bad request' }, 400) }
 
@@ -42,7 +49,10 @@ export async function send(request, env) {
   const name = str(body.name, LIMITS.name), phone = str(body.phone, LIMITS.phone), email = str(body.email, LIMITS.email)
   if (!name) return json({ error: 'Please enter your name.', field: 'fullname' }, 400)
   if (!PHONE_RE.test(phone)) return json({ error: 'Please enter a mobile number we can call.', field: 'phone' }, 400)
+  if (kind.email && !email) return json({ error: 'Please enter your email, so we can reply.', field: 'email' }, 400)
   if (email && !EMAIL_RE.test(email)) return json({ error: 'Please check your email address.', field: 'email' }, 400)
+  let cv = null
+  if (kind.cv) { cv = readCv(body.cv); if (cv.error) return json({ error: cv.error, field: 'cv' }, 400) }
   if (body.consent !== true) return json({ error: 'Please agree to the privacy notice.', field: 'consent' }, 400)
   const fields = (Array.isArray(body.fields) ? body.fields : []).slice(0, LIMITS.fields)
     .filter(f => Array.isArray(f) && f.length === 2)
@@ -61,14 +71,15 @@ export async function send(request, env) {
   const sentAt = new Date().toLocaleString('en-PH', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Manila' })
   const subject = `${kind.subject}: ${name}`
   const text = [`${kind.label} from the DPY website`, '', `Name: ${name}`, `Mobile: ${phone}`, `Email: ${email || 'not given'}`,
-    ...fields.map(([k, v]) => `${k}: ${v}`), '', `Sent ${sentAt} (Manila time)`].join('\n')
+    ...fields.map(([k, v]) => `${k}: ${v}`), ...(cv ? [`CV: ${cv.filename} (attached)`] : []), '', `Sent ${sentAt} (Manila time)`].join('\n')
+  const rows = cv ? [...fields, ['CV', `${cv.filename} (attached)`]] : fields
 
   let res
   try {
     res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], ...(email ? { reply_to: email } : {}), subject, text, html: renderEmail({ kind, name, phone, email, fields, sentAt }) }),
+      body: JSON.stringify({ from, to: [to], ...(email ? { reply_to: email } : {}), subject, text, html: renderEmail({ kind, name, phone, email, fields: rows, sentAt }), ...(cv ? { attachments: [{ filename: cv.filename, content: cv.content }] } : {}) }),
     })
   } catch (e) {
     console.error('Resend unreachable', String(e)); return json({ error: SEND_FAIL, fallback: true }, 502)
@@ -81,6 +92,22 @@ export async function send(request, env) {
 }
 
 export const str = (v, max) => typeof v === 'string' ? v.trim().slice(0, max) : ''
+
+// { name, data: base64 } from the browser -> { filename, content } for Resend, or { error }
+export function readCv(cv) {
+  if (!cv || typeof cv.data !== 'string' || !cv.data) return { error: 'Please attach your CV (PDF or Word).' }
+  const ext = (String(cv.name || '').toLowerCase().match(/\.(pdf|docx?)$/) || [])[1]
+  if (!ext) return { error: 'Please attach your CV as a PDF or Word file.' }
+  const data = cv.data.replace(/^data:[^,]*,/, '').replace(/\s/g, '')
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(data)) return { error: 'We couldn\'t read that file. Please try another copy of your CV.' }
+  if (Math.floor(data.length * 3 / 4) > CV_MAX) return { error: 'That file is too large. Please send a CV under 5 MB.' }
+  let head
+  try { head = [...atob(data.slice(0, 12))].map(c => c.charCodeAt(0)) } catch { return { error: 'We couldn\'t read that file. Please try another copy of your CV.' } }
+  if (!CV_TYPES[ext].every((b, i) => head[i] === b)) return { error: 'That file doesn\'t look like a PDF or Word document. Please check it and try again.' }
+  // a safe name: letters, numbers, spaces, dots, dashes; always ending in its real type
+  const base = String(cv.name).replace(/\.(pdf|docx?)$/i, '').replace(/[^\w .-]+/g, ' ').replace(/\.{2,}/g, ' ').replace(/\s+/g, ' ').replace(/^[\s.-]+/, '').trim().slice(0, 80) || 'CV'
+  return { filename: `${base}.${ext}`, content: data }
+}
 
 async function limited(env, ip) {
   const kv = env.RATE_LIMIT

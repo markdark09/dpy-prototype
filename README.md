@@ -35,7 +35,7 @@ Live at **https://prototype.dpy-mi.workers.dev**. It is a Cloudflare Worker name
 
 ### The forms send for real (once Resend is set up)
 
-The quote forms (homepage and Contact) and the service booking form post to `/api/send` (`worker/send.js`). It emails DPY's team through [Resend](https://resend.com), the same setup as makarios-it.com. Quote requests go to one inbox and service requests to another. The recipient is fixed on the server, so the endpoint can't be used to email anyone else. The email puts **Call 09XX...** first as a tap-to-call button, because the site promises a call back. Spam is stopped by a hidden field that only bots fill, a same-site check, and an optional limit of 5 requests per visitor per 10 minutes.
+The quote forms (homepage and Contact), the service booking form and the Careers application form post to `/api/send` (`worker/send.js`). It emails DPY's team through [Resend](https://resend.com), the same setup as makarios-it.com. Quote requests, service requests and job applications each go to their own inbox. A job application must include an email and a CV (PDF or Word, up to 5 MB), which arrives as an attachment. The server checks the file's first bytes, not just its name, and cleans the file name. The recipient is fixed on the server, so the endpoint can't be used to email anyone else. The email puts **Call 09XX...** first as a tap-to-call button, because the site promises a call back. Spam is stopped by a hidden field that only bots fill, a same-site check, and an optional limit of 5 requests per visitor per 10 minutes.
 
 **Until it is set up, nothing breaks:** the server answers "not set up" and the page opens the visitor's email app with the request written out, as the prototype always did. The thank-you message says which one happened. The same fallback covers a failed send and a page opened from disk.
 
@@ -48,6 +48,7 @@ So the code can be merged and deployed before any of this is set. Switching it o
 | `RESEND_API_KEY` | Secret | the Resend key (`re_...`) |
 | `QUOTE_TO` | Text | the Resend account's own email |
 | `SERVICE_TO` | Text | the Resend account's own email |
+| `CAREERS_TO` | Text | the Resend account's own email |
 
 Leave `MAIL_FROM` unset; it defaults to `DPY Website <onboarding@resend.dev>`, which works without a verified domain.
 
@@ -57,11 +58,12 @@ Leave `MAIL_FROM` unset; it defaults to `DPY Website <onboarding@resend.dev>`, w
 |---|---|---|
 | `QUOTE_TO` | Text | `sales@dpymi.com.ph` (must exist as a mailbox or forward) |
 | `SERVICE_TO` | Text | `service@dpymi.com.ph` (must exist as a mailbox or forward) |
+| `CAREERS_TO` | Text | `careers@dpymi.com.ph` (must exist as a mailbox or forward) |
 | `MAIL_FROM` | Text | `DPY Website <website@dpymi.com.ph>` |
 
 Optional: bind a KV namespace as `RATE_LIMIT` to turn on the per-visitor limit. `keep_vars` in `wrangler.jsonc` stops a deploy from wiping these.
 
-Tests: `node --test worker/send.test.mjs` (10 checks). They stand in for Resend's replies, so nothing is sent; a real email has not gone through yet. Stage 1 above is that check.
+Tests: `node --test worker/send.test.mjs` (13 checks). They stand in for Resend's replies, so nothing is sent; a real email has not gone through yet. Stage 1 above is that check.
 
 ### Old addresses
 
@@ -94,7 +96,7 @@ The old site was organised around DPY's two companies and its suppliers' categor
 | About | `/about` | The story (2001, incorporation in 2011, Gratek, the 2021 award), DPY for buildings vs Gratek for homes, mission, vision and the five values (they spell PRIZE). Registration numbers are left out on purpose: it says "Registered with DTI and SEC". |
 | Contact | `/contact` | The quote form, every phone number and email, Messenger and Viber, and the same branch map as the homepage (satellite fly-in and Street View). |
 | Compare | `/compare` | Up to four products side by side (power, running cost, tank, hot water, what it serves, power supply, where it goes, size, models, features, warranty, best for), with "show only the differences" and quick sets (instant heaters, heat pumps, lowest running cost...). Products are added from the compare button on any card or product page; a bar at the bottom collects them. A comparison can be shared by link (`/compare?p=...`). |
-| Careers | `/careers` | The six openings listed on the live site, each with an Apply-by-email button. |
+| Careers | `/careers` | The six openings listed on the live site. Each Apply button picks the role in the application form below (role, name, mobile, email, city, CV upload, message). If sending isn't set up, the visitor's email app opens with the application and asks them to attach the CV. |
 | Privacy | `/privacy` | The privacy notice as a page (the homepage keeps its dialog). |
 
 **Quote list.** "Add to quote" on any product card or product page puts it in a list that follows the visitor across pages (kept in their browser only). The count shows on the "Get a Quote" button, and both quote forms (the homepage's and the contact page's) list the products, tick the matching types and include them in the request. "Get a quote for this" adds the product and goes straight to the form. The finder passes its answers to the form too.
@@ -185,7 +187,7 @@ Each product card now links to its category on the new Water Heaters page, and t
   It offers suggested questions and action buttons (call, email, quote, scroll to a section). After 9 seconds a one-time nudge appears for 7 seconds, and on phones it opens as a bottom sheet. It understands simple Taglish such as "magkano", "sira" and "salamat".
   **It is a front-end prototype:** answers come from keyword matching over a built-in knowledge list, not a live AI. For production, put the same knowledge behind a small server that calls an AI model (for example Claude), so it can handle any phrasing, and add a "talk to a person" handoff.
 - **Phones and tablets:** in How It Works the tank stays pinned at the top while the four steps scroll under it, so you always see what each step does. Labels near the screen edge flip inward. The Solutions and Clients tabs are a single swipeable row, and section spacing is tighter.
-- **Navigation (all pages):** Home · Water Heaters · For Business · Service · Projects · About · Careers · Contact, plus "Get a Quote". The current page is highlighted. Below 1180 px the bar folds into the menu button (eight links need the room). Compare and Privacy are reached from the footer. On the homepage "Get a Quote" still glides to its own form. The footer links to the new pages.
+- **Navigation (all pages):** Water Heaters · For Business · Service · Projects · About · Careers · Contact, then the sales number and a red "Get a Quote". The logo goes home, so the bar has no separate Home link; the phone menu still lists Home first. The current page is highlighted. The bar turns solid white with a soft shadow once the page scrolls, so text never shows through behind the links. Below 1360 px the number shrinks to a round call button. Below 1180 px the links fold into the menu button. Below 560 px "Get a Quote" moves into the menu, leaving the logo, a call button and the menu button. The phone menu is opaque, its links come in one after another (instantly with reduced motion), and under them are the sales and service numbers, Messenger, Viber and the branch hours. Compare and Privacy are reached from the footer. On the homepage "Get a Quote" still glides to its own form. The footer links to the new pages.
 
 ## Privacy, search and sharing
 
@@ -207,7 +209,9 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **Long forms on phones** (homepage and Contact quote, Service booking): the send button stays at the bottom of the screen while the form is on screen, the way the product page's quote bar does, so nobody has to scroll to the end to find it. The chat button steps aside while a form fills the bottom of the screen or a field is being typed in, so it never covers that button or the text, and comes back past the form. The three form cards clip their rounded corners with `overflow:clip`, because `overflow:hidden` stops a button from sticking. Desktop is unchanged.
 - **Service booking's preferred day** starts from tomorrow in the visitor's own date (it used the UTC date before, a day off before 8 AM in the Philippines), and the date field keeps the look of the other fields on iPhones.
 - **No zoom on tap:** on phones and tablets every text box, list and message box is 16px, so iOS no longer zooms the page when one is tapped. Before, the forms, the savings calculator's rate and the Compare picker were 13 to 15px.
-- **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three forms were driven through each outcome (sent, not set up, a field to fix, too many requests).
+- **Careers applications:** each opening's Apply button picks the role in an application form further down the page and moves there. The form takes the CV as a PDF or Word file up to 5 MB, shown in a styled drop box (not the browser's plain file button), and sends it to `careers@` as an attachment. If sending isn't set up, the email app opens with the application and asks the person to attach the CV. The privacy notice now says applications are kept for up to one year.
+- **Solutions diagram (For Business):** the hot-water riser now reaches every floor, Floor 1 included.
+- **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three request forms were driven through each outcome (sent, not set up, a field to fix, too many requests). The Careers form was checked at phone and desktop size: Apply picks the role, missing fields and a missing CV are marked, an image file is refused, the file shows in the box, it sends with the CV, and the email fallback asks for the CV.
 
 
 ## Performance (checked on Intel UHD integrated graphics)
@@ -243,7 +247,7 @@ The site uses role-based addresses. Each one should forward to the people who ha
 | sales@dpymi.com.ph | Quote form, every "Get a Quote", footer "quotes", sales contact in the business data |
 | service@dpymi.com.ph | The assistant's repair and maintenance answers, footer "repairs", customer-service contact in the business data |
 | privacy@dpymi.com.ph | Privacy notice (Data Protection Officer) |
-| careers@dpymi.com.ph | Careers page "Apply" buttons |
+| careers@dpymi.com.ph | Careers application form (and its email fallback) |
 
 ## Sample content (prototype)
 
@@ -254,7 +258,7 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 | Testimonials (under the client logos) | Three sample reviews: a Boracay resort engineer, an Iloilo hospital facilities head and a Pasig condo owner. Swap in real customer quotes with their permission. Until then the page labels them **Sample** (the `.tm-note` line in `index.html`; remove it with the samples). |
 | Branch hours | Mon–Sat, 8:00 AM – 5:00 PM, closed Sundays and holidays (branch card and assistant) |
 | Hero stat | "5 Branches nationwide", matching the branches page |
-| Privacy notice | Retention of 5 years after the last transaction; hosting and email providers as processors; "Last updated: October 2026" |
+| Privacy notice | Job applications kept 1 year (new section, for the Careers form); retention of 5 years after the last transaction; hosting and email providers as processors; "Last updated: October 2026" |
 | Viber / Messenger | Viber on the sales number 0933 867 2954; Messenger via the Facebook page |
 | Savings calculator | 40 L per shower, 27→42°C, heat pump 3.5× as efficient, solar covering 65%, ₱12/kWh |
 | Gratek "Aquarius" and quiz recommendations | General guidance, following the Solutions section |

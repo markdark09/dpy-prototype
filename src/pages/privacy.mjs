@@ -28,6 +28,7 @@ export default {
     <h2>What stays in your browser</h2><p>Your quote list is saved only in your own browser, so it's still there when you come back. It isn't sent to us until you send a request. You can clear it any time from the contact page.</p>
     <h2>Who can see it</h2><p>Only the DPY and Gratek staff handling your request, and our website hosting and email providers, who are bound by confidentiality and data-sharing agreements.</p>
     <h2>How long we keep it</h2><p>For up to five (5) years after your last transaction with us, or longer only if the law requires it. After that it is securely deleted.</p>
+    <h2 id="jobs">If you apply for a job</h2><p>When you apply through our Careers page, we collect your name, mobile number, email, city, the role you want, your message and your CV. We use them only to consider you for that role and similar openings, and only the people handling hiring see them. We keep applications for up to one (1) year, then securely delete them, unless you join us or ask us to delete them sooner.</p>
     <h2>Your rights</h2><p>You may ask to see, correct or delete your details, object to their use, or withdraw your consent at any time by emailing our Data Protection Officer at <a href="mailto:privacy@dpymi.com.ph?subject=Data%20privacy%20request">privacy@dpymi.com.ph</a>. You can also complain to the National Privacy Commission (privacy.gov.ph).</p>
     <p class="upd">Last updated: October 2026</p>
   </div>

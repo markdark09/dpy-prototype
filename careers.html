@@ -73,7 +73,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link svg{width:14px;height:14px;transition:transform .4s var(--ease)}
 .link:hover svg{transform:translateX(3px)}
 .nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
-.nav.solid{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--line)}
+.nav.solid{background:#fff;box-shadow:0 1px 0 var(--line),0 10px 28px -22px rgba(1,30,70,.45)}
 .nav.up{transform:translateY(-100%)}
 .nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
 .brand img{width:132px;height:auto}
@@ -89,13 +89,33 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .ql-n.pop{transform:scale(1.35)}
 .menu-btn{display:none;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:var(--sh-s)}
 .menu-btn i{display:block;width:16px;height:1.5px;margin:4px auto;background:var(--ink);transition:transform .3s}
-.menu-open .menu-btn i:first-child{transform:translateY(2.75px) rotate(45deg)}
-.menu-open .menu-btn i:last-child{transform:translateY(-2.75px) rotate(-45deg)}
-.sheet{position:fixed;inset:0;z-index:55;background:rgba(255,255,255,.98);display:grid;align-content:center;gap:6px;padding:100px var(--g) 40px;opacity:0;pointer-events:none;transition:opacity .4s}
-.sheet a{font-size:32px;font-weight:300;letter-spacing:-.03em}
-.sheet a[aria-current="page"]{font-weight:600}
-.sheet .btn{justify-self:start;margin-top:18px;font-size:15px;font-weight:600;letter-spacing:0}
-.menu-open .sheet{opacity:1;pointer-events:auto}
+.menu-open .menu-btn i:first-of-type{transform:translateY(2.75px) rotate(45deg)}
+.menu-open .menu-btn i:last-of-type{transform:translateY(-2.75px) rotate(-45deg)}
+.nav-cta{gap:10px}
+.nav-tel{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 4px;font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;border-radius:999px;transition:color .25s,background .25s,box-shadow .25s}
+.nav-tel i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#FFF0F0;color:var(--red);transition:background .25s,color .25s}
+.nav-tel svg{width:16px;height:16px}
+.nav-tel:hover i{background:var(--red);color:#fff}
+.nav-tel:hover{color:var(--red)}
+.nav .btn.red .ql-n{background:#fff;color:var(--red)}
+.menu-btn{position:relative}
+.menu-btn .ql-n{position:absolute;top:-4px;right:-4px;margin:0}
+.sheet{position:fixed;inset:0;z-index:55;background:#fff;display:grid;align-content:start;gap:22px;padding:104px var(--g) calc(32px + var(--sb,0px));overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s,visibility 0s .35s}
+.sh-links{display:grid;gap:2px}
+.sheet .sh-links a{justify-self:start;padding:4px 0;font-size:30px;font-weight:300;letter-spacing:-.03em;opacity:0;transform:translateY(10px);transition:opacity .4s calc(var(--i) * 35ms),transform .5s var(--ease) calc(var(--i) * 35ms)}
+.sheet .sh-links a[aria-current="page"]{font-weight:600}
+.sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
+.sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
+.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact small{font-size:12px;color:var(--mute)}
+.sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
+.sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.sheet .msgr{height:40px;padding:0 14px;font-size:13px}
+.sh-contact p{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:0;font-size:13px;color:var(--mute)}
+.sh-contact p svg{width:15px;height:15px}
+.menu-open .sheet{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .35s}
+.menu-open .sheet .sh-links a{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.sheet .sh-links a{transform:none;transition:opacity .2s}}
 html.menu-lock{overflow:hidden}
 .pg-business:not(.menu-open) .nav:not(.solid) .brand img{content:url(assets/brand/dpy-logo-white.svg)}
 .msgr{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
@@ -191,7 +211,11 @@ html.menu-lock{overflow:hidden}
 .ql li button{width:30px;height:30px;border-radius:50%;color:var(--mute);font-size:16px}
 .ql li button:hover{background:#FFF0F0;color:var(--red)}
 .ql .more{margin-top:10px;font-size:12.5px}
-@media (max-width:1180px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:1360px){.nav-tel{width:40px;justify-content:center;padding:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}.nav-tel span{display:none}.nav-tel i{background:none}.nav-tel:hover i{background:none;color:var(--red)}}
+@media (max-width:1180px){.pill{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:1180px) and (hover:none){.nav-tel{width:44px;height:44px}}
+@media (max-width:560px){.nav .btn.qt{display:none}.nav-tel{width:44px;height:44px;box-shadow:var(--sh-s)}}
+@media (max-width:380px){.sh-contact{grid-template-columns:1fr}}
 @media (max-width:980px){.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
 @media (max-width:640px){.foot-cta{padding:24px 22px}}
 .lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot{animation:none!important}
@@ -437,8 +461,32 @@ button.busy{cursor:progress;opacity:.85}
 .apply{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:30px;padding:30px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#0D3A73,#0A1830)}
 .apply b{display:block;font-size:22px;font-weight:600}
 .apply p{margin:6px 0 0;color:#A9C2DE;font-size:14.5px}
-@media (max-width:980px){.why{grid-template-columns:1fr}}
-@media (max-width:640px){.job{grid-template-columns:1fr;gap:10px}.job .loc{justify-self:start}.apply{grid-template-columns:1fr}}
+/* applying: the same card as Service's booking form */
+.ap{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:30px;overflow:hidden;overflow:clip;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
+.ap-side{padding:40px 36px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,rgba(13,104,195,.45),transparent 60%),linear-gradient(160deg,#0D3A73,#0A1830)}
+.ap-side h2{margin:0}
+.ap-side p{color:#A9C2DE;font-size:14.5px;margin:14px 0 22px}
+.ap-side ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px;font-size:14px}
+.ap-side li{display:flex;gap:10px;align-items:center}
+.ap-side li svg{width:16px;height:16px;color:#7CC4FF}
+.ap-side small{color:#9DB0C6;font-size:12.5px}.ap-side small a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.ap .form{position:relative;padding:36px}
+/* the CV picker: the real file input covers the box (so a click or a dropped file both work), styled like the other fields */
+.drop{position:relative;display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 14px;border-radius:14px;border:1.5px dashed #C9D4E1;background:#F8FAFC;cursor:pointer;transition:border-color .25s,background .25s,box-shadow .25s}
+.form .drop{display:flex;margin:0;font-weight:400}
+.form .drop input{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;opacity:0;cursor:pointer}
+.drop .ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#fff;color:var(--blue);box-shadow:0 0 0 1px var(--line)}
+.drop .ic svg{width:20px;height:20px}
+.drop .t{flex:1;min-width:0;display:grid;gap:2px}
+.drop .t b{font-size:14px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drop .t small{font-size:12px;color:var(--mute)}
+.drop .pick{flex:none;font-size:13px;font-weight:600;color:var(--blue)}
+.drop:hover,.drop.over{border-color:var(--blue);background:#F1F7FE}
+.drop:focus-within{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(13,104,195,.1)}
+.drop.has{border-style:solid;border-color:#9FD8B8;background:#F3FBF6}.drop.has .ic{color:#1E9E55}
+.drop.bad,.drop:has(input.bad){border-color:var(--red);background:#FFF6F6}
+@media (max-width:980px){.why,.ap{grid-template-columns:1fr}}
+@media (max-width:640px){.job{grid-template-columns:1fr;gap:10px}.job .loc{justify-self:start}.apply{grid-template-columns:1fr}.ap-side,.ap .form{padding:26px 22px}.drop .pick{display:none}}
 </style>
 </head>
 <body class="pg-careers">
@@ -454,16 +502,16 @@ button.busy{cursor:progress;opacity:.85}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="./" aria-label="DPY Mercantile Inc., home"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill"><li><a href="./">Home</a></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers" aria-current="page">Careers</a></li><li><a href="contact">Contact</a></li></ul>
-    <div class="nav-cta"><a class="btn line qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+    <ul class="pill"><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers" aria-current="page">Careers</a></li><li><a href="contact">Contact</a></li></ul>
+    <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="./">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="careers" aria-current="page">Careers</a><a href="contact">Contact</a><a class="btn red" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" aria-current="page" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <main id="main">
 <section class="phead">
   <span class="glow warm"></span>
   <div class="wrap ph-grid">
-    <div><ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">Careers</span></li></ol><span class="kick">Careers</span><h1 class="thin h1">Discover<br>Your Potential</h1><p class="lede">We see our people as our most valuable asset. We train you, give you room to grow, and make you part of a reliable, professional team.</p><div class="ph-acts"><a class="btn red" href="#roles">See open roles <svg aria-hidden="true"><use href="#arr"/></svg></a></div></div>
+    <div><ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">Careers</span></li></ol><span class="kick">Careers</span><h1 class="thin h1">Discover<br>Your Potential</h1><p class="lede">We see our people as our most valuable asset. We train you, give you room to grow, and make you part of a reliable, professional team.</p><div class="ph-acts"><a class="btn red" href="#roles">See open roles <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn ghost" href="#apply" data-role="">Apply now</a></div></div>
     <ul class="ph-stats"><li><b>6</b><small>Open roles</small></li><li><b>2</b><small>Cities hiring</small></li><li><b>5</b><small>Core values</small></li></ul>
   </div>
 </section>
@@ -481,13 +529,38 @@ button.busy{cursor:progress;opacity:.85}
 
 <section class="sec soft" id="roles" aria-labelledby="roT" style="--from:#FFFFFF">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Open roles</span><h2 class="thin h2" id="roT">We're Hiring</h2></div><p class="lede">Send your CV and the role you're applying for. We'll be in touch if your experience fits.</p></div>
-    <ul class="jobs"><li class="job" data-r><div><b>Sales Engineer</b><p>Visit sites, size hot water systems and prepare quotations for hotels, hospitals and buildings.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Sales%20Engineer%20(Manila)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Executive</b><p>Look after homeowners, developers and retail clients, from first inquiry to installation.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Sales%20Executive%20(Manila)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Accounting Staff</b><p>Keep our books, billing and payments accurate and on time.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Accounting%20Staff%20(Manila)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Aircon Technician</b><p>Install and service heat pumps and refrigeration-based systems on site.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Aircon%20Technician%20(Manila)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Engineer</b><p>Grow our Visayas projects: site visits, system sizing and quotations.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Cebu</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Sales%20Engineer%20(Cebu)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Executive</b><p>Serve homes and businesses across Cebu, from inquiry to after-sales.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Cebu</span><a class="btn sm" href="mailto:careers@dpymi.com.ph?subject=Application%3A%20Sales%20Executive%20(Cebu)">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li></ul>
-    <div class="apply" data-r><div><b>Don't see your role?</b><p>Send your CV anyway. We keep good people in mind for the next opening.</p></div><a class="btn white" href="mailto:careers@dpymi.com.ph?subject=Application">careers@dpymi.com.ph</a></div>
+    <div class="sec-head"><div><span class="kick">Open roles</span><h2 class="thin h2" id="roT">We're Hiring</h2></div><p class="lede">Pick a role, attach your CV and send it from this page. We'll be in touch if your experience fits.</p></div>
+    <ul class="jobs"><li class="job" data-r><div><b>Sales Engineer</b><p>Visit sites, size hot water systems and prepare quotations for hotels, hospitals and buildings.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="#apply" data-role="Sales Engineer (Manila)" aria-label="Apply for Sales Engineer, Manila">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Executive</b><p>Look after homeowners, developers and retail clients, from first inquiry to installation.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="#apply" data-role="Sales Executive (Manila)" aria-label="Apply for Sales Executive, Manila">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Accounting Staff</b><p>Keep our books, billing and payments accurate and on time.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="#apply" data-role="Accounting Staff (Manila)" aria-label="Apply for Accounting Staff, Manila">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Aircon Technician</b><p>Install and service heat pumps and refrigeration-based systems on site.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Manila</span><a class="btn sm" href="#apply" data-role="Aircon Technician (Manila)" aria-label="Apply for Aircon Technician, Manila">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Engineer</b><p>Grow our Visayas projects: site visits, system sizing and quotations.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Cebu</span><a class="btn sm" href="#apply" data-role="Sales Engineer (Cebu)" aria-label="Apply for Sales Engineer, Cebu">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li><li class="job" data-r><div><b>Sales Executive</b><p>Serve homes and businesses across Cebu, from inquiry to after-sales.</p></div><span class="loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5A5 5 0 0 0 3 6.5C3 10.4 8 15 8 15z"/><circle cx="8" cy="6.5" r="1.8"/></svg>Cebu</span><a class="btn sm" href="#apply" data-role="Sales Executive (Cebu)" aria-label="Apply for Sales Executive, Cebu">Apply <svg aria-hidden="true"><use href="#arr"/></svg></a></li></ul>
+    <div class="apply" data-r><div><b>Don't see your role?</b><p>Send your CV anyway. We keep good people in mind for the next opening.</p></div><a class="btn white" href="#apply" data-role="Open application">Send an open application <svg aria-hidden="true"><use href="#arr"/></svg></a></div>
+  </div>
+</section>
+
+<section class="sec" id="apply" aria-labelledby="apT" style="--from:#F4F7FA">
+  <div class="wrap">
+    <div class="ap" data-r>
+      <div class="ap-side">
+        <span class="kick" style="color:#7CC4FF">Apply</span><h2 class="thin h2 on-dark" id="apT">Send Your<br>Application</h2>
+        <p>Choose the role, attach your CV and tell us a little about yourself. It goes straight to our hiring team.</p>
+        <ul><li><svg aria-hidden="true"><use href="#ck"/></svg>PDF or Word, up to 5 MB</li><li><svg aria-hidden="true"><use href="#ck"/></svg>We reply if your experience fits</li><li><svg aria-hidden="true"><use href="#ck"/></svg><span>Used only for hiring, as the <a href="privacy#jobs" style="color:#fff;text-decoration:underline">privacy notice</a> says</span></li></ul>
+        <small>Prefer email? Send your CV to <a href="mailto:careers@dpymi.com.ph">careers@dpymi.com.ph</a>.</small>
+      </div>
+      <form class="form" data-mail="careers@dpymi.com.ph" data-subject="Job application" data-kind="careers" novalidate>
+        <div class="full"><label for="cR">Role <i>*</i></label><select id="cR" name="role" required><option value="">Choose a role</option><option>Sales Engineer (Manila)</option><option>Sales Executive (Manila)</option><option>Accounting Staff (Manila)</option><option>Aircon Technician (Manila)</option><option>Sales Engineer (Cebu)</option><option>Sales Executive (Cebu)</option><option>Open application</option></select></div>
+        <div><label for="cN">Full name <i>*</i></label><input id="cN" name="fullname" autocomplete="name" required></div>
+        <div><label for="cP">Mobile number <i>*</i></label><input id="cP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
+        <div><label for="cE">Email <i>*</i></label><input id="cE" name="email" type="email" autocomplete="email" placeholder="you@email.com" required></div>
+        <div><label for="cC">City you live in</label><input id="cC" name="city" autocomplete="address-level2" placeholder="e.g. Pasig, Cebu City"></div>
+        <div class="full"><span class="lb">CV <i style="font-style:normal;color:var(--red)">*</i></span><label class="drop" for="cV"><input id="cV" name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required aria-describedby="cvH"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6M9.5 13.5 12 11l2.5 2.5"/></svg></span><span class="t"><b>Attach your CV</b><small id="cvH">PDF or Word, up to 5 MB. Tap or drop the file here.</small></span><span class="pick">Choose file</span></label></div>
+        <div class="full"><label for="cM">Anything we should know?</label><textarea id="cM" name="msg" placeholder="Your experience, when you could start, or a link to your portfolio."></textarea></div>
+        <label class="ok"><input type="checkbox" name="consent" required><span>I agree that DPY may use these details and my CV to consider me for this and similar roles, as described in the <a href="privacy#jobs">privacy notice</a>.</span></label>
+        <div class="f-sub"><small>Sent to our hiring team at careers@dpymi.com.ph.</small><button class="btn red" type="submit">Send my application <svg aria-hidden="true"><use href="#arr"/></svg></button></div>
+        <div class="f-done" role="status"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Thank you<span class="who"></span>!</h3><p>Your email app has opened with your application. Attach your CV to the email, then press send.</p><button class="btn ghost again" type="button">Edit my application</button></div>
+      </form>
+    </div>
   </div>
 </section>
 </main>
-<footer class="foot" style="--from:#F4F7FA">
+<footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">
@@ -514,7 +587,27 @@ button.busy{cursor:progress;opacity:.85}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="assets/js/site.js?v=4e7fffe9" defer></script>
+<script src="assets/js/site.js?v=211550ae" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
+<script>
+addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
+const { $, $$, RM, go, quote } = DPY
+// Apply buttons: pick that role in the form, then go to it
+$$('a[data-role]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault()
+  if (a.dataset.role) $('#cR').value = a.dataset.role
+  DPY.go('#apply'); setTimeout(() => $(a.dataset.role ? '#cN' : '#cR').focus({ preventScroll: true }), RM ? 0 : 900)
+}))
+// the CV box shows the chosen file
+const drop = $('.drop'), cv = $('#cV'), cvT = $('.drop .t b'), cvS = $('.drop .t small'), cvP = $('.drop .pick'), cvHint = cvS.textContent
+const kb = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'
+cv.addEventListener('change', () => {
+  const f = cv.files[0]; drop.classList.toggle('has', !!f); drop.classList.remove('bad')
+  cvT.textContent = f ? f.name : 'Attach your CV'; cvS.textContent = f ? kb(f.size) + (f.size > 5242880 ? ': too large, please send one under 5 MB' : '') : cvHint; cvP.textContent = f ? 'Change' : 'Choose file'
+})
+;['dragenter', 'dragover'].forEach(t => cv.addEventListener(t, () => drop.classList.add('over')))
+;['dragleave', 'drop'].forEach(t => cv.addEventListener(t, () => drop.classList.remove('over')))
+})
+</script>
 </body>
 </html>
