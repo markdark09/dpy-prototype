@@ -61,7 +61,7 @@ export default {
 .empty p{margin:0 0 18px;color:var(--mute)}
 .cp-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:22px;padding:20px 22px;border-radius:22px;background:var(--ice-bg)}
 .cp-foot p{margin:0;font-size:14px;color:var(--ink2);max-width:520px}
-.cp-note{margin:14px 0 0;font-size:12px;color:var(--mute)}
+.cp-note{margin:14px 0 0;font-size:13px;color:var(--mute)}
 @media (max-width:640px){.cp tbody th,.cp thead th:first-child{width:104px;font-size:10.5px;padding:10px 8px}.cp th,.cp td{padding:10px;font-size:12.5px}.cp thead th{padding:40px 10px 12px}.ph-c .pic{height:96px}.ph-c .pic img{max-height:84px}.ph-c a.nm{font-size:13.5px}.ph-c .acts .addq{height:34px;padding:0 6px}.ph-c .acts .addq svg{display:none}.rm{right:6px;top:6px;width:26px;height:26px}.add-c{min-height:200px;padding:8px}.add-c b{font-size:12.5px}.ph-c .acts .addq .of{font-size:11px}}
 `,
   body: R => `

@@ -31,7 +31,7 @@ export default {
 .tl li:nth-child(n+4)::before{box-shadow:inset 0 0 0 3px var(--red2),0 0 0 5px rgba(227,38,43,.15)}
 .tl em{display:block;font-style:normal;font-size:28px;font-weight:300;letter-spacing:-.03em}
 .tl b{display:block;margin:4px 0 6px;font-size:15.5px;font-weight:600}
-.tl p{margin:0;font-size:13.5px;line-height:1.55;color:var(--mute)}
+.tl p{margin:0;font-size:14.5px;line-height:1.55;color:var(--mute)}
 /* two companies */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .co{display:flex;flex-direction:column;gap:12px;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
@@ -54,7 +54,7 @@ export default {
 .prize div:hover{background:rgba(255,255,255,.08)}
 .prize em{display:block;font-style:normal;font-size:56px;font-weight:200;line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#fff,#5FA8EC);-webkit-background-clip:text;background-clip:text;color:transparent}
 .prize b{display:block;margin:10px 0 4px;font-size:15px;font-weight:600}
-.prize span{font-size:13px;color:#9DB0C6;line-height:1.5}
+.prize span{font-size:14px;color:#9DB0C6;line-height:1.5}
 .award{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 30px;border-radius:26px;background:linear-gradient(120deg,#FFF8E8,#FFFFFF);box-shadow:var(--card)}
 .award .medal{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#FFE9A8,#E2A93B 60%,#B97A16);box-shadow:0 10px 24px -10px rgba(185,122,22,.7)}
 .award .medal svg{width:34px;height:34px;color:#fff}

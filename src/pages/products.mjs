@@ -51,7 +51,7 @@ const css = `
 .prom i{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff}
 .prom i svg{width:15px;height:15px}
 .prom b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
-.prom span{font-size:12.5px;color:var(--mute);line-height:1.45}
+.prom span{font-size:14px;color:var(--mute);line-height:1.45}
 .rel{grid-template-columns:repeat(4,1fr)}
 /* phones: a quote bar that stays in reach */
 .qbar{display:none}

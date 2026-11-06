@@ -34,7 +34,7 @@ export default {
 .sch{position:relative;border-radius:30px;padding:26px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8);color:#fff}
 .sch svg{width:100%;height:auto;overflow:visible}
 .sch-x{overflow-x:auto;scrollbar-width:none}.sch-x::-webkit-scrollbar{display:none}
-.sch .swipe{display:none;margin:8px 0 0;font-size:12px;color:#8FA6C0}
+.sch .swipe{display:none;margin:8px 0 0;font-size:12.5px;color:#8FA6C0}
 .sch .pipe{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
 .sch .hot{stroke:#E3473B}.sch .cold{stroke:#4C9BE8}.sch .warm{stroke:#F08A4B}
 .sch .flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 16;opacity:.75;animation:flow 1.6s linear infinite}
@@ -55,7 +55,7 @@ export default {
 .sch-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
 .sch-steps div{padding:16px;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .sch-steps b{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px}
-.sch-steps p{margin:0;font-size:13px;line-height:1.5;color:#9DB0C6}
+.sch-steps p{margin:0;font-size:14px;line-height:1.5;color:#9DB0C6}
 .sch-steps em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:#7CC0FF}
 /* sectors */
 .sx{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}
@@ -82,7 +82,7 @@ export default {
 .proc li::before{content:counter(s,decimal-leading-zero);position:relative;display:grid;place-items:center;width:48px;height:48px;margin-bottom:16px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px var(--ink);font-size:13px;font-weight:700}
 .proc li:first-child::before{background:var(--ink);color:#fff}
 .proc b{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
-.proc p{margin:0;font-size:13.5px;line-height:1.55;color:var(--mute)}
+.proc p{margin:0;font-size:14.5px;line-height:1.55;color:var(--mute)}
 /* brands */
 .bwall{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .bwall li{min-width:0;display:grid;place-items:center;height:92px;padding:0 14px;border-radius:16px;background:#fff;box-shadow:var(--card)}

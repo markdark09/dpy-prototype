@@ -30,7 +30,7 @@ export default {
 .way:nth-child(3) .ic{background:linear-gradient(135deg,#2BB673,#167A42)}
 .way .ic svg{width:22px;height:22px}
 .way b{font-size:18px;font-weight:600;letter-spacing:-.02em}
-.way span{font-size:13.5px;color:var(--mute);line-height:1.5}
+.way span{font-size:14.5px;color:var(--mute);line-height:1.5}
 .way em{margin-top:auto;padding-top:12px;font-style:normal;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
 .way em svg{width:14px;height:14px}
 /* quick checks */
@@ -42,12 +42,12 @@ export default {
 .checks details[open] summary::after{transform:rotate(180deg)}
 .checks ol{margin:0;padding:0 20px 20px 42px;display:grid;gap:8px;font-size:14px;color:var(--ink2)}
 .ck-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,5vw,64px);align-items:start}
-.safe{margin-top:22px;padding:16px 18px;border-radius:16px;background:#FFF4E5;color:#7A4A00;font-size:13.5px;line-height:1.5}
+.safe{margin-top:22px;padding:16px 18px;border-radius:16px;background:#FFF4E5;color:#7A4A00;font-size:14.5px;line-height:1.5}
 .safe b{color:#5A3500}
 /* maintenance */
 .pm{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
 .pm ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pm li{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:13.5px;line-height:1.45}
+.pm li{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:14.5px;line-height:1.45}
 .pm li svg{flex:none;width:18px;height:18px;padding:3px;border-radius:50%;background:#2BB673;color:#fff}
 .pm .why{display:grid;gap:14px;margin-top:22px}
 .pm .why div{display:flex;gap:14px;align-items:baseline}

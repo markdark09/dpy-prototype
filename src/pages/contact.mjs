@@ -15,10 +15,10 @@ export default {
 .ch a:hover{transform:translateX(4px)}
 .ch i{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
 .ch i svg{width:17px;height:17px}
-.ch small{display:block;font-size:12px;color:var(--mute)}
+.ch small{display:block;font-size:13px;color:var(--mute)}
 .ch b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .ch .msgs{display:flex;gap:8px;flex-wrap:wrap}
-.ch .hrs{font-size:13px;color:var(--mute);padding:4px 4px 0}
+.ch .hrs{font-size:14px;color:var(--mute);padding:4px 4px 0}
 /* the quote panel */
 .qp{position:relative;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden;overflow:clip}
 .qp-hd{padding:30px 34px 0}

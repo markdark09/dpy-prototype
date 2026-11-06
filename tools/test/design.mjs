@@ -71,4 +71,29 @@ for (const url of products) {
   check('small grey text: 4.5:1 or more on white', cr.dim >= 4.5 && cr.base >= 4.5, cr)
   await p.close()
 }
+// text size floors on every page: reading text (a sentence, normal weight) 12.5px and up; nothing under 11px (10.5px on phones)
+{
+  const { sitemapPaths } = await import('./lib.mjs')
+  for (const [name, opts, floor] of [['desktop', DESKTOP, 11], ['phone', PHONE, 10.5]]) {
+    const ctx = await b.newContext(opts)
+    for (const url of sitemapPaths()) {
+      const p = await open(ctx, url, { wait: 0 })
+      const small = await p.evaluate(fl => {
+        const out = []
+        for (const el of document.querySelectorAll('body *')) {
+          if (!el.offsetWidth || el.closest('#askWin, .sheet, .ctray, .maplibregl-ctrl, svg, [aria-hidden="true"]')) continue
+          const own = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim()
+          if (own.length < 2) continue
+          const s = getComputedStyle(el), fs = parseFloat(s.fontSize)
+          const reading = own.length >= 25 && +s.fontWeight < 600
+          if (fs < fl || (reading && fs < 12.5)) out.push(`${el.tagName.toLowerCase()}.${String(el.className).split(' ')[0]} ${fs}px "${own.slice(0, 24)}"`)
+        }
+        return [...new Set(out)]
+      }, floor)
+      check(`${name} ${url}: text sizes`, !small.length, small.slice(0, 4))
+      await p.close()
+    }
+    await ctx.close()
+  }
+}
 await done(b)

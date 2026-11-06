@@ -23,7 +23,7 @@ export default {
 .sect div{padding:20px;border-radius:20px;background:#fff;box-shadow:var(--card)}
 .sect b{display:block;font-size:34px;font-weight:300;letter-spacing:-.04em;line-height:1.1}
 .sect span{font-size:13px;color:var(--mute)}
-.honest{margin:28px 0 0;font-size:13px;color:var(--mute);text-align:center}
+.honest{margin:28px 0 0;font-size:14px;color:var(--mute);text-align:center}
 .what{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .what div{padding:24px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .what b{display:block;font-size:17px;font-weight:600;margin:10px 0 6px}

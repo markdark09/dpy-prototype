@@ -23,7 +23,7 @@ export default {
 .job{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:20px 22px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
 .job:hover{transform:translateX(4px)}
 .job b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
-.job p{margin:4px 0 0;font-size:13.5px;color:var(--mute)}
+.job p{margin:4px 0 0;font-size:14.5px;color:var(--mute)}
 .job .loc{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--soft)}
 .job .loc svg{width:14px;height:14px}
 .apply{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:30px;padding:30px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#0D3A73,#0A1830)}
@@ -37,7 +37,7 @@ export default {
 .ap-side ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px;font-size:14px}
 .ap-side li{display:flex;gap:10px;align-items:center}
 .ap-side li svg{width:16px;height:16px;color:#7CC4FF}
-.ap-side small{color:#9DB0C6;font-size:12.5px}.ap-side small a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.ap-side small{color:#9DB0C6;font-size:13.5px}.ap-side small a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .ap .form{position:relative;padding:36px}
 /* the CV picker: the real file input covers the box (so a click or a dropped file both work), styled like the other fields */
 .drop{position:relative;display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 14px;border-radius:14px;border:1.5px dashed #C9D4E1;background:#F8FAFC;cursor:pointer;transition:border-color .25s,background .25s,box-shadow .25s}
@@ -47,7 +47,7 @@ export default {
 .drop .ic svg{width:20px;height:20px}
 .drop .t{flex:1;min-width:0;display:grid;gap:2px}
 .drop .t b{font-size:14px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.drop .t small{font-size:12px;color:var(--mute)}
+.drop .t small{font-size:13px;color:var(--mute)}
 .drop .pick{flex:none;font-size:13px;font-weight:600;color:var(--blue)}
 .drop:hover,.drop.over{border-color:var(--blue);background:#F1F7FE}
 .drop:focus-within{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(13,104,195,.1)}
