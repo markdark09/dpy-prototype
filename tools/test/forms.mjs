@@ -12,19 +12,22 @@ const state = p => p.evaluate(sel => {
   return { gap: Math.round(innerHeight - r.bottom), w: Math.round(r.width), formOn: document.body.classList.contains('form-on'), chat: a.visibility !== 'hidden' && a.opacity !== '0' }
 }, SUB)
 
+// mid form: the name field (near the top of every form) centred, so the form runs on below the screen and the send button has to pin.
+// scrollIntoView, not scrollTo: the homepage's smooth scrolling (Lenis) follows it reliably
+const midForm = async (p, f) => { await scrollTo(p, `#${f}N`); await p.waitForTimeout(300) }
 const phone = await b.newContext(PHONE)
 for (const [url, f] of FORMS) {
   const p = await open(phone, url, { wait: 500 })
   let s = await state(p)
   check(`${url} phone, top of page: chat shown`, s.chat && !s.formOn, s)
-  await scrollTo(p, `#${f}B`); s = await state(p)
+  await midForm(p, f); s = await state(p)
   check(`${url} phone, mid form: send button pinned, chat hidden`, s.gap >= 10 && s.gap <= 16 && s.w > 300 && !s.chat, s)
   await shot(p, `form-pinned${url.replace(/\W/g, '-') || '-home'}`)
   await scrollTo(p, 'footer', 'start'); s = await state(p)
   check(`${url} phone, past the form: chat back`, s.chat && !s.formOn, s)
   await scrollTo(p, `#${f}N`, 'start'); await p.focus(`#${f}N`); await p.waitForTimeout(400); s = await state(p)
   check(`${url} phone, typing: chat hidden`, !s.chat, s)
-  await scrollTo(p, `#${f}B`); await p.locator(SUB).click(); await p.waitForTimeout(400)
+  await midForm(p, f); await p.locator(SUB).click(); await p.waitForTimeout(400)
   check(`${url} phone, empty send marks the fields`, await p.evaluate(() => !!document.querySelector('form .bad')))
   check(`${url} phone, no script errors`, !p.errors.length, p.errors)
   await p.close()

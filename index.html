@@ -490,6 +490,7 @@ main > section{overflow-x:clip}
 .gt-ft i{font-style:normal;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;transition:transform .5s var(--ease)}
 .gt-ft:hover i{transform:translateX(3px)}
 .hc-pair{position:absolute;right:0;top:40px;z-index:2}
+.hc-row{display:contents}
 .hc-dial{position:relative;width:208px;padding:14px 14px 12px;animation-delay:-2s;touch-action:none;user-select:none}
 .hc-dial b{display:block;font-size:13.5px;font-weight:600}
 .hc-dial small{display:block;font-size:12px;color:var(--mute)}
@@ -940,6 +941,19 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .big .frost::after{background:linear-gradient(160deg,rgba(1,40,90,.65),rgba(1,40,90,.45))}
   .tall{min-height:420px}
 }
+/* phones: the hero is shorter. The two cards share one swipeable row (the next one peeks in), the stats sit in one row,
+   and the "12 brands" bubble gives way to the brand wall right below it */
+@media (max-width:560px){
+  .hc-row{display:flex;justify-self:stretch;gap:12px;margin:0 calc(var(--g) * -1);padding:4px var(--g) 10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain}
+  .hc-row::-webkit-scrollbar{display:none}
+  .hc-row > .hc-gtk,.hc-row > .hc-pair{flex:0 0 86%;max-width:none;scroll-snap-align:start}
+  .hc-row > .hc-pair{display:flex}.hc-row .hc-dial{height:100%}
+  .hero-foot{margin-top:22px;padding-top:18px;width:100%}
+  .stats{grid-template-columns:repeat(3,1fr);gap:12px;width:100%}.stats b{font-size:26px}.stats small{display:block;line-height:1.3}
+  .brands-k{display:none}
+  .hc-gtk .gt-br{margin-bottom:14px}
+  .band{padding:44px 0 56px}.band h2{margin-bottom:24px}
+}
 @media (max-width:560px){ .models{grid-template-columns:1fr;row-gap:64px} .model .pic{height:230px} .pager button{padding:0 11px;font-size:12px} .cap{width:300px} }
 @media (max-width:560px){
   .sav,.cli,.br{padding-bottom:72px}.svc{padding:24px 0 80px}.qt{padding-bottom:72px}.sol{padding-bottom:72px}
@@ -1003,6 +1017,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <div class="switch"><p class="cap" aria-live="polite"></p><div class="pager" role="tablist" aria-label="Water heater type"></div></div>
       </div>
 
+      <!-- the two cards: placed around the heater on wide screens, one swipeable row on phones -->
+      <div class="hc-row">
       <article class="hc hc-gtk" aria-label="Gratek Smart Water Corp.">
         <div class="gt-top"><img src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="183" height="84"><small>Home &amp; retail</small></div>
         <p class="gt-h">Your one-stop hub for hot water at home</p>
@@ -1019,6 +1035,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           </div>
           <div class="dial-scale"><span>30°</span><span>60°</span></div>
         </article>
+      </div>
       </div>
     </div>
 
