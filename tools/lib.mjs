@@ -125,7 +125,7 @@ export function card(p, R, { h = 'h3' } = {}) {
   <${h}><a href="${R}products/${p.slug}">${esc(p.name)}</a></${h}>
   <p>${esc(p.short)}</p>
   <div class="kf">${p.key.slice(0, 2).map(([v, l]) => `<span><b>${esc(v)}</b> ${esc(l)}</span>`).join('')}</div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false" aria-label="Add ${esc(p.name)} to your quote">${I.plus}<span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article>`
 }
 

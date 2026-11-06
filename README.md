@@ -211,6 +211,12 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **No zoom on tap:** on phones and tablets every text box, list and message box is 16px, so iOS no longer zooms the page when one is tapped. Before, the forms, the savings calculator's rate and the Compare picker were 13 to 15px.
 - **Careers applications:** each opening's Apply button picks the role in an application form further down the page and moves there. The form takes the CV as a PDF or Word file up to 5 MB, shown in a styled drop box (not the browser's plain file button), and sends it to `careers@` as an attachment. If sending isn't set up, the email app opens with the application and asks the person to attach the CV. The privacy notice now says applications are kept for up to one year.
 - **Solutions diagram (For Business):** the hot-water riser now reaches every floor, Floor 1 included.
+- **Design review fixes (2026-11-06):**
+  - On For Business, the header's phone number was dark on the dark photo. It now shows white until the bar turns solid.
+  - On product pages the benefit cards always fill their rows: 4 in one row, 5 as 3 + 2, 7 as 4 + 3 (13 products had a gap on the last row). On tablets an odd last card spans the row.
+  - Spec tables use narrower header cells, so most fit the page. The two that still scroll sideways (Deron air-to-water and Deron pool, 15 columns each) show a soft shadow at the right edge until you reach the end.
+  - Small notes and labels used a grey at 2.6:1 contrast. It is now 4.7:1 on white (WCAG AA); the footer's small print went from 3.0:1 to 4.7:1.
+  - On phones the Water Heaters grid cards say "Add", then "Added", instead of an "Add to quote" that broke onto two lines. The button still reads the full product name to screen readers.
 - **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three request forms were driven through each outcome (sent, not set up, a field to fix, too many requests). The Careers form was checked at phone and desktop size: Apply picks the role, missing fields and a missing CV are marked, an image file is refused, the file shows in the box, it sends with the CV, and the email fallback asks for the CV.
 
 

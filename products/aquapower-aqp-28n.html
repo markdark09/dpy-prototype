@@ -25,7 +25,7 @@
 @font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(../assets/fonts/manrope-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(../assets/fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
-  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#97A1AB; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8; --ice-bg:#EAF2FA; --sand:#FBF3EC;
+  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#6B7580; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8; --ice-bg:#EAF2FA; --sand:#FBF3EC;
   --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
   --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C; --night:#0A1830;
   --font:'Manrope',system-ui,sans-serif;
@@ -118,6 +118,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 @media (prefers-reduced-motion:reduce){.sheet .sh-links a{transform:none;transition:opacity .2s}}
 html.menu-lock{overflow:hidden}
 .pg-business:not(.menu-open) .nav:not(.solid) .brand img{content:url(../assets/brand/dpy-logo-white.svg)}
+.pg-business:not(.menu-open) .nav:not(.solid) .nav-tel,.pg-business:not(.menu-open) .nav:not(.solid) .nav-tel:hover{color:#fff}
 .msgr{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
@@ -141,7 +142,7 @@ html.menu-lock{overflow:hidden}
 .ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
 .ft .soc a:hover{background:var(--ink);color:#fff}
 .ft .soc svg{width:16px;height:16px}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#9A8A80}
+.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#76665C}
 .base a{text-decoration:underline;text-underline-offset:2px}
 .ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
 .ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
@@ -364,6 +365,7 @@ button.busy{cursor:progress;opacity:.85}
 .addq:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
 .addq[aria-pressed="true"]{background:#E9F8EF;color:#167A42;box-shadow:inset 0 0 0 1.5px #A7E0BE}
 .addq .on{display:none}.addq[aria-pressed="true"] .on{display:inline}.addq[aria-pressed="true"] .of{display:none}
+.addq{white-space:nowrap}.addq .sm{display:none}
 .js [data-r]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform 1s var(--ease)}
 .js [data-r].in{opacity:1;transform:none}
 .js [data-r="fade"]{transform:none}
@@ -402,11 +404,12 @@ button.busy{cursor:progress;opacity:.85}
 .spec h3{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.02em}
 .spec .all{margin:0 0 12px;font-size:13px;color:var(--mute)}
 .spec .all b{color:var(--ink2);font-weight:600}
-.tscroll{position:relative;overflow-x:auto;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);scrollbar-width:thin}
+.tscroll{position:relative;overflow-x:auto;border-radius:18px;box-shadow:inset 0 0 0 1px var(--line);scrollbar-width:thin;
+  background:linear-gradient(90deg,rgba(255,255,255,0),#fff 60%) right/48px 100% no-repeat local,radial-gradient(farthest-side at 100% 50%,rgba(1,30,70,.16),rgba(1,30,70,0)) right/16px 100% no-repeat scroll,#fff}
 .tscroll table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
-.tscroll th,.tscroll td{padding:11px 14px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+.tscroll th,.tscroll td{padding:11px 12px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
 .tscroll tr:last-child > *{border-bottom:0}
-.tscroll thead th{position:sticky;top:0;background:#F4F7FA;font-size:11.5px;font-weight:700;color:var(--mute);letter-spacing:.02em;white-space:normal;min-width:96px;vertical-align:bottom}
+.tscroll thead th{position:sticky;top:0;background:#F4F7FA;font-size:11.5px;font-weight:700;color:var(--mute);letter-spacing:.02em;white-space:normal;min-width:64px;vertical-align:bottom}
 .tscroll tbody th{font-weight:700;color:var(--ink)}
 .tscroll th:first-child,.tscroll td:first-child{position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 var(--line)}
 .tscroll thead th:first-child{z-index:2;background:#F4F7FA}
@@ -444,6 +447,7 @@ button.busy{cursor:progress;opacity:.85}
   .pc .kf{margin:8px 0 10px}.pc .kf span{font-size:10.5px;padding:3px 7px}.pc .kf span + span{display:none}
   .pc .acts .btn{display:none}
   .addq{flex:1;height:34px;padding:0 8px;font-size:11.5px}
+  .pc .addq .lg{display:none}.pc .addq .sm{display:inline}
 }
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
 @media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}
@@ -474,7 +478,12 @@ button.busy{cursor:progress;opacity:.85}
 .pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px;white-space:nowrap}
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
-.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:f}
+.feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
+/* rows always fill: 3 a row by default, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
+.feats > .ft-c{grid-column:span 4}
+.feats > .ft-c:first-child:nth-last-child(4),.feats > .ft-c:first-child:nth-last-child(4) ~ .ft-c{grid-column:span 3}
+.feats > .ft-c:first-child:nth-last-child(5) ~ .ft-c:nth-child(n+4){grid-column:span 6}
+.feats > .ft-c:first-child:nth-last-child(7),.feats > .ft-c:first-child:nth-last-child(7) ~ .ft-c:nth-child(-n+4){grid-column:span 3}
 .ft-c{position:relative;padding:22px 22px 20px;border-radius:22px;background:#fff;box-shadow:var(--card);counter-increment:f}
 .ft-c::before{content:counter(f,decimal-leading-zero);display:block;margin-bottom:12px;font-size:13px;font-weight:700;letter-spacing:.06em;background:linear-gradient(90deg,var(--sky),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
 .ft-c h3{margin:0 0 6px;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
@@ -494,8 +503,8 @@ button.busy{cursor:progress;opacity:.85}
 .rel{grid-template-columns:repeat(4,1fr)}
 /* phones: a quote bar that stays in reach */
 .qbar{display:none}
-@media (max-width:980px){.pd-grid{grid-template-columns:1fr}.stage{height:360px;order:-1;margin-top:-10px}.feats,.prom{grid-template-columns:1fr 1fr}.rel{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.feats,.prom{grid-template-columns:1fr}.facts{gap:8px}.facts div{padding:12px 10px}.facts b{font-size:17px}.rel{grid-template-columns:1fr}.stage{height:300px;padding-bottom:56px}.stage .plinth{bottom:30px}.stage .floor{bottom:44px}
+@media (max-width:980px){.pd-grid{grid-template-columns:1fr}.stage{height:360px;order:-1;margin-top:-10px}.feats,.prom{grid-template-columns:1fr 1fr}.feats > .ft-c{grid-column:auto!important}.feats > .ft-c:last-child:nth-child(odd){grid-column:1/-1!important}.rel{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.feats,.prom{grid-template-columns:1fr}.feats > .ft-c:last-child:nth-child(odd){grid-column:auto!important}.facts{gap:8px}.facts div{padding:12px 10px}.facts b{font-size:17px}.rel{grid-template-columns:1fr}.stage{height:300px;padding-bottom:56px}.stage .plinth{bottom:30px}.stage .floor{bottom:44px}
   .qbar{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 18px 40px -14px rgba(1,20,50,.45),0 0 0 1px var(--line);transform:translateY(140%);transition:transform .5s var(--ease)}
   .qbar.on{transform:none}.qbar .btn{flex:1;height:44px}.qbar .tel{flex:none;width:44px;padding:0}
   .foot{padding-bottom:90px}}
@@ -571,7 +580,7 @@ button.busy{cursor:progress;opacity:.85}
   <h3><a href="../products/aquapower-a35m-a55">Aquapower A35M / A55</a></h3>
   <p>A multipoint instant heater: one unit can feed the shower and the sink.</p>
   <div class="kf"><span><b>3.5 / 5.5</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" aria-pressed="false" aria-label="Compare Aquapower A35M / A55" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" aria-pressed="false" aria-label="Compare Aquapower A35M / A55" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-a35m-a55" data-name="Aquapower A35M / A55" data-img="assets/img/dpy/aquapower-a35.webp" data-cat="instant" aria-pressed="false" aria-label="Add Aquapower A35M / A55 to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-q35m.webp" width="331" height="413" alt="Aquapower Q35M" loading="lazy"></div>
@@ -579,7 +588,7 @@ button.busy{cursor:progress;opacity:.85}
   <h3><a href="../products/aquapower-q35m">Aquapower Q35M</a></h3>
   <p>A single-point heater with its own shower set, ready for one bathroom.</p>
   <div class="kf"><span><b>3.5</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" aria-pressed="false" aria-label="Compare Aquapower Q35M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" aria-pressed="false" aria-label="Compare Aquapower Q35M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q35m" data-name="Aquapower Q35M" data-img="assets/img/dpy/aquapower-q35m.webp" data-cat="instant" aria-pressed="false" aria-label="Add Aquapower Q35M to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home business" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span><span class="b">Business</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-q6.webp" width="514" height="900" alt="Aquapower Q6M / Q9M" loading="lazy"></div>
@@ -587,7 +596,7 @@ button.busy{cursor:progress;opacity:.85}
   <h3><a href="../products/aquapower-q6m-q9m">Aquapower Q6M / Q9M</a></h3>
   <p>Our most powerful instant heaters, for several taps or a strong rain shower.</p>
   <div class="kf"><span><b>6 / 9</b> kW</span><span><b>2</b> L/min to start</span></div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" aria-pressed="false" aria-label="Compare Aquapower Q6M / Q9M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" aria-pressed="false" aria-label="Compare Aquapower Q6M / Q9M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-q6m-q9m" data-name="Aquapower Q6M / Q9M" data-img="assets/img/dpy/aquapower-q6.webp" data-cat="instant" aria-pressed="false" aria-label="Add Aquapower Q6M / Q9M to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
   <div class="pic"><img src="../assets/img/dpy/aquapower-s35.webp" width="976" height="1100" alt="Aquapower S35M / S45M" loading="lazy"></div>
@@ -595,7 +604,7 @@ button.busy{cursor:progress;opacity:.85}
   <h3><a href="../products/aquapower-s35m-s45m">Aquapower S35M / S45M</a></h3>
   <p>A compact single-point heater for one shower, in two power sizes.</p>
   <div class="kf"><span><b>3.5 / 4.5</b> kW</span><span><b>1.2</b> kg</span></div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-s35m-s45m" data-name="Aquapower S35M / S45M" data-img="assets/img/dpy/aquapower-s35.webp" aria-pressed="false" aria-label="Compare Aquapower S35M / S45M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-s35m-s45m" data-name="Aquapower S35M / S45M" data-img="assets/img/dpy/aquapower-s35.webp" data-cat="instant" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="aquapower-s35m-s45m" data-name="Aquapower S35M / S45M" data-img="assets/img/dpy/aquapower-s35.webp" aria-pressed="false" aria-label="Compare Aquapower S35M / S45M" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="aquapower-s35m-s45m" data-name="Aquapower S35M / S45M" data-img="assets/img/dpy/aquapower-s35.webp" data-cat="instant" aria-pressed="false" aria-label="Add Aquapower S35M / S45M to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article></div>
   </div>
 </section>
