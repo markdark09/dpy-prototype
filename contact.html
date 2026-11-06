@@ -39,6 +39,9 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
+img,a{-webkit-user-drag:none}
+a[href^="tel:"]{white-space:nowrap} 
+@media (hover:hover) and (pointer:fine){a[href^="tel:"]:not(.btn):not(.nav-tel):not(.msgr){pointer-events:none;cursor:text}}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -108,7 +111,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sheet .sh-links a[aria-current="page"]{font-weight:600}
 .sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
 .sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact > a,.sh-num{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-num{grid-column:1/-1}.sh-num b a{color:inherit}.sh-num b a:hover{color:var(--red)}
 .sh-contact small{font-size:12px;color:var(--mute)}
 .sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
 .sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
@@ -456,23 +460,40 @@ button.busy{cursor:progress;opacity:.85}
 }
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
 @media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}
-.ct-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:start}
-.ch{display:grid;gap:12px}
+/* ways to reach us: one row of cards */
+.ch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ch b{overflow-wrap:anywhere}
 .ch a,.ch div.c{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
 .ch a:hover{transform:translateX(4px)}
 .ch i{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
 .ch i svg{width:17px;height:17px}
 .ch small{display:block;font-size:13px;color:var(--mute)}
 .ch b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.ch b a{color:inherit}.ch b a:hover{color:var(--red)}
 .ch .msgs{display:flex;gap:8px;flex-wrap:wrap}
-.ch .hrs{font-size:14px;color:var(--mute);padding:4px 4px 0}
-/* the quote panel */
-.qp{position:relative;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden;overflow:clip}
-.qp-hd{padding:30px 34px 0}
-.qp-hd h2{margin:0;font-size:26px;font-weight:600;letter-spacing:-.03em}
-.qp-hd p{margin:6px 0 0;font-size:14px;color:var(--mute)}
-.qp .ql{margin:20px 34px 0}
-.qp .form{padding:24px 34px 34px}
+.ch .hrs{grid-column:1/-1;font-size:14px;color:var(--mute);padding:4px 4px 0}
+/* the quote panel: the same two-panel form as the homepage and the Service page, in the sales red */
+.qp{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden;overflow:clip}
+.qp-side{position:relative;padding:44px 38px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(160deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);overflow:hidden}
+.qp-side::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 40px rgba(255,255,255,.03),0 0 0 80px rgba(255,255,255,.02);pointer-events:none}
+.qp-side .kick{color:#FFC9C2}
+.qp-side h2{margin:0;font-size:clamp(2rem,3.2vw,2.7rem);font-weight:300;letter-spacing:-.035em;line-height:1.08}
+.qp-side h2 b{font-weight:600}
+.qp-side > p{margin:14px 0 26px;font-size:15px;line-height:1.55;color:rgba(255,255,255,.85);max-width:380px}
+.qp-pro{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.qp-pro li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45}
+.qp-pro li::before{content:"";flex:none;width:22px;height:22px;margin-top:-1px;border-radius:50%;background:rgba(255,255,255,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6.5 11.3l3 3 6-6.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat}
+.qp-pro b{display:block;font-weight:600}
+.qp-pro span{color:rgba(255,255,255,.75)}
+.qp-call{position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;color:rgba(255,255,255,.8)}
+.qp-call i{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--red)}
+.qp-call i svg{width:18px;height:18px}
+.qp-call .nums{display:block;color:#fff;font-size:18px;font-weight:600;letter-spacing:-.01em}
+.qp-call a{color:#fff}.qp-call a:hover{text-decoration:underline}
+.qp-msg{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.qp-main{position:relative;min-width:0}
+.qp .ql{margin:30px 34px 0}
+.qp .form{padding:30px 34px 34px}
 .br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
 #brMap{position:absolute;inset:0}
 #brMap .maplibregl-ctrl-attrib{font-size:10px;background:rgba(255,255,255,.7)}
@@ -546,8 +567,8 @@ button.busy{cursor:progress;opacity:.85}
   .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
 }
 @media (max-width:560px){.br-info .ph{line-height:2}}
-@media (max-width:980px){.ct-top{grid-template-columns:1fr}.ch{grid-template-columns:1fr 1fr}.ch .hrs{grid-column:1/-1}}
-@media (max-width:640px){.ch{grid-template-columns:1fr}.qp-hd{padding:24px 22px 0}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}}
+@media (max-width:980px){.qp{grid-template-columns:1fr}.qp-side{padding:34px 26px}.ch{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.ch{grid-template-columns:1fr}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}}
 </style>
 </head>
 <body class="pg-contact">
@@ -567,7 +588,7 @@ button.busy{cursor:progress;opacity:.85}
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" aria-current="page" style="--i:7">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" aria-current="page" style="--i:7">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <main id="main">
 <section class="phead" style="padding-bottom:40px">
   <span class="glow"></span>
@@ -579,20 +600,34 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" id="quote" style="padding-top:30px;background:linear-gradient(180deg,var(--ice-bg),#fff 420px)">
-  <div class="wrap ct-top">
+<section class="sec tight" aria-label="Ways to reach us" style="padding-top:30px;background:linear-gradient(180deg,var(--ice-bg),#fff 420px)">
+  <div class="wrap">
     <div class="ch">
-      <a href="tel:+639338672954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span><small>Sales · call or text</small><b>0933 867 2954</b></span></a>
-      <a href="tel:+639152453528"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span><small>Sales · call or text</small><b>0915 245 3528</b></span></a>
       <a href="tel:+639564160815"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span><small>Customer service &amp; repairs</small><b>0956 416 0815</b></span></a>
       <a href="tel:+63279560521"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span><small>Head office telefax</small><b>(02) 7956 0521</b></span></a>
       <a href="mailto:sales@dpymi.com.ph?subject=Quote%20request"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M2 4l6 5 6-5"/></svg></i><span><small>Quotes &amp; projects</small><b>sales@dpymi.com.ph</b></span></a>
       <a href="mailto:service@dpymi.com.ph?subject=Service%20request"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M2 4l6 5 6-5"/></svg></i><span><small>Repairs &amp; maintenance</small><b>service@dpymi.com.ph</b></span></a>
-      <div class="c"><span class="msgs"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></span></div>
       <p class="hrs"><svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8:00 AM to 5:00 PM</p>
     </div>
+  </div>
+</section>
+
+<section class="sec" id="quote" aria-labelledby="qpT" style="padding-top:20px">
+  <div class="wrap">
     <div class="qp" data-r>
-      <div class="qp-hd"><h2>Request a free quote</h2><p>Tell us about your building. We'll recommend the right system, visit if needed, and send a written quotation. No cost, no obligation.</p></div>
+      <div class="qp-side">
+        <span class="kick">Free quote</span>
+        <h2 id="qpT">Request a<br><b>free quote</b></h2>
+        <p>Tell us about your building. We'll recommend the right system, visit if needed, and send a written quotation. No cost, no obligation.</p>
+        <ul class="qp-pro">
+          <li><div><b>Free site visit &amp; sizing</b><span>Our team checks your space and hot water needs</span></div></li>
+          <li><div><b>Written quotation</b><span>Units, installation and parts, itemized</span></div></li>
+          <li><div><b>Supplied, installed &amp; serviced</b><span>One team from quote to after-sales</span></div></li>
+        </ul>
+        <div class="qp-call"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><div>Prefer to talk? Call or text<span class="nums"><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></span></div></div>
+        <div class="qp-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
+      </div>
+      <div class="qp-main">
       <div class="ql" data-ql hidden><h3>Your quote list <button type="button" class="clr">Clear</button></h3><ul></ul><p class="more"><a class="link" href="water-heaters">Add more products <svg aria-hidden="true"><use href="#arr"/></svg></a></p></div>
       <form class="form" data-mail="sales@dpymi.com.ph" data-subject="Free quote request" novalidate>
         <input type="hidden" name="products" data-label="Products in quote list">
@@ -609,6 +644,7 @@ button.busy{cursor:progress;opacity:.85}
         <div class="f-sub"><small>Sent to our sales team at sales@dpymi.com.ph. We never sell your details or send spam.</small><button class="btn red" type="submit">Request my free quote <svg aria-hidden="true"><use href="#arr"/></svg></button></div>
         <div class="f-done" role="status"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Thank you<span class="who"></span>!</h3><p>Your email app has opened with your request. Just press send, and our team will call you to arrange your free site visit.</p><button class="btn ghost again" type="button">Edit my request</button></div>
       </form>
+      </div>
     </div>
   </div>
 </section>
@@ -663,9 +699,9 @@ button.busy{cursor:progress;opacity:.85}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="assets/js/site.js?v=b9b01fc8" defer></script>
+<script src="assets/js/site.js?v=9c2a8e67" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
-<script src="assets/js/ask.js?v=7b8006a9" defer></script>
+<script src="assets/js/ask.js?v=11b422ae" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
 const { $, $$, RM, go, quote } = DPY
@@ -678,7 +714,7 @@ const bld = qs.get('building'); if (bld) $$('input[name=building]', form).forEac
 const it = qs.get('interest'); if (it) { const c = $('input[data-k="' + it + '"]', form); if (c) c.checked = true }
 const sh = qs.get('showers'); if (sh) form.showers.value = { '1': '1', '2-3': '2 to 3', '4-10': '4 to 10', '10+': 'More than 10' }[sh] || ''
 if (qs.get('note')) form.msg.value = qs.get('note')
-if (qs.get('type') === 'project') { form.msg.placeholder = 'Tell us about the project: building type, number of rooms or floors, and your timeline.'; $('.qp-hd h2').textContent = 'Book a free site survey' }
+if (qs.get('type') === 'project') { form.msg.placeholder = 'Tell us about the project: building type, number of rooms or floors, and your timeline.'; $('.qp-side h2').innerHTML = 'Book a free<br><b>site survey</b>' }
 })
 </script>
 </body>

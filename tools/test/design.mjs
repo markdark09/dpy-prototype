@@ -73,7 +73,7 @@ for (const url of products) {
 }
 // the closing banner fits each page, its links lead somewhere real, and the product banner's finder opens
 {
-  const want = { '/': null, '/water-heaters': 'Ready for a quote?', '/products/rheem': 'Not sure this is the one?', '/compare': 'Not sure this is the one?',
+  const want = { '/': null, '/water-heaters': 'Ready for a quote?', '/products/rheem': 'Not sure this is the one?', '/compare': 'Ready for a quote?',
     '/business': 'Planning a building?', '/projects': 'Planning a building?', '/service': 'Hot water stopped?', '/about': 'Not sure what you need?',
     '/careers': null, '/contact': null, '/privacy': null }
   for (const [url, title] of Object.entries(want)) {
@@ -97,7 +97,12 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   const p = await open(ctx, '/business', { wait: 600 })
   const seen = []
   for (const k of ['heat', 'store', 'move', 'return']) {
-    await p.evaluate(k => { const li = document.querySelector(`.sys-steps li[data-step="${k}"]`); const r = li.getBoundingClientRect(); scrollBy(0, r.top + r.height / 2 - innerHeight * 0.55) }, k)
+    // bring this step's heading to the reading line (the diagram's middle on desktop, the space under it on phones)
+    for (let i = 0; i < 3; i++) await p.evaluate(k => {
+      const h = document.querySelector(`.sys-steps li[data-step="${k}"] h3`).getBoundingClientRect(), v = document.querySelector('.sys-vis').getBoundingClientRect()
+      const line = innerWidth > 980 ? v.top + v.height / 2 : (Math.max(v.bottom, 0) + innerHeight) / 2
+      scrollBy(0, h.top + h.height / 2 - line)
+    }, k).then(() => p.waitForTimeout(250))
     await p.waitForTimeout(900)
     seen.push(await p.evaluate(() => ({ step: document.querySelector('.sys .sch').dataset.step, x: Math.round(document.querySelector('.sys [data-x]').scrollLeft), stuck: Math.round(document.querySelector('.sys-vis').getBoundingClientRect().top) })))
   }
@@ -106,6 +111,42 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   if (name === 'phone') check('phone For Business: the diagram slides to each part', seen[3].x > seen[1].x && seen[1].x > seen[0].x, seen.map(s => s.x))
   check(`${name} For Business: the diagram stays in view`, seen.slice(1).every(s => s.stuck >= 0 && s.stuck < 400), seen.map(s => s.stuck))
   check(`${name} For Business: no script errors`, !p.errors.length, p.errors)
+  await ctx.close()
+}
+
+// the savings calculator: 60 showers a day at ₱15/kWh (0.70 kWh of heat each; electric 95% efficient; heat pump COP 3.5; solar 65%)
+{
+  const ctx = await b.newContext({ ...DESKTOP, reducedMotion: 'reduce' })
+  const p = await open(ctx, '/', { wait: 800 })
+  await p.evaluate(() => document.querySelector('.sav-card').scrollIntoView({ block: 'center' })); await p.waitForTimeout(1200)
+  const v = await p.evaluate(() => ({ e: document.querySelector('.svE').textContent, s: document.querySelector('.svS').textContent, rate: document.querySelector('#svR').value }))
+  check('savings: 60 showers at ₱15 gives ₱241,246 electric and ₱175,765 saved', v.e === '₱241,246' && v.s === '₱175,765' && v.rate === '15', v)
+  await ctx.close()
+}
+
+// phone numbers can be copied: dragging across one with a mouse selects it instead of dragging the link
+{
+  const p = await open(desk, '/contact', { wait: 600 })
+  const a = p.locator('.qp-call .nums a').first(); await a.scrollIntoViewIfNeeded(); await p.waitForTimeout(400)
+  const bb = await a.boundingBox()
+  await p.mouse.move(bb.x + 1, bb.y + bb.height / 2); await p.mouse.down()
+  for (let i = 1; i <= 12; i++) await p.mouse.move(bb.x + (bb.width - 1) * i / 12, bb.y + bb.height / 2)
+  await p.mouse.up()
+  const sel = await p.evaluate(() => getSelection().toString())
+  check('a phone number drag-selects for copying', sel === '0933 867 2954', sel)
+  await p.close()
+}
+
+// logo walls fill their rows: Projects (every filter) and the homepage clients (all sizes)
+for (const [name, opts] of [['desktop', DESKTOP], ['tablet', TABLET], ['phone', PHONE]]) {
+  const ctx = await b.newContext(opts)
+  const p = await open(ctx, '/projects', { wait: 500 })
+  const rowsOf = sel => p.evaluate(sel => { const r = {}; [...document.querySelectorAll(sel)].filter(l => !l.hidden && l.offsetWidth).forEach(l => { const t = Math.round(l.getBoundingClientRect().top); r[t] = (r[t] || 0) + 1 }); return Object.values(r) }, sel)
+  const all = await rowsOf('.lg li')
+  check(`${name} Projects: all 32 logos in full rows`, all.every(n => n === all[0]), all)
+  const q = await open(ctx, '/', { wait: 500 })
+  const home = await q.evaluate(() => { const r = {}; [...document.querySelectorAll('.cl-grid > *')].forEach(l => { const t = Math.round(l.getBoundingClientRect().top); r[t] = (r[t] || 0) + 1 }); return Object.values(r) })
+  check(`${name} homepage: client logos in full rows`, home.every(n => n === home[0]), home)
   await ctx.close()
 }
 

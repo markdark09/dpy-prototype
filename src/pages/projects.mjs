@@ -13,7 +13,9 @@ export default {
 .pj-hero img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
 .pj-hero figure:hover img{transform:scale(1.04)}
 .pj-hero figcaption{position:absolute;left:12px;bottom:12px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;box-shadow:var(--sh-s)}
-.lg{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+/* 8 a row: all 32 make four full rows, and each filter (16, 6, 6, 4) fills or centres its rows */
+.lg{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.lg li{flex:0 0 calc((100% - 7 * 12px) / 8);min-width:0}
 .lg li{display:grid;grid-template-rows:1fr auto;gap:8px;justify-items:center;align-items:center;height:132px;padding:16px 12px 12px;border-radius:18px;background:#fff;box-shadow:var(--card);transition:opacity .45s,transform .6s var(--ease)}
 .lg li[hidden]{display:none}
 .lg img{max-height:56px;max-width:100%;width:auto;filter:grayscale(1);opacity:.78;transition:filter .4s,opacity .4s}
@@ -31,7 +33,8 @@ export default {
 .what em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--blue)}
 @media (max-width:1100px){.lg{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:980px){.pj-hero{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 160px}.pj-hero figure:first-child{grid-column:1/3;grid-row:1}.sect{grid-template-columns:1fr 1fr}.what{grid-template-columns:1fr}}
-@media (max-width:640px){.lg{grid-template-columns:repeat(2,1fr)}.lg li{height:116px}}
+@media (max-width:980px){.lg li{flex-basis:calc((100% - 3 * 12px) / 4)}}
+@media (max-width:640px){.lg{gap:10px}.lg li{flex-basis:calc((100% - 10px) / 2);height:116px}}
 `,
   body: R => `
 <section class="phead">

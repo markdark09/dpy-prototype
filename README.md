@@ -31,6 +31,7 @@ Run `npm install` once, then:
   - `forms`: the homepage, Contact and Service forms on a phone (pinned send button, chat button stepping aside, both sending outcomes, the earliest service day) and their desktop send row.
   - `careers`: Apply, every validation path, the CV box, sending with the CV, and the email fallback.
   - `design`: rules that broke before: the header number on For Business, benefit cards filling their rows, spec tables, the hidden quote bar, one-line Add buttons, small-text contrast.
+  - `links`: every link on every page leads to a page that answers, and every link to a #section finds that section.
   - `motion`: page transitions (and none with reduced motion), and iPhone home-bar and notch spacing in portrait and landscape.
 - Options: `ONLY=forms,careers` runs some sets; `SHOTS=/some/folder` saves screenshots; `BASE=https://prototype.dpy-mi.workers.dev` checks the live copy.
 - First time on a machine: `npx playwright install chromium`. On Linux it also needs `npx playwright install-deps chromium` (admin rights). WebKit (Safari's engine) runs too if installed; otherwise the transition check says it skipped it.
@@ -240,6 +241,18 @@ Each product card now links to its category on the new Water Heaters page, and t
 - A quote button that's been pressed shows a tick instead of the plus.
 - **A shorter homepage top on phones (2026-11-06):** the Gratek card and the temperature dial share one swipeable row (the next card peeks in), the three stats sit in one row, and the "12 brands" bubble gives way to the brand wall just below it. The hero went from 1,464 to 1,190px and the first heater card moved up from 2,442 to 2,102px on a 390px phone. Desktop is unchanged: the row is `display: contents` there, so the cards keep their places around the heater. Lighthouse (phone) after the change: 97, 97, 93.
 - **For Business: "One System, Four Parts" is the page's signature section (2026-11-06).** It moved up to sit right under the dark hero, on a dark band of its own. On desktop the diagram stays in view (plain `position: sticky`, no scroll hijacking) while the four parts scroll past beside it: Heat, Store, Move, Return. The part in the middle of the screen lights up in the diagram, its pipes flow and the rest dims. Each part links to the equipment DPY installs for it (Deron heat pumps, HAASE tanks, Wilo pumps, Aquaplast pipes). On phones and tablets the diagram sticks to the top of the screen and slides sideways to the part being told; it can still be swiped. The diagram's labels are larger, so they read at the smaller desktop size. Reduced motion: no flowing pipes, no sliding, the highlight changes instantly. Lighthouse (phone): performance 100, accessibility 100.
+- **Round 2 (2026-11-06, from Mark's check of the local site):**
+  - **How it works, on every product page.** A diagram in the For Business style, drawn for the kind of product (instant, storage, heat pump, solar, storage tank, pump, pipes, AC·THOR, exhaust fan) and adapted to it: multipoint heaters feed a sink too, Gratek models show their built-in pump, each heat pump shows its real heat source (outdoor air, ground or river water, a pool), the all-in-one 5 Star shows the tank in the same unit, and the Rotex Sanicube shows drinking water heated in its stainless coil. Numbered markers match four steps beside it; pointing at a step lights its marker, and while the diagram is on screen the steps play in order. Under it, "How to use it": four general steps, marked as general guidance (`src/howto.mjs`).
+  - **Range cards on the homepage:** the photo and the name open the product shown (Aquapower A35M / A55, Rheem, 5 Star integral, 5 Star solar), with the photo gliding into the product page.
+  - **Savings calculator corrected.** It divided the electric heater's draw by 3.5, counting the heater's losses twice, and used ₱12/kWh; every figure was about 20% low. It now works from the heat needed and starts at ₱15/kWh (Meralco's household average, October 2026). The chat assistant and the For Business text say the same.
+  - **For Business, step by step:** the highlighted part now follows the step you are reading (the heading nearest the diagram's middle), checked every 40px down the section at desktop, tablet and phone size. The "Trusted by" logos sit in one even row of five (three on narrow phones). The "Try the savings calculator" button pointed at the For Business page itself; it now opens the calculator on the homepage.
+  - **Contact:** the quote form uses the same two-panel design as the homepage and Service (a red sales panel beside the form), with the contact cards in one row of four above it.
+  - **Sales numbers together:** "0933 867 2954 / 0915 245 3528" wherever the site says "call or text" (phone menu, Contact, the homepage quote panel, the assistant). Buttons that dial keep the main line. A phone number never breaks across lines.
+  - **Copying and dragging:** pictures and links can't be dragged off the page. With a mouse, phone numbers select like text, so they can be copied (a browser won't drag-select inside a link); on touch screens they stay tap-to-call.
+  - **The "12 brands" bubble** shows Gratek's "g" mark only.
+  - **Logo walls fill their rows:** Projects shows 8 a row (all 32 in four rows; each filter fills or centres its rows), and the homepage wall keeps 8 a row down to tablets and 4 on phones.
+  - **Compare:** the product picker is styled like the site's other fields, and the closing banner says "Ready for a quote?".
+  - **Homepage privacy link** pointed at a `#privacy` that didn't exist; it now points at the Privacy page and still opens the pop-up.
 - **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three request forms were driven through each outcome (sent, not set up, a field to fix, too many requests). The Careers form was checked at phone and desktop size: Apply picks the role, missing fields and a missing CV are marked, an image file is refused, the file shows in the box, it sends with the CV, and the email fallback asks for the CV.
 
 
@@ -289,7 +302,7 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 | Hero stat | "5 Branches nationwide", matching the branches page |
 | Privacy notice | Job applications kept 1 year (new section, for the Careers form); retention of 5 years after the last transaction; hosting and email providers as processors; "Last updated: October 2026" |
 | Viber / Messenger | Viber on the sales number 0933 867 2954; Messenger via the Facebook page |
-| Savings calculator | 40 L per shower, 27→42°C, heat pump 3.5× as efficient, solar covering 65%, ₱12/kWh |
+| Savings calculator | 40 L per shower warmed 27→42°C (0.70 kWh of heat); electric heater 95% efficient; heat pump COP 3.5 on the heat itself; solar covering 65% with an electric backup; ₱15/kWh default (Meralco household average, October 2026: ₱15.06). Update the default rate once a year. Checked 2026-11-06: the old version divided the electric heater's draw by 3.5, counting its losses twice, and used ₱12/kWh, so every figure was about 20% low. |
 | Gratek "Aquarius" and quiz recommendations | General guidance, following the Solutions section |
 | Branch pins and walk views | Google Maps listings and nearest Street View; Davao uses the website address (Camella Northpoint); Boracay shows the Station 2 area |
 | Stock photos | Shower, plant and technician (Unsplash) |
@@ -298,6 +311,8 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 | About page | The one-line meaning under each value; the Gratek step in the timeline has no year (not on the live site) |
 | Water Heaters compare table | Upfront and running cost shown as low / medium / high, as general guidance |
 | Rotex Sanicube | No photo on the live site ("coming soon"), so the page shows the brand name |
+| How it works / How to use it (product pages) | General explanations and general care steps by kind of product, written for this prototype (`src/howto.mjs`). DPY's engineers should check them, especially the use steps and figures quoted from the specs (60°C, 92 to 96%, under 5°C a day, 260°C fusion) |
+| For Business, "Restaurants, Gyms & Offices" tab | Uses the home bathroom stock photo (`shower`). Replace with a photo from a restaurant or gym DPY has fitted |
 
 ## Notes
 

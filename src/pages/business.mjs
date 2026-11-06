@@ -93,9 +93,10 @@ export default {
 .sx-parts a{display:flex;align-items:center;justify-content:space-between;gap:8px;height:100%;padding:10px 12px;border-radius:12px;background:#F4F7FA;font-size:13px;font-weight:600;transition:background .3s}
 .sx-parts a:hover{background:#E8EEF5}
 .sx-parts svg{flex:none;width:13px;height:13px;color:var(--dim)}
-.sx-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.sx-logos img{height:34px;width:auto;max-width:90px;object-fit:contain;filter:grayscale(1);opacity:.7}
-.sx-logos small{font-size:12px;color:var(--mute);margin-right:4px}
+.sx-logos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px 16px;align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.sx-logos small{grid-column:1/-1;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.sx-logos img{width:100%;height:34px;object-fit:contain;filter:grayscale(1);opacity:.7}
+@media (max-width:480px){.sx-logos{grid-template-columns:repeat(3,minmax(0,1fr))}.sx-logos img:nth-of-type(n+4){display:none}}
 .sx-panel[hidden]{display:none}
 /* process */
 .proc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s;position:relative}
@@ -168,7 +169,7 @@ export default {
         </div>
       </div>
       <ol class="sys-steps">
-        <li data-step="heat"><em>01 · Heat</em><h3>Heat pumps, plus solar if the roof allows</h3><p>Heat pumps move warmth from the air into the water, using about a quarter of the power of an electric heater. Solar panels on the roof add free heat on sunny days.</p><a class="link" href="${R}products/deron-air-to-water-heat-pump">Deron air-to-water heat pumps ${I.arr}</a></li>
+        <li data-step="heat"><em>01 · Heat</em><h3>Heat pumps, plus solar if the roof allows</h3><p>Heat pumps move warmth from the air into the water, using roughly a quarter to a third of the power of an electric heater. Solar panels on the roof add free heat on sunny days.</p><a class="link" href="${R}products/deron-air-to-water-heat-pump">Deron air-to-water heat pumps ${I.arr}</a></li>
         <li data-step="store"><em>02 · Store</em><h3>A storage tank sized for your busiest hour</h3><p>An insulated tank holds enough hot water for the morning rush, so the last guest gets the same hot shower as the first.</p><a class="link" href="${R}products/haase-energy-storage-tank">HAASE energy storage tanks ${I.arr}</a></li>
         <li data-step="move"><em>03 · Move</em><h3>A pump that keeps every floor hot</h3><p>A circulation pump sends hot water up the riser and round every floor, so the tap on the top floor runs hot in seconds.</p><a class="link" href="${R}products/wilo-pumps">Wilo circulation pumps ${I.arr}</a></li>
         <li data-step="return"><em>04 · Return</em><h3>A return loop, so nothing is wasted</h3><p>Water that cools in the pipes flows back to the tank to be reheated, instead of running down the drain while someone waits for hot water.</p><a class="link" href="${R}products/aquaplast-ppr-pipes">Aquaplast heat-resistant pipes ${I.arr}</a></li>
@@ -206,7 +207,7 @@ export default {
 </section>
 
 <section class="sec tight" aria-label="Savings">
-  <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="${R}#savings">Try the savings calculator ${I.arr}</a></div></div>
+  <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="${R || './'}#savings">Try the savings calculator ${I.arr}</a></div></div>
 </section>`
   },
   js: `
@@ -220,11 +221,26 @@ export default {
     steps.forEach(li => li.classList.toggle('on', li.dataset.step === k))
     if (x.scrollWidth > x.clientWidth + 4) x.scrollTo({ left: CX[k] * x.scrollWidth / 1000 - x.clientWidth / 2, behavior: RM ? 'auto' : 'smooth' })
   }
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) set(e.target.dataset.step)
-    else if (e.target === steps[0] && e.boundingClientRect.top > 0) set('all')
-  }), { rootMargin: '-50% 0px -40% 0px' })
-  steps.forEach(li => io.observe(li))
+  // the step being read is the one whose heading is nearest the reading line: the diagram's middle on wide screens,
+  // the middle of the space under the stuck diagram on phones. Before the first step reaches it, the whole system shows.
+  const vis = $('.sys-vis')
+  let ticking = false
+  const pick = () => {
+    ticking = false
+    const v = vis.getBoundingClientRect(), wide = innerWidth > 980
+    const line = wide ? v.top + v.height / 2 : (Math.max(v.bottom, 0) + innerHeight) / 2
+    const marks = steps.map(li => { const r = li.querySelector('h3').getBoundingClientRect(); return r.top + r.height / 2 })
+    if (marks[0] > line + innerHeight * 0.18) return set('all')
+    let best = 0
+    marks.forEach((m, i) => { if (Math.abs(m - line) < Math.abs(marks[best] - line)) best = i })
+    set(steps[best].dataset.step)
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(pick) } }
+  // only listen while the section is near the screen
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll, { passive: true }); pick() }
+    else { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll) }
+  }, { rootMargin: '200px 0px' }).observe($('.sys'))
 }
 const tabs = $$('[role=tab]'), panels = $$('.sx-panel'), pics = $$('.sx-pic img')
 // the other buildings' photos load once the page has settled (or at once, when their tab is picked)

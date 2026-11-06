@@ -1,4 +1,5 @@
 import { PRODUCTS, CATS, card, crumbsHtml, img, I, MSGR, specTable, prodImg, SITE } from '../../tools/lib.mjs'
+import { howto } from '../howto.mjs'
 
 const css = `
 .pd{padding-bottom:80px}
@@ -28,6 +29,57 @@ const css = `
 .pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px;white-space:nowrap}
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
+/* how it works: the diagram (same style as For Business), its numbered steps, and how to use it */
+.how-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
+.how-vis svg{display:block;width:100%;height:auto;overflow:visible}
+.how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
+.how-vis .leg span{display:inline-flex;align-items:center;gap:8px}.how-vis .leg i{width:22px;height:5px;border-radius:4px}
+.how-vis .pipe{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .cold{stroke:#4C9BE8}.how-vis .hot{stroke:#E3473B}.how-vis .warm{stroke:#F08A4B}.how-vis .ref{stroke:#B79CFF;stroke-width:5}.how-vis .green{stroke:#3CC48A}.how-vis .pow{stroke:#FFC24D;stroke-width:4}.how-vis .air{stroke:#9DB0C6;stroke-width:3}
+.how-vis .flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 16;opacity:.7;animation:hwflow 1.6s linear infinite}
+.how-vis .flow.slow{animation-duration:2.6s}
+@keyframes hwflow{to{stroke-dashoffset:-36}}
+.how-vis .box,.how-vis .shell{fill:#132B4E;stroke:rgba(255,255,255,.22);stroke-width:2}
+.how-vis .part,.how-vis .ring{fill:#1B3A66;stroke:#7CC0FF;stroke-width:2}
+.how-vis .tri{fill:#7CC0FF}
+.how-vis .needle{stroke:#fff;stroke-width:3;stroke-linecap:round}
+.how-vis .coil{fill:none;stroke:url(#hwCoil);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .coil.hotc{stroke:#FFD2A8}
+.how-vis .fix{fill:none;stroke:#C9D6E4}.how-vis .fix .drops{stroke:#7CC0FF}
+.how-vis .fin{stroke:rgba(255,255,255,.35);stroke-width:2}
+.how-vis .fanb path{fill:none;stroke:#C9D6E4;stroke-width:4;stroke-linecap:round}.how-vis .hub{fill:#C9D6E4}
+.how-vis .spin{animation:hwspin 3s linear infinite}
+@keyframes hwspin{to{transform:rotate(360deg)}}
+.how-vis .sunb circle{fill:#FFC24D}.how-vis .sunb path{stroke:#FFC24D;stroke-width:3;stroke-linecap:round}
+.how-vis .panel{fill:#24477A;stroke:#7CC0FF;stroke-width:2}.how-vis .roof{stroke:rgba(255,255,255,.25);stroke-width:3}
+.how-vis .pool{fill:#1E6FB8;stroke:#7CC0FF;stroke-width:2}.how-vis .wave{fill:none;stroke:#BFE3FF;stroke-width:3}
+.how-vis .one{fill:none;stroke:#7CC0FF;stroke-width:2;stroke-dasharray:8 8}
+.how-vis .floor{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.2)}
+.how-vis .pp{fill:#E8EEF4;stroke:#9DB0C6}.how-vis .sock{fill:#C9D6E4}.how-vis .fuse{fill:#F08A4B}.how-vis .tool{fill:#B3262B;stroke:#FFB3A3;stroke-width:2}
+.how-vis .arrow{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .house{fill:#132B4E;stroke:#C9D6E4;stroke-width:2}
+.how-vis .steam{fill:none;stroke:#9DB0C6;stroke-width:3;stroke-linecap:round;opacity:.7}
+.how-vis .t{font:600 22px var(--font);fill:#fff}.how-vis .s{font:500 18px var(--font);fill:#9DB0C6}
+.how-vis .mk circle{fill:#fff;transition:fill .3s}.how-vis .mk text{font:700 19px var(--font);fill:#0A1830;text-anchor:middle;dominant-baseline:central;transition:fill .3s}
+.how-vis .mk{cursor:pointer}.how-vis .mk.on circle{fill:#E3262B}.how-vis .mk.on text{fill:#fff}
+.how-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:hw}
+.how-steps li{position:relative;padding:14px 16px 14px 60px;border-radius:18px;cursor:default;transition:background .3s}
+.how-steps li::before{counter-increment:hw;content:counter(hw);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;background:var(--ink);color:#fff;transition:background .3s}
+.how-steps li.on{background:var(--soft)}.how-steps li.on::before{background:var(--red)}
+.how-steps b{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.01em}
+.how-steps p{margin:4px 0 0;font-size:15px;line-height:1.55;color:var(--ink2)}
+.use{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.use-hd h3{margin:8px 0 0;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.use-hd p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--mute)}
+.use-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:us}
+.use-steps li{padding:18px;border-radius:18px;background:#fff;box-shadow:var(--card)}
+.use-steps li::before{counter-increment:us;content:"Step " counter(us);display:block;margin-bottom:6px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.use-steps b{display:block;font-size:16px;font-weight:600}
+.use-steps p{margin:4px 0 0;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
+@media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
+@media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -102,6 +154,20 @@ function pg(p) {
     <div class="feats">${p.feats.map(([t, d]) => `<div class="ft-c" data-r><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>
   </div>
 </section>
+${(h => h ? `
+<section class="sec how" aria-labelledby="hwT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="hwT">${h.title[0]}<br>${h.title[1]}</h2></div><p class="lede">${h.lede}</p></div>
+    <div class="how-grid">
+      <figure class="how-vis" data-loop>${h.svg}${h.legendHtml ? `<figcaption class="leg">${h.legendHtml}</figcaption>` : ''}</figure>
+      <ol class="how-steps">${h.steps.map(([t, d], i) => `<li data-n="${i + 1}"><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
+    </div>
+    <div class="use">
+      <div class="use-hd"><span class="kick">How to use it</span><h3>${p.cat === 'pipe' ? 'How we install it' : 'Day to day'}</h3><p>General guidance. Your technician shows you the exact settings at installation, and the manual has the details.</p></div>
+      <ol class="use-steps">${h.use.map(([t, d]) => `<li><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
+    </div>
+  </div>
+</section>` : '')(howto(p))}
 ${tables ? `
 <section class="sec soft" id="specs" aria-labelledby="spT">
   <div class="wrap">
@@ -143,6 +209,23 @@ $('[data-quote-now]').addEventListener('click', e => { const d = e.currentTarget
 // phones: the quote bar slides up once the main buttons scroll away
 const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => { const on = acts.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', on); document.body.classList.toggle('qbar-on', on) }
 addEventListener('scroll', qb, { passive: true }); qb()
+// how it works: a step and its marker light together; while on screen the steps play in order until someone points at one
+{
+  const hv = $('.how-vis')
+  if (hv) {
+    const lis = $$('.how-steps li'), mks = $$('.mk', hv), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+    let n = 0, timer = 0, touched = false
+    const on = k => { lis.forEach(l => l.classList.toggle('on', l.dataset.n === k)); mks.forEach(m => m.classList.toggle('on', m.dataset.n === k)) }
+    const stop = () => { clearInterval(timer); timer = 0 }
+    const pick = k => { touched = true; stop(); on(k) }
+    lis.forEach(l => { l.addEventListener('pointerenter', () => pick(l.dataset.n)); l.addEventListener('click', () => pick(l.dataset.n)) })
+    mks.forEach(m => { m.addEventListener('pointerenter', () => pick(m.dataset.n)); m.addEventListener('click', () => pick(m.dataset.n)) })
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !touched && !RM && !timer) { on(String(n % lis.length + 1)); timer = setInterval(() => { n++; on(String(n % lis.length + 1)) }, 2600) }
+      else if (!e.isIntersecting) stop()
+    }, { threshold: .4 }).observe(hv)
+  }
+}
 `,
   }
 }

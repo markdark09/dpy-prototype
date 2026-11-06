@@ -39,6 +39,9 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
+img,a{-webkit-user-drag:none}
+a[href^="tel:"]{white-space:nowrap} 
+@media (hover:hover) and (pointer:fine){a[href^="tel:"]:not(.btn):not(.nav-tel):not(.msgr){pointer-events:none;cursor:text}}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -108,7 +111,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sheet .sh-links a[aria-current="page"]{font-weight:600}
 .sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
 .sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact > a,.sh-num{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-num{grid-column:1/-1}.sh-num b a{color:inherit}.sh-num b a:hover{color:var(--red)}
 .sh-contact small{font-size:12px;color:var(--mute)}
 .sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
 .sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
@@ -483,6 +487,57 @@ button.busy{cursor:progress;opacity:.85}
 .pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px;white-space:nowrap}
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
+/* how it works: the diagram (same style as For Business), its numbered steps, and how to use it */
+.how-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
+.how-vis svg{display:block;width:100%;height:auto;overflow:visible}
+.how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
+.how-vis .leg span{display:inline-flex;align-items:center;gap:8px}.how-vis .leg i{width:22px;height:5px;border-radius:4px}
+.how-vis .pipe{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .cold{stroke:#4C9BE8}.how-vis .hot{stroke:#E3473B}.how-vis .warm{stroke:#F08A4B}.how-vis .ref{stroke:#B79CFF;stroke-width:5}.how-vis .green{stroke:#3CC48A}.how-vis .pow{stroke:#FFC24D;stroke-width:4}.how-vis .air{stroke:#9DB0C6;stroke-width:3}
+.how-vis .flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 16;opacity:.7;animation:hwflow 1.6s linear infinite}
+.how-vis .flow.slow{animation-duration:2.6s}
+@keyframes hwflow{to{stroke-dashoffset:-36}}
+.how-vis .box,.how-vis .shell{fill:#132B4E;stroke:rgba(255,255,255,.22);stroke-width:2}
+.how-vis .part,.how-vis .ring{fill:#1B3A66;stroke:#7CC0FF;stroke-width:2}
+.how-vis .tri{fill:#7CC0FF}
+.how-vis .needle{stroke:#fff;stroke-width:3;stroke-linecap:round}
+.how-vis .coil{fill:none;stroke:url(#hwCoil);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .coil.hotc{stroke:#FFD2A8}
+.how-vis .fix{fill:none;stroke:#C9D6E4}.how-vis .fix .drops{stroke:#7CC0FF}
+.how-vis .fin{stroke:rgba(255,255,255,.35);stroke-width:2}
+.how-vis .fanb path{fill:none;stroke:#C9D6E4;stroke-width:4;stroke-linecap:round}.how-vis .hub{fill:#C9D6E4}
+.how-vis .spin{animation:hwspin 3s linear infinite}
+@keyframes hwspin{to{transform:rotate(360deg)}}
+.how-vis .sunb circle{fill:#FFC24D}.how-vis .sunb path{stroke:#FFC24D;stroke-width:3;stroke-linecap:round}
+.how-vis .panel{fill:#24477A;stroke:#7CC0FF;stroke-width:2}.how-vis .roof{stroke:rgba(255,255,255,.25);stroke-width:3}
+.how-vis .pool{fill:#1E6FB8;stroke:#7CC0FF;stroke-width:2}.how-vis .wave{fill:none;stroke:#BFE3FF;stroke-width:3}
+.how-vis .one{fill:none;stroke:#7CC0FF;stroke-width:2;stroke-dasharray:8 8}
+.how-vis .floor{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.2)}
+.how-vis .pp{fill:#E8EEF4;stroke:#9DB0C6}.how-vis .sock{fill:#C9D6E4}.how-vis .fuse{fill:#F08A4B}.how-vis .tool{fill:#B3262B;stroke:#FFB3A3;stroke-width:2}
+.how-vis .arrow{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .house{fill:#132B4E;stroke:#C9D6E4;stroke-width:2}
+.how-vis .steam{fill:none;stroke:#9DB0C6;stroke-width:3;stroke-linecap:round;opacity:.7}
+.how-vis .t{font:600 22px var(--font);fill:#fff}.how-vis .s{font:500 18px var(--font);fill:#9DB0C6}
+.how-vis .mk circle{fill:#fff;transition:fill .3s}.how-vis .mk text{font:700 19px var(--font);fill:#0A1830;text-anchor:middle;dominant-baseline:central;transition:fill .3s}
+.how-vis .mk{cursor:pointer}.how-vis .mk.on circle{fill:#E3262B}.how-vis .mk.on text{fill:#fff}
+.how-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:hw}
+.how-steps li{position:relative;padding:14px 16px 14px 60px;border-radius:18px;cursor:default;transition:background .3s}
+.how-steps li::before{counter-increment:hw;content:counter(hw);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;background:var(--ink);color:#fff;transition:background .3s}
+.how-steps li.on{background:var(--soft)}.how-steps li.on::before{background:var(--red)}
+.how-steps b{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.01em}
+.how-steps p{margin:4px 0 0;font-size:15px;line-height:1.55;color:var(--ink2)}
+.use{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
+.use-hd h3{margin:8px 0 0;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.use-hd p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--mute)}
+.use-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:us}
+.use-steps li{padding:18px;border-radius:18px;background:#fff;box-shadow:var(--card)}
+.use-steps li::before{counter-increment:us;content:"Step " counter(us);display:block;margin-bottom:6px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.use-steps b{display:block;font-size:16px;font-weight:600}
+.use-steps p{margin:4px 0 0;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
+@media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
+@media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
 /* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
@@ -536,7 +591,7 @@ button.busy{cursor:progress;opacity:.85}
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="../contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="../" style="--i:0">Home</a><a href="../water-heaters" aria-current="page" style="--i:1">Water Heaters</a><a href="../business" style="--i:2">For Business</a><a href="../service" style="--i:3">Service</a><a href="../projects" style="--i:4">Projects</a><a href="../about" style="--i:5">About</a><a href="../careers" style="--i:6">Careers</a><a href="../contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="../contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="../" style="--i:0">Home</a><a href="../water-heaters" aria-current="page" style="--i:1">Water Heaters</a><a href="../business" style="--i:2">For Business</a><a href="../service" style="--i:3">Service</a><a href="../projects" style="--i:4">Projects</a><a href="../about" style="--i:5">About</a><a href="../careers" style="--i:6">Careers</a><a href="../contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="../contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <main id="main">
 <section class="phead pd">
   <span class="glow"></span>
@@ -561,6 +616,23 @@ button.busy{cursor:progress;opacity:.85}
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Hot water from spare solar power</h3><p>It measures your surplus and feeds exactly that much into the heating element, smoothly from zero up.</p></div><div class="ft-c" data-r><h3>For any supply</h3><p>Single, two or three phase, with three outputs of 3,000 W plus a 16 A relay.</p></div><div class="ft-c" data-r><h3>Ready to install</h3><p>Comes with cable connectors and a digital temperature sensor on a 5 m cable.</p></div></div>
+  </div>
+</section>
+
+<section class="sec how" aria-labelledby="hwT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="hwT">Spare Solar Power<br>Into Hot Water</h2></div><p class="lede">AC·THOR uses the solar power your house does not need to heat water, instead of sending it to the grid.</p></div>
+    <div class="how-grid">
+      <figure class="how-vis" data-loop><svg viewBox="0 0 640 400" role="img" aria-labelledby="hwSvgT"><title id="hwSvgT">How AC·THOR works: solar panels power the house, a meter measures the spare power, and AC·THOR sends it into the water heater.</title><defs>
+  <linearGradient id="hwTank" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
+  <linearGradient id="hwCoil" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
+</defs><g class="sunb"><circle cx="46" cy="46" r="26"/><path d="M80.0 46.0L92.0 46.0"/><path d="M70.0 70.0L78.5 78.5"/><path d="M46.0 80.0L46.0 92.0"/><path d="M22.0 70.0L13.5 78.5"/><path d="M12.0 46.0L0.0 46.0"/><path d="M22.0 22.0L13.5 13.5"/><path d="M46.0 12.0L46.0 0.0"/><path d="M70.0 22.0L78.5 13.5"/></g><path class="panel" d="M90 120 L250 120 L280 50 L120 50 Z"/><path class="fin" d="M130 120 L160 50"/><path class="fin" d="M170 120 L200 50"/><path class="fin" d="M210 120 L240 50"/><path class="pipe pow" d="M185 120 V160"/><path class="flow" d="M185 120 V160"/><rect class="box" x="130" y="160" width="110" height="54" rx="12"/><text class="s" x="185" y="194" text-anchor="middle">Inverter</text><path class="pipe pow" d="M240 186 H330"/><path class="flow" d="M240 186 H330"/><circle class="part" cx="340" cy="186" r="10"/><path class="pipe pow" d="M350 186 H470"/><path class="flow slow" d="M350 186 H470"/><rect class="box" x="470" y="156" width="110" height="60" rx="12"/><text class="s" x="525" y="192" text-anchor="middle">Meter</text><path class="pipe pow" d="M580 186 H640"/><text class="s" x="636" y="236" text-anchor="end">Grid</text><path class="pipe pow" d="M340 196 V260"/><path class="flow" d="M340 196 V260"/><rect class="box" x="270" y="260" width="140" height="60" rx="12"/><text class="t" x="340" y="296" text-anchor="middle">AC·THOR</text><path class="pipe pow" d="M410 290 H470"/><path class="flow" d="M410 290 H470"/><rect class="shell" x="470" y="250" width="90" height="130" rx="26"/><rect x="480" y="260" width="70" height="110" rx="18" fill="url(#hwTank)" opacity=".85"/><path class="coil hotc" d="M490 350 h50 v-10 h-50 v-10 h50"/><text class="s" x="515" y="244" text-anchor="middle">Water heater</text><path class="house" d="M300 40 l40 -30 40 30 v60 h-80z"/><text class="s" x="330" y="128" text-anchor="end">House</text><path class="pipe pow" d="M340 176 V100"/><g class="mk" data-n="1"><circle cx="230" cy="30" r="17"/><text x="230" y="31">1</text></g><g class="mk" data-n="2"><circle cx="398" cy="60" r="17"/><text x="398" y="61">2</text></g><g class="mk" data-n="3"><circle cx="525" cy="140" r="17"/><text x="525" y="141">3</text></g><g class="mk" data-n="4"><circle cx="440" cy="260" r="17"/><text x="440" y="261">4</text></g></svg><figcaption class="leg"><span><i style="background:#FFC24D"></i>Electricity</span></figcaption></figure>
+      <ol class="how-steps"><li data-n="1"><b>Panels make power</b><p>Your solar panels and inverter make electricity during the day.</p></li><li data-n="2"><b>The house uses what it needs</b><p>Lights, aircon and appliances use it first.</p></li><li data-n="3"><b>The meter spots the spare</b><p>A power meter measures the power that would flow out to the grid.</p></li><li data-n="4"><b>AC·THOR heats water with it</b><p>Instead of sending that spare power to the grid, AC·THOR feeds it smoothly into your water heater's element, so the sun heats your water.</p></li></ol>
+    </div>
+    <div class="use">
+      <div class="use-hd"><span class="kick">How to use it</span><h3>Day to day</h3><p>General guidance. Your technician shows you the exact settings at installation, and the manual has the details.</p></div>
+      <ol class="use-steps"><li><b>Set up by our installer</b><p>Connected to your water heater, with the target temperature set.</p></li><li><b>Runs every sunny day</b><p>Nothing to switch on: it follows the spare power by itself.</p></li><li><b>Check the display</b><p>See how much solar power went into hot water.</p></li><li><b>Cloudy days are covered</b><p>The heater's own thermostat or timer keeps the water hot.</p></li></ol>
+    </div>
   </div>
 </section>
 
@@ -640,8 +712,8 @@ button.busy{cursor:progress;opacity:.85}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="../assets/js/site.js?v=b9b01fc8" defer></script>
-<script src="../assets/js/ask.js?v=7b8006a9" defer></script>
+<script src="../assets/js/site.js?v=9c2a8e67" defer></script>
+<script src="../assets/js/ask.js?v=11b422ae" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
 const { $, $$, RM, go, quote } = DPY
@@ -650,6 +722,23 @@ $('[data-quote-now]').addEventListener('click', e => { const d = e.currentTarget
 // phones: the quote bar slides up once the main buttons scroll away
 const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => { const on = acts.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', on); document.body.classList.toggle('qbar-on', on) }
 addEventListener('scroll', qb, { passive: true }); qb()
+// how it works: a step and its marker light together; while on screen the steps play in order until someone points at one
+{
+  const hv = $('.how-vis')
+  if (hv) {
+    const lis = $$('.how-steps li'), mks = $$('.mk', hv), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+    let n = 0, timer = 0, touched = false
+    const on = k => { lis.forEach(l => l.classList.toggle('on', l.dataset.n === k)); mks.forEach(m => m.classList.toggle('on', m.dataset.n === k)) }
+    const stop = () => { clearInterval(timer); timer = 0 }
+    const pick = k => { touched = true; stop(); on(k) }
+    lis.forEach(l => { l.addEventListener('pointerenter', () => pick(l.dataset.n)); l.addEventListener('click', () => pick(l.dataset.n)) })
+    mks.forEach(m => { m.addEventListener('pointerenter', () => pick(m.dataset.n)); m.addEventListener('click', () => pick(m.dataset.n)) })
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !touched && !RM && !timer) { on(String(n % lis.length + 1)); timer = setInterval(() => { n++; on(String(n % lis.length + 1)) }, 2600) }
+      else if (!e.isIntersecting) stop()
+    }, { threshold: .4 }).observe(hv)
+  }
+}
 })
 </script>
 </body>

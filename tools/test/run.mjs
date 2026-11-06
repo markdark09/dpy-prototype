@@ -6,7 +6,7 @@ import { spawn } from 'node:child_process'
 import path from 'node:path'
 import { ROOT, BASE } from './lib.mjs'
 
-const ALL = ['server', 'pages', 'forms', 'careers', 'design', 'motion']
+const ALL = ['server', 'pages', 'links', 'forms', 'careers', 'design', 'motion']
 const only = (process.env.ONLY || '').split(',').map(s => s.trim()).filter(Boolean)
 const checks = only.length ? ALL.filter(c => only.includes(c)) : ALL
 

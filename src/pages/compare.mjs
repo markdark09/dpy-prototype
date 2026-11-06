@@ -6,7 +6,7 @@ const DATA = Object.fromEntries(PRODUCTS.map(p => [p.slug, { n: p.name, b: p.bra
 const GROUPS = Object.entries(CATS).map(([k, c]) => [c.t.replace(/^./, x => x.toUpperCase()), PRODUCTS.filter(p => p.cat === k).map(p => [p.slug, p.name])]).filter(([, l]) => l.length)
 
 export default {
-  path: 'compare', nav: 'water-heaters', cta: 'product',
+  path: 'compare', nav: 'water-heaters', cta: 'range',
   title: 'Compare Water Heaters Side by Side',
   desc: 'Compare up to four DPY and Gratek water heaters, heat pumps and tanks side by side: power, capacity, running cost, power supply, size and warranty.',
   crumbs: [['Water Heaters', 'water-heaters'], ['Compare']],
@@ -47,7 +47,10 @@ export default {
 .rm:hover{background:#FFF0F0;color:var(--red)}
 .add-c{display:grid;align-content:center;padding:14px;gap:10px;min-height:250px;text-align:center;border-radius:16px;box-shadow:inset 0 0 0 1.5px var(--line);background:repeating-linear-gradient(135deg,#FAFCFE,#FAFCFE 10px,#F4F8FB 10px,#F4F8FB 20px)}
 .add-c b{font-size:14px}
-.add-c select{width:100%;max-width:100%;height:40px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit;font-size:13px}
+.add-c select,.empty select{width:100%;max-width:100%;height:44px;padding:0 38px 0 14px;border-radius:14px;border:1px solid var(--line);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%232B323B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 14px center/14px no-repeat;-webkit-appearance:none;appearance:none;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.add-c select:hover,.empty select:hover{border-color:var(--ink)}.add-c select:focus-visible,.empty select:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,104,195,.12)}
+.empty select{max-width:320px;margin:6px auto 0}
+@media (hover:none){.add-c select,.empty select{font-size:16px}}
 .cp td.same{color:var(--dim)}
 .cp.diff tr.same{display:none}
 .cp td ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:5px}

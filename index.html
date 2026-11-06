@@ -45,6 +45,9 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
+img,a{-webkit-user-drag:none}
+a[href^="tel:"]{white-space:nowrap} 
+@media (hover:hover) and (pointer:fine){a[href^="tel:"]:not(.btn):not(.nav-tel):not(.msgr){pointer-events:none;cursor:text}}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -114,7 +117,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sheet .sh-links a[aria-current="page"]{font-weight:600}
 .sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
 .sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact > a,.sh-num{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-num{grid-column:1/-1}.sh-num b a{color:inherit}.sh-num b a:hover{color:var(--red)}
 .sh-contact small{font-size:12px;color:var(--mute)}
 .sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
 .sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
@@ -517,7 +521,7 @@ main > section{overflow-x:clip}
 .chips{display:flex;align-items:center}
 .chips > *{width:46px;height:46px;border-radius:50%;margin-left:-10px;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
 .chips img{width:30px;height:30px;object-fit:contain}
-.chips .g img{width:36px}
+.chips .g img{height:28px}
 .chips .more{font-weight:600;font-size:13px;color:var(--ink)}
 
 /* ---------- brand band ---------- */
@@ -563,6 +567,9 @@ main > section{overflow-x:clip}
 .model .tag.hot{background:var(--red);color:#fff}
 .model .type{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:12px 0 4px}
 .model h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
+.model h3 a:hover{color:var(--red)}
+.model a.pic{cursor:pointer}.model a.pic:hover img{transform:translateY(-6px) scale(1.03)}
+.model a.pic:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:18px}
 .model .mods{font-size:13.5px;color:var(--mute);margin:6px 0 14px;min-height:38px}
 .model ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:7px}
 .model li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink2)}
@@ -747,9 +754,8 @@ main > section{overflow-x:clip}
 .cl-cta{margin:34px 0 0;text-align:center;font-size:15px;color:var(--mute)}
 .cl-cta a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .cl-cta svg{width:14px;height:14px}
-@media (max-width:1060px){.cl-grid{grid-template-columns:repeat(6,1fr)}}
+/* 32 logos: 8 a row, then 4 a row on phones, so every row is full */
 @media (max-width:760px){.cl-grid{grid-template-columns:repeat(4,1fr);gap:8px}.cl{height:76px;padding:10px}.cl img{max-height:40px}}
-@media (max-width:480px){.cl-grid{grid-template-columns:repeat(3,1fr)}}
 .svc{padding:40px 0 120px;text-align:center;background:linear-gradient(180deg,#F4F7FA 0,#FBF3EC 260px,#FBF3EC 100%)}
 .svc .lede{margin:12px auto 44px;max-width:430px}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:left}
@@ -838,6 +844,8 @@ main > section{overflow-x:clip}
 .qt-pro span{color:rgba(255,255,255,.75);font-size:14px}
 .qt-call{position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-top:30px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;color:rgba(255,255,255,.8)}
 .qt-call a{display:block;color:#fff;font-size:18px;font-weight:600;letter-spacing:-.01em}
+.qt-call .nums a{display:inline;font-size:inherit}
+.qt-call .nums{display:block;color:#fff;font-size:18px;font-weight:600}
 .qt-call i{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--red)}
 .qt-call i svg{width:18px;height:18px}
 .qt-mail{margin-top:14px;padding-top:0;border-top:0}
@@ -992,7 +1000,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="#top" aria-current="page" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="#top" aria-current="page" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <!-- /@nav -->
 
 <main id="main">
@@ -1045,7 +1053,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <li><b><span data-n="100">100</span>+</b><small>Hotel &amp; hospital projects</small></li>
         <li><b data-n="5">5</b><small>Branches nationwide</small></li>
       </ul>
-      <div class="brands-k"><small>12 brands<br>we carry</small><div class="chips" aria-label="DPY Mercantile, Gratek and ten more brands"><span><img src="assets/brand/dpy-icon.svg" alt="" width="512" height="512"></span><span class="g"><img src="assets/brand/gratek-logo.png" alt="" width="183" height="84"></span><span class="more">+10</span></div></div>
+      <div class="brands-k"><small>12 brands<br>we carry</small><div class="chips" aria-label="DPY Mercantile, Gratek and ten more brands"><span><img src="assets/brand/dpy-icon.svg" alt="" width="512" height="512"></span><span class="g"><img src="assets/brand/gratek-g.png" alt="" width="39" height="64"></span><span class="more">+10</span></div></div>
     </div>
   </div>
 </section>
@@ -1144,8 +1152,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <label class="lb" for="svN">Hot showers a day <output id="svNo">60</output></label>
         <input id="svN" type="range" min="2" max="600" step="1" value="60">
         <div class="sav-pre" aria-label="Presets"><button type="button" data-sh="4">Family home</button><button type="button" data-sh="20">Small resort</button><button type="button" data-sh="60" aria-pressed="true">Mid-size hotel</button><button type="button" data-sh="250">Large hotel</button><button type="button" data-sh="400">Hospital</button></div>
-        <div class="sav-rate"><label for="svR">Electricity rate</label><span>₱</span><input id="svR" type="number" min="5" max="30" step=".5" value="12"><span>per kWh</span></div>
-        <p class="sav-note">Estimate only: 40 liters per shower heated from 27°C to 42°C, every day of the year; heat pump about 3.5× as efficient as an electric heater; solar covering about 65% of the heat. Your free site visit gives exact figures.</p>
+        <div class="sav-rate"><label for="svR">Electricity rate</label><span>₱</span><input id="svR" type="number" min="5" max="30" step=".5" value="15"><span>per kWh</span></div>
+        <p class="sav-note">Estimate only: 40 liters per shower heated from 27°C to 42°C, every day of the year. An electric heater about 95% efficient; a heat pump making 3.5 units of heat per unit of electricity; solar covering about 65% of the heat. The rate starts at ₱15, about Meralco's household average in October 2026: enter the one on your bill. Your free site visit gives exact figures.</p>
       </div>
       <div class="sav-out" aria-live="polite">
         <p class="sav-big">A heat pump could save you about<b><em class="svS">₱0</em> a year</b></p>
@@ -1227,7 +1235,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <li><div><b>Supplied, installed &amp; serviced</b><span>One team from quote to after-sales</span></div></li>
         </ul>
         <div class="qt-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
-        <div class="qt-call"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><div>Prefer to talk?<a href="tel:+639338672954">0933 867 2954</a></div></div>
+        <div class="qt-call"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><div>Prefer to talk? Call or text<span class="nums"><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></span></div></div>
         <div class="qt-call qt-mail"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M2 4l6 5 6-5"/></svg></i><div>Prefer email?<a href="mailto:sales@dpymi.com.ph?subject=Quote%20request">sales@dpymi.com.ph</a><small>Repairs &amp; maintenance: <a href="mailto:service@dpymi.com.ph?subject=Repair%20or%20maintenance%20request">service@dpymi.com.ph</a></small></div></div>
       </div>
       <form class="qt-form" novalidate>
@@ -1241,7 +1249,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <div><label for="qB">Nearest branch</label><select id="qB" name="branch"><option>Manila (Pasig)</option><option>Boracay</option><option>Iloilo</option><option>Cebu</option><option>Davao</option><option>Other area</option></select></div>
         <div><label for="qS">Number of showers / bathrooms</label><input id="qS" name="showers" inputmode="numeric" placeholder="e.g. 3"></div>
         <div class="full"><label for="qM">Anything else?</label><textarea id="qM" name="msg" placeholder="Replacing an old heater? New building? Tell us a bit more."></textarea></div>
-        <label class="qt-ok"><input type="checkbox" name="consent" required><span>I agree that DPY may contact me about my request and use these details as described in the <a href="#privacy" data-privacy>privacy notice</a>.</span></label>
+        <label class="qt-ok"><input type="checkbox" name="consent" required><span>I agree that DPY may contact me about my request and use these details as described in the <a href="privacy" data-privacy>privacy notice</a>.</span></label>
         <div class="qt-sub"><small>Sent to our sales team at sales@dpymi.com.ph. We never sell your details or send spam.</small><button class="btn red" type="submit">Request my free quote <svg><use href="#arr"/></svg></button></div>
         <div class="qt-done" role="status"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Thank you<span class="who"></span>!</h3><p>Your email app has opened with your request. Just press send, and our team will call you to arrange your free site visit.</p><button class="btn ghost again" type="button">Edit my request</button></div>
       </form>
@@ -1314,9 +1322,9 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </div>
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
-<script src="assets/js/site.js?v=b9b01fc8" defer></script>
+<script src="assets/js/site.js?v=9c2a8e67" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
-<script src="assets/js/ask.js?v=7b8006a9" defer></script>
+<script src="assets/js/ask.js?v=11b422ae" defer></script>
 <script>
 // paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
 // The library is downloaded early (preload in the head), then run right after the first frame, followed by everything below.
@@ -1606,11 +1614,14 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
 /* ---------- savings calculator (estimates; the assumptions are printed under the inputs) ---------- */
 {
   const n = $('#svN'), no = $('#svNo'), rate = $('#svR'), P = $$('.sav-pre button'), bars = $$('.sav-bars i')
-  const KWH = 40 * 4.186 * 15 / 3600 / .95 // one shower: 40 L heated 15 K, electric heater ~95% efficient
+  // one shower: 40 L of water warmed 15 K (27 to 42°C) needs 0.70 kWh of heat. An electric heater (~95% efficient) draws
+  // heat / .95; a heat pump draws heat / 3.5 (its seasonal COP, kept conservative for 55-60°C storage in Philippine heat);
+  // solar covers 65% of the heat and an electric element the rest
+  const HEAT = 40 * 4.186 * 15 / 3600, EFF = .95, COP = 3.5, SOLAR = .65
   const PESO = new Intl.NumberFormat('en-PH', { maximumFractionDigits: 0 }), peso = v => '₱' + PESO.format(Math.round(v))
   let shown = { e: 0, h: 0, o: 0 }
   function calc() {
-    const N = +n.value, r = Math.max(1, +rate.value || 12), e = N * KWH * r * 365, h = e / 3.5, o = e * .35
+    const N = +n.value, r = Math.max(1, +rate.value || 15), yr = N * HEAT * r * 365, e = yr / EFF, h = yr / COP, o = yr * (1 - SOLAR) / EFF
     no.innerHTML = N + '<small>a day</small>'; n.style.setProperty('--p', ((N - 2) / 598 * 100).toFixed(1) + '%')
     P.forEach(b => b.setAttribute('aria-pressed', +b.dataset.sh === N))
     const to = { e, h, o }, set = s => { $('.svE').textContent = peso(s.e); $('.svH').innerHTML = peso(s.h) + `<small>−${peso(s.e - s.h).slice(1)}</small>`; $('.svO').innerHTML = peso(s.o) + `<small>−${peso(s.e - s.o).slice(1)}</small>`; $('.svS').textContent = peso(s.e - s.h) }
@@ -1626,15 +1637,17 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
 /* ---------- the range: real DPY products ---------- */
 const CK = '<svg><use href="#ck"/></svg>', EXT = '<svg><use href="#ext"/></svg>'
 const MODELS = [
-  ['instant', 'aquapower-a35', 'Instant', 'Instant Water Heaters', 'Aquapower A35M · S35M · Q6M, Gratek Aquarius', 'Most popular', ['Hot water in seconds', 'Compact, no tank', 'Best for condos'], 'instantaneous-water-heater'],
-  ['storage', 'rheem', 'Storage', 'Electric Storage Heaters', 'Rheem series · Everhot', '', ['Hot water stored and ready', 'Serves several taps', 'Best for family homes'], 'electric-storage-water-heater'],
-  ['heatpump', 'heatpump-5star', 'Heat Pump', 'Heat Pump Water Heaters', '5 Star integral · Deron air-to-water', 'Energy saver', ['Heat moved from the air', 'Far lower power use', 'Best for hotels & hospitals'], 'heat-pumps'],
-  ['solar', 'solar-5star', 'Solar', 'Solar Water Heaters', '5 Star CZ2.0 · CZ4.0', '', ['Heated by the sun', 'Electric backup', 'Best for sunny rooftops'], 'solar-water-heater'],
+  ['instant', 'aquapower-a35', 'Instant', 'Instant Water Heaters', 'Aquapower A35M · S35M · Q6M, Gratek Aquarius', 'Most popular', ['Hot water in seconds', 'Compact, no tank', 'Best for condos'], 'instantaneous-water-heater', 'aquapower-a35m-a55'],
+  ['storage', 'rheem', 'Storage', 'Electric Storage Heaters', 'Rheem series · Everhot', '', ['Hot water stored and ready', 'Serves several taps', 'Best for family homes'], 'electric-storage-water-heater', 'rheem'],
+  ['heatpump', 'heatpump-5star', 'Heat Pump', 'Heat Pump Water Heaters', '5 Star integral · Deron air-to-water', 'Energy saver', ['Heat moved from the air', 'Far lower power use', 'Best for hotels & hospitals'], 'heat-pumps', '5-star-integral-heat-pump'],
+  ['solar', 'solar-5star', 'Solar', 'Solar Water Heaters', '5 Star CZ2.0 · CZ4.0', '', ['Heated by the sun', 'Electric backup', 'Best for sunny rooftops'], 'solar-water-heater', '5-star-solar-water-heater'],
 ]
-$('.models').innerHTML = MODELS.map(([k, img, type, t, mods, tag, li, url], i) => `<article class="model">
+// the photo and the name open the product shown, where its specs are
+const NAMES = { 'aquapower-a35m-a55': 'Aquapower A35M / A55', rheem: 'Rheem storage water heaters', '5-star-integral-heat-pump': '5 Star integral heat pump', '5-star-solar-water-heater': '5 Star solar water heater' }
+$('.models').innerHTML = MODELS.map(([k, img, type, t, mods, tag, li, url, slug], i) => `<article class="model">
   <span class="num">0${i + 1}</span>${tag ? `<span class="tag${i ? '' : ' hot'}">${tag}</span>` : ''}
-  <div class="pic"><img src="${IMG}${img}.webp"${wh('dpy/' + img + '.webp')} alt="${t}: ${mods}" loading="lazy"></div>
-  <p class="type">${type}</p><h3>${t}</h3><p class="mods">${mods}</p>
+  <a class="pic" href="products/${slug}" aria-label="See the ${NAMES[slug]} and its specs"><img src="${IMG}${img}.webp"${wh('dpy/' + img + '.webp')} alt="" loading="lazy"></a>
+  <p class="type">${type}</p><h3><a href="products/${slug}">${t}</a></h3><p class="mods">${mods}</p>
   <ul>${li.map(x => `<li>${CK}${x}</li>`).join('')}</ul>
   <div class="acts"><a class="btn ${i ? 'ghost' : 'red'}" href="#quote" data-quote="${['Instant', 'Storage', 'Heat pump', 'Solar'][i]}">Get a Quote</a><a class="ext" href="water-heaters?type=${k}" aria-label="See all ${t}">${EXT}</a></div></article>`).join('')
 

@@ -3,6 +3,10 @@
    and the scroll reveals; the homepage runs its own (window.DPY_HOME), tied to its GSAP animations. */
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)]
+// pictures and links aren't dragged off the page, so dragging across a phone number selects it for copying
+// (CSS -webkit-user-drag covers Chrome and Safari; the attribute covers Firefox, including links added later)
+addEventListener('pointerdown', e => { const t = e.target.closest?.('a, img'); if (t && t.draggable !== false) t.draggable = false }, true)
+addEventListener('dragstart', e => { if (e.target.closest?.('a, img')) e.preventDefault() })
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches, HOME = !!window.DPY_HOME
 const DPY = window.DPY = { $, $$, RM }
 
@@ -123,7 +127,7 @@ C.sync()
 /* ---------- between pages: the clicked card's photo becomes the product page's photo (@view-transition in base.css).
    Only one element may carry the name, so earlier ones are cleared, including this page's own product photo. ---------- */
 document.addEventListener('click', e => {
-  const a = e.target.closest('.pc a[href*="products/"]'), im = a && $('.pic img', a.closest('.pc'))
+  const a = e.target.closest('.pc a[href*="products/"], .model a[href*="products/"]'), im = a && $('.pic img', a.closest('.pc, .model'))
   if (!im || e.ctrlKey || e.metaKey || e.shiftKey) return
   $$('[style*="view-transition-name"]').forEach(el => el.style.viewTransitionName = '')
   const main = $('.plinth ~ img.main'); if (main) main.style.viewTransitionName = 'none'
