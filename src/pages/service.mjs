@@ -11,7 +11,7 @@ const CHECKS = [
 const PM = ['Heating element and thermostat tested', 'Safety and pressure relief valves checked', 'Anode rod checked, replaced when worn', 'Tank flushed and descaled', 'Wiring, breaker and earthing checked', 'Flow and temperature measured at the taps', 'Heat pump coils, fans and refrigerant checked', 'A written report of what we found']
 
 export default {
-  path: 'service', nav: 'service',
+  path: 'service', nav: 'service', cta: 'service',
   title: 'Water Heater Repair, Installation & Maintenance',
   desc: 'Book a water heater repair, installation or preventive maintenance visit with DPY Mercantile. Quick checks to try first, and service teams in Manila, Boracay, Iloilo, Cebu and Davao.',
   crumbs: [['Service']],

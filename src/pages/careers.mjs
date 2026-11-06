@@ -10,7 +10,7 @@ const JOBS = [
   ['Sales Executive', 'Cebu', 'Serve homes and businesses across Cebu, from inquiry to after-sales.'],
 ]
 export default {
-  path: 'careers', nav: 'careers',
+  path: 'careers', nav: 'careers', noCta: true,
   title: 'Careers at DPY Mercantile',
   desc: 'Join DPY Mercantile Inc. Openings for sales engineers, sales executives, accounting staff and technicians in Manila and Cebu.',
   crumbs: [['Careers']],

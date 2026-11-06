@@ -71,6 +71,26 @@ for (const url of products) {
   check('small grey text: 4.5:1 or more on white', cr.dim >= 4.5 && cr.base >= 4.5, cr)
   await p.close()
 }
+// the closing banner fits each page, its links lead somewhere real, and the product banner's finder opens
+{
+  const want = { '/': null, '/water-heaters': 'Ready for a quote?', '/products/rheem': 'Not sure this is the one?', '/compare': 'Not sure this is the one?',
+    '/business': 'Planning a building?', '/projects': 'Planning a building?', '/service': 'Hot water stopped?', '/about': 'Not sure what you need?',
+    '/careers': null, '/contact': null, '/privacy': null }
+  for (const [url, title] of Object.entries(want)) {
+    const p = await open(desk, url, { wait: 0 })
+    const r = await p.evaluate(() => { const c = document.querySelector('.foot-cta'); return c ? { title: c.querySelector('b').textContent, links: [...c.querySelectorAll('a')].map(a => a.getAttribute('href')) } : null })
+    check(`${url}: closing banner`, title === null ? r === null : r?.title === title, r)
+    for (const h of (r?.links || []).filter(h => !h.startsWith('tel:'))) {
+      const res = await fetch(new URL(h, p.url()).href.split('#')[0])
+      check(`${url}: banner link ${h} works`, res.status === 200, res.status)
+    }
+    await p.close()
+  }
+  const p = await open(desk, '/water-heaters#finder', { wait: 900 })
+  check('water-heaters#finder opens the finder', await p.evaluate(() => !!document.querySelector('.qz.on')))
+  await p.close()
+}
+
 // text size floors on every page: reading text (a sentence, normal weight) 12.5px and up; nothing under 11px (10.5px on phones)
 {
   const { sitemapPaths } = await import('./lib.mjs')

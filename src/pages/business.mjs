@@ -15,7 +15,7 @@ const STEPS = [
 ]
 
 export default {
-  path: 'business', nav: 'business',
+  path: 'business', nav: 'business', cta: 'project',
   title: 'Hot Water Systems for Hotels, Hospitals & Buildings',
   desc: 'Central hot water systems designed, installed and maintained by DPY Mercantile: heat pumps, storage tanks and pumps for hotels, hospitals, condos and commercial buildings.',
   crumbs: [['For Business']],

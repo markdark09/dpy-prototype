@@ -2,7 +2,7 @@ import { CLIENTS, crumbsHtml, img, I } from '../../tools/lib.mjs'
 
 const total = Object.values(CLIENTS).flat().length
 export default {
-  path: 'projects', nav: 'projects',
+  path: 'projects', nav: 'projects', cta: 'project',
   title: 'Projects & Clients: Hotels, Hospitals and Buildings',
   desc: 'Hotels, hospitals, residences and restaurants across the Philippines that run on hot water systems supplied and installed by DPY Mercantile and Gratek.',
   crumbs: [['Projects']],

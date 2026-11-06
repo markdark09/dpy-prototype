@@ -69,7 +69,7 @@ function pg(p) {
   const rel = PRODUCTS.filter(x => x !== p && x.cat === p.cat).concat(PRODUCTS.filter(x => x !== p && x.cat !== p.cat && x.for.some(f => p.for.includes(f)))).slice(0, 4)
   const tables = (p.specs || []).map(k => specTable(k)).join('') + (p.table ? specTable(null, p.table) : '')
   return {
-    path: 'products/' + p.slug, nav: 'water-heaters',
+    path: 'products/' + p.slug, nav: 'water-heaters', cta: 'product',
     title: `${p.name} | ${c.t.replace(/^./, x => x.toUpperCase())}`,
     desc: `${p.short} Supplied, installed and serviced by DPY Mercantile across the Philippines. Free site visit and quote.`.slice(0, 300),
     crumbs: [['Water Heaters', 'water-heaters'], [c.t.replace(/^./, x => x.toUpperCase()), `water-heaters?type=${p.cat}`], [p.name]],

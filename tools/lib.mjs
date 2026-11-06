@@ -182,11 +182,24 @@ export function nav(pg, R) {
 </header>
 <nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links">${[[pg.home ? '#top' : R || './', 'Home', 'home'], ...NAV.map(([k, t]) => [R + k, t, k])].map(([h, t, k], i) => `<a href="${h}"${cur(k)} style="--i:${i}">${t}</a>`).join('')}</div><a class="btn red sh-q" href="${quote}">Get a Free Quote ${I.arr}</a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg">${MSGR}</div><p>${I.clock}Monday to Saturday, 8 AM to 5 PM</p></div></nav>`
 }
+// the banner that closes each page: what to do next, for what the visitor came to that page for
+const SALES = ['tel:+639338672954', '0933 867 2954'], SERVICE = ['tel:+639564160815', '0956 416 0815']
+const CTAS = {
+  quote: ['Not sure what you need?', "Tell us about your building. We'll visit, size it and send a written quote, free.", 'contact#quote', 'Get a free quote', SALES],
+  range: ['Ready for a quote?', "Add what you like to your quote list, or tell us about your home or building. We'll visit and price it all in one written quote, free.", 'contact#quote', 'Get a free quote', SALES],
+  product: ['Not sure this is the one?', "Answer four quick questions and we'll suggest the type and models that fit your home or building.", 'water-heaters#finder', 'Find my water heater', SALES],
+  project: ['Planning a building?', 'Our engineers visit, size the whole hot water system and send a written proposal, free.', 'contact?type=project#quote', 'Book a free site survey', SALES],
+  service: ['Hot water stopped?', 'Call our service team, or book a visit and we call you back to confirm the day.', 'service#book', 'Book a service visit', SERVICE],
+}
+function footCta(R, key = 'quote') {
+  const [title, text, href, label, [tel, num]] = CTAS[key]
+  return `<div class="foot-cta"><div><b>${title}</b><span>${text}</span></div><div class="acts"><a class="btn white" href="${R}${href}">${label} ${I.arr}</a><a class="btn line" href="${tel}">${I.tel}${num}</a></div></div>`
+}
 export function foot(R, pg) {
   const cat = k => `${R}water-heaters?type=${k}`
   return `<footer class="foot">
   <div class="wrap">
-    ${pg.noCta ? '' : `<div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="${R}contact#quote">Get a free quote ${I.arr}</a><a class="btn line" href="tel:+639338672954">${I.tel}0933 867 2954</a></div></div>`}
+    ${pg.noCta ? '' : footCta(R, pg.cta)}
     <div class="ft">
       <div class="logo"><img src="${R}assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="${R}assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
         <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>

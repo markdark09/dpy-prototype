@@ -10,7 +10,7 @@ const meter = (n, label, low) => `<span class="mt" role="img" aria-label="${labe
 const ORDER = ['instant', 'storage', 'heatpump', 'solar', 'tank', 'pump', 'pipe', 'control', 'fan']
 
 export default {
-  path: 'water-heaters', nav: 'water-heaters',
+  path: 'water-heaters', nav: 'water-heaters', cta: 'range',
   title: 'Water Heaters, Heat Pumps & Solar Heaters',
   desc: 'Every water heater DPY and Gratek supply: instant, storage, heat pump and solar, plus tanks, pumps and pipes. Compare types, see specs and get a free quote.',
   crumbs: [['Water Heaters']],

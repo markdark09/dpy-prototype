@@ -6,7 +6,7 @@ const DATA = Object.fromEntries(PRODUCTS.map(p => [p.slug, { n: p.name, b: p.bra
 const GROUPS = Object.entries(CATS).map(([k, c]) => [c.t.replace(/^./, x => x.toUpperCase()), PRODUCTS.filter(p => p.cat === k).map(p => [p.slug, p.name])]).filter(([, l]) => l.length)
 
 export default {
-  path: 'compare', nav: 'water-heaters',
+  path: 'compare', nav: 'water-heaters', cta: 'product',
   title: 'Compare Water Heaters Side by Side',
   desc: 'Compare up to four DPY and Gratek water heaters, heat pumps and tanks side by side: power, capacity, running cost, power supply, size and warranty.',
   crumbs: [['Water Heaters', 'water-heaters'], ['Compare']],
