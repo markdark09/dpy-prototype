@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/everhot.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Everhot Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/everhot"}]},{"@type":"Product","name":"Everhot Storage Water Heaters","brand":{"@type":"Brand","name":"Everhot"},"category":"Electric storage heaters","description":"An Australian-designed tank heater in 11 sizes, from 25 liters for one bathroom to 492 for a building.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/everhot.webp","url":"https://prototype.dpy-mi.workers.dev/products/everhot"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Everhot Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/everhot"}]},{"@type":"Product","name":"Everhot Storage Water Heaters","brand":{"@type":"Brand","name":"Everhot"},"category":"Electric storage heaters","description":"Everhot is an Australian-designed storage heater that keeps a tank of hot water ready for the house. It comes in 11 sizes, from 25 liters for one bathroom to 492 liters for a building, floor-standing or wall-hung. The tank has a vitreous enamel lining and an anode rod against rust. An adjustable thermostat cuts the power once the water reaches your setting, and a relief valve set at 0.85 MPa protects against high pressure. With CFC-free insulation in an epoxy-coated steel jacket, it can go indoors or outdoors.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/everhot.webp","url":"https://prototype.dpy-mi.workers.dev/products/everhot"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -540,6 +540,11 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -616,7 +621,14 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>Everhot is an Australian-designed storage heater that keeps a tank of hot water ready for the house. It comes in 11 sizes, from 25 liters for one bathroom to 492 liters for a building, floor-standing or wall-hung.</p><p>The tank has a vitreous enamel lining and an anode rod against rust. An adjustable thermostat cuts the power once the water reaches your setting, and a relief valve set at 0.85 MPa protects against high pressure. With CFC-free insulation in an epoxy-coated steel jacket, it can go indoors or outdoors.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Enamel-lined tank</h3><p>A durable vitreous enamel lining keeps the tank from rusting.</p></div><div class="ft-c" data-r><h3>Pressure relief valve</h3><p>Set at 0.85 MPa to protect against too much pressure. Also lets the tank be drained for servicing.</p></div><div class="ft-c" data-r><h3>Adjustable thermostat</h3><p>Cuts the power once the water reaches your setting, saving electricity and preventing scalding.</p></div><div class="ft-c" data-r><h3>Anode rod</h3><p>Protects the inner tank from corrosion and makes the heater last longer.</p></div><div class="ft-c" data-r><h3>Indoors or outdoors</h3><p>Suitable for both, with CFC-free foam insulation inside an epoxy-coated steel jacket.</p></div></div>

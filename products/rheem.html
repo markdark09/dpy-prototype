@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Rheem Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/rheem"}]},{"@type":"Product","name":"Rheem Storage Water Heaters","brand":{"@type":"Brand","name":"Rheem"},"category":"Electric storage heaters","description":"Rheem's glass-lined tanks keep 25 to 454 liters of hot water ready for the whole house.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp","url":"https://prototype.dpy-mi.workers.dev/products/rheem"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Rheem Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/rheem"}]},{"@type":"Product","name":"Rheem Storage Water Heaters","brand":{"@type":"Brand","name":"Rheem"},"category":"Electric storage heaters","description":"Rheem storage heaters heat water ahead of time and keep it ready in an insulated tank, so several taps can run hot at once. There are 11 sizes from 25 to 454 liters, wall-hung or floor-standing, for anything from one bathroom to a small hotel. The tank is lined with Rheemglas enamel, fused to the steel at 870°C, and protected by an anode rod, so hot water can't corrode it. An Incoloy element resists dry firing, thick CFC-free foam keeps the heat in, and a relief valve and thermostat guard against high pressure and overheating. It meets IEC 60335-2-21.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp","url":"https://prototype.dpy-mi.workers.dev/products/rheem"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -540,6 +540,11 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -616,7 +621,14 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>Rheem storage heaters heat water ahead of time and keep it ready in an insulated tank, so several taps can run hot at once. There are 11 sizes from 25 to 454 liters, wall-hung or floor-standing, for anything from one bathroom to a small hotel.</p><p>The tank is lined with Rheemglas enamel, fused to the steel at 870°C, and protected by an anode rod, so hot water can't corrode it. An Incoloy element resists dry firing, thick CFC-free foam keeps the heat in, and a relief valve and thermostat guard against high pressure and overheating. It meets IEC 60335-2-21.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Glass-lined tank</h3><p>Rheemglas enamel is fused to the steel at 870°C, so hot water can't corrode the tank.</p></div><div class="ft-c" data-r><h3>Safety valve and thermostat</h3><p>A UL-approved pressure relief valve, and a thermostat that cuts the power before the water gets too hot.</p></div><div class="ft-c" data-r><h3>Long-life element</h3><p>An Incoloy stainless element that resists dry firing and limits sediment build-up.</p></div><div class="ft-c" data-r><h3>Anode rod</h3><p>A sacrificial anode protects the tank from corrosion for years.</p></div><div class="ft-c" data-r><h3>Keeps heat in</h3><p>Thick CFC-free foam insulation means less power to keep the water hot.</p></div><div class="ft-c" data-r><h3>Weather resistant</h3><p>Colorbond steel jacket with no screws on top or bottom, rated IPX1.</p></div><div class="ft-c" data-r><h3>Ready to mount</h3><p>Comes with a sturdy bracket and masonry bolts. Meets IEC 60335-2-21.</p></div></div>

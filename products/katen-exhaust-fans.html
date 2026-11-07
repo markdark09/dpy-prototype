@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/katen-fan.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Exhaust fans","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=fan"},{"@type":"ListItem","position":4,"name":"Katen Exhaust Fans","item":"https://prototype.dpy-mi.workers.dev/products/katen-exhaust-fans"}]},{"@type":"Product","name":"Katen Exhaust Fans","brand":{"@type":"Brand","name":"Katen"},"category":"Exhaust fans","description":"Exhaust fans that clear steam from the bathroom and heat from the kitchen.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/katen-fan.webp","url":"https://prototype.dpy-mi.workers.dev/products/katen-exhaust-fans"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Exhaust fans","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=fan"},{"@type":"ListItem","position":4,"name":"Katen Exhaust Fans","item":"https://prototype.dpy-mi.workers.dev/products/katen-exhaust-fans"}]},{"@type":"Product","name":"Katen Exhaust Fans","brand":{"@type":"Brand","name":"Katen"},"category":"Exhaust fans","description":"Katen exhaust fans clear steam from the bathroom after a hot shower and heat from the kitchen, so there is less damp and less mold. There are three models: the BPT12-13A, a ducted fan for ceilings; the VL-LA, a metal wall fan; and the VF-AK, for walls and windows. Gratek carries the range. Katen does not publish spec sheets online, so ask us for the one you need.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/katen-fan.webp","url":"https://prototype.dpy-mi.workers.dev/products/katen-exhaust-fans"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -540,6 +540,11 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -616,7 +621,14 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>Katen exhaust fans clear steam from the bathroom after a hot shower and heat from the kitchen, so there is less damp and less mold.</p><p>There are three models: the BPT12-13A, a ducted fan for ceilings; the VL-LA, a metal wall fan; and the VF-AK, for walls and windows. Gratek carries the range. Katen does not publish spec sheets online, so ask us for the one you need.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Less steam, less mold</h3><p>Pulls moist air out after a hot shower.</p></div><div class="ft-c" data-r><h3>Three models</h3><p>BPT12-13A, a ducted fan for ceilings; VL-LA, a metal wall fan; VF-AK, for walls and windows.</p></div></div>

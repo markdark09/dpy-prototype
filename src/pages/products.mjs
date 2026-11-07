@@ -82,6 +82,11 @@ const css = `
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -130,7 +135,7 @@ function pg(p) {
     desc: `${p.short} Supplied, installed and serviced by DPY Mercantile across the Philippines. Free site visit and quote.`.slice(0, 300),
     crumbs: [['Water Heaters', 'water-heaters'], [c.t.replace(/^./, x => x.toUpperCase()), `water-heaters?type=${p.cat}`], [p.name]],
     ogImage: src || undefined,
-    ld: [{ '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand }, category: c.t, description: p.short, ...(src ? { image: SITE + src } : {}), url: SITE + 'products/' + p.slug }],
+    ld: [{ '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand }, category: c.t, description: p.about.join(' '), ...(src ? { image: SITE + src } : {}), url: SITE + 'products/' + p.slug }],
     css,
     body: R => `
 <section class="phead pd">
@@ -149,6 +154,13 @@ function pg(p) {
       </div>
       <div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span>${src ? img(R, src, p.name, ` class="main${p.photo ? ' photo' : ''}" fetchpriority="high"`) : `<span class="noimg"><span>${p.brand.toUpperCase()}<small>Photo to follow</small></span></span>`}</div>
     </div>
+  </div>
+</section>
+
+<section class="sec about" id="about" aria-labelledby="abT">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r>${p.about.map(t => `<p>${t}</p>`).join('')}</div>
   </div>
 </section>
 

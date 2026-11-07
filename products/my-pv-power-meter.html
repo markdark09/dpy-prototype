@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/power-meter.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Solar power control","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=control"},{"@type":"ListItem","position":4,"name":"my-PV Power Meter","item":"https://prototype.dpy-mi.workers.dev/products/my-pv-power-meter"}]},{"@type":"Product","name":"my-PV Power Meter","brand":{"@type":"Brand","name":"my-PV"},"category":"Solar power control","description":"Measures your solar surplus so the AC·THOR knows how much power it can use.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/power-meter.webp","url":"https://prototype.dpy-mi.workers.dev/products/my-pv-power-meter"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Solar power control","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=control"},{"@type":"ListItem","position":4,"name":"my-PV Power Meter","item":"https://prototype.dpy-mi.workers.dev/products/my-pv-power-meter"}]},{"@type":"Product","name":"my-PV Power Meter","brand":{"@type":"Brand","name":"my-PV"},"category":"Solar power control","description":"The my-PV Power Meter measures the power flowing between your home and the grid, so the AC·THOR knows exactly how much spare solar power it can use. It covers three phases with three clamp-on sensors (60 A, for cables up to 10 mm across), so no cables need rewiring. It connects over encrypted Ethernet and takes its power from L1. Larger sensors, 100 to 600 A, are available for bigger cables.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/power-meter.webp","url":"https://prototype.dpy-mi.workers.dev/products/my-pv-power-meter"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -540,6 +540,11 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -616,7 +621,14 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>The my-PV Power Meter measures the power flowing between your home and the grid, so the AC·THOR knows exactly how much spare solar power it can use.</p><p>It covers three phases with three clamp-on sensors (60 A, for cables up to 10 mm across), so no cables need rewiring. It connects over encrypted Ethernet and takes its power from L1. Larger sensors, 100 to 600 A, are available for bigger cables.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede">Every unit is genuine, installed by our own technicians and backed by our after-sales team.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Clip-on measuring</h3><p>Comes with three clamp-on current sensors (60 A, for cables up to 10 mm across). No rewiring of your cables.</p></div></div>
@@ -661,10 +673,10 @@ button.busy{cursor:progress;opacity:.85}
     <div class="grid rel"><article class="pc" data-cat="control" data-for="home business" data-r>
   <span class="tag">Solar control</span><span class="who"><span>Home</span><span class="b">Business</span></span>
   <div class="pic"><img src="../assets/img/dpy/acthor-9s.webp" width="640" height="553" alt="my-PV AC·THOR 9s" loading="lazy"></div>
-  <p class="br">my-PV · Up to 9 kW, 1 to 3 phase</p>
+  <p class="br">my-PV · Up to 9 kW</p>
   <h3><a href="../products/my-pv-ac-thor-9s">my-PV AC·THOR 9s</a></h3>
   <p>Sends spare power from your solar panels into your water heater, instead of exporting it.</p>
-  <div class="kf"><span><b>3 × 3,000</b> W output</span><span><b>1–3</b> phase</span></div>
+  <div class="kf"><span><b>3 × 3,000</b> W output</span><span><b>9 kW</b> in total</span></div>
   <div class="acts"><button class="cmpb" type="button" data-cmp="my-pv-ac-thor-9s" data-name="my-PV AC·THOR 9s" data-img="assets/img/dpy/acthor-9s.webp" aria-pressed="false" aria-label="Compare my-PV AC·THOR 9s" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="my-pv-ac-thor-9s" data-name="my-PV AC·THOR 9s" data-img="assets/img/dpy/acthor-9s.webp" data-cat="control" aria-pressed="false" aria-label="Add my-PV AC·THOR 9s to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="control" data-for="home" data-r>
   <span class="tag">Solar control</span><span class="who"><span>Home</span></span>
@@ -672,7 +684,7 @@ button.busy{cursor:progress;opacity:.85}
   <p class="br">my-PV · Single phase</p>
   <h3><a href="../products/my-pv-ac-thor-i">my-PV AC·THORi</a></h3>
   <p>The single-phase AC·THOR for homes: uses spare solar power to heat water.</p>
-  <div class="kf"><span><b>0–3</b> kW output</span><span><b>1</b> phase</span></div>
+  <div class="kf"><span><b>0–3.6</b> kW output</span><span><b>1</b> phase</span></div>
   <div class="acts"><button class="cmpb" type="button" data-cmp="my-pv-ac-thor-i" data-name="my-PV AC·THORi" data-img="assets/img/dpy/acthor-i.webp" aria-pressed="false" aria-label="Compare my-PV AC·THORi" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="my-pv-ac-thor-i" data-name="my-PV AC·THORi" data-img="assets/img/dpy/acthor-i.webp" data-cat="control" aria-pressed="false" aria-label="Add my-PV AC·THORi to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>

@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-q6.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Instant water heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=instant"},{"@type":"ListItem","position":4,"name":"Aquapower Q6M / Q9M","item":"https://prototype.dpy-mi.workers.dev/products/aquapower-q6m-q9m"}]},{"@type":"Product","name":"Aquapower Q6M / Q9M","brand":{"@type":"Brand","name":"Aquapower"},"category":"Instant water heaters","description":"Our most powerful instant heaters, for several taps or a strong rain shower.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-q6.webp","url":"https://prototype.dpy-mi.workers.dev/products/aquapower-q6m-q9m"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Instant water heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=instant"},{"@type":"ListItem","position":4,"name":"Aquapower Q6M / Q9M","item":"https://prototype.dpy-mi.workers.dev/products/aquapower-q6m-q9m"}]},{"@type":"Product","name":"Aquapower Q6M / Q9M","brand":{"@type":"Brand","name":"Aquapower"},"category":"Instant water heaters","description":"The Q6M and Q9M are the most powerful heaters in the Aquapower range, at 6 and 9 kW. That is enough for a strong rain shower, or for a shower and a sink at the same time. Like every Aquapower heater, they heat through a 99.9% copper tank, switch on at 2 liters a minute, and have two thermostats and a pressure switch for safety, in an IP25 splash-proof casing. They suit big bathrooms at home, and small shops and gyms.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-q6.webp","url":"https://prototype.dpy-mi.workers.dev/products/aquapower-q6m-q9m"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -540,6 +540,11 @@ button.busy{cursor:progress;opacity:.85}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
 @media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
 @media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
 .spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
 .spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
@@ -616,7 +621,14 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>The Q6M and Q9M are the most powerful heaters in the Aquapower range, at 6 and 9 kW. That is enough for a strong rain shower, or for a shower and a sink at the same time.</p><p>Like every Aquapower heater, they heat through a 99.9% copper tank, switch on at 2 liters a minute, and have two thermostats and a pressure switch for safety, in an IP25 splash-proof casing. They suit big bathrooms at home, and small shops and gyms.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede"><b style="color:var(--ink)">Warranty:</b> 5 years on the heating element, 1 year on parts.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Power for more than one tap</h3><p>Up to 9 kW, enough for a shower and a sink at the same time.</p></div><div class="ft-c" data-r><h3>Fast heating, copper tank</h3><p>The 99.9% copper tank transfers heat quickly and stands up to years of use.</p></div><div class="ft-c" data-r><h3>Works on low water pressure</h3><p>It switches on at just 2 liters a minute, so it suits condos and upper floors with weak pressure.</p></div><div class="ft-c" data-r><h3>No scalding, no overheating</h3><p>Two thermostats cut the power if the water gets too hot, with automatic and manual reset.</p></div><div class="ft-c" data-r><h3>Shuts itself off when something is wrong</h3><p>A pressure switch turns the heater off if the water flow becomes irregular.</p></div><div class="ft-c" data-r><h3>Splash-proof</h3><p>Water and dust resistant casing, rated IP25, safe to mount in the shower area.</p></div><div class="ft-c" data-r><h3>Built to last</h3><p>Tested for over 3,000 hours of continuous use. It can last 30 years with clean water.</p></div></div>
