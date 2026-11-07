@@ -1,0 +1,23 @@
+{
+  "name": "dpy-prototype",
+  "private": true,
+  "description": "DPY Mercantile website prototype, served by a Cloudflare Worker",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "dev": "wrangler dev --port 8787 --live-reload=false",
+    "test": "node --test worker/send.test.mjs",
+    "test:pages": "node tools/test/run.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.59.1",
+    "wrangler": "4.158.0"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "workerd": true
+  }
+}

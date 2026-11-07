@@ -5,3 +5,8 @@ desktop.ini
 # local tooling
 node_modules/
 .wrangler/
+# local secrets for wrangler dev (RESEND_API_KEY and the like)
+.dev.vars
+.dev.vars.*
+.env
+.env.*

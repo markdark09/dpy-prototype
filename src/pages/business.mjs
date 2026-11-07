@@ -137,8 +137,10 @@ export default {
         <path class="pipe cold" d="M372 330 H300 V260 H190"/><path class="flow slow" d="M372 330 H300 V260 H190"/>
         <path class="pipe warm" d="M220 70 H330 V160 H372"/><path class="flow slow" d="M220 70 H330 V160 H372"/>
         <path class="pipe hot" d="M488 140 H560 V200 H600"/><path class="flow" d="M488 140 H560 V200 H600"/>
-        <path class="pipe hot" d="M690 200 H760 V60 H790"/><path class="flow" d="M690 200 H760 V60 H790"/>
-        <path class="pipe hot" d="M760 120 H790 M760 180 H790 M760 240 H790 M760 300 H790"/>
+        <!-- the riser: up to floor 5 and down to floor 1, a branch to every floor at its middle -->
+        <path class="pipe hot" d="M690 200 H760 V66 H790"/><path class="flow" d="M690 200 H760 V66 H790"/>
+        <path class="pipe hot" d="M760 200 V306 H790"/><path class="flow" d="M760 200 V306 H790"/>
+        <path class="pipe hot" d="M760 126 H790 M760 186 H790 M760 246 H790"/>
         <path class="pipe cold" d="M950 360 V400 H540 V330 H488"/><path class="flow slow" d="M950 360 V400 H540 V330 H488"/>
         <!-- solar -->
         <a href="${R}products/5-star-solar-water-heater"><g><rect class="box" x="40" y="30" width="180" height="80" rx="14"/><g transform="translate(58 46)"><rect x="0" y="0" width="46" height="30" rx="3" fill="#24477A" class="fin"/><path class="fin" d="M15 0v30M31 0v30M0 15h46"/><circle class="sun" cx="58" cy="6" r="6"/></g><text class="lbl" x="122" y="66">Solar</text><text class="sub" x="122" y="84">optional</text></g></a>

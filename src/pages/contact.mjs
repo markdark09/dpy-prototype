@@ -20,7 +20,7 @@ export default {
 .ch .msgs{display:flex;gap:8px;flex-wrap:wrap}
 .ch .hrs{font-size:13px;color:var(--mute);padding:4px 4px 0}
 /* the quote panel */
-.qp{position:relative;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden}
+.qp{position:relative;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden;overflow:clip}
 .qp-hd{padding:30px 34px 0}
 .qp-hd h2{margin:0;font-size:26px;font-weight:600;letter-spacing:-.03em}
 .qp-hd p{margin:6px 0 0;font-size:14px;color:var(--mute)}

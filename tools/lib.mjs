@@ -125,7 +125,7 @@ export function card(p, R, { h = 'h3' } = {}) {
   <${h}><a href="${R}products/${p.slug}">${esc(p.name)}</a></${h}>
   <p>${esc(p.short)}</p>
   <div class="kf">${p.key.slice(0, 2).map(([v, l]) => `<span><b>${esc(v)}</b> ${esc(l)}</span>`).join('')}</div>
-  <div class="acts"><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote</span><span class="on">In your quote</span></button></div>
+  <div class="acts"><button class="cmpb" type="button" data-cmp="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" aria-pressed="false" aria-label="Compare ${esc(p.name)}" title="Compare">${I.cmp}</button><button class="addq" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false" aria-label="Add ${esc(p.name)} to your quote">${I.plus}<span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article>`
 }
 
@@ -139,7 +139,7 @@ function head(pg, R) {
 <html lang="en-PH">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(pg.desc)}">
 <meta name="robots" content="noindex,nofollow"> <!-- prototype: kept out of search results; use index,follow on the live site -->
@@ -176,11 +176,11 @@ export function nav(pg, R) {
   return `<header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="${pg.home ? '#top' : R || './'}" aria-label="DPY Mercantile Inc., ${pg.home ? 'back to top' : 'home'}"><img src="${R}assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill">${pg.home ? '<li class="ind" aria-hidden="true"></li>' : ''}<li><a href="${pg.home ? '#top' : R || './'}"${cur('home')}>Home</a></li>${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
-    <div class="nav-cta"><a class="btn line qt" href="${quote}">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+    <ul class="pill">${pg.home ? '<li class="ind" aria-hidden="true"></li>' : ''}${NAV.map(([k, t]) => `<li><a href="${R}${k}"${cur(k)}>${t}</a></li>`).join('')}</ul>
+    <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i>${I.tel}</i><span>0933 867 2954</span></a><a class="btn red qt" href="${quote}">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="${pg.home ? '#top' : R || './'}"${cur('home')}>Home</a>${NAV.map(([k, t]) => `<a href="${R}${k}"${cur(k)}>${t}</a>`).join('')}<a class="btn red" href="${quote}">Get a Free Quote ${I.arr}</a></nav>`
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links">${[[pg.home ? '#top' : R || './', 'Home', 'home'], ...NAV.map(([k, t]) => [R + k, t, k])].map(([h, t, k], i) => `<a href="${h}"${cur(k)} style="--i:${i}">${t}</a>`).join('')}</div><a class="btn red sh-q" href="${quote}">Get a Free Quote ${I.arr}</a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg">${MSGR}</div><p>${I.clock}Monday to Saturday, 8 AM to 5 PM</p></div></nav>`
 }
 export function foot(R, pg) {
   const cat = k => `${R}water-heaters?type=${k}`

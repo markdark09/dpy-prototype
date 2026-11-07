@@ -119,7 +119,7 @@ export default {
 
 <section class="sec" aria-label="Award and careers">
   <div class="wrap" style="display:grid;gap:20px">
-    <div class="award" data-r><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg></span><div><b>Golden Globe Annual Awards for Business Excellence, 2021</b><p>A joint undertaking of the National Data Research Examiner and Marketing Services Inc., SINAG News Magazine and SINAG Foundation.</p></div></div>
+    <div class="award" id="awards" data-r><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z"/></svg></span><div><b>Golden Globe Annual Awards for Business Excellence, 2021</b><p>A joint undertaking of the National Data Research Examiner and Marketing Services Inc., SINAG News Magazine and SINAG Foundation.</p></div></div>
     <div class="join" data-r><div><b>Grow with us</b><p>We see our people as our most valuable asset. We're hiring in Manila and Cebu.</p></div><a class="btn" href="${R}careers">See open roles ${I.arr}</a></div>
   </div>
 </section>`,
