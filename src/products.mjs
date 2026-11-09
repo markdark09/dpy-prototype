@@ -133,7 +133,7 @@ export const PRODUCTS = [
     warranty: '', specs: ['Solar-Water-Heater-Specifications'], from: 'product/5-star-cz2-0/' },
 
   // ---------- tanks ----------
-  { slug: 'haase-energy-storage-tank', name: 'HAASE Energy Storage Tank', brand: 'HAASE', cat: 'tank', sub: '1,000 to 40,000 liters', for: ['business'], img: 'haase-tank', diagram: ['haase-diagram', 'How a HAASE tank connects solar, a boiler and a chiller to the building\'s showers (diagram from DPY)'],
+  { slug: 'haase-energy-storage-tank', name: 'HAASE Energy Storage Tank', brand: 'HAASE', cat: 'tank', sub: '1,000 to 40,000 liters', for: ['business'], img: 'haase-tank',
     short: 'A German-made tank that stores heat, not just water, and delivers clean hot water to a whole building.',
     about: ["A HAASE tank stores heat, not drinking water. It is filled with heating water that heat pumps, solar, boilers or waste heat can all warm. Fresh water runs only through stainless steel coils, first in and first out, so it comes out hot and clean, with no standing water for sludge, rust or bacteria.", "Its storage efficiency is about 93%, against about 70% for a steel pressure tank. The tank itself is unpressurised, yet the hot water comes out at full pressure. Standard sizes run from 1,000 to 40,000 liters, made in Germany and assembled on site from modules, so it fits plant rooms a single tank could never enter."],
     key: [['1,000–40,000', 'liters'], ['93%', 'storage efficiency'], ['Germany', 'made in']],

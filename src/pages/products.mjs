@@ -196,13 +196,7 @@ ${tables ? `
     <div class="sec-head"><div><span class="kick">Specifications</span><h2 class="thin h2" id="spT">Sizes &amp; Specs</h2></div><p class="lede">${p.specsNone || 'The maker does not publish a spec sheet online for this product.'}</p></div>
     <div class="spec-none" data-r><div><b>We'll send the spec sheet with your quote</b><p>Tell us the model or the job, and we send the full specifications for it, checked by our engineers.</p></div><a class="btn red" href="${R}contact?add=${p.slug}&amp;note=${encodeURIComponent('Please send the spec sheet for the ' + p.name)}#quote">Ask for the spec sheet ${I.arr}</a></div>
   </div>
-</section>`}${p.diagram && !howto(p)?.image ? `
-<section class="sec${tables ? '' : ' soft'}" aria-labelledby="dgT">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="kick">How it fits in</span><h2 class="thin h2" id="dgT">Part of a Complete System</h2></div><p class="lede">We design the whole system around the tank: heat sources, pumps and pipes.</p></div>
-    <figure class="fig" data-r>${img(R, `assets/img/dpy/${p.diagram[0]}.webp`, p.diagram[1], ' loading="lazy"')}<figcaption>${p.diagram[1]}</figcaption></figure>
-  </div>
-</section>` : ''}${p.gallery ? `
+</section>`}${p.gallery ? `
 <section class="sec${tables ? '' : ' soft'}" aria-labelledby="glT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">The range</span><h2 class="thin h2" id="glT">Models &amp; Sizes</h2></div></div>
