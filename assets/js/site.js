@@ -22,9 +22,9 @@ if (!HOME) {
   // arriving with #section: land just above it once the layout has settled
   if (location.hash && $(location.hash)) addEventListener('load', () => setTimeout(() => go(location.hash), 60))
 
-  /* ---------- header: solid after a little scroll, hides going down, returns going up ---------- */
-  const nav = $('.nav'); let lastY = 0
-  const onScroll = () => { const y = scrollY; nav.classList.toggle('solid', y > 30); nav.classList.toggle('up', y > lastY && y > 500 && !document.body.classList.contains('menu-open')); lastY = y }
+  /* ---------- header: always there; solid (and a little shorter) after a little scroll ---------- */
+  const nav = $('.nav')
+  const onScroll = () => nav.classList.toggle('solid', scrollY > 30)
   addEventListener('scroll', onScroll, { passive: true }); requestAnimationFrame(onScroll) // not straight away: reading the scroll position would force the first layout inside this script
   const mb = $('.menu-btn')
   var closeMenu = () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('menu-lock'); mb?.setAttribute('aria-expanded', 'false') }

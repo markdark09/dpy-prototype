@@ -44,9 +44,9 @@ const css = `
 .how-vis [data-part]{transition:opacity .5s var(--ease)}
 .how-vis:not([data-step="all"]) [data-part]{opacity:.16}
 .how-vis[data-step="1"] [data-part~="1"],.how-vis[data-step="2"] [data-part~="2"],.how-vis[data-step="3"] [data-part~="3"],.how-vis[data-step="4"] [data-part~="4"]{opacity:1}
-@media (max-width:980px){.hw-grid{grid-template-columns:minmax(0,1fr);gap:0}.hw-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:var(--night);box-shadow:0 18px 24px -18px var(--night);transition:top .6s var(--ease)}html:has(.nav:not(.up)) .hw-vis{top:76px}.hw-steps li,.hw-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.hw-steps li:last-child{padding-bottom:40vh}}
+@media (max-width:980px){.hw-grid{grid-template-columns:minmax(0,1fr);gap:0}.hw-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:var(--night);box-shadow:0 18px 24px -18px var(--night);}.hw-vis{top:62px}.hw-steps li,.hw-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.hw-steps li:last-child{padding-bottom:40vh}}
 @media (max-width:640px){.hws .how-vis .leg{display:none}.hws .how-vis{padding:8px;border-radius:20px}}
-@media (prefers-reduced-motion:reduce){.how-vis [data-part],.hw-steps li,.hw-vis{transition:none}}
+@media (prefers-reduced-motion:reduce){.how-vis [data-part],.hw-steps li{transition:none}}
 .how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
 .how-vis svg{display:block;width:100%;height:auto;overflow:visible}
 .how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
@@ -266,11 +266,11 @@ addEventListener('scroll', qb, { passive: true }); qb()
       else { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll) }
     }, { rootMargin: '200px 0px' }).observe($('.hws'))
     // a number on the drawing brings its step to the reading line. The line is worked out for where the drawing
-    // will be once stuck (on phones it isn't stuck yet before the jump, and the menu bar hides on the way down),
+    // will be once stuck (on phones it isn't stuck yet before the jump),
     // then checked again when the scroll ends, in case the page moved.
     const goTo = (li, smooth) => {
       const at = mid(li) + scrollY, h = vis.offsetHeight, wide = innerWidth > 980, down = at - scrollY > line()
-      const stuckTop = wide ? parseFloat(getComputedStyle(vis).top) || 0 : (down ? 0 : 76)
+      const stuckTop = parseFloat(getComputedStyle(vis).top) || 0
       const gridTop = vis.parentElement.getBoundingClientRect().top + scrollY
       let y = at - (wide ? stuckTop + h / 2 : (stuckTop + h + innerHeight) / 2)
       // phones: the first step sits just under the drawing, before it sticks. There the drawing still scrolls
