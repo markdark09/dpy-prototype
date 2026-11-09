@@ -1440,7 +1440,8 @@ function fitHero() {
   const top = stageEl.getBoundingClientRect().top + scrollY, h = Math.round(clamp(innerHeight - top - 34, 340, 500))
   stageEl.style.height = h + 'px'; showEl.style.setProperty('--k', clamp((h - 120) / 380, .6, 1).toFixed(3))
 }
-function placeWaves() { const k = parseFloat(getComputedStyle(showEl).getPropertyValue('--k')) || 1; $('.waves').style.bottom = Math.round(98 + SHOW[cur].h * k + 4) + 'px' }
+// just above the heater, but never higher than the top of the heater's area (on narrow phones a tall heater would push them onto the button above)
+function placeWaves() { const k = parseFloat(getComputedStyle(showEl).getPropertyValue('--k')) || 1; $('.waves').style.bottom = Math.round(Math.min(98 + SHOW[cur].h * k + 4, showEl.clientHeight - 68)) + 'px' }
 function matchCards() { const g = $('.hc-gtk'), d = $('.hc-dial'); g.style.height = ''; if (innerWidth > 900) g.style.height = d.getBoundingClientRect().height + 'px' }
 const fitAll = () => { fitHero(); placeWaves(); matchCards() }
 fitAll(); addEventListener('resize', fitAll); document.fonts?.ready.then(fitAll)
