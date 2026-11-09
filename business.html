@@ -39,6 +39,9 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
+img,a{-webkit-user-drag:none}
+a[href^="tel:"]{white-space:nowrap} 
+@media (hover:hover) and (pointer:fine){a[href^="tel:"]:not(.btn):not(.nav-tel):not(.msgr){pointer-events:none;cursor:text}}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -50,6 +53,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .off *,.off *::before,.off *::after{animation-play-state:paused!important}
 .thin{font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:0;background:linear-gradient(180deg,#14181E 10%,#7E8A97 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .h2{font-size:clamp(2rem,3.6vw,3.1rem)}
+.h2::first-line,.h1::first-line{font-weight:500}
+.hero-head .h1::first-line{font-weight:inherit}
 .h3{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.25}
 .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
 .kick::before{content:"";width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red))}
@@ -72,10 +77,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .link svg{width:14px;height:14px;transition:transform .4s var(--ease)}
 .link:hover svg{transform:translateX(3px)}
-.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
+.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:background .4s,box-shadow .4s}
 .nav.solid{background:#fff;box-shadow:0 1px 0 var(--line),0 10px 28px -22px rgba(1,30,70,.45)}
-.nav.up{transform:translateY(-100%)}
-.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
+.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px;transition:height .35s var(--ease)}
+.nav.solid .nav-in{height:62px}
 .brand img{width:132px;height:auto}
 .pill{position:relative;display:flex;gap:2px;list-style:none;margin:0;padding:4px;border-radius:999px;background:rgba(226,232,238,.85);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
 .pill li{position:relative;z-index:1}
@@ -106,7 +111,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sheet .sh-links a[aria-current="page"]{font-weight:600}
 .sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
 .sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact > a,.sh-num{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-num{grid-column:1/-1}.sh-num b a{color:inherit}.sh-num b a:hover{color:var(--red)}
 .sh-contact small{font-size:12px;color:var(--mute)}
 .sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
 .sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
@@ -132,7 +138,7 @@ html.menu-lock{overflow:hidden}
 .foot-cta .btn.line:hover{background:#fff;color:var(--ink)}
 .ft{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:30px}
 .ft .logo img{width:150px}
-.ft .logo p{font-size:13px;color:var(--mute);max-width:230px;margin:12px 0 16px}
+.ft .logo p{font-size:14px;color:var(--mute);max-width:230px;margin:12px 0 16px}
 .ft .logo .gk{width:92px;opacity:.9}
 .ft h2{margin:4px 0 12px;font-size:13px;font-weight:600;letter-spacing:0}
 .ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
@@ -142,7 +148,7 @@ html.menu-lock{overflow:hidden}
 .ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
 .ft .soc a:hover{background:var(--ink);color:#fff}
 .ft .soc svg{width:16px;height:16px}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#76665C}
+.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:13px;color:#76665C}
 .base a{text-decoration:underline;text-underline-offset:2px}
 .ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
 .ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
@@ -162,7 +168,7 @@ html.menu-lock{overflow:hidden}
 @keyframes bob{50%{transform:translateY(-3px) scale(.94,1.06)}}
 .ask-btn .dot{position:absolute;left:36px;top:7px;width:10px;height:10px;border-radius:50%;background:#2BD46A;box-shadow:0 0 0 2px var(--ink)}
 .ask.open .ask-btn{opacity:0;pointer-events:none;transform:scale(.9)}
-.ask-tip{position:absolute;right:0;bottom:66px;width:230px;padding:12px 32px 12px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font-size:13px;line-height:1.4;box-shadow:0 16px 36px -16px rgba(1,30,70,.5);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
+.ask-tip{position:absolute;right:0;bottom:66px;width:230px;padding:12px 32px 12px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font-size:14px;line-height:1.4;box-shadow:0 16px 36px -16px rgba(1,30,70,.5);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
 .ask-tip.on{opacity:1;transform:none;pointer-events:auto}
 .ask-tip button{position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;font-size:14px;line-height:1;color:var(--dim)}
 .ask-win{position:absolute;right:0;bottom:0;width:380px;height:min(600px,calc(100svh - 120px));display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(1,20,50,.55),0 0 0 1px rgba(1,30,70,.06);opacity:0;transform:translateY(16px) scale(.97);transform-origin:100% 100%;pointer-events:none;transition:opacity .35s,transform .5s var(--ease)}
@@ -253,7 +259,7 @@ html.menu-lock{overflow:hidden}
   .ctray-on .ask{bottom:80px}.qbar-on .ctray{bottom:80px}.qbar-on.ctray-on .ask{bottom:148px}
 }
 .trust{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;margin-top:44px;padding-top:26px;border-top:1px solid rgba(120,70,40,.15)}
-.trust .k{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.trust .k{margin:0 0 10px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 .trust ul{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;margin:0;padding:0;font-size:13px;font-weight:600;color:var(--ink2)}
 .trust li{display:flex;align-items:center;gap:8px}
 .trust li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#1E9E55;color:#fff}
@@ -311,7 +317,7 @@ button.busy{cursor:progress;opacity:.85}
 .crumbs [aria-current]{color:var(--ink)}
 .ph-stats{display:flex;gap:clamp(20px,4vw,48px);list-style:none;margin:0;padding:0;justify-content:flex-end}
 .ph-stats b{display:block;font-size:clamp(26px,2.6vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1.1}
-.ph-stats small{font-size:12.5px;color:var(--mute)}
+.ph-stats small{font-size:13px;color:var(--mute)}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
@@ -346,14 +352,14 @@ button.busy{cursor:progress;opacity:.85}
 .pc:hover .pic img{transform:translateY(-8px) scale(1.03)}
 .pc:hover .pic::after{transform:scale(.8);opacity:.7}
 .pc .noimg{position:relative;z-index:1;align-self:center;font-size:22px;font-weight:800;letter-spacing:.08em;color:#3A4655}
-.pc .tag{position:absolute;z-index:2;left:14px;top:14px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
+.pc .tag{position:absolute;z-index:2;left:14px;top:14px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
 .pc .who{position:absolute;z-index:2;right:14px;top:14px;display:flex;gap:4px}
-.pc .who span{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(13,104,195,.08);color:var(--blue)}
+.pc .who span{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(13,104,195,.08);color:var(--blue)}
 .pc .who span.b{background:rgba(199,10,14,.07);color:var(--red)}
-.pc .br{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:8px 0 4px}
+.pc .br{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:8px 0 4px}
 .pc h3{margin:0;font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
 .pc h3 a::after{content:"";position:absolute;inset:0;z-index:1;border-radius:24px} 
-.pc p{margin:6px 0 14px;font-size:13px;line-height:1.5;color:var(--mute)}
+.pc p{margin:6px 0 14px;font-size:14px;line-height:1.5;color:var(--mute)}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
@@ -366,12 +372,14 @@ button.busy{cursor:progress;opacity:.85}
 .addq[aria-pressed="true"]{background:#E9F8EF;color:#167A42;box-shadow:inset 0 0 0 1.5px #A7E0BE}
 .addq .on{display:none}.addq[aria-pressed="true"] .on{display:inline}.addq[aria-pressed="true"] .of{display:none}
 .addq{white-space:nowrap}.addq .sm{display:none}
+.addq[aria-pressed="true"] > svg{display:none}
+.addq[aria-pressed="true"]::before{content:"";flex:none;width:14px;height:14px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l2.8 2.8 6-6.2' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l2.8 2.8 6-6.2' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .js [data-r]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform 1s var(--ease)}
 .js [data-r].in{opacity:1;transform:none}
 .js [data-r="fade"]{transform:none}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;align-content:start}
 .form .full{grid-column:1/-1}
-.form label,.form .lb{display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--ink2)}
+.form label,.form .lb{display:block;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--ink2)}
 .form label i{font-style:normal;color:var(--red)}
 .form input,.form select,.form textarea{width:100%;height:46px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:#F8FAFC;font:inherit;font-size:14px;color:var(--ink);outline:none;transition:border-color .25s,background .25s,box-shadow .25s}
 .form textarea{height:96px;padding:12px 14px;resize:vertical}
@@ -386,13 +394,14 @@ button.busy{cursor:progress;opacity:.85}
 .qchips span:hover{background:#E7ECF1}
 .qchips input:checked + span{background:var(--ink);color:#fff;box-shadow:none}
 .qchips input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
-.ok{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--ink2);cursor:pointer}
+.ok{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--ink2);cursor:pointer}
 .form .ok{display:flex;margin:4px 0 0;font-weight:400}
+.form label.ok{font-size:13.5px}
 .form .ok input{flex:none;width:18px;height:18px;margin:1px 0 0;padding:0;border-radius:5px;background:none;box-shadow:none;accent-color:var(--ink);cursor:pointer}
 .ok.bad span{color:var(--red)}
 .ok a,.f-sub small a{text-decoration:underline;text-underline-offset:2px}
 .f-sub{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:4px}
-.f-sub small{font-size:11.5px;color:var(--mute);max-width:300px}
+.f-sub small{font-size:12.5px;color:var(--mute);max-width:300px}
 .f-sub .btn{height:52px;padding:0 28px;font-size:15px}
 .f-done{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:10px;padding:40px;text-align:center;background:#fff;border-radius:inherit;opacity:0;pointer-events:none;transition:opacity .5s}
 .f-done.on{opacity:1;pointer-events:auto}
@@ -402,7 +411,7 @@ button.busy{cursor:progress;opacity:.85}
 .f-done p{margin:0;max-width:380px;font-size:14px;color:var(--mute)}
 .spec{margin:0 0 30px}
 .spec h3{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.02em}
-.spec .all{margin:0 0 12px;font-size:13px;color:var(--mute)}
+.spec .all{margin:0 0 12px;font-size:14px;color:var(--mute)}
 .spec .all b{color:var(--ink2);font-weight:600}
 .tscroll{position:relative;overflow-x:auto;border-radius:18px;box-shadow:inset 0 0 0 1px var(--line);scrollbar-width:thin;
   background:linear-gradient(90deg,rgba(255,255,255,0),#fff 60%) right/48px 100% no-repeat local,radial-gradient(farthest-side at 100% 50%,rgba(1,30,70,.16),rgba(1,30,70,0)) right/16px 100% no-repeat scroll,#fff}
@@ -414,8 +423,8 @@ button.busy{cursor:progress;opacity:.85}
 .tscroll th:first-child,.tscroll td:first-child{position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 var(--line)}
 .tscroll thead th:first-child{z-index:2;background:#F4F7FA}
 .tscroll tbody tr:hover > *{background:#F8FBFE}
-.spec .notes{margin:10px 0 0;padding:0 0 0 18px;font-size:12px;color:var(--mute)}
-.scroll-hint{display:none;margin:8px 0 0;font-size:11.5px;color:var(--dim)}
+.spec .notes{margin:10px 0 0;padding:0 0 0 18px;font-size:13px;color:var(--mute)}
+.scroll-hint{display:none;margin:8px 0 0;font-size:12.5px;color:var(--dim)}
 .tscroll.tall table{width:auto;min-width:100%}
 .tscroll.tall tbody th{font-weight:600;color:var(--ink2);white-space:normal;min-width:180px}
 @media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -439,12 +448,12 @@ button.busy{cursor:progress;opacity:.85}
   .grid.cat-grid,.grid.rel{grid-template-columns:1fr 1fr;gap:10px}
   .pc{padding:0 10px 10px;border-radius:18px}
   .pc .pic{height:128px;margin:30px 0 4px}
-  .pc .tag{left:8px;top:8px;font-size:10px;padding:3px 8px}
+  .pc .tag{left:8px;top:8px;font-size:11px;padding:3px 8px}
   .pc .who{display:none}
-  .pc .br{font-size:9.5px;letter-spacing:.08em;margin:6px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pc .br{font-size:10.5px;letter-spacing:.08em;margin:6px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pc h3{font-size:14.5px}
   .pc p{display:none}
-  .pc .kf{margin:8px 0 10px}.pc .kf span{font-size:10.5px;padding:3px 7px}.pc .kf span + span{display:none}
+  .pc .kf{margin:8px 0 10px}.pc .kf span{font-size:11.5px;padding:3px 7px}.pc .kf span + span{display:none}
   .pc .acts .btn{display:none}
   .addq{flex:1;height:34px;padding:0 8px;font-size:11.5px}
   .pc .addq .lg{display:none}.pc .addq .sm{display:inline}
@@ -464,15 +473,15 @@ button.busy{cursor:progress;opacity:.85}
 .sch{position:relative;border-radius:30px;padding:26px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8);color:#fff}
 .sch svg{width:100%;height:auto;overflow:visible}
 .sch-x{overflow-x:auto;scrollbar-width:none}.sch-x::-webkit-scrollbar{display:none}
-.sch .swipe{display:none;margin:8px 0 0;font-size:12px;color:#8FA6C0}
+.sch .swipe{display:none;margin:8px 0 0;font-size:12.5px;color:#8FA6C0}
 .sch .pipe{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
 .sch .hot{stroke:#E3473B}.sch .cold{stroke:#4C9BE8}.sch .warm{stroke:#F08A4B}
 .sch .flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 16;opacity:.75;animation:flow 1.6s linear infinite}
 .sch .flow.slow{animation-duration:2.4s}
 @keyframes flow{to{stroke-dashoffset:-36}}
 .sch .box{fill:#132B4E;stroke:rgba(255,255,255,.18);stroke-width:1.5}
-.sch .lbl{font:600 13px var(--font);fill:#fff}
-.sch .sub{font:500 11px var(--font);fill:#8FA6C0}
+.sch .lbl{font:600 17px var(--font);fill:#fff}
+.sch .sub{font:500 14px var(--font);fill:#8FA6C0}
 .sch a:hover .box,.sch a:focus-visible .box{fill:#1B3A66;stroke:#7CC0FF}
 .sch a{outline:none}
 .sch .fin{stroke:rgba(255,255,255,.22);stroke-width:1.5}
@@ -485,8 +494,30 @@ button.busy{cursor:progress;opacity:.85}
 .sch-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
 .sch-steps div{padding:16px;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .sch-steps b{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px}
-.sch-steps p{margin:0;font-size:13px;line-height:1.5;color:#9DB0C6}
+.sch-steps p{margin:0;font-size:14px;line-height:1.5;color:#9DB0C6}
 .sch-steps em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:#7CC0FF}
+/* the system section: dark like the hero above it; the diagram stays in view while the parts scroll past */
+.sys{background:#0A1830;color:#fff;padding:96px 0 40px}
+.sys .sec-head .lede{color:#9DB0C6}
+.sys .kick{color:#7CC0FF}
+.sys-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:56px;align-items:start}
+.sys-vis{position:sticky;top:calc(50vh - 230px);z-index:2}
+.sys-steps{list-style:none;margin:0;padding:0}
+.sys-steps li{min-height:56vh;display:flex;flex-direction:column;justify-content:center;gap:10px;opacity:.7;transition:opacity .5s var(--ease)}
+.sys-steps li:first-child{min-height:44vh;justify-content:flex-start;padding-top:40px}
+.sys-steps li.on{opacity:1}
+.sys-steps em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7CC0FF}
+.sys-steps h3{margin:0;font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.sys-steps p{margin:0;max-width:440px;font-size:15.5px;line-height:1.6;color:#B4C3D4}
+.sys-steps .link{align-self:flex-start;color:#fff;font-size:14.5px}
+/* one part at a time: the rest dims and its pipes stop */
+.sch [data-part]{transition:opacity .5s var(--ease)}
+.sch:not([data-step="all"]) [data-part]{opacity:.2}
+.sch:not([data-step="all"]) .flow[data-part]{opacity:0}
+.sch[data-step="heat"] [data-part~="heat"],.sch[data-step="store"] [data-part~="store"],.sch[data-step="move"] [data-part~="move"],.sch[data-step="return"] [data-part~="return"]{opacity:1}
+.sch[data-step="heat"] .flow[data-part~="heat"],.sch[data-step="store"] .flow[data-part~="store"],.sch[data-step="move"] .flow[data-part~="move"],.sch[data-step="return"] .flow[data-part~="return"]{opacity:.75}
+.sch[data-step="heat"] [data-part~="heat"] .box,.sch[data-step="store"] [data-part~="store"] .box,.sch[data-step="move"] [data-part~="move"] .box,.sch[data-step="return"] [data-part~="return"] .box{stroke:#7CC0FF}
+@media (prefers-reduced-motion:reduce){.sch [data-part],.sys-steps li{transition:none}}
 /* sectors */
 .sx{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}
 .sx-pic{position:relative;min-height:420px;border-radius:26px;overflow:hidden;background:#dfe8f1}
@@ -501,9 +532,10 @@ button.busy{cursor:progress;opacity:.85}
 .sx-parts a{display:flex;align-items:center;justify-content:space-between;gap:8px;height:100%;padding:10px 12px;border-radius:12px;background:#F4F7FA;font-size:13px;font-weight:600;transition:background .3s}
 .sx-parts a:hover{background:#E8EEF5}
 .sx-parts svg{flex:none;width:13px;height:13px;color:var(--dim)}
-.sx-logos{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.sx-logos img{height:34px;width:auto;max-width:90px;object-fit:contain;filter:grayscale(1);opacity:.7}
-.sx-logos small{font-size:12px;color:var(--mute);margin-right:4px}
+.sx-logos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px 16px;align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.sx-logos small{grid-column:1/-1;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.sx-logos img{width:100%;height:34px;object-fit:contain;filter:grayscale(1);opacity:.7}
+@media (max-width:480px){.sx-logos{grid-template-columns:repeat(3,minmax(0,1fr))}.sx-logos img:nth-of-type(n+4){display:none}}
 .sx-panel[hidden]{display:none}
 /* process */
 .proc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s;position:relative}
@@ -512,7 +544,7 @@ button.busy{cursor:progress;opacity:.85}
 .proc li::before{content:counter(s,decimal-leading-zero);position:relative;display:grid;place-items:center;width:48px;height:48px;margin-bottom:16px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px var(--ink);font-size:13px;font-weight:700}
 .proc li:first-child::before{background:var(--ink);color:#fff}
 .proc b{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
-.proc p{margin:0;font-size:13.5px;line-height:1.55;color:var(--mute)}
+.proc p{margin:0;font-size:14.5px;line-height:1.55;color:var(--mute)}
 /* brands */
 .bwall{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .bwall li{min-width:0;display:grid;place-items:center;height:92px;padding:0 14px;border-radius:16px;background:#fff;box-shadow:var(--card)}
@@ -522,8 +554,8 @@ button.busy{cursor:progress;opacity:.85}
 .save{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
 .save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
-@media (max-width:980px){.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:640px){.sch svg{width:680px;max-width:none}.sch .swipe{display:block}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
+@media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:62px;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
 </style>
 </head>
 <body class="pg-business">
@@ -543,7 +575,7 @@ button.busy{cursor:progress;opacity:.85}
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" aria-current="page" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" aria-current="page" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <main id="main">
 <section class="bh">
   <img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:640px) 400px, 100vw" fetchpriority="high">
@@ -557,12 +589,56 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
+<!-- the signature section: the diagram stays in view while its four parts are told one at a time -->
+<section class="sys" aria-labelledby="scT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">How a central system works</span><h2 class="thin h2 on-dark" id="scT">One System,<br>Four Parts</h2></div><p class="lede">A typical central hot water system for a hotel or hospital. Scroll through it part by part, or tap a part to see the equipment we use.</p></div>
+    <div class="sys-grid">
+      <div class="sys-vis">
+        <div class="sch" data-loop data-step="all">
+          <div class="sch-x" data-x><svg viewBox="0 0 1000 440" role="img" aria-labelledby="schT">
+        <title id="schT">Diagram: heat pumps and solar panels heat water into a storage tank, a circulation pump sends it to every floor, and cooled water returns to be reheated.</title>
+        <defs><linearGradient id="tankFill" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient></defs>
+        <!-- pipes -->
+        <path data-part="heat" class="pipe hot" d="M190 210 H300 V140 H372"/><path data-part="heat" class="flow" d="M190 210 H300 V140 H372"/>
+        <path data-part="heat" class="pipe cold" d="M372 330 H300 V260 H190"/><path data-part="heat" class="flow slow" d="M372 330 H300 V260 H190"/>
+        <path data-part="heat" class="pipe warm" d="M220 70 H330 V160 H372"/><path data-part="heat" class="flow slow" d="M220 70 H330 V160 H372"/>
+        <path data-part="move" class="pipe hot" d="M488 140 H560 V200 H600"/><path data-part="move" class="flow" d="M488 140 H560 V200 H600"/>
+        <!-- the riser: up to floor 5 and down to floor 1, a branch to every floor at its middle -->
+        <path data-part="move" class="pipe hot" d="M690 200 H760 V66 H790"/><path data-part="move" class="flow" d="M690 200 H760 V66 H790"/>
+        <path data-part="move" class="pipe hot" d="M760 200 V306 H790"/><path data-part="move" class="flow" d="M760 200 V306 H790"/>
+        <path data-part="move" class="pipe hot" d="M760 126 H790 M760 186 H790 M760 246 H790"/>
+        <path data-part="return" class="pipe cold" d="M950 360 V400 H540 V330 H488"/><path data-part="return" class="flow slow" d="M950 360 V400 H540 V330 H488"/>
+        <!-- solar -->
+        <a data-part="heat" href="products/5-star-solar-water-heater"><g><rect class="box" x="40" y="30" width="180" height="80" rx="14"/><g transform="translate(58 46)"><rect x="0" y="0" width="46" height="30" rx="3" fill="#24477A" class="fin"/><path class="fin" d="M15 0v30M31 0v30M0 15h46"/><circle class="sun" cx="58" cy="6" r="6"/></g><text class="lbl" x="132" y="68">Solar</text><text class="sub" x="132" y="87">optional</text></g></a>
+        <!-- heat pump -->
+        <a data-part="heat" href="products/deron-air-to-water-heat-pump"><g><rect class="box" x="40" y="180" width="150" height="110" rx="14"/><circle cx="82" cy="235" r="26" fill="none" class="fin"/><path class="fin" d="M82 209v52M56 235h52M64 217l36 36M100 217l-36 36" opacity=".7"/><text class="lbl" x="118" y="230">Heat</text><text class="lbl" x="118" y="247">pumps</text><text class="sub" x="118" y="266">Deron</text></g></a>
+        <!-- tank -->
+        <a data-part="store" href="products/haase-energy-storage-tank"><g><rect class="box" x="372" y="110" width="116" height="250" rx="22"/><rect class="hotfill" x="384" y="122" width="92" height="226" rx="16" opacity=".85"/><text class="lbl" x="430" y="236" text-anchor="middle">Storage</text><text class="lbl" x="430" y="253" text-anchor="middle">tank</text><text class="sub" x="430" y="384" text-anchor="middle" style="fill:#8FA6C0">HAASE · Champion</text></g></a>
+        <!-- pump -->
+        <a data-part="move" href="products/wilo-pumps"><g><rect class="box" x="600" y="160" width="90" height="80" rx="40"/><circle cx="645" cy="200" r="20" fill="none" class="fin"/><path d="M637 188l18 12-18 12z" fill="#7CC0FF"/><text class="sub" x="645" y="264" text-anchor="middle">Wilo pump</text></g></a>
+        <!-- building -->
+        <g data-part="move return"><rect class="box" x="790" y="30" width="160" height="330" rx="14"/><g transform="translate(806 44)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 5</text></g><g transform="translate(806 104)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 4</text></g><g transform="translate(806 164)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 3</text></g><g transform="translate(806 224)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 2</text></g><g transform="translate(806 284)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 1</text></g></g>
+      </svg></div>
+          <div class="leg"><span><i style="background:#E3473B"></i>Hot water</span><span><i style="background:#F08A4B"></i>Solar heat</span><span><i style="background:#4C9BE8"></i>Return to be reheated</span></div>
+        </div>
+      </div>
+      <ol class="sys-steps">
+        <li data-step="heat"><em>01 · Heat</em><h3>Heat pumps, plus solar if the roof allows</h3><p>Heat pumps move warmth from the air into the water, using roughly a quarter to a third of the power of an electric heater. Solar panels on the roof add free heat on sunny days.</p><a class="link" href="products/deron-air-to-water-heat-pump">Deron air-to-water heat pumps <svg aria-hidden="true"><use href="#arr"/></svg></a></li>
+        <li data-step="store"><em>02 · Store</em><h3>A storage tank sized for your busiest hour</h3><p>An insulated tank holds enough hot water for the morning rush, so the last guest gets the same hot shower as the first.</p><a class="link" href="products/haase-energy-storage-tank">HAASE energy storage tanks <svg aria-hidden="true"><use href="#arr"/></svg></a></li>
+        <li data-step="move"><em>03 · Move</em><h3>A pump that keeps every floor hot</h3><p>A circulation pump sends hot water up the riser and round every floor, so the tap on the top floor runs hot in seconds.</p><a class="link" href="products/wilo-pumps">Wilo circulation pumps <svg aria-hidden="true"><use href="#arr"/></svg></a></li>
+        <li data-step="return"><em>04 · Return</em><h3>A return loop, so nothing is wasted</h3><p>Water that cools in the pipes flows back to the tank to be reheated, instead of running down the drain while someone waits for hot water.</p><a class="link" href="products/aquaplast-ppr-pipes">Aquaplast heat-resistant pipes <svg aria-hidden="true"><use href="#arr"/></svg></a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="sec" aria-labelledby="sxT" style="--from:#0A1830;--blend:var(--dblend)">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
     <ul class="tabs" role="tablist" aria-label="Building type"><li role="presentation"><button class="chip" role="tab" id="t-hotels" aria-controls="p-hotels" aria-selected="true" tabindex="0">Hotels & Resorts</button></li><li role="presentation"><button class="chip" role="tab" id="t-hospitals" aria-controls="p-hospitals" aria-selected="false" tabindex="-1">Hospitals & Clinics</button></li><li role="presentation"><button class="chip" role="tab" id="t-towers" aria-controls="p-towers" aria-selected="false" tabindex="-1">Condos & Residential Towers</button></li><li role="presentation"><button class="chip" role="tab" id="t-commercial" aria-controls="p-commercial" aria-selected="false" tabindex="-1">Restaurants, Gyms & Offices</button></li></ul>
     <div class="sx">
-      <div class="sx-pic"><img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:980px) 100vw, 640px" class="on" data-k="hotels"><img data-src="assets/img/plant.webp" width="1600" height="1067" alt="" data-srcset="assets/img/plant-800.webp 800w, assets/img/plant.webp 1600w" sizes="(max-width:980px) 100vw, 640px" class="" data-k="hospitals"><img data-src="assets/img/dpy/tower-render.webp" width="1600" height="538" alt="" data-srcset="assets/img/dpy/tower-render-800.webp 800w, assets/img/dpy/tower-render.webp 1600w" sizes="(max-width:980px) 100vw, 640px" class="" data-k="towers"><img data-src="assets/img/shower.webp" width="900" height="600" alt="" data-srcset="assets/img/shower-800.webp 800w, assets/img/shower.webp 900w" sizes="(max-width:980px) 100vw, 640px" class="" data-k="commercial"></div>
+      <div class="sx-pic"><img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="on" data-k="hotels"><img data-src="assets/img/plant.webp" width="1600" height="1067" alt="" data-srcset="assets/img/plant-800.webp 800w, assets/img/plant.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="hospitals"><img data-src="assets/img/dpy/tower-render.webp" width="1600" height="538" alt="" data-srcset="assets/img/dpy/tower-render-800.webp 800w, assets/img/dpy/tower-render.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="towers"><img data-src="assets/img/shower.webp" width="900" height="600" alt="" data-srcset="assets/img/shower-800.webp 800w, assets/img/shower.webp 900w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="commercial"></div>
       <div class="sx-txt"><div class="sx-panel" role="tabpanel" id="p-hotels" aria-labelledby="t-hotels">
         <h3>Hotels & Resorts</h3><p class="q">The challenge</p><p>Every guest showers in the same two morning hours, and the pool, kitchen and laundry need hot water too.</p><p class="q b">What we install</p><p>Central heat pump plants with large storage tanks and circulation pumps, sized for full occupancy, so the last guest gets the same hot shower as the first.</p>
         <ul class="sx-parts"><li><a href="products/deron-air-to-water-heat-pump">Deron air to water heat pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/haase-energy-storage-tank">HAASE energy storage tanks<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/wilo-pumps">Wilo circulation pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/deron-swimming-pool-heat-pump">Pool heat pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li></ul>
@@ -580,47 +656,7 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec soft" aria-labelledby="scT" style="--from:#FFFFFF">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="scT">One System, Four Parts</h2></div><p class="lede">A typical central system for a hotel or hospital. Tap any part to see the equipment we use.</p></div>
-    <div class="sch" data-loop data-r>
-      <div class="sch-x" data-x><svg viewBox="0 0 1000 440" role="img" aria-labelledby="schT">
-        <title id="schT">Diagram: heat pumps and solar panels heat water into a storage tank, a circulation pump sends it to every floor, and cooled water returns to be reheated.</title>
-        <defs><linearGradient id="tankFill" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient></defs>
-        <!-- pipes -->
-        <path class="pipe hot" d="M190 210 H300 V140 H372"/><path class="flow" d="M190 210 H300 V140 H372"/>
-        <path class="pipe cold" d="M372 330 H300 V260 H190"/><path class="flow slow" d="M372 330 H300 V260 H190"/>
-        <path class="pipe warm" d="M220 70 H330 V160 H372"/><path class="flow slow" d="M220 70 H330 V160 H372"/>
-        <path class="pipe hot" d="M488 140 H560 V200 H600"/><path class="flow" d="M488 140 H560 V200 H600"/>
-        <!-- the riser: up to floor 5 and down to floor 1, a branch to every floor at its middle -->
-        <path class="pipe hot" d="M690 200 H760 V66 H790"/><path class="flow" d="M690 200 H760 V66 H790"/>
-        <path class="pipe hot" d="M760 200 V306 H790"/><path class="flow" d="M760 200 V306 H790"/>
-        <path class="pipe hot" d="M760 126 H790 M760 186 H790 M760 246 H790"/>
-        <path class="pipe cold" d="M950 360 V400 H540 V330 H488"/><path class="flow slow" d="M950 360 V400 H540 V330 H488"/>
-        <!-- solar -->
-        <a href="products/5-star-solar-water-heater"><g><rect class="box" x="40" y="30" width="180" height="80" rx="14"/><g transform="translate(58 46)"><rect x="0" y="0" width="46" height="30" rx="3" fill="#24477A" class="fin"/><path class="fin" d="M15 0v30M31 0v30M0 15h46"/><circle class="sun" cx="58" cy="6" r="6"/></g><text class="lbl" x="122" y="66">Solar</text><text class="sub" x="122" y="84">optional</text></g></a>
-        <!-- heat pump -->
-        <a href="products/deron-air-to-water-heat-pump"><g><rect class="box" x="40" y="180" width="150" height="110" rx="14"/><circle cx="82" cy="235" r="26" fill="none" class="fin"/><path class="fin" d="M82 209v52M56 235h52M64 217l36 36M100 217l-36 36" opacity=".7"/><text class="lbl" x="118" y="230">Heat</text><text class="lbl" x="118" y="247">pumps</text><text class="sub" x="118" y="266">Deron</text></g></a>
-        <!-- tank -->
-        <a href="products/haase-energy-storage-tank"><g><rect class="box" x="372" y="110" width="116" height="250" rx="22"/><rect class="hotfill" x="384" y="122" width="92" height="226" rx="16" opacity=".85"/><text class="lbl" x="430" y="236" text-anchor="middle">Storage</text><text class="lbl" x="430" y="253" text-anchor="middle">tank</text><text class="sub" x="430" y="384" text-anchor="middle" style="fill:#8FA6C0">HAASE · Champion</text></g></a>
-        <!-- pump -->
-        <a href="products/wilo-pumps"><g><rect class="box" x="600" y="160" width="90" height="80" rx="40"/><circle cx="645" cy="200" r="20" fill="none" class="fin"/><path d="M637 188l18 12-18 12z" fill="#7CC0FF"/><text class="sub" x="645" y="264" text-anchor="middle">Wilo pump</text></g></a>
-        <!-- building -->
-        <g><rect class="box" x="790" y="30" width="160" height="330" rx="14"/><g transform="translate(806 44)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 5</text></g><g transform="translate(806 104)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 4</text></g><g transform="translate(806 164)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 3</text></g><g transform="translate(806 224)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 2</text></g><g transform="translate(806 284)"><rect width="128" height="44" rx="8" fill="rgba(255,255,255,.04)" class="fin"/><circle class="tap" cx="22" cy="22" r="5"/><circle class="tap" cx="42" cy="22" r="5"/><circle class="tap" cx="62" cy="22" r="5"/><text class="sub" x="78" y="26">Floor 1</text></g></g>
-      </svg></div>
-      <p class="swipe">Swipe to see the whole system.</p>
-      <div class="leg"><span><i style="background:#E3473B"></i>Hot water</span><span><i style="background:#F08A4B"></i>Solar heat</span><span><i style="background:#4C9BE8"></i>Return to be reheated</span></div>
-      <div class="sch-steps">
-        <div><em>01 · HEAT</em><b>Heat pumps</b><p>Move heat from the air into the water, using about a quarter of the power of electric heaters.</p></div>
-        <div><em>02 · STORE</em><b>Storage tank</b><p>Holds enough hot water for your busiest hour, ready before the morning rush.</p></div>
-        <div><em>03 · MOVE</em><b>Circulation pump</b><p>Keeps hot water moving in a loop, so every tap on every floor runs hot in seconds.</p></div>
-        <div><em>04 · RETURN</em><b>Return loop</b><p>Cooled water flows back to the tank to be reheated. Nothing is wasted down the drain while you wait.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="prT" style="--from:#F4F7FA">
+<section class="sec" aria-labelledby="prT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How we work</span><h2 class="thin h2" id="prT">From Survey to<br>Service, One Team</h2></div><p class="lede">You deal with the same company from the first site visit to the tenth maintenance check.</p></div>
     <ol class="proc"><li data-r><b>Site survey</b><p>Free. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used.</p></li><li data-r><b>System design</b><p>We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.</p></li><li data-r><b>Written proposal</b><p>An itemized quotation: units, pipes, pumps, installation and commissioning.</p></li><li data-r><b>Supply & installation</b><p>Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.</p></li><li data-r><b>Maintenance</b><p>Preventive maintenance and repairs from our five branches, for as long as the system runs.</p></li></ol>
@@ -635,19 +671,19 @@ button.busy{cursor:progress;opacity:.85}
 </section>
 
 <section class="sec tight" aria-label="Savings" style="--from:#F4F7FA">
-  <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="#savings">Try the savings calculator <svg aria-hidden="true"><use href="#arr"/></svg></a></div></div>
+  <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="./#savings">Try the savings calculator <svg aria-hidden="true"><use href="#arr"/></svg></a></div></div>
 </section>
 </main>
 <footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
-    <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
+    <div class="foot-cta"><div><b>Planning a building?</b><span>Our engineers visit, size the whole hot water system and send a written proposal, free.</span></div><div class="acts"><a class="btn white" href="contact?type=project#quote">Book a free site survey <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">
       <div class="logo"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
         <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
       <div><h2>Water Heaters</h2><ul><li><a href="water-heaters?type=instant">Instant water heaters</a></li><li><a href="water-heaters?type=storage">Electric storage heaters</a></li><li><a href="water-heaters?type=heatpump">Heat pumps</a></li><li><a href="water-heaters?type=solar">Solar water heaters</a></li><li><a href="water-heaters?type=tank">Tanks, pumps &amp; pipes</a></li><li><a href="water-heaters">All products</a></li><li><a href="compare">Compare products</a></li></ul></div>
       <div><h2>Company</h2><ul><li><a href="about">About DPY &amp; Gratek</a></li><li><a href="business">For hotels &amp; buildings</a></li><li><a href="projects">Projects &amp; clients</a></li><li><a href="careers">Careers</a></li></ul></div>
-      <div><h2>Help</h2><ul><li><a href="service">Repairs &amp; maintenance</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
-      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
+      <div><h2>Help</h2><ul><li><a href="service">Service &amp; warranty</a></li><li><a href="service#book">Book a service visit</a></li><li><a href="contact#branches">Find a branch</a></li><li><a href="contact#quote">Get a free quote</a></li><li><a href="privacy">Privacy notice</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:support@dpymi.com.ph">support@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
     <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><a class="seal" href="https://verify.bir.gov.ph/correspondence/" target="_blank" rel="noopener" title="Verify on the BIR website (opens in a new tab)"><img src="assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041. Open the BIR verification page" loading="lazy"></a></div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
@@ -665,11 +701,42 @@ button.busy{cursor:progress;opacity:.85}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="assets/js/site.js?v=211550ae" defer></script>
-<script src="assets/js/ask.js?v=7b8006a9" defer></script>
+<script src="assets/js/site.js?v=84ffe762" defer></script>
+<script src="assets/js/ask.js?v=777c0bd9" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
 const { $, $$, RM, go, quote } = DPY
+// the system section: the step in the middle of the screen lights its parts; on narrow screens the diagram slides to them
+{
+  const sch = $('.sys .sch'), x = $('[data-x]', sch), steps = $$('.sys-steps li'), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const CX = { all: 0, heat: 170, store: 430, move: 700, return: 760 }
+  const set = k => {
+    if (sch.dataset.step === k) return
+    sch.dataset.step = k
+    steps.forEach(li => li.classList.toggle('on', li.dataset.step === k))
+    if (x.scrollWidth > x.clientWidth + 4) x.scrollTo({ left: CX[k] * x.scrollWidth / 1000 - x.clientWidth / 2, behavior: RM ? 'auto' : 'smooth' })
+  }
+  // the step being read is the one whose heading is nearest the reading line: the diagram's middle on wide screens,
+  // the middle of the space under the stuck diagram on phones. Before the first step reaches it, the whole system shows.
+  const vis = $('.sys-vis')
+  let ticking = false
+  const pick = () => {
+    ticking = false
+    const v = vis.getBoundingClientRect(), wide = innerWidth > 980
+    const line = wide ? v.top + v.height / 2 : (Math.max(v.bottom, 0) + innerHeight) / 2
+    const marks = steps.map(li => { const r = li.querySelector('h3').getBoundingClientRect(); return r.top + r.height / 2 })
+    if (marks[0] > line + innerHeight * 0.18) return set('all')
+    let best = 0
+    marks.forEach((m, i) => { if (Math.abs(m - line) < Math.abs(marks[best] - line)) best = i })
+    set(steps[best].dataset.step)
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(pick) } }
+  // only listen while the section is near the screen
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll, { passive: true }); pick() }
+    else { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll) }
+  }, { rootMargin: '200px 0px' }).observe($('.sys'))
+}
 const tabs = $$('[role=tab]'), panels = $$('.sx-panel'), pics = $$('.sx-pic img')
 // the other buildings' photos load once the page has settled (or at once, when their tab is picked)
 const load = p => { if (!p.dataset.src) return; if (p.dataset.srcset) p.srcset = p.dataset.srcset; p.src = p.dataset.src; delete p.dataset.src }

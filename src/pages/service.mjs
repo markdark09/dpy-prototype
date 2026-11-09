@@ -11,7 +11,7 @@ const CHECKS = [
 const PM = ['Heating element and thermostat tested', 'Safety and pressure relief valves checked', 'Anode rod checked, replaced when worn', 'Tank flushed and descaled', 'Wiring, breaker and earthing checked', 'Flow and temperature measured at the taps', 'Heat pump coils, fans and refrigerant checked', 'A written report of what we found']
 
 export default {
-  path: 'service', nav: 'service',
+  path: 'service', nav: 'service', cta: 'service',
   title: 'Water Heater Repair, Installation & Maintenance',
   desc: 'Book a water heater repair, installation or preventive maintenance visit with DPY Mercantile. Quick checks to try first, and service teams in Manila, Boracay, Iloilo, Cebu and Davao.',
   crumbs: [['Service']],
@@ -30,7 +30,7 @@ export default {
 .way:nth-child(3) .ic{background:linear-gradient(135deg,#2BB673,#167A42)}
 .way .ic svg{width:22px;height:22px}
 .way b{font-size:18px;font-weight:600;letter-spacing:-.02em}
-.way span{font-size:13.5px;color:var(--mute);line-height:1.5}
+.way span{font-size:14.5px;color:var(--mute);line-height:1.5}
 .way em{margin-top:auto;padding-top:12px;font-style:normal;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
 .way em svg{width:14px;height:14px}
 /* quick checks */
@@ -42,12 +42,12 @@ export default {
 .checks details[open] summary::after{transform:rotate(180deg)}
 .checks ol{margin:0;padding:0 20px 20px 42px;display:grid;gap:8px;font-size:14px;color:var(--ink2)}
 .ck-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,5vw,64px);align-items:start}
-.safe{margin-top:22px;padding:16px 18px;border-radius:16px;background:#FFF4E5;color:#7A4A00;font-size:13.5px;line-height:1.5}
+.safe{margin-top:22px;padding:16px 18px;border-radius:16px;background:#FFF4E5;color:#7A4A00;font-size:14.5px;line-height:1.5}
 .safe b{color:#5A3500}
 /* maintenance */
 .pm{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
 .pm ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pm li{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:13.5px;line-height:1.45}
+.pm li{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:14.5px;line-height:1.45}
 .pm li svg{flex:none;width:18px;height:18px;padding:3px;border-radius:50%;background:#2BB673;color:#fff}
 .pm .why{display:grid;gap:14px;margin-top:22px}
 .pm .why div{display:flex;gap:14px;align-items:baseline}
@@ -141,18 +141,18 @@ export default {
         <small>Customer service</small><a class="call" href="tel:+639564160815">0956 416 0815</a>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px">${MSGR}</div>
       </div>
-      <form class="form" data-mail="service@dpymi.com.ph" data-subject="Service request" novalidate>
-        <div class="full"><span class="lb" id="svT">What do you need?</span><div class="qchips" role="group" aria-labelledby="svT" data-group="Service"><label><input type="radio" name="service" value="Repair" checked><span>Repair</span></label><label><input type="radio" name="service" value="Installation"><span>Installation</span></label><label><input type="radio" name="service" value="Preventive maintenance"><span>Maintenance</span></label><label><input type="radio" name="service" value="Other"><span>Something else</span></label></div></div>
+      <form class="form" data-mail="support@dpymi.com.ph" data-subject="Service request" novalidate>
+        <div class="full"><span class="lb" id="svT">What do you need?</span><div class="qchips" role="group" aria-labelledby="svT" data-group="Service"><label><input type="radio" name="service" value="Repair" checked><span>Repair</span></label><label><input type="radio" name="service" value="Installation"><span>Installation</span></label><label><input type="radio" name="service" value="Preventive maintenance"><span>Maintenance</span></label><label><input type="radio" name="service" value="Warranty claim"><span>Warranty</span></label><label><input type="radio" name="service" value="Other"><span>Something else</span></label></div></div>
         <div><label for="sN">Full name <i>*</i></label><input id="sN" name="fullname" autocomplete="name" required></div>
         <div><label for="sP">Mobile number <i>*</i></label><input id="sP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
         <div class="full"><label for="sA">Address or area <i>*</i></label><input id="sA" name="address" autocomplete="street-address" placeholder="Building, street, city" required></div>
-        <div><label for="sB">Brand</label><select id="sB" name="brand"><option value="">Not sure</option>${['Aquapower', 'Gratek Aquarius', 'Rheem', 'Everhot', '5 Star', 'Deron', 'HAASE', 'Champion', 'Other brand'].map(b => `<option>${b}</option>`).join('')}</select></div>
+        <div><label for="sB">Brand</label><select id="sB" name="brand"><option value="">Not sure</option>${['Aquapower', 'Gratek Aquarius', 'Rheem', 'Everhot', '5 Star', 'Deron', 'HAASE', 'Champion', 'Rotex', 'Enermax', 'Wilo', 'my-PV', 'Katen', 'Other brand'].map(b => `<option>${b}</option>`).join('')}</select></div>
         <div><label for="sT">Type of heater</label><select id="sT" name="type"><option value="">Not sure</option><option>Instant</option><option>Storage</option><option>Heat pump</option><option>Solar</option><option>Central system</option></select></div>
         <div><label for="sR">Nearest branch</label><select id="sR" name="branch">${BRANCHES.map(b => `<option>${b.n}</option>`).join('')}<option>Other area</option></select></div>
         <div><label for="sD">Preferred day</label><input id="sD" name="date" type="date"></div>
         <div class="full"><label for="sM">What's happening?</label><textarea id="sM" name="msg" placeholder="e.g. No hot water since yesterday, the breaker trips when the heater turns on."></textarea></div>
         <label class="ok"><input type="checkbox" name="consent" required><span>I agree that DPY may contact me about this request and use these details as described in the <a href="${R}privacy">privacy notice</a>.</span></label>
-        <div class="f-sub"><small>Sent to our service team at service@dpymi.com.ph.</small><button class="btn red" type="submit">Send my request ${I.arr}</button></div>
+        <div class="f-sub"><small>Sent to our service team at support@dpymi.com.ph.</small><button class="btn red" type="submit">Send my request ${I.arr}</button></div>
         <div class="f-done" role="status"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Thank you<span class="who"></span>!</h3><p>Your email app has opened with your request. Press send, and our service team will call you to confirm a visit.</p><button class="btn ghost again" type="button">Edit my request</button></div>
       </form>
     </div>

@@ -1,16 +1,12 @@
 import { crumbsHtml, img, I } from '../../tools/lib.mjs'
+import { listHtml, optionsHtml, stats } from '../jobs.mjs'
+import JOBS from '../jobs.json' with { type: 'json' }
 
-// openings as listed on dpymi.com.ph/careers; the one-line role summaries are general descriptions (to confirm with DPY's HR)
-const JOBS = [
-  ['Sales Engineer', 'Manila', 'Visit sites, size hot water systems and prepare quotations for hotels, hospitals and buildings.'],
-  ['Sales Executive', 'Manila', 'Look after homeowners, developers and retail clients, from first inquiry to installation.'],
-  ['Accounting Staff', 'Manila', 'Keep our books, billing and payments accurate and on time.'],
-  ['Aircon Technician', 'Manila', 'Install and service heat pumps and refrigeration-based systems on site.'],
-  ['Sales Engineer', 'Cebu', 'Grow our Visayas projects: site visits, system sizing and quotations.'],
-  ['Sales Executive', 'Cebu', 'Serve homes and businesses across Cebu, from inquiry to after-sales.'],
-]
+// openings come from src/jobs.json (the openings listed on dpymi.com.ph/careers; their details are samples, to confirm with DPY's HR).
+// Once HR saves positions on the admin page, the Worker swaps the parts between the <!--jobs:...--> markers for the saved list.
+const STATS = stats(JOBS)
 export default {
-  path: 'careers', nav: 'careers',
+  path: 'careers', nav: 'careers', noCta: true,
   title: 'Careers at DPY Mercantile',
   desc: 'Join DPY Mercantile Inc. Openings for sales engineers, sales executives, accounting staff and technicians in Manila and Cebu.',
   crumbs: [['Careers']],
@@ -22,8 +18,10 @@ export default {
 .jobs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .job{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:20px 22px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
 .job:hover{transform:translateX(4px)}
+.job b a{color:inherit}.job b a:hover{text-decoration:underline;text-underline-offset:3px}
+.job.none{grid-template-columns:1fr}.job.none:hover{transform:none}
 .job b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
-.job p{margin:4px 0 0;font-size:13.5px;color:var(--mute)}
+.job p{margin:4px 0 0;font-size:14.5px;color:var(--mute)}
 .job .loc{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--soft)}
 .job .loc svg{width:14px;height:14px}
 .apply{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:30px;padding:30px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#0D3A73,#0A1830)}
@@ -37,7 +35,7 @@ export default {
 .ap-side ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px;font-size:14px}
 .ap-side li{display:flex;gap:10px;align-items:center}
 .ap-side li svg{width:16px;height:16px;color:#7CC4FF}
-.ap-side small{color:#9DB0C6;font-size:12.5px}.ap-side small a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.ap-side small{color:#9DB0C6;font-size:13.5px}.ap-side small a{color:#fff;text-decoration:underline;text-underline-offset:2px}
 .ap .form{position:relative;padding:36px}
 /* the CV picker: the real file input covers the box (so a click or a dropped file both work), styled like the other fields */
 .drop{position:relative;display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 14px;border-radius:14px;border:1.5px dashed #C9D4E1;background:#F8FAFC;cursor:pointer;transition:border-color .25s,background .25s,box-shadow .25s}
@@ -47,7 +45,7 @@ export default {
 .drop .ic svg{width:20px;height:20px}
 .drop .t{flex:1;min-width:0;display:grid;gap:2px}
 .drop .t b{font-size:14px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.drop .t small{font-size:12px;color:var(--mute)}
+.drop .t small{font-size:13px;color:var(--mute)}
 .drop .pick{flex:none;font-size:13px;font-weight:600;color:var(--blue)}
 .drop:hover,.drop.over{border-color:var(--blue);background:#F1F7FE}
 .drop:focus-within{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(13,104,195,.1)}
@@ -61,7 +59,7 @@ export default {
   <span class="glow warm"></span>
   <div class="wrap ph-grid">
     <div>${crumbsHtml(R, [['Careers']])}<span class="kick">Careers</span><h1 class="thin h1">Discover<br>Your Potential</h1><p class="lede">We see our people as our most valuable asset. We train you, give you room to grow, and make you part of a reliable, professional team.</p><div class="ph-acts"><a class="btn red" href="#roles">See open roles ${I.arr}</a><a class="btn ghost" href="#apply" data-role="">Apply now</a></div></div>
-    <ul class="ph-stats"><li><b>${JOBS.length}</b><small>Open roles</small></li><li><b>2</b><small>Cities hiring</small></li><li><b>5</b><small>Core values</small></li></ul>
+    <ul class="ph-stats"><li><b><!--jobs:open-->${STATS.open}<!--/jobs:open--></b><small>Open roles</small></li><li><b><!--jobs:cities-->${STATS.cities}<!--/jobs:cities--></b><small>Cities hiring</small></li><li><b>5</b><small>Core values</small></li></ul>
   </div>
 </section>
 
@@ -78,8 +76,8 @@ export default {
 
 <section class="sec soft" id="roles" aria-labelledby="roT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Open roles</span><h2 class="thin h2" id="roT">We're Hiring</h2></div><p class="lede">Pick a role, attach your CV and send it from this page. We'll be in touch if your experience fits.</p></div>
-    <ul class="jobs">${JOBS.map(([t, l, d]) => `<li class="job" data-r><div><b>${t}</b><p>${d}</p></div><span class="loc">${I.pin}${l}</span><a class="btn sm" href="#apply" data-role="${t} (${l})" aria-label="Apply for ${t}, ${l}">Apply ${I.arr}</a></li>`).join('')}</ul>
+    <div class="sec-head"><div><span class="kick">Open roles</span><h2 class="thin h2" id="roT">We're Hiring</h2></div><p class="lede">Open a role to see what it involves, then apply from this page with your CV. We'll be in touch if your experience fits.</p></div>
+    <ul class="jobs"><!--jobs:list-->${listHtml(JOBS, R)}<!--/jobs:list--></ul>
     <div class="apply" data-r><div><b>Don't see your role?</b><p>Send your CV anyway. We keep good people in mind for the next opening.</p></div><a class="btn white" href="#apply" data-role="Open application">Send an open application ${I.arr}</a></div>
   </div>
 </section>
@@ -94,7 +92,7 @@ export default {
         <small>Prefer email? Send your CV to <a href="mailto:careers@dpymi.com.ph">careers@dpymi.com.ph</a>.</small>
       </div>
       <form class="form" data-mail="careers@dpymi.com.ph" data-subject="Job application" data-kind="careers" novalidate>
-        <div class="full"><label for="cR">Role <i>*</i></label><select id="cR" name="role" required><option value="">Choose a role</option>${JOBS.map(([t, l]) => `<option>${t} (${l})</option>`).join('')}<option>Open application</option></select></div>
+        <div class="full"><label for="cR">Role <i>*</i></label><select id="cR" name="role" required><option value="">Choose a role</option><!--jobs:options-->${optionsHtml(JOBS)}<!--/jobs:options--><option data-slug="open">Open application</option></select></div>
         <div><label for="cN">Full name <i>*</i></label><input id="cN" name="fullname" autocomplete="name" required></div>
         <div><label for="cP">Mobile number <i>*</i></label><input id="cP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
         <div><label for="cE">Email <i>*</i></label><input id="cE" name="email" type="email" autocomplete="email" placeholder="you@email.com" required></div>
@@ -109,6 +107,11 @@ export default {
   </div>
 </section>`,
   js: `
+// arriving from a role's own page (?role=its-address): that role is already picked in the form
+{
+  const want = new URLSearchParams(location.search).get('role'), opt = want && $('#cR option[data-slug="' + CSS.escape(want) + '"]')
+  if (opt) { opt.selected = true; if (location.hash === '#apply') setTimeout(() => $('#cN').focus({ preventScroll: true }), RM ? 0 : 900) }
+}
 // Apply buttons: pick that role in the form, then go to it
 $$('a[data-role]').forEach(a => a.addEventListener('click', e => {
   e.preventDefault()

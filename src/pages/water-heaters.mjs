@@ -10,7 +10,7 @@ const meter = (n, label, low) => `<span class="mt" role="img" aria-label="${labe
 const ORDER = ['instant', 'storage', 'heatpump', 'solar', 'tank', 'pump', 'pipe', 'control', 'fan']
 
 export default {
-  path: 'water-heaters', nav: 'water-heaters',
+  path: 'water-heaters', nav: 'water-heaters', cta: 'range',
   title: 'Water Heaters, Heat Pumps & Solar Heaters',
   desc: 'Every water heater DPY and Gratek supply: instant, storage, heat pump and solar, plus tanks, pumps and pipes. Compare types, see specs and get a free quote.',
   crumbs: [['Water Heaters']],
@@ -30,11 +30,11 @@ export default {
 .ty .ph img{max-height:132px;width:auto;margin-bottom:6px;transition:transform .7s var(--ease)}
 .ty:hover .ph img{transform:translateY(-6px)}
 .ty b{display:block;margin:14px 0 2px;font-size:18px;font-weight:600;letter-spacing:-.02em}
-.ty small{display:block;font-size:13px;line-height:1.45;color:var(--mute)}
-.ty .n{position:absolute;right:16px;top:16px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
+.ty small{display:block;font-size:14px;line-height:1.45;color:var(--mute)}
+.ty .n{position:absolute;right:16px;top:16px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
 /* compare table */
 .cmp{margin-top:26px;border-radius:24px;background:#fff;box-shadow:var(--card);overflow:hidden}
-.cmp table{width:100%;border-collapse:collapse;font-size:13.5px}
+.cmp table{width:100%;border-collapse:collapse;font-size:14px}
 .cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
 .cmp tr:last-child > *{border-bottom:0}
 .cmp thead th{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:#F7FAFD}
@@ -47,7 +47,7 @@ export default {
 .run .mt.low i.f{background:linear-gradient(90deg,#8FD9AE,#1E9E55)}
 /* catalogue */
 .cat-bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 0;margin-bottom:26px;background:linear-gradient(180deg,#F4F7FA 80%,rgba(244,247,250,0));transition:top .6s var(--ease)}
-.nav:not(.up) ~ main .cat-bar{top:76px}
+.nav ~ main .cat-bar{top:62px}
 .seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:#E4E9EE}
 .seg button{height:32px;padding:0 14px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink2);transition:background .3s,color .3s}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px -4px rgba(0,0,0,.25)}
@@ -99,8 +99,8 @@ export default {
 html.modal-open{overflow:hidden}
 @media (max-width:1180px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:980px){.types{grid-template-columns:repeat(2,1fr)}.cat-grid{grid-template-columns:repeat(2,1fr)}.finder{grid-template-columns:1fr}.lineup{height:240px}.lineup .a{height:120px}.lineup .b{height:170px}.lineup .c{height:200px}.lineup .d{height:136px}
-  .cmp{overflow-x:auto}.cmp table{min-width:760px}.nav:not(.up) ~ main .cat-bar{top:76px}}
-@media (max-width:560px){.lineup .d{display:none}.lineup{height:210px}.types{gap:10px}.ty{padding:12px}.ty .ph{height:110px}.ty .ph img{max-height:96px}.ty b{font-size:15.5px}.ty small{font-size:12px}
+  .cmp{overflow-x:auto}.cmp table{min-width:760px}}
+@media (max-width:560px){.lineup .d{display:none}.lineup{height:210px}.types{gap:10px}.ty{padding:12px}.ty .ph{height:110px}.ty .ph img{max-height:96px}.ty b{font-size:15.5px}.ty small{font-size:13px}
   .qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-picks{grid-template-columns:1fr 1fr 1fr}.qz-picks img{height:64px}
   .cat-bar{gap:8px}.cat-bar .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--g) * -1);padding:2px var(--g);width:calc(100% + var(--g) * 2)}.cat-bar .chips li{flex:none}}
 `,

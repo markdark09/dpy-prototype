@@ -6,13 +6,13 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { ROOT, SITE, page, nav, foot, ver, inlineCss, ASK, BRMAP, BRMAP_CSS } from './lib.mjs'
 
-const dir = path.join(ROOT, 'src/pages'), out = []
+const dir = path.join(ROOT, 'src/pages'), out = [], hidden = new Set()
 for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.mjs')).sort()) {
   const mod = await import(pathToFileURL(path.join(dir, f)).href)
   const pages = typeof mod.default === 'function' ? await mod.default() : mod.default
   for (const pg of [].concat(pages)) {
     const file = path.join(ROOT, pg.path + '.html'); fs.mkdirSync(path.dirname(file), { recursive: true })
-    fs.writeFileSync(file, page(pg)); out.push(pg.path)
+    fs.writeFileSync(file, page(pg)); out.push(pg.path); if (pg.noSitemap) hidden.add(pg.path)
   }
 }
 console.log(`built ${out.length} pages: ${out.join(', ')}`)
@@ -97,7 +97,10 @@ fs.writeFileSync(path.join(ROOT, '_redirects'), [
 console.log(`_redirects: ${lines.size} rules from ${rules.length} old addresses`)
 
 // sitemap.xml: every page, at the SITE address (lib.mjs). robots.txt only points to it once the site goes live.
-const urls = ['', ...out.filter(p => p !== 'privacy').sort()].map(p => SITE + p)
+// job pages are made by the Worker (worker/careers.js); the open ones in src/jobs.json are listed here, and the Worker
+// updates this list once HR saves positions on the admin page
+const JOBS = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/jobs.json'), 'utf8'))
+const urls = ['', ...out.filter(p => p !== 'privacy' && !hidden.has(p)), ...JOBS.filter(j => j.open).map(j => 'careers/' + j.slug)].sort().map(p => SITE + p)
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
   + urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>\n')
 console.log(`sitemap.xml: ${urls.length} pages`)

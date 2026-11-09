@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-PH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Job Openings Admin | DPY Mercantile</title>
+<link rel="icon" href="/assets/brand/dpy-icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<style>
+/* the admin page for job openings (served by worker/admin.js to signed-in staff only) */
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--font)}
+.top{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 1px 0 var(--line)}
+.top-in{display:flex;align-items:center;gap:16px;max-width:980px;margin:0 auto;padding:12px var(--g);padding-top:max(12px,env(safe-area-inset-top))}
+.top img{height:34px;width:auto}
+.top .tt{font-weight:600;font-size:15px;padding-left:16px;border-left:1px solid var(--line)}
+.top .me{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:13.5px;color:var(--mute);min-width:0}
+.top .me span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top .me a{color:var(--ink);font-weight:600;white-space:nowrap}
+main{max-width:980px;margin:0 auto;padding:32px var(--g) 120px}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.hd h1{margin:0;font-size:clamp(26px,3vw,34px);font-weight:600;letter-spacing:-.03em}
+.hd p{margin:6px 0 0;color:var(--mute);font-size:15px}
+.note{display:flex;gap:12px;align-items:flex-start;margin:0 0 16px;padding:14px 16px;border-radius:16px;font-size:14.5px;line-height:1.55;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.note.warn{background:#FFF6E5;box-shadow:inset 0 0 0 1px #F5D9A6}
+.note.err{background:#FDECEC;box-shadow:inset 0 0 0 1px #F3B7B7;color:#7A1013}
+.note b{font-weight:700}.note button{margin-left:auto}
+.jobs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.job{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 20px;align-items:center;padding:18px 20px;border-radius:20px;background:#fff;box-shadow:var(--sh-s)}
+.job.closed{background:#FAFBFC}
+.job h2{margin:0;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.job .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px;font-size:13.5px;color:var(--mute)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700}
+.pill.on{background:#E3F6EC;color:#0B6B3A}.pill.off{background:#ECEFF2;color:#4A5561}
+.pill.on::before{content:"";width:7px;height:7px;border-radius:50%;background:#1BA45C}
+.acts{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.ib{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;height:40px;padding:0 12px;border:0;border-radius:12px;background:var(--soft);color:var(--ink);font:600 13.5px var(--font);cursor:pointer;text-decoration:none;transition:background .2s}
+.ib:hover{background:#E4E8EC}.ib:focus-visible,.btn:focus-visible{outline:3px solid #7CC0FF;outline-offset:2px}
+.ib:disabled{opacity:.4;cursor:default}
+.ib.del:hover{background:#FDECEC;color:var(--red)}
+.ib svg{width:16px;height:16px}
+.empty{padding:48px 24px;border-radius:24px;background:#fff;text-align:center;box-shadow:var(--sh-s)}
+.empty b{display:block;font-size:18px;margin-bottom:6px}.empty p{margin:0 0 18px;color:var(--mute)}
+.sk{height:84px;border-radius:20px;background:linear-gradient(90deg,#fff 0,#F4F6F8 50%,#fff 100%);background-size:200% 100%;animation:sk 1.2s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.btn:disabled{opacity:.55;cursor:default;transform:none}
+/* editor and confirm boxes */
+dialog{border:0;padding:0;border-radius:24px;box-shadow:0 40px 90px -30px rgba(1,20,50,.55);color:var(--ink);max-width:calc(100vw - 24px)}
+dialog::backdrop{background:rgba(10,24,48,.45)}
+.ed{width:720px;max-height:min(92vh,960px)}
+.ed form{display:flex;flex-direction:column;max-height:inherit}
+.ed-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.ed-hd h2{margin:0;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.ed-bd{overflow:auto;padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ed-ft{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 24px;padding-bottom:max(14px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff;border-radius:0 0 24px 24px}
+.ed-ft .msg{margin-right:auto;font-size:13.5px;color:var(--red)}
+.f{display:grid;gap:6px}.f.full{grid-column:1/-1}
+.f label{font-size:13.5px;font-weight:600}.f label i{font-style:normal;color:var(--red)}
+.f small{font-size:12.5px;color:var(--mute)}
+.f input,.f select,.f textarea{width:100%;box-sizing:border-box;min-height:46px;padding:11px 14px;border:1.5px solid #D5DCE3;border-radius:12px;background:#fff;color:var(--ink);font:500 16px/1.5 var(--font);transition:border-color .2s,box-shadow .2s}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,104,195,.15)}
+.f.bad input,.f.bad textarea{border-color:var(--red);box-shadow:0 0 0 4px rgba(199,10,14,.12)}
+.f .cnt{justify-self:end}.f .cnt.over{color:var(--red);font-weight:700}
+.chk{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:var(--soft);font-weight:600;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--blue)}
+.chk small{display:block;font-weight:500;color:var(--mute)}
+.cf{width:440px;padding:26px}
+.cf h2{margin:0 0 8px;font-size:20px;font-weight:600}.cf p{margin:0 0 22px;color:var(--ink2);line-height:1.55}
+.cf .row{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.btn.danger{background:var(--red)}.btn.danger:hover{background:var(--red2)}
+.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));z-index:50;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:14px 20px;border-radius:14px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:600;box-shadow:var(--sh);transition:opacity .3s,transform .3s var(--ease);max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:700px){
+  .top .tt{display:none}.top .me span{display:none}
+  .job{grid-template-columns:minmax(0,1fr);padding:16px}.acts{justify-content:flex-start;gap:4px}.ib{padding:0 10px}
+  .ed{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;border-radius:0}.ed form{height:100%}.ed-ft{border-radius:0}
+  .ed-bd{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.sk{animation:none}.toast{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a href="/" aria-label="DPY Mercantile website"><img src="/assets/brand/dpy-logo.svg" alt="DPY Mercantile" width="120" height="34"></a>
+  <span class="tt">Job openings</span>
+  <div class="me"><span id="who"></span><a href="/careers" target="_blank" rel="noopener">View Careers page</a><a href="/cdn-cgi/access/logout">Sign out</a></div>
+</div></header>
+
+<main>
+  <div class="hd">
+    <div><h1>Job Openings</h1><p id="sub">Loading the list…</p></div>
+    <button class="btn red" id="add" type="button" disabled>+ Add a position</button>
+  </div>
+  <div id="notes" aria-live="polite"></div>
+  <ul class="jobs" id="list" aria-busy="true"><li class="sk"></li><li class="sk"></li><li class="sk"></li></ul>
+</main>
+
+<dialog class="ed" id="ed" aria-labelledby="edT">
+  <form id="edF" novalidate>
+    <div class="ed-hd"><h2 id="edT">Add a position</h2><button class="ib" type="button" data-close aria-label="Close">✕</button></div>
+    <div class="ed-bd">
+      <div class="f full"><label for="fTitle">Job title <i>*</i></label><input id="fTitle" name="title" maxlength="80" required placeholder="e.g. Sales Engineer" autocomplete="off"></div>
+      <div class="f"><label for="fLoc">Location <i>*</i></label><input id="fLoc" name="location" maxlength="40" required list="locs" placeholder="e.g. Manila" autocomplete="off"><datalist id="locs"><option>Manila</option><option>Cebu</option><option>Davao</option><option>Iloilo</option><option>Bacolod</option></datalist></div>
+      <div class="f"><label for="fType">Type</label><select id="fType" name="type"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select></div>
+      <div class="f full"><label for="fSum">Short summary <i>*</i></label><input id="fSum" name="summary" maxlength="200" required placeholder="One sentence: what the job is about. Shown in the list of openings."><small class="cnt" data-cnt="fSum">0 / 200</small></div>
+      <div class="f full"><label for="fAbout">About the role</label><textarea id="fAbout" name="about" maxlength="1500" placeholder="A few sentences about the job and the team."></textarea></div>
+      <div class="f full"><label for="fDuties">What you'll do</label><textarea id="fDuties" name="duties" placeholder="One task per line"></textarea><small>One per line, up to 12 lines.</small></div>
+      <div class="f full"><label for="fReq">What we look for</label><textarea id="fReq" name="requirements" placeholder="One requirement per line"></textarea><small>One per line, up to 12 lines.</small></div>
+      <div class="f full"><label for="fOffer">What we offer</label><textarea id="fOffer" name="offer" placeholder="Leave empty to show DPY's standard points"></textarea><small>Optional. Left empty, the page shows the usual points: real projects, training and growth, our values.</small></div>
+      <label class="chk"><input type="checkbox" id="fOpen" name="open" checked><span>Show on the website<small>Untick to close the position. Its page then says the role is filled.</small></span></label>
+    </div>
+    <div class="ed-ft"><span class="msg" id="edMsg" role="alert"></span><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn red" type="submit" id="edSave">Save and publish</button></div>
+  </form>
+</dialog>
+
+<dialog class="cf" id="cf" aria-labelledby="cfT">
+  <h2 id="cfT"></h2><p id="cfP"></p>
+  <div class="row"><button class="btn ghost" type="button" id="cfNo">Cancel</button><button class="btn danger" type="button" id="cfYes"></button></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict'
+const $ = s => document.querySelector(s)
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
+const S = { jobs: [], rev: 0, canSave: false, stored: false, busy: false }
+const API = '/api/admin/jobs'
+const IC = {
+  edit: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M11 2.5l2.5 2.5L6 12.5H3.5V10z"/></svg>',
+  up: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg>',
+  down: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>',
+  del: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.7 8.5h5.6l.7-8.5"/></svg>',
+  view: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 3h4v4M13 3L7.5 8.5M11 9.5V13H3V5h3.5"/></svg>',
+}
+
+let toastT
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 4200) }
+function notes() {
+  const n = []
+  if (S.error) n.push(`<div class="note err"><span>${esc(S.error)}</span>${S.retry ? '<button class="ib" type="button" id="retry">Try again</button>' : ''}</div>`)
+  if (S.loaded && !S.canSave) n.push('<div class="note warn"><span><b>Saving isn\'t switched on yet.</b> The JOBS storage isn\'t connected to the website, so changes can\'t be saved. The README explains the one-time setup.</span></div>')
+  else if (S.loaded && !S.stored) n.push('<div class="note"><span>These are the openings currently on the website. Your first save makes this the live list, and every change after that shows on the site within a minute.</span></div>')
+  $('#notes').innerHTML = n.join('')
+  $('#retry')?.addEventListener('click', load)
+}
+function render() {
+  const L = $('#list'), open = S.jobs.filter(j => j.open).length
+  L.removeAttribute('aria-busy')
+  $('#sub').textContent = S.jobs.length ? `${open} open on the website${S.jobs.length > open ? `, ${S.jobs.length - open} closed` : ''}. The list shows in this order on the Careers page.` : 'No positions yet.'
+  $('#add').disabled = S.busy || !S.canSave
+  notes()
+  if (!S.loaded) { L.innerHTML = ''; $('#sub').textContent = 'The list could not be loaded.'; return }
+  if (!S.jobs.length) { L.innerHTML = `<li class="empty"><b>No positions yet</b><p>Add your first opening. It appears on the Careers page as soon as you save it.</p><button class="btn red" type="button" data-add ${S.canSave ? '' : 'disabled'}>+ Add a position</button></li>`; L.querySelector('[data-add]').addEventListener('click', () => openEditor(-1)); return }
+  const dis = S.busy || !S.canSave ? 'disabled' : ''
+  L.innerHTML = S.jobs.map((j, i) => `<li class="job${j.open ? '' : ' closed'}">
+    <div><h2>${esc(j.title)}</h2><div class="meta"><span class="pill ${j.open ? 'on">Open' : 'off">Closed'}</span><span>${esc(j.location)} · ${esc(j.type)}</span></div></div>
+    <div class="acts">
+      <button class="ib" type="button" data-act="edit" data-i="${i}" ${dis}>${IC.edit}Edit</button>
+      <button class="ib" type="button" data-act="toggle" data-i="${i}" ${dis}>${j.open ? 'Close' : 'Reopen'}</button>
+      <button class="ib" type="button" data-act="up" data-i="${i}" aria-label="Move ${esc(j.title)}, ${esc(j.location)} up" ${i === 0 ? 'disabled' : dis}>${IC.up}</button>
+      <button class="ib" type="button" data-act="down" data-i="${i}" aria-label="Move ${esc(j.title)}, ${esc(j.location)} down" ${i === S.jobs.length - 1 ? 'disabled' : dis}>${IC.down}</button>
+      ${j.slug ? `<a class="ib" href="/careers/${encodeURIComponent(j.slug)}" target="_blank" rel="noopener" aria-label="View ${esc(j.title)}, ${esc(j.location)} on the website">${IC.view}</a>` : ''}
+      <button class="ib del" type="button" data-act="del" data-i="${i}" aria-label="Delete ${esc(j.title)}, ${esc(j.location)}" ${dis}>${IC.del}</button>
+    </div></li>`).join('')
+}
+
+async function load() {
+  S.error = ''; S.retry = false
+  try {
+    const r = await fetch(API, { headers: { Accept: 'application/json' }, cache: 'no-store' })
+    const d = await r.json().catch(() => ({}))
+    if (!r.ok) throw Object.assign(new Error(d.error || 'The list could not be loaded.'), { status: r.status })
+    Object.assign(S, { jobs: d.jobs || [], rev: d.rev || 0, canSave: !!d.canSave, stored: !!d.stored, loaded: true })
+    $('#who').textContent = d.email ? 'Signed in as ' + d.email : ''
+  } catch (e) {
+    S.error = e.status === 401 ? 'You have been signed out. Reload the page to sign in again.' : (e.message || 'The list could not be loaded.') + (e.status ? '' : ' Check your connection.')
+    S.retry = e.status !== 401
+    S.loaded = S.loaded || false
+  }
+  render()
+}
+
+// every change saves the whole list at once; rev makes sure nobody else saved in between
+async function save(jobs, done) {
+  S.busy = true; render()
+  try {
+    const r = await fetch(API, { method: 'PUT', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ rev: S.rev, jobs }) })
+    const d = await r.json().catch(() => ({}))
+    if (r.ok) { Object.assign(S, { jobs: d.jobs, rev: d.rev, stored: true, error: '' }); toast(done || 'Saved. It\'s on the website now.'); return { ok: true } }
+    if (r.status === 409) { Object.assign(S, { jobs: d.jobs || S.jobs, rev: d.rev ?? S.rev, error: d.error }); return { ok: false, conflict: true, error: d.error } }
+    if (r.status === 401) { S.error = 'You have been signed out. Reload the page to sign in again.'; return { ok: false, error: S.error } }
+    return { ok: false, error: d.error || 'That could not be saved. Please try again.', index: d.index, field: d.field }
+  } catch { return { ok: false, error: 'That could not be saved. Check your connection and try again.' } }
+  finally { S.busy = false; render() }
+}
+
+// the confirm box (instead of the browser's own)
+function confirmBox(title, text, yes) {
+  return new Promise(res => {
+    const d = $('#cf'); $('#cfT').textContent = title; $('#cfP').textContent = text; $('#cfYes').textContent = yes
+    const end = v => { d.close(); res(v) }
+    $('#cfYes').onclick = () => end(true); $('#cfNo').onclick = () => end(false); d.oncancel = e => { e.preventDefault(); end(false) }
+    d.showModal(); $('#cfNo').focus()
+  })
+}
+
+// ---------- the editor ----------
+const ed = $('#ed'), F = $('#edF'), lines = v => v.split('\n').map(x => x.trim()).filter(Boolean)
+let editing = -1, editingSlug = null, snapshot = ''
+const formJob = () => ({ title: F.title.value.trim(), location: F.location.value.trim(), type: F.type.value, summary: F.summary.value.trim(), about: F.about.value.trim(), duties: lines(F.duties.value), requirements: lines(F.requirements.value), offer: lines(F.offer.value), open: F.open.checked })
+function openEditor(i) {
+  editing = i
+  const j = S.jobs[i] || { type: 'Full-time', open: true }
+  editingSlug = i < 0 ? null : j.slug
+  $('#edT').textContent = i < 0 ? 'Add a position' : 'Edit position'
+  F.title.value = j.title || ''; F.location.value = j.location || ''; F.type.value = j.type || 'Full-time'; F.summary.value = j.summary || ''; F.about.value = j.about || ''
+  F.duties.value = (j.duties || []).join('\n'); F.requirements.value = (j.requirements || []).join('\n'); F.offer.value = (j.offer || []).join('\n'); F.open.checked = j.open !== false
+  F.querySelectorAll('.f.bad').forEach(x => x.classList.remove('bad')); $('#edMsg').textContent = ''
+  count(); snapshot = JSON.stringify(formJob())
+  ed.showModal(); F.title.focus()
+}
+async function closeEditor() {
+  if (JSON.stringify(formJob()) !== snapshot && !(await confirmBox('Discard your changes?', 'What you typed in this position hasn\'t been saved.', 'Discard'))) return
+  ed.close()
+}
+ed.addEventListener('cancel', e => { e.preventDefault(); closeEditor() })
+ed.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeEditor))
+function count() { const n = F.summary.value.length, c = $('[data-cnt="fSum"]'); c.textContent = `${n} / 200`; c.classList.toggle('over', n > 200) }
+F.summary.addEventListener('input', count)
+F.addEventListener('input', e => e.target.closest('.f')?.classList.remove('bad'))
+function bad(field, msg) {
+  const el = F.elements[field]; el?.closest('.f')?.classList.add('bad'); $('#edMsg').textContent = msg; el?.focus()
+}
+F.addEventListener('submit', async e => {
+  e.preventDefault()
+  const j = formJob()
+  if (j.title.length < 2) return bad('title', 'Please add the job title.')
+  if (j.location.length < 2) return bad('location', 'Please add the location.')
+  if (j.summary.length < 10) return bad('summary', 'Please add a short summary (a sentence).')
+  for (const k of ['duties', 'requirements', 'offer']) if (j[k].length > 12) return bad(k, 'Up to 12 lines in each list, please.')
+  // find the position again by its address: after someone else's save the list may have moved
+  if (editingSlug) editing = S.jobs.findIndex(x => x.slug === editingSlug)
+  const next = S.jobs.map(x => ({ ...x }))
+  if (editing < 0) next.unshift(j); else next[editing] = { ...next[editing], ...j }
+  $('#edSave').disabled = true; $('#edSave').textContent = 'Saving…'
+  const r = await save(next, editing < 0 ? 'Position added. It\'s on the Careers page now.' : 'Saved. The page is updated.')
+  $('#edSave').disabled = false; $('#edSave').textContent = 'Save and publish'
+  if (r.ok) { snapshot = JSON.stringify(formJob()); ed.close(); return }
+  // someone else saved meanwhile: their list is loaded behind the editor, and what was typed here stays
+  if (r.conflict) { S.error = ''; render(); $('#edMsg').textContent ='Someone else saved changes just now. Their changes are loaded and yours are still here: press Save and publish again.' + (editingSlug && S.jobs.findIndex(x => x.slug === editingSlug) < 0 ? ' (They deleted this position, so it will be added as new.)' : ''); return }
+  if (r.field && (r.index === undefined || r.index === (editing < 0 ? 0 : editing))) return bad(r.field, r.error)
+  $('#edMsg').textContent = r.error
+})
+
+// ---------- list actions ----------
+$('#add').addEventListener('click', () => openEditor(-1))
+$('#list').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-act]'); if (!b || b.disabled) return
+  const i = +b.dataset.i, j = S.jobs[i], next = S.jobs.map(x => ({ ...x }))
+  if (b.dataset.act === 'edit') return openEditor(i)
+  if (b.dataset.act === 'toggle') { next[i].open = !j.open; return save(next, j.open ? 'Closed. Its page now says the role is filled.' : 'Reopened. It\'s back on the Careers page.') }
+  if (b.dataset.act === 'up' || b.dataset.act === 'down') { const k = b.dataset.act === 'up' ? i - 1 : i + 1; [next[i], next[k]] = [next[k], next[i]]; return save(next, 'Order saved.') }
+  if (b.dataset.act === 'del') {
+    if (!(await confirmBox(`Delete ${j.title}, ${j.location}?`, 'It disappears from the website and its page stops working. To keep the page but stop applications, use Close instead.', 'Delete'))) return
+    next.splice(i, 1); return save(next, 'Deleted.')
+  }
+})
+addEventListener('beforeunload', e => { if (ed.open && JSON.stringify(formJob()) !== snapshot) e.preventDefault() })
+load()
+</script>
+</body>
+</html>

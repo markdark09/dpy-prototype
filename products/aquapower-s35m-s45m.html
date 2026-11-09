@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-s35.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Instant water heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=instant"},{"@type":"ListItem","position":4,"name":"Aquapower S35M / S45M","item":"https://prototype.dpy-mi.workers.dev/products/aquapower-s35m-s45m"}]},{"@type":"Product","name":"Aquapower S35M / S45M","brand":{"@type":"Brand","name":"Aquapower"},"category":"Instant water heaters","description":"A compact single-point heater for one shower, in two power sizes.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-s35.webp","url":"https://prototype.dpy-mi.workers.dev/products/aquapower-s35m-s45m"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Instant water heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=instant"},{"@type":"ListItem","position":4,"name":"Aquapower S35M / S45M","item":"https://prototype.dpy-mi.workers.dev/products/aquapower-s35m-s45m"}]},{"@type":"Product","name":"Aquapower S35M / S45M","brand":{"@type":"Brand","name":"Aquapower"},"category":"Instant water heaters","description":"The Aquapower S35M and S45M are compact single-point heaters for one shower. At 1.2 kg they are small enough to mount beside the shower or out of sight. Choose 3.5 kW (S35M) or 4.5 kW (S45M). Both heat through a 99.9% copper tank, switch on at 2 liters a minute, and have two thermostats and a pressure switch for safety, in an IP25 splash-proof casing.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/aquapower-s35.webp","url":"https://prototype.dpy-mi.workers.dev/products/aquapower-s35m-s45m"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -39,6 +39,9 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,svg,canvas{display:block;max-width:100%}
 img{height:auto}
+img,a{-webkit-user-drag:none}
+a[href^="tel:"]{white-space:nowrap} 
+@media (hover:hover) and (pointer:fine){a[href^="tel:"]:not(.btn):not(.nav-tel):not(.msgr){pointer-events:none;cursor:text}}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,.thin{text-wrap:balance}p,blockquote,li{text-wrap:pretty}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -50,6 +53,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .off *,.off *::before,.off *::after{animation-play-state:paused!important}
 .thin{font-weight:300;letter-spacing:-.035em;line-height:1.08;margin:0;background:linear-gradient(180deg,#14181E 10%,#7E8A97 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .h2{font-size:clamp(2rem,3.6vw,3.1rem)}
+.h2::first-line,.h1::first-line{font-weight:500}
+.hero-head .h1::first-line{font-weight:inherit}
 .h3{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.25}
 .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
 .kick::before{content:"";width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--red))}
@@ -72,10 +77,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .link svg{width:14px;height:14px;transition:transform .4s var(--ease)}
 .link:hover svg{transform:translateX(3px)}
-.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
+.nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:background .4s,box-shadow .4s}
 .nav.solid{background:#fff;box-shadow:0 1px 0 var(--line),0 10px 28px -22px rgba(1,30,70,.45)}
-.nav.up{transform:translateY(-100%)}
-.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
+.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px;transition:height .35s var(--ease)}
+.nav.solid .nav-in{height:62px}
 .brand img{width:132px;height:auto}
 .pill{position:relative;display:flex;gap:2px;list-style:none;margin:0;padding:4px;border-radius:999px;background:rgba(226,232,238,.85);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
 .pill li{position:relative;z-index:1}
@@ -106,7 +111,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sheet .sh-links a[aria-current="page"]{font-weight:600}
 .sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
 .sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
-.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact > a,.sh-num{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-num{grid-column:1/-1}.sh-num b a{color:inherit}.sh-num b a:hover{color:var(--red)}
 .sh-contact small{font-size:12px;color:var(--mute)}
 .sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
 .sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
@@ -132,7 +138,7 @@ html.menu-lock{overflow:hidden}
 .foot-cta .btn.line:hover{background:#fff;color:var(--ink)}
 .ft{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:30px}
 .ft .logo img{width:150px}
-.ft .logo p{font-size:13px;color:var(--mute);max-width:230px;margin:12px 0 16px}
+.ft .logo p{font-size:14px;color:var(--mute);max-width:230px;margin:12px 0 16px}
 .ft .logo .gk{width:92px;opacity:.9}
 .ft h2{margin:4px 0 12px;font-size:13px;font-weight:600;letter-spacing:0}
 .ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
@@ -142,7 +148,7 @@ html.menu-lock{overflow:hidden}
 .ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
 .ft .soc a:hover{background:var(--ink);color:#fff}
 .ft .soc svg{width:16px;height:16px}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#76665C}
+.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:13px;color:#76665C}
 .base a{text-decoration:underline;text-underline-offset:2px}
 .ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
 .ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
@@ -162,7 +168,7 @@ html.menu-lock{overflow:hidden}
 @keyframes bob{50%{transform:translateY(-3px) scale(.94,1.06)}}
 .ask-btn .dot{position:absolute;left:36px;top:7px;width:10px;height:10px;border-radius:50%;background:#2BD46A;box-shadow:0 0 0 2px var(--ink)}
 .ask.open .ask-btn{opacity:0;pointer-events:none;transform:scale(.9)}
-.ask-tip{position:absolute;right:0;bottom:66px;width:230px;padding:12px 32px 12px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font-size:13px;line-height:1.4;box-shadow:0 16px 36px -16px rgba(1,30,70,.5);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
+.ask-tip{position:absolute;right:0;bottom:66px;width:230px;padding:12px 32px 12px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font-size:14px;line-height:1.4;box-shadow:0 16px 36px -16px rgba(1,30,70,.5);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
 .ask-tip.on{opacity:1;transform:none;pointer-events:auto}
 .ask-tip button{position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;font-size:14px;line-height:1;color:var(--dim)}
 .ask-win{position:absolute;right:0;bottom:0;width:380px;height:min(600px,calc(100svh - 120px));display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(1,20,50,.55),0 0 0 1px rgba(1,30,70,.06);opacity:0;transform:translateY(16px) scale(.97);transform-origin:100% 100%;pointer-events:none;transition:opacity .35s,transform .5s var(--ease)}
@@ -253,7 +259,7 @@ html.menu-lock{overflow:hidden}
   .ctray-on .ask{bottom:80px}.qbar-on .ctray{bottom:80px}.qbar-on.ctray-on .ask{bottom:148px}
 }
 .trust{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;margin-top:44px;padding-top:26px;border-top:1px solid rgba(120,70,40,.15)}
-.trust .k{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.trust .k{margin:0 0 10px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 .trust ul{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;margin:0;padding:0;font-size:13px;font-weight:600;color:var(--ink2)}
 .trust li{display:flex;align-items:center;gap:8px}
 .trust li i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#1E9E55;color:#fff}
@@ -311,7 +317,7 @@ button.busy{cursor:progress;opacity:.85}
 .crumbs [aria-current]{color:var(--ink)}
 .ph-stats{display:flex;gap:clamp(20px,4vw,48px);list-style:none;margin:0;padding:0;justify-content:flex-end}
 .ph-stats b{display:block;font-size:clamp(26px,2.6vw,34px);font-weight:400;letter-spacing:-.03em;line-height:1.1}
-.ph-stats small{font-size:12.5px;color:var(--mute)}
+.ph-stats small{font-size:13px;color:var(--mute)}
 .ph-art{position:relative;justify-self:center;align-self:center}
 .sec{padding:96px 0}
 .sec.tight{padding:64px 0}
@@ -346,14 +352,14 @@ button.busy{cursor:progress;opacity:.85}
 .pc:hover .pic img{transform:translateY(-8px) scale(1.03)}
 .pc:hover .pic::after{transform:scale(.8);opacity:.7}
 .pc .noimg{position:relative;z-index:1;align-self:center;font-size:22px;font-weight:800;letter-spacing:.08em;color:#3A4655}
-.pc .tag{position:absolute;z-index:2;left:14px;top:14px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
+.pc .tag{position:absolute;z-index:2;left:14px;top:14px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:#fff;color:var(--ink2);box-shadow:var(--sh-s)}
 .pc .who{position:absolute;z-index:2;right:14px;top:14px;display:flex;gap:4px}
-.pc .who span{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(13,104,195,.08);color:var(--blue)}
+.pc .who span{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(13,104,195,.08);color:var(--blue)}
 .pc .who span.b{background:rgba(199,10,14,.07);color:var(--red)}
-.pc .br{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:8px 0 4px}
+.pc .br{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:8px 0 4px}
 .pc h3{margin:0;font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
 .pc h3 a::after{content:"";position:absolute;inset:0;z-index:1;border-radius:24px} 
-.pc p{margin:6px 0 14px;font-size:13px;line-height:1.5;color:var(--mute)}
+.pc p{margin:6px 0 14px;font-size:14px;line-height:1.5;color:var(--mute)}
 .pc .kf{display:flex;gap:6px;flex-wrap:wrap;margin:auto 0 14px}
 .pc .kf span{font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;background:#fff;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
 .pc .kf b{font-weight:700;color:var(--ink)}
@@ -366,12 +372,14 @@ button.busy{cursor:progress;opacity:.85}
 .addq[aria-pressed="true"]{background:#E9F8EF;color:#167A42;box-shadow:inset 0 0 0 1.5px #A7E0BE}
 .addq .on{display:none}.addq[aria-pressed="true"] .on{display:inline}.addq[aria-pressed="true"] .of{display:none}
 .addq{white-space:nowrap}.addq .sm{display:none}
+.addq[aria-pressed="true"] > svg{display:none}
+.addq[aria-pressed="true"]::before{content:"";flex:none;width:14px;height:14px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l2.8 2.8 6-6.2' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l2.8 2.8 6-6.2' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .js [data-r]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform 1s var(--ease)}
 .js [data-r].in{opacity:1;transform:none}
 .js [data-r="fade"]{transform:none}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;align-content:start}
 .form .full{grid-column:1/-1}
-.form label,.form .lb{display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--ink2)}
+.form label,.form .lb{display:block;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--ink2)}
 .form label i{font-style:normal;color:var(--red)}
 .form input,.form select,.form textarea{width:100%;height:46px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:#F8FAFC;font:inherit;font-size:14px;color:var(--ink);outline:none;transition:border-color .25s,background .25s,box-shadow .25s}
 .form textarea{height:96px;padding:12px 14px;resize:vertical}
@@ -386,13 +394,14 @@ button.busy{cursor:progress;opacity:.85}
 .qchips span:hover{background:#E7ECF1}
 .qchips input:checked + span{background:var(--ink);color:#fff;box-shadow:none}
 .qchips input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}
-.ok{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--ink2);cursor:pointer}
+.ok{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--ink2);cursor:pointer}
 .form .ok{display:flex;margin:4px 0 0;font-weight:400}
+.form label.ok{font-size:13.5px}
 .form .ok input{flex:none;width:18px;height:18px;margin:1px 0 0;padding:0;border-radius:5px;background:none;box-shadow:none;accent-color:var(--ink);cursor:pointer}
 .ok.bad span{color:var(--red)}
 .ok a,.f-sub small a{text-decoration:underline;text-underline-offset:2px}
 .f-sub{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:4px}
-.f-sub small{font-size:11.5px;color:var(--mute);max-width:300px}
+.f-sub small{font-size:12.5px;color:var(--mute);max-width:300px}
 .f-sub .btn{height:52px;padding:0 28px;font-size:15px}
 .f-done{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:10px;padding:40px;text-align:center;background:#fff;border-radius:inherit;opacity:0;pointer-events:none;transition:opacity .5s}
 .f-done.on{opacity:1;pointer-events:auto}
@@ -402,7 +411,7 @@ button.busy{cursor:progress;opacity:.85}
 .f-done p{margin:0;max-width:380px;font-size:14px;color:var(--mute)}
 .spec{margin:0 0 30px}
 .spec h3{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.02em}
-.spec .all{margin:0 0 12px;font-size:13px;color:var(--mute)}
+.spec .all{margin:0 0 12px;font-size:14px;color:var(--mute)}
 .spec .all b{color:var(--ink2);font-weight:600}
 .tscroll{position:relative;overflow-x:auto;border-radius:18px;box-shadow:inset 0 0 0 1px var(--line);scrollbar-width:thin;
   background:linear-gradient(90deg,rgba(255,255,255,0),#fff 60%) right/48px 100% no-repeat local,radial-gradient(farthest-side at 100% 50%,rgba(1,30,70,.16),rgba(1,30,70,0)) right/16px 100% no-repeat scroll,#fff}
@@ -414,8 +423,8 @@ button.busy{cursor:progress;opacity:.85}
 .tscroll th:first-child,.tscroll td:first-child{position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 var(--line)}
 .tscroll thead th:first-child{z-index:2;background:#F4F7FA}
 .tscroll tbody tr:hover > *{background:#F8FBFE}
-.spec .notes{margin:10px 0 0;padding:0 0 0 18px;font-size:12px;color:var(--mute)}
-.scroll-hint{display:none;margin:8px 0 0;font-size:11.5px;color:var(--dim)}
+.spec .notes{margin:10px 0 0;padding:0 0 0 18px;font-size:13px;color:var(--mute)}
+.scroll-hint{display:none;margin:8px 0 0;font-size:12.5px;color:var(--dim)}
 .tscroll.tall table{width:auto;min-width:100%}
 .tscroll.tall tbody th{font-weight:600;color:var(--ink2);white-space:normal;min-width:180px}
 @media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}}
@@ -439,12 +448,12 @@ button.busy{cursor:progress;opacity:.85}
   .grid.cat-grid,.grid.rel{grid-template-columns:1fr 1fr;gap:10px}
   .pc{padding:0 10px 10px;border-radius:18px}
   .pc .pic{height:128px;margin:30px 0 4px}
-  .pc .tag{left:8px;top:8px;font-size:10px;padding:3px 8px}
+  .pc .tag{left:8px;top:8px;font-size:11px;padding:3px 8px}
   .pc .who{display:none}
-  .pc .br{font-size:9.5px;letter-spacing:.08em;margin:6px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pc .br{font-size:10.5px;letter-spacing:.08em;margin:6px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pc h3{font-size:14.5px}
   .pc p{display:none}
-  .pc .kf{margin:8px 0 10px}.pc .kf span{font-size:10.5px;padding:3px 7px}.pc .kf span + span{display:none}
+  .pc .kf{margin:8px 0 10px}.pc .kf span{font-size:11.5px;padding:3px 7px}.pc .kf span + span{display:none}
   .pc .acts .btn{display:none}
   .addq{flex:1;height:34px;padding:0 8px;font-size:11.5px}
   .pc .addq .lg{display:none}.pc .addq .sm{display:inline}
@@ -478,9 +487,79 @@ button.busy{cursor:progress;opacity:.85}
 .pd .ph-acts .addq{height:46px;padding:0 18px;font-size:13.5px;white-space:nowrap}
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
+/* how it works: the diagram (same style as For Business), its numbered steps, and how to use it */
+.hw-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:start}
+.hw-vis{position:sticky;top:calc(50vh - 232px);z-index:2}
+.hws .kick{color:#7CC0FF}
+.hw-steps{list-style:none;margin:0;padding:0}
+.hw-steps li{min-height:56vh;display:flex;flex-direction:column;justify-content:center;gap:10px;opacity:.7;transition:opacity .5s var(--ease)}
+.hw-steps li:first-child{min-height:44vh;justify-content:flex-start;padding-top:40px}
+.hw-steps li.on{opacity:1}
+.hw-steps em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7CC0FF}
+.hw-steps h3{margin:0;font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.hw-steps p{margin:0;max-width:440px;font-size:15.5px;line-height:1.6;color:#B4C3D4}
+/* one step at a time: its parts stay lit, the rest dims */
+.how-vis [data-part]{transition:opacity .5s var(--ease)}
+.how-vis:not([data-step="all"]) [data-part]{opacity:.16}
+.how-vis[data-step="1"] [data-part~="1"],.how-vis[data-step="2"] [data-part~="2"],.how-vis[data-step="3"] [data-part~="3"],.how-vis[data-step="4"] [data-part~="4"]{opacity:1}
+@media (max-width:980px){.hw-grid{grid-template-columns:minmax(0,1fr);gap:0}.hw-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:var(--night);box-shadow:0 18px 24px -18px var(--night);}.hw-vis{top:62px}.hw-steps li,.hw-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.hw-steps li:last-child{padding-bottom:40vh}}
+@media (max-width:640px){.hws .how-vis .leg{display:none}.hws .how-vis{padding:8px;border-radius:20px}}
+@media (prefers-reduced-motion:reduce){.how-vis [data-part],.hw-steps li{transition:none}}
+.how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
+.how-vis svg{display:block;width:100%;height:auto;overflow:visible}
+.how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
+.how-vis .leg span{display:inline-flex;align-items:center;gap:8px}.how-vis .leg i{width:22px;height:5px;border-radius:4px}
+.how-vis .pipe{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .cold{stroke:#4C9BE8}.how-vis .hot{stroke:#E3473B}.how-vis .warm{stroke:#F08A4B}.how-vis .ref{stroke:#B79CFF;stroke-width:5}.how-vis .green{stroke:#3CC48A}.how-vis .pow{stroke:#FFC24D;stroke-width:4}.how-vis .air{stroke:#9DB0C6;stroke-width:3}
+.how-vis .flow{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:2 16;opacity:.7;animation:hwflow 1.6s linear infinite}
+.how-vis .flow.slow{animation-duration:2.6s}
+@keyframes hwflow{to{stroke-dashoffset:-36}}
+.how-vis .box,.how-vis .shell{fill:#132B4E;stroke:rgba(255,255,255,.22);stroke-width:2}
+.how-vis .part,.how-vis .ring{fill:#1B3A66;stroke:#7CC0FF;stroke-width:2}
+.how-vis .tri{fill:#7CC0FF}
+.how-vis .needle{stroke:#fff;stroke-width:3;stroke-linecap:round}
+.how-vis .coil{fill:none;stroke:url(#hwCoil);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .coil.hotc{stroke:#FFD2A8}
+.how-vis .fix{fill:none;stroke:#C9D6E4}.how-vis .fix .drops{stroke:#7CC0FF}
+.how-vis .fin{stroke:rgba(255,255,255,.35);stroke-width:2}
+.how-vis .fanb path{fill:none;stroke:#C9D6E4;stroke-width:4;stroke-linecap:round}.how-vis .hub{fill:#C9D6E4}
+.how-vis .spin{animation:hwspin 3s linear infinite}
+@keyframes hwspin{to{transform:rotate(360deg)}}
+.how-vis .sunb circle{fill:#FFC24D}.how-vis .sunb path{stroke:#FFC24D;stroke-width:3;stroke-linecap:round}
+.how-vis .panel{fill:#24477A;stroke:#7CC0FF;stroke-width:2}.how-vis .roof{stroke:rgba(255,255,255,.25);stroke-width:3}
+.how-vis .pool{fill:#1E6FB8;stroke:#7CC0FF;stroke-width:2}.how-vis .wave{fill:none;stroke:#BFE3FF;stroke-width:3}
+.how-vis .one{fill:none;stroke:#7CC0FF;stroke-width:2;stroke-dasharray:8 8}
+.how-vis .floor{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.2)}
+.how-vis .pp{fill:#E8EEF4;stroke:#9DB0C6}.how-vis .sock{fill:#C9D6E4}.how-vis .fuse{fill:#F08A4B}.how-vis .tool{fill:#B3262B;stroke:#FFB3A3;stroke-width:2}
+.how-vis .arrow{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.how-vis .house{fill:#132B4E;stroke:#C9D6E4;stroke-width:2}
+.how-vis .steam{fill:none;stroke:#9DB0C6;stroke-width:3;stroke-linecap:round;opacity:.7}
+.how-vis .t{font:600 22px var(--font);fill:#fff}.how-vis .s{font:500 18px var(--font);fill:#9DB0C6}
+.how-vis .mk circle{fill:#fff;transition:fill .3s}.how-vis .mk text{font:700 19px var(--font);fill:#0A1830;text-anchor:middle;dominant-baseline:central;transition:fill .3s}
+.how-vis .mk{cursor:pointer}.how-vis .mk circle{transition:fill .3s,transform .3s}.how-vis .mk.on circle{fill:#E3262B}.how-vis .mk.on text{fill:#fff}
+.use{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr);gap:32px}
+.use-hd h2{margin:8px 0 0;font-size:28px;font-weight:600;letter-spacing:-.02em}
+.use-hd p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--mute)}
+.use-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:us}
+.use-steps li{padding:18px;border-radius:18px;background:#fff;box-shadow:var(--card)}
+.use-steps li::before{counter-increment:us;content:"Step " counter(us);display:block;margin-bottom:6px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.use-steps b{display:block;font-size:16px;font-weight:600}
+.use-steps p{margin:4px 0 0;font-size:14.5px;line-height:1.55;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
+@media (max-width:980px){.use{grid-template-columns:minmax(0,1fr);gap:16px}}
+@media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}}
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
+.ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
+.sec.about{padding:56px 0 24px}
+@media (max-width:980px){.ab-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.sec.about{padding-top:36px}.ab-body p{font-size:16px}.ab-body p:first-child{font-size:17.5px}}
+.spec-none{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;padding:26px 28px;border-radius:22px;background:#fff;box-shadow:var(--card)}
+.spec-none b{display:block;font-size:18px;font-weight:600;letter-spacing:-.01em}.spec-none p{margin:6px 0 0;max-width:560px;font-size:15px;color:var(--ink2)}
 .feats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;counter-reset:f}
-/* rows always fill: 3 a row by default, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
+/* rows always fill: 3 a row by default, 1 card full width, 2 as halves, 4 cards in one row, 5 as 3 + 2, 7 as 4 + 3 */
 .feats > .ft-c{grid-column:span 4}
+.feats > .ft-c:only-child{grid-column:1/-1}
+.feats > .ft-c:first-child:nth-last-child(2),.feats > .ft-c:first-child:nth-last-child(2) ~ .ft-c{grid-column:span 6}
 .feats > .ft-c:first-child:nth-last-child(4),.feats > .ft-c:first-child:nth-last-child(4) ~ .ft-c{grid-column:span 3}
 .feats > .ft-c:first-child:nth-last-child(5) ~ .ft-c:nth-child(n+4){grid-column:span 6}
 .feats > .ft-c:first-child:nth-last-child(7),.feats > .ft-c:first-child:nth-last-child(7) ~ .ft-c:nth-child(-n+4){grid-column:span 3}
@@ -499,13 +578,15 @@ button.busy{cursor:progress;opacity:.85}
 .prom i{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff}
 .prom i svg{width:15px;height:15px}
 .prom b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
-.prom span{font-size:12.5px;color:var(--mute);line-height:1.45}
+.prom span{font-size:14px;color:var(--mute);line-height:1.45}
 .rel{grid-template-columns:repeat(4,1fr)}
 /* phones: a quote bar that stays in reach */
 .qbar{display:none}
 @media (max-width:980px){.pd-grid{grid-template-columns:1fr}.stage{height:360px;order:-1;margin-top:-10px}.feats,.prom{grid-template-columns:1fr 1fr}.feats > .ft-c{grid-column:auto!important}.feats > .ft-c:last-child:nth-child(odd){grid-column:1/-1!important}.rel{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.feats,.prom{grid-template-columns:1fr}.feats > .ft-c:last-child:nth-child(odd){grid-column:auto!important}.facts{gap:8px}.facts div{padding:12px 10px}.facts b{font-size:17px}.rel{grid-template-columns:1fr}.stage{height:300px;padding-bottom:56px}.stage .plinth{bottom:30px}.stage .floor{bottom:44px}
-  .qbar{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 18px 40px -14px rgba(1,20,50,.45),0 0 0 1px var(--line);transform:translateY(140%);transition:transform .5s var(--ease)}
+  .qbar{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.96);box-shadow:0 18px 40px -14px rgba(1,20,50,.45),0 0 0 1px var(--line);transform:translateY(calc(100% + 24px + env(safe-area-inset-bottom,0px)));transition:transform .5s var(--ease)}
+  /* off: fully below the home bar, and out of the keyboard order */
+  .qbar:not(.on){visibility:hidden;transition:transform .5s var(--ease),visibility 0s .5s}
   .qbar.on{transform:none}.qbar .btn{flex:1;height:44px}.qbar .tel{flex:none;width:44px;padding:0}
   .foot{padding-bottom:90px}}
 </style>
@@ -527,7 +608,7 @@ button.busy{cursor:progress;opacity:.85}
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="../contact#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="../" style="--i:0">Home</a><a href="../water-heaters" aria-current="page" style="--i:1">Water Heaters</a><a href="../business" style="--i:2">For Business</a><a href="../service" style="--i:3">Service</a><a href="../projects" style="--i:4">Projects</a><a href="../about" style="--i:5">About</a><a href="../careers" style="--i:6">Careers</a><a href="../contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="../contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="../" style="--i:0">Home</a><a href="../water-heaters" aria-current="page" style="--i:1">Water Heaters</a><a href="../business" style="--i:2">For Business</a><a href="../service" style="--i:3">Service</a><a href="../projects" style="--i:4">Projects</a><a href="../about" style="--i:5">About</a><a href="../careers" style="--i:6">Careers</a><a href="../contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="../contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <main id="main">
 <section class="phead pd">
   <span class="glow"></span>
@@ -548,10 +629,36 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="whyT" style="--from:#EAF2FA">
+<section class="sec about" id="about" aria-labelledby="abT" style="--from:#EAF2FA">
+  <div class="wrap ab-grid">
+    <div><span class="kick">Overview</span><h2 class="thin h2" id="abT">About This<br>Product</h2></div>
+    <div class="ab-body" data-r><p>The Aquapower S35M and S45M are compact single-point heaters for one shower. At 1.2 kg they are small enough to mount beside the shower or out of sight.</p><p>Choose 3.5 kW (S35M) or 4.5 kW (S45M). Both heat through a 99.9% copper tank, switch on at 2 liters a minute, and have two thermostats and a pressure switch for safety, in an IP25 splash-proof casing.</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="whyT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Why choose it</span><h2 class="thin h2" id="whyT">What You Get</h2></div><p class="lede"><b style="color:var(--ink)">Warranty:</b> 5 years on the heating element, 1 year on parts.</p></div>
     <div class="feats"><div class="ft-c" data-r><h3>Fast heating, copper tank</h3><p>The 99.9% copper tank transfers heat quickly and stands up to years of use.</p></div><div class="ft-c" data-r><h3>Works on low water pressure</h3><p>It switches on at just 2 liters a minute, so it suits condos and upper floors with weak pressure.</p></div><div class="ft-c" data-r><h3>No scalding, no overheating</h3><p>Two thermostats cut the power if the water gets too hot, with automatic and manual reset.</p></div><div class="ft-c" data-r><h3>Shuts itself off when something is wrong</h3><p>A pressure switch turns the heater off if the water flow becomes irregular.</p></div><div class="ft-c" data-r><h3>Splash-proof</h3><p>Water and dust resistant casing, rated IP25, safe to mount in the shower area.</p></div><div class="ft-c" data-r><h3>Built to last</h3><p>Tested for over 3,000 hours of continuous use. It can last 30 years with clean water.</p></div><div class="ft-c" data-r><h3>Compact</h3><p>Small enough to mount beside the shower, or hide out of sight.</p></div></div>
+  </div>
+</section>
+
+<section class="sec dark hws" id="how" aria-labelledby="hwT" style="--from:#FFFFFF;--blend:var(--dblend)">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2 on-dark" id="hwT">Hot Water the<br>Moment You Need It</h2></div><p class="lede">An instant heater warms water only while it flows, so nothing is kept hot while you are not using it. Scroll through it step by step, or tap a number.</p></div>
+    <div class="hw-grid">
+      <div class="hw-vis"><figure class="how-vis" data-step="all" data-loop><svg viewBox="0 0 640 400" role="img" aria-labelledby="hwSvgT"><title id="hwSvgT">How an instant water heater works: cold water flows through heating elements and comes out hot at the shower.</title><defs>
+  <linearGradient id="hwTank" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
+  <linearGradient id="hwCoil" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
+</defs><g data-part="1"><path class="pipe cold" d="M20 300 H180"/><path class="flow" d="M20 300 H180"/><text class="s" x="20" y="280" text-anchor="start">Cold water</text></g><g data-part="1 2 3"><rect class="box" x="180" y="50" width="150" height="300" rx="22"/><text class="t" x="255" y="34" text-anchor="middle">Heater</text></g><g data-part="2"><path class="coil" d="M205 290 h100 v-34 h-100 v-34 h100 v-34 h-100 v-34 h100 v-34 h-100 v-34"/></g><g data-part="3"><g><circle class="part" cx="255" cy="322" r="16"/><path d="M255 322 l8 -10" class="needle"/></g></g><g data-part="4"><path class="pipe hot" d="M330 90 H470 V112"/><path class="flow" d="M330 90 H470 V112"/><g class="fix"><path d="M444 120 h52" stroke-width="7" stroke-linecap="round"/><path d="M452 134l-6 16M464 134l-2 18M476 134l2 18M488 134l6 16" stroke-width="3" stroke-linecap="round" class="drops"/></g><text class="s" x="470" y="186" text-anchor="middle">Shower</text></g><g class="mk" data-n="1"><circle cx="150" cy="266" r="17"/><text x="150" y="267">1</text></g><g class="mk" data-n="2"><circle cx="355" cy="200" r="17"/><text x="355" y="201">2</text></g><g class="mk" data-n="3"><circle cx="290" cy="352" r="17"/><text x="290" y="353">3</text></g><g class="mk" data-n="4"><circle cx="520" cy="120" r="17"/><text x="520" y="121">4</text></g></svg><figcaption class="leg"><span><i style="background:#4C9BE8"></i>Cold water</span><span><i style="background:#E3473B"></i>Hot water</span></figcaption></figure></div>
+      <ol class="hw-steps"><li data-step="1"><em>01 · Step</em><h3>Water starts flowing</h3><p>Open the tap and cold water flows into the heater. A flow switch senses it and turns the heater on.</p></li><li data-step="2"><em>02 · Step</em><h3>Heated on its way through</h3><p>Heating elements warm the water as it passes, so it's hot within seconds. There's no tank to heat up or run out.</p></li><li data-step="3"><em>03 · Step</em><h3>You set the heat</h3><p>The dial sets the power. More power, or a gentler flow, gives hotter water.</p></li><li data-step="4"><em>04 · Step</em><h3>Hot water at the shower</h3><p>Safety cut-outs switch it off if the water gets too hot or the flow stops.</p></li></ol>
+    </div>
+  </div>
+</section>
+<section class="sec" aria-labelledby="usT" style="--from:#0A1830;--blend:var(--dblend)">
+  <div class="wrap use">
+    <div class="use-hd"><span class="kick">How to use it</span><h2 id="usT">Day to day</h2><p>General guidance. Your technician shows you the exact settings at installation, and the manual has the details.</p></div>
+    <ol class="use-steps"><li><b>Open the tap first</b><p>Start the shower or tap so water is flowing before the heater comes on.</p></li><li><b>Switch it on</b><p>Turn on the heater at its power switch.</p></li><li><b>Set the dial</b><p>Start low and turn it up until the water feels right.</p></li><li><b>Heater off, then the tap</b><p>When you finish, switch the heater off first and then close the tap, so it never heats without water flowing. It needs its own breaker and earthing.</p></li></ol>
   </div>
 </section>
 
@@ -612,14 +719,14 @@ button.busy{cursor:progress;opacity:.85}
 </main>
 <footer class="foot" style="--from:#FFFFFF">
   <div class="wrap">
-    <div class="foot-cta"><div><b>Not sure what you need?</b><span>Tell us about your building. We'll visit, size it and send a written quote, free.</span></div><div class="acts"><a class="btn white" href="../contact#quote">Get a free quote <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
+    <div class="foot-cta"><div><b>Not sure this is the one?</b><span>Answer four quick questions and we'll suggest the type and models that fit your home or building.</span></div><div class="acts"><a class="btn white" href="../water-heaters#finder">Find my water heater <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>0933 867 2954</a></div></div>
     <div class="ft">
       <div class="logo"><img src="../assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="150" height="48" loading="lazy"><p>The solution to your hot water needs. Supplying, installing and servicing water heaters since 2001.</p><img class="gk" src="../assets/brand/gratek-logo.png" alt="Gratek Smart Water Corp." width="92" height="42" loading="lazy">
         <div class="soc"><a href="https://www.facebook.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg></a><a href="https://www.instagram.com/dpymercantileinc" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://www.youtube.com/channel/UC1LmBQhJYWiKWm2b518fHGg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2c-.2-1.6-1-2.6-2.6-2.8C17 5 12 5 12 5s-5 0-7.4.4C3 5.6 2.2 6.6 2 8.2 1.8 9.4 1.8 12 1.8 12s0 2.6.2 3.8c.2 1.6 1 2.6 2.6 2.8C7 19 12 19 12 19s5 0 7.4-.4c1.6-.2 2.4-1.2 2.6-2.8.2-1.2.2-3.8.2-3.8s0-2.6-.2-3.8zM10 15V9l5 3z"/></svg></a><a href="https://s.lazada.com.ph/s.fGdZj" target="_blank" rel="noopener" aria-label="DPY shop on Lazada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a></div></div>
       <div><h2>Water Heaters</h2><ul><li><a href="../water-heaters?type=instant">Instant water heaters</a></li><li><a href="../water-heaters?type=storage">Electric storage heaters</a></li><li><a href="../water-heaters?type=heatpump">Heat pumps</a></li><li><a href="../water-heaters?type=solar">Solar water heaters</a></li><li><a href="../water-heaters?type=tank">Tanks, pumps &amp; pipes</a></li><li><a href="../water-heaters">All products</a></li><li><a href="../compare">Compare products</a></li></ul></div>
       <div><h2>Company</h2><ul><li><a href="../about">About DPY &amp; Gratek</a></li><li><a href="../business">For hotels &amp; buildings</a></li><li><a href="../projects">Projects &amp; clients</a></li><li><a href="../careers">Careers</a></li></ul></div>
-      <div><h2>Help</h2><ul><li><a href="../service">Repairs &amp; maintenance</a></li><li><a href="../service#book">Book a service visit</a></li><li><a href="../contact#branches">Find a branch</a></li><li><a href="../contact#quote">Get a free quote</a></li><li><a href="../privacy">Privacy notice</a></li></ul></div>
-      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:service@dpymi.com.ph">service@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
+      <div><h2>Help</h2><ul><li><a href="../service">Service &amp; warranty</a></li><li><a href="../service#book">Book a service visit</a></li><li><a href="../contact#branches">Find a branch</a></li><li><a href="../contact#quote">Get a free quote</a></li><li><a href="../privacy">Privacy notice</a></li></ul></div>
+      <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:support@dpymi.com.ph">support@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 5 PM</li></ul></div>
     </div>
     <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><a class="seal" href="https://verify.bir.gov.ph/correspondence/" target="_blank" rel="noopener" title="Verify on the BIR website (opens in a new tab)"><img src="../assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041. Open the BIR verification page" loading="lazy"></a></div>
     <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="../privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
@@ -637,8 +744,8 @@ button.busy{cursor:progress;opacity:.85}
     <div class="ask-alt">Prefer to chat with a person?<a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div>
   </section>
 </div>
-<script src="../assets/js/site.js?v=211550ae" defer></script>
-<script src="../assets/js/ask.js?v=7b8006a9" defer></script>
+<script src="../assets/js/site.js?v=84ffe762" defer></script>
+<script src="../assets/js/ask.js?v=777c0bd9" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready
 const { $, $$, RM, go, quote } = DPY
@@ -647,6 +754,57 @@ $('[data-quote-now]').addEventListener('click', e => { const d = e.currentTarget
 // phones: the quote bar slides up once the main buttons scroll away
 const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => { const on = acts.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', on); document.body.classList.toggle('qbar-on', on) }
 addEventListener('scroll', qb, { passive: true }); qb()
+// how it works (like For Business): the step being read lights its parts of the drawing and its number; the rest dims.
+// The step being read is the one whose heading is nearest the reading line: the drawing's middle on wide screens,
+// the middle of the space under the stuck drawing on narrow ones. Before the first step reaches it, the whole drawing shows.
+{
+  const hv = $('.hws .how-vis')
+  if (hv) {
+    const steps = $$('.hw-steps li'), mks = $$('.mk', hv), vis = $('.hw-vis'), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+    const set = k => {
+      if (hv.dataset.step === k) return
+      hv.dataset.step = k
+      steps.forEach(li => li.classList.toggle('on', li.dataset.step === k))
+      mks.forEach(m => m.classList.toggle('on', m.dataset.n === k))
+    }
+    const line = () => { const v = vis.getBoundingClientRect(); return innerWidth > 980 ? v.top + v.height / 2 : (Math.max(v.bottom, 0) + innerHeight) / 2 }
+    const mid = li => { const r = li.querySelector('h3').getBoundingClientRect(); return r.top + r.height / 2 }
+    let ticking = false
+    const pick = () => {
+      ticking = false
+      const l = line(), marks = steps.map(mid)
+      if (marks[0] > l + innerHeight * 0.18) return set('all')
+      let best = 0
+      marks.forEach((m, i) => { if (Math.abs(m - l) < Math.abs(marks[best] - l)) best = i })
+      set(steps[best].dataset.step)
+    }
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(pick) } }
+    // only listen while the section is near the screen
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll, { passive: true }); pick() }
+      else { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll) }
+    }, { rootMargin: '200px 0px' }).observe($('.hws'))
+    // a number on the drawing brings its step to the reading line. The line is worked out for where the drawing
+    // will be once stuck (on phones it isn't stuck yet before the jump),
+    // then checked again when the scroll ends, in case the page moved.
+    const goTo = (li, smooth) => {
+      const at = mid(li) + scrollY, h = vis.offsetHeight, wide = innerWidth > 980, down = at - scrollY > line()
+      const stuckTop = parseFloat(getComputedStyle(vis).top) || 0
+      const gridTop = vis.parentElement.getBoundingClientRect().top + scrollY
+      let y = at - (wide ? stuckTop + h / 2 : (stuckTop + h + innerHeight) / 2)
+      // phones: the first step sits just under the drawing, before it sticks. There the drawing still scrolls
+      // with the page, so the reading line moves at half the speed of the heading.
+      if (!wide && y < gridTop - stuckTop) y = 2 * at - (gridTop + h) - innerHeight
+      scrollTo({ top: Math.max(0, y), behavior: smooth ? 'smooth' : 'auto' })
+    }
+    mks.forEach(m => m.addEventListener('click', () => {
+      const li = steps[m.dataset.n - 1]
+      goTo(li, !RM)
+      const fix = () => { if (Math.abs(mid(li) - line()) > 24) goTo(li, false) }
+      if ('onscrollend' in window) addEventListener('scrollend', fix, { once: true }); else setTimeout(fix, RM ? 50 : 900)
+    }))
+  }
+}
 })
 </script>
 </body>

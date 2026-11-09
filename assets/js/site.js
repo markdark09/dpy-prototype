@@ -3,6 +3,10 @@
    and the scroll reveals; the homepage runs its own (window.DPY_HOME), tied to its GSAP animations. */
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)]
+// pictures and links aren't dragged off the page, so dragging across a phone number selects it for copying
+// (CSS -webkit-user-drag covers Chrome and Safari; the attribute covers Firefox, including links added later)
+addEventListener('pointerdown', e => { const t = e.target.closest?.('a, img'); if (t && t.draggable !== false) t.draggable = false }, true)
+addEventListener('dragstart', e => { if (e.target.closest?.('a, img')) e.preventDefault() })
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches, HOME = !!window.DPY_HOME
 const DPY = window.DPY = { $, $$, RM }
 
@@ -18,9 +22,9 @@ if (!HOME) {
   // arriving with #section: land just above it once the layout has settled
   if (location.hash && $(location.hash)) addEventListener('load', () => setTimeout(() => go(location.hash), 60))
 
-  /* ---------- header: solid after a little scroll, hides going down, returns going up ---------- */
-  const nav = $('.nav'); let lastY = 0
-  const onScroll = () => { const y = scrollY; nav.classList.toggle('solid', y > 30); nav.classList.toggle('up', y > lastY && y > 500 && !document.body.classList.contains('menu-open')); lastY = y }
+  /* ---------- header: always there; solid (and a little shorter) after a little scroll ---------- */
+  const nav = $('.nav')
+  const onScroll = () => nav.classList.toggle('solid', scrollY > 30)
   addEventListener('scroll', onScroll, { passive: true }); requestAnimationFrame(onScroll) // not straight away: reading the scroll position would force the first layout inside this script
   const mb = $('.menu-btn')
   var closeMenu = () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('menu-lock'); mb?.setAttribute('aria-expanded', 'false') }
@@ -123,7 +127,7 @@ C.sync()
 /* ---------- between pages: the clicked card's photo becomes the product page's photo (@view-transition in base.css).
    Only one element may carry the name, so earlier ones are cleared, including this page's own product photo. ---------- */
 document.addEventListener('click', e => {
-  const a = e.target.closest('.pc a[href*="products/"]'), im = a && $('.pic img', a.closest('.pc'))
+  const a = e.target.closest('.pc a[href*="products/"], .model a[href*="products/"]'), im = a && $('.pic img', a.closest('.pc, .model'))
   if (!im || e.ctrlKey || e.metaKey || e.shiftKey) return
   $$('[style*="view-transition-name"]').forEach(el => el.style.viewTransitionName = '')
   const main = $('.plinth ~ img.main'); if (main) main.style.viewTransitionName = 'none'
@@ -188,8 +192,14 @@ $$('form[data-mail]').forEach(form => {
     const need = $$('[required]:not([type=checkbox])', form).filter(x => !x.value.trim())
     const tel = $('input[type=tel]', form); if (tel && tel.value.trim() && !/^[0-9+()\s-]{7,}$/.test(tel.value.trim())) need.push(tel)
     const ok = $('.ok input', form); ok?.closest('.ok').classList.toggle('bad', !ok.checked)
-    need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
-    if (ok && !ok.checked) return ok.focus()
+    // mark what's missing (the CV's visible box too, its input is hidden) and say so, for screen readers as well
+    need.forEach(x => { x.classList.add('bad'); x.closest('.drop')?.classList.add('bad') })
+    if (need.length) {
+      const onlyCv = need.length === 1 && need[0].type === 'file'
+      kit.error(onlyCv ? 'Please attach your CV (PDF or Word).' : 'Please fill in the marked fields.')
+      return need[0].focus()
+    }
+    if (ok && !ok.checked) { kit.error('Please tick the box to agree to the privacy notice.'); return ok.focus() }
     const lines = []
     for (const el of $$('input,select,textarea', form)) {
       if (!el.name || el.name === 'consent' || el.name === 'hp_field' || el.type === 'file') continue

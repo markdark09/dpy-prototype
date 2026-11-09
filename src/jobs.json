@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "sales-engineer-manila", "title": "Sales Engineer", "location": "Manila", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Visit sites, size hot water systems and prepare quotations for hotels, hospitals and buildings.",
+    "about": "You'll be the technical face of DPY for hotels, hospitals and buildings: visiting sites, working out which hot water system a building needs, and turning that into a clear quotation.",
+    "duties": ["Visit project sites with clients and our engineers", "Size hot water systems: heat pumps, storage tanks, pumps and pipes", "Prepare quotations and technical proposals", "Follow up with developers, contractors and building owners", "Hand over won projects to our installation team"],
+    "requirements": ["Graduate of mechanical or electrical engineering; a licence is a plus", "Comfortable explaining technical options to people who are not engineers", "Willing to travel to project sites", "Experience in plumbing, HVAC or MEP sales is an advantage"]
+  },
+  {
+    "slug": "sales-executive-manila", "title": "Sales Executive", "location": "Manila", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Look after homeowners, developers and retail clients, from first inquiry to installation.",
+    "about": "You'll look after homeowners, developers and retail clients from their first inquiry to a finished installation, and keep in touch after the sale.",
+    "duties": ["Answer inquiries by phone, Messenger and email", "Recommend the right heater for each home or business", "Prepare quotations and follow them through", "Arrange deliveries and installations with our team", "Keep clients informed after the sale"],
+    "requirements": ["Experience in sales or customer service", "Clear communicator in English and Filipino", "Organised, with good follow-through", "At ease with email, spreadsheets and messaging apps"]
+  },
+  {
+    "slug": "accounting-staff-manila", "title": "Accounting Staff", "location": "Manila", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Keep our books, billing and payments accurate and on time.",
+    "about": "You'll keep our books, billing and payments accurate and on time, working closely with our sales and service teams.",
+    "duties": ["Prepare invoices and record collections", "Process supplier payments", "Reconcile bank accounts", "Help prepare reports and tax filings with our accountant"],
+    "requirements": ["Graduate of accountancy or a related course", "Familiar with Philippine bookkeeping and BIR forms", "Careful with detail and deadlines", "At ease with spreadsheets and accounting software"]
+  },
+  {
+    "slug": "aircon-technician-manila", "title": "Aircon Technician", "location": "Manila", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Install and service heat pumps and refrigeration-based systems on site.",
+    "about": "You'll install and service heat pumps and other refrigeration-based hot water systems on site, as part of our technical team.",
+    "duties": ["Install heat pump water heaters with our team", "Start up new systems and check the refrigerant and electrical connections", "Carry out preventive maintenance and repairs", "Show clients how to use their system"],
+    "requirements": ["Experience installing or servicing aircon or refrigeration units", "TESDA certification in refrigeration and aircon servicing is a plus", "Safety-minded, at ease on rooftops and in plant rooms", "Willing to travel to sites"]
+  },
+  {
+    "slug": "sales-engineer-cebu", "title": "Sales Engineer", "location": "Cebu", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Grow our Visayas projects: site visits, system sizing and quotations.",
+    "about": "From our Cebu branch, you'll grow our Visayas projects: visiting hotels, resorts and buildings, sizing their hot water systems and preparing quotations.",
+    "duties": ["Visit project sites across the Visayas", "Size hot water systems: heat pumps, storage tanks, pumps and pipes", "Prepare quotations and technical proposals", "Build relationships with developers and contractors in the region"],
+    "requirements": ["Graduate of mechanical or electrical engineering; a licence is a plus", "Comfortable explaining technical options to people who are not engineers", "Based in or willing to relocate to Cebu", "Experience in plumbing, HVAC or MEP sales is an advantage"]
+  },
+  {
+    "slug": "sales-executive-cebu", "title": "Sales Executive", "location": "Cebu", "type": "Full-time", "open": true, "sample": true,
+    "summary": "Serve homes and businesses across Cebu, from inquiry to after-sales.",
+    "about": "You'll serve homes and businesses across Cebu, from their first inquiry to after-sales support.",
+    "duties": ["Answer inquiries by phone, Messenger and email", "Recommend the right heater for each home or business", "Prepare quotations and follow them through", "Arrange deliveries and installations with our Cebu team"],
+    "requirements": ["Experience in sales or customer service", "Clear communicator in English, Filipino and Cebuano", "Organised, with good follow-through", "At ease with email, spreadsheets and messaging apps"]
+  }
+]
