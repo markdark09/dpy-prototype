@@ -208,11 +208,12 @@ function confirmBox(title, text, yes) {
 
 // ---------- the editor ----------
 const ed = $('#ed'), F = $('#edF'), lines = v => v.split('\n').map(x => x.trim()).filter(Boolean)
-let editing = -1, snapshot = ''
+let editing = -1, editingSlug = null, snapshot = ''
 const formJob = () => ({ title: F.title.value.trim(), location: F.location.value.trim(), type: F.type.value, summary: F.summary.value.trim(), about: F.about.value.trim(), duties: lines(F.duties.value), requirements: lines(F.requirements.value), offer: lines(F.offer.value), open: F.open.checked })
 function openEditor(i) {
   editing = i
   const j = S.jobs[i] || { type: 'Full-time', open: true }
+  editingSlug = i < 0 ? null : j.slug
   $('#edT').textContent = i < 0 ? 'Add a position' : 'Edit position'
   F.title.value = j.title || ''; F.location.value = j.location || ''; F.type.value = j.type || 'Full-time'; F.summary.value = j.summary || ''; F.about.value = j.about || ''
   F.duties.value = (j.duties || []).join('\n'); F.requirements.value = (j.requirements || []).join('\n'); F.offer.value = (j.offer || []).join('\n'); F.open.checked = j.open !== false
@@ -239,13 +240,16 @@ F.addEventListener('submit', async e => {
   if (j.location.length < 2) return bad('location', 'Please add the location.')
   if (j.summary.length < 10) return bad('summary', 'Please add a short summary (a sentence).')
   for (const k of ['duties', 'requirements', 'offer']) if (j[k].length > 12) return bad(k, 'Up to 12 lines in each list, please.')
+  // find the position again by its address: after someone else's save the list may have moved
+  if (editingSlug) editing = S.jobs.findIndex(x => x.slug === editingSlug)
   const next = S.jobs.map(x => ({ ...x }))
   if (editing < 0) next.unshift(j); else next[editing] = { ...next[editing], ...j }
   $('#edSave').disabled = true; $('#edSave').textContent = 'Saving…'
   const r = await save(next, editing < 0 ? 'Position added. It\'s on the Careers page now.' : 'Saved. The page is updated.')
   $('#edSave').disabled = false; $('#edSave').textContent = 'Save and publish'
   if (r.ok) { snapshot = JSON.stringify(formJob()); ed.close(); return }
-  if (r.conflict) { ed.close(); return }
+  // someone else saved meanwhile: their list is loaded behind the editor, and what was typed here stays
+  if (r.conflict) { S.error = ''; render(); $('#edMsg').textContent ='Someone else saved changes just now. Their changes are loaded and yours are still here: press Save and publish again.' + (editingSlug && S.jobs.findIndex(x => x.slug === editingSlug) < 0 ? ' (They deleted this position, so it will be added as new.)' : ''); return }
   if (r.field && (r.index === undefined || r.index === (editing < 0 ? 0 : editing))) return bad(r.field, r.error)
   $('#edMsg').textContent = r.error
 })

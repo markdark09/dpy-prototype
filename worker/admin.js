@@ -21,7 +21,8 @@ const b64url = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')
 const certs = new Map() // team domain -> { at, keys }
 async function accessKeys(team, refresh) {
   const hit = certs.get(team)
-  if (hit && !refresh && Date.now() - hit.at < 3600e3) return hit.keys
+  // keys are cached for an hour; an unknown key id asks again, but at most once a minute (so a junk token can't make every request fetch)
+  if (hit && Date.now() - hit.at < (refresh ? 60e3 : 3600e3)) return hit.keys
   const res = await fetch(`https://${team}/cdn-cgi/access/certs`)
   if (!res.ok) throw new Error('certs ' + res.status)
   const keys = (await res.json()).keys || []

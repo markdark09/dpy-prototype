@@ -20,7 +20,11 @@ const list = v => (Array.isArray(v) ? v : typeof v === 'string' ? v.split('\n') 
 export function clean(input, today = new Date().toISOString().slice(0, 10)) {
   if (!Array.isArray(input)) return { error: 'The list of positions is missing.' }
   if (input.length > LIMITS.jobs) return { error: `Up to ${LIMITS.jobs} positions, please.` }
-  const out = [], used = new Set()
+  // a position keeps its address once it has one, so links to it keep working after an edit: existing addresses
+  // are reserved first, and a new position never takes an older one's address (even if it comes first in the list)
+  const kept = s => typeof s === 'string' && /^[a-z0-9-]{2,70}$/.test(s) && !RESERVED.has(s)
+  const out = [], used = new Set(), taken = new Set()
+  for (const raw of input) if (raw && kept(raw.slug)) taken.add(raw.slug)
   for (const [i, raw] of input.entries()) {
     if (!raw || typeof raw !== 'object') return { error: 'A position is empty.', index: i }
     const j = {
@@ -36,11 +40,14 @@ export function clean(input, today = new Date().toISOString().slice(0, 10)) {
     if (j.title.length < 2) return { error: 'Every position needs a job title.', index: i, field: 'title' }
     if (j.location.length < 2) return { error: 'Every position needs a location.', index: i, field: 'location' }
     if (j.summary.length < 10) return { error: 'Every position needs a short summary (a sentence).', index: i, field: 'summary' }
-    for (const k of ['duties', 'requirements', 'offer']) if (j[k].length > LIMITS.items) return { error: `Up to ${LIMITS.items} lines in each list, please.`, index: i, field: k }
-    // keep a position's address once it has one, so links to it keep working after an edit
-    let slug = typeof raw.slug === 'string' && /^[a-z0-9-]{2,70}$/.test(raw.slug) && !RESERVED.has(raw.slug) ? raw.slug : slugify(j.title, j.location)
+    for (const k of ['duties', 'requirements', 'offer']) {
+      if (j[k].length > LIMITS.items) return { error: `Up to ${LIMITS.items} lines in each list, please.`, index: i, field: k }
+      if (j[k].some(x => x.length > LIMITS.item)) return { error: `A line is too long (up to ${LIMITS.item} characters each). Split it into two lines.`, index: i, field: k }
+    }
+    const own = kept(raw.slug) && !used.has(raw.slug)
+    let slug = own ? raw.slug : slugify(j.title, j.location)
     if (RESERVED.has(slug)) slug += '-role'
-    for (let n = 2, base = slug; used.has(slug); n++) slug = `${base}-${n}`
+    for (let n = 2, base = slug; used.has(slug) || (!own && taken.has(slug)); n++) slug = `${base}-${n}`
     used.add(slug)
     out.push({ slug, ...j })
   }

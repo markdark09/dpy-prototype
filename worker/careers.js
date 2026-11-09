@@ -17,11 +17,15 @@ export async function loadJobs(env) {
 
 const site = url => url.origin + '/'
 const swap = (html, name, value) => html.replace(new RegExp(`(<!--jobs:${name}-->)[\\s\\S]*?(<!--/jobs:${name}-->)`), (m, a, b) => a + value + b)
+// pages drawn from the saved list are never cached by the browser: the list can change at any time
 const html = (body, res, status = 200) => {
   const h = new Headers(res.headers)
-  h.set('Content-Type', 'text/html; charset=utf-8'); h.delete('Content-Length'); h.delete('ETag')
+  h.set('Content-Type', 'text/html; charset=utf-8'); h.set('Cache-Control', 'no-cache')
+  for (const k of ['Content-Length', 'ETag', 'Last-Modified']) h.delete(k)
   return new Response(body, { status, headers: h })
 }
+// the built file itself, without the browser's "I have this version" headers: a 304 would keep an old list on screen
+const fresh = (env, url) => env.ASSETS.fetch(new Request(url, { method: 'GET' }))
 async function notFound(env, url) {
   const res = await env.ASSETS.fetch(new URL('/404', url))
   return html(await res.text(), res, 404)
@@ -32,9 +36,10 @@ export async function careers(request, env) {
   if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } })
 
   if (url.pathname === '/careers' || url.pathname === '/careers.html') {
-    const res = await env.ASSETS.fetch(request)
     const { jobs, stored } = await loadJobs(env)
-    if (!stored || !res.ok || !(res.headers.get('Content-Type') || '').includes('text/html')) return res
+    if (!stored) return env.ASSETS.fetch(request)
+    const res = await fresh(env, url.origin + url.pathname)
+    if (!res.ok || !(res.headers.get('Content-Type') || '').includes('text/html')) return res
     let page = await res.text()
     const s = stats(jobs)
     page = swap(page, 'list', listHtml(jobs, ''))
@@ -45,33 +50,35 @@ export async function careers(request, env) {
   }
 
   // /careers/<role>
-  const slug = decodeURIComponent(url.pathname.slice('/careers/'.length)).replace(/\/+$/, '')
+  // addresses are plain a-z, 0-9 and hyphens, so nothing needs decoding (and a broken %-sequence can't throw)
+  const rest = url.pathname.slice('/careers/'.length), slug = rest.replace(/\/+$/, '')
   if (!slug) return Response.redirect(url.origin + '/careers', 301)
   if (!/^[a-z0-9-]{2,70}$/.test(slug)) return notFound(env, url)
+  // one address per page: /careers/<role>/ would break the page's relative links
+  if (slug !== rest) return Response.redirect(url.origin + '/careers/' + slug + url.search, 301)
   const { jobs } = await loadJobs(env)
   const job = jobs.find(j => j.slug === slug)
   if (!job) return notFound(env, url)
-  const tpl = await env.ASSETS.fetch(new URL('/careers/job-template', url))
+  const tpl = await fresh(env, url.origin + '/careers/job-template')
   if (!tpl.ok) return tpl
-  const page = (await tpl.text())
-    .split('%%JOB_TITLE%%').join(esc(jobTitle(job)))
-    .split('%%JOB_DESC%%').join(esc(jobDesc(job)))
-    .split('careers/job-template').join('careers/' + job.slug)
-    .split('%%JOB_LD%%').join(jobLd(job, site(url)))
-    .split('%%JOB_BODY%%').join(jobBody(job, '../'))
+  // one pass, so text typed by staff that happens to contain a %%JOB_...%% place is never filled in again
+  const fill = { '%%JOB_TITLE%%': esc(jobTitle(job)), '%%JOB_DESC%%': esc(jobDesc(job)), 'careers/job-template': 'careers/' + job.slug, '%%JOB_LD%%': jobLd(job, site(url)), '%%JOB_BODY%%': jobBody(job, '../') }
+  const page = (await tpl.text()).replace(/%%JOB_(?:TITLE|DESC|LD|BODY)%%|careers\/job-template/g, m => fill[m])
   return html(page, tpl)
 }
 
 export async function sitemap(request, env) {
-  const res = await env.ASSETS.fetch(request)
   const { jobs, stored } = await loadJobs(env)
-  if (!stored || !res.ok) return res
+  if (!stored) return env.ASSETS.fetch(request)
+  const url = new URL(request.url), res = await fresh(env, url.origin + url.pathname)
+  if (!res.ok) return res
   const xml = await res.text()
   const base = (xml.match(/<loc>(https?:\/\/[^<]*?\/)careers<\/loc>/) || [])[1]
-  if (!base) return res
+  if (!base) return new Response(xml, { status: res.status, headers: res.headers })
   const lines = xml.split('\n').filter(l => !l.includes(base + 'careers/'))
   const at = lines.findIndex(l => l.includes(`<loc>${base}careers</loc>`)) + 1
   lines.splice(at, 0, ...jobs.filter(j => j.open).map(j => `  <url><loc>${base}careers/${j.slug}</loc></url>`))
-  const h = new Headers(res.headers); h.delete('Content-Length'); h.delete('ETag')
+  const h = new Headers(res.headers); h.set('Cache-Control', 'no-cache')
+  for (const k of ['Content-Length', 'ETag', 'Last-Modified']) h.delete(k)
   return new Response(lines.join('\n'), { status: 200, headers: h })
 }

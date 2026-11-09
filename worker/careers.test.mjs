@@ -122,3 +122,33 @@ test('checking a list: required fields, limits, unique addresses, no reserved ad
   assert.deepEqual(r.jobs.map(j => j.slug), ['tech-cebu', 'tech-cebu-2', 'job-template-role'])
   assert.equal(clean('nope').error, 'The list of positions is missing.')
 })
+
+// ---------- found in review (2026-11-09) ----------
+test('a returning visitor with a cached copy still gets the saved list (no 304 of the old page)', async () => {
+  const seen = []
+  const A = { fetch: async r => { const req = r instanceof Request ? r : new Request(r); seen.push(req.headers.get('If-None-Match')); return ASSETS.fetch(req) } }
+  const JOBS = kv({ jobs: JSON.stringify({ rev: 1, jobs: [job()] }) })
+  const res = await get('/careers', { ASSETS: A, JOBS }, { 'If-None-Match': '"old"' })
+  assert.equal(res.status, 200); assert.equal(seen.at(-1), null); assert.equal(res.headers.get('Cache-Control'), 'no-cache')
+  assert.match(await res.text(), /service-technician-davao/)
+})
+test('a new position never takes an older position\'s address, even when listed first', () => {
+  const r = clean([{ title: 'Sales Engineer', location: 'Manila', summary: 'A sentence long enough.' }, { slug: 'sales-engineer-manila', title: 'Sales Engineer', location: 'Manila', summary: 'The old one, closed.', open: false }])
+  assert.deepEqual(r.jobs.map(j => j.slug), ['sales-engineer-manila-2', 'sales-engineer-manila'])
+})
+test('a list line over the limit is refused, not cut', () => {
+  const r = clean([{ title: 'Tech', location: 'Cebu', summary: 'A sentence long enough.', duties: ['x'.repeat(241)] }])
+  assert.equal(r.field, 'duties')
+})
+test('staff text containing a template place is shown as text, not filled in', async () => {
+  const JOBS = kv({ jobs: JSON.stringify({ rev: 1, jobs: [job({ title: 'Tech %%JOB_BODY%%', summary: 'See %%JOB_LD%% here please.' })] }) })
+  const t = await (await get('/careers/service-technician-davao', { ASSETS, JOBS })).text()
+  assert.match(t, /<title>Tech %%JOB_BODY%%, Davao \| Careers<\/title>/)
+  assert.equal((t.match(/<main>/g) || []).length, 1)
+})
+test('odd role addresses: a broken %-sequence is a 404, a trailing slash redirects', async () => {
+  const JOBS = kv({ jobs: JSON.stringify({ rev: 1, jobs: [job()] }) })
+  assert.equal((await get('/careers/%E0', { ASSETS, JOBS })).status, 404)
+  const r = await get('/careers/service-technician-davao/', { ASSETS, JOBS })
+  assert.equal(r.status, 301); assert.equal(r.headers.get('Location'), HOST + '/careers/service-technician-davao')
+})
