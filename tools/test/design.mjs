@@ -110,6 +110,10 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   check(`${name} For Business: each step lights its part`, steps === 'heat,store,move,return', seen)
   if (name === 'phone') check('phone For Business: the diagram slides to each part', seen[3].x > seen[1].x && seen[1].x > seen[0].x, seen.map(s => s.x))
   check(`${name} For Business: the diagram stays in view`, seen.slice(1).every(s => s.stuck >= 0 && s.stuck < 400), seen.map(s => s.stuck))
+  // scrolling back up brings the menu bar back: it must not cover the stuck diagram
+  await p.mouse.wheel(0, -1); await p.evaluate(() => scrollBy(0, -400)); await p.waitForTimeout(900)
+  const cover = await p.evaluate(() => { const n = document.querySelector('.nav'), v = document.querySelector('.sys-vis').getBoundingClientRect(); return { up: n.classList.contains('up'), nav: Math.round(n.getBoundingClientRect().bottom), vis: Math.round(v.top) } })
+  check(`${name} For Business: the menu bar never covers the diagram`, cover.up || cover.vis >= cover.nav - 2, cover)
   check(`${name} For Business: no script errors`, !p.errors.length, p.errors)
   await ctx.close()
 }

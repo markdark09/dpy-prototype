@@ -165,7 +165,7 @@ const KINDS = {
         P('pow', 'M152 123 H184 V300 H272'),
         P('hot', 'M152 193 H254'),
         P('warm', 'M152 263 H212 V230 H254', true, true),
-        P('cold', 'M254 336 H176 V316 H152', true, true),
+        P('cold', 'M254 336 H176 V316 H152', true, true), T(16, 374, 'Back to the sources', 'start', 's'),
         `<rect class="shell" x="240" y="40" width="130" height="320" rx="34"/><rect x="254" y="54" width="102" height="292" rx="24" fill="url(#hwTank)" opacity=".85"/>`,
         `<path class="coil hotc" d="M272 306 h66 v-10 h-66 v-10 h66"/>`,
         T(305, 30, 'HAASE tank', 'middle'),
@@ -194,7 +194,7 @@ const KINDS = {
           ['Keep the plant room tidy', 'Keep the area around the tank dry and easy to reach.'],
           ['Yearly service', 'Valves, the fresh water unit and fittings checked once a year.'],
         ],
-        legend: ['cold', 'warm', 'hot', 'pow'],
+        legend: ['cold', 'srcheat', 'hot', 'pow'],
       }
     }
     const rotex = /rotex/.test(p.slug), coil = rotex || /enermax/.test(p.slug)
@@ -332,7 +332,7 @@ const KINDS = {
   },
 }
 
-const LEG = { cold: ['#4C9BE8', 'Cold water'], hot: ['#E3473B', 'Hot water'], warm: ['#F08A4B', 'Warmed by the sun'], ref: ['#B79CFF', 'Refrigerant'], pow: ['#FFC24D', 'Electricity'], air: ['#9DB0C6', 'Air'] }
+const LEG = { cold: ['#4C9BE8', 'Cold water'], hot: ['#E3473B', 'Hot water'], warm: ['#F08A4B', 'Warmed by the sun'], srcheat: ['#F08A4B', 'Solar or chiller heat'], ref: ['#B79CFF', 'Refrigerant'], pow: ['#FFC24D', 'Electricity'], air: ['#9DB0C6', 'Air'] }
 
 export function howto(p) {
   const k = KINDS[p.cat]

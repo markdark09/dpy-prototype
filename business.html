@@ -555,6 +555,9 @@ button.busy{cursor:progress;opacity:.85}
 .save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
 @media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
+/* on narrow screens the diagram sticks to the top; when the menu bar slides back in (scrolling up), the diagram moves down under it instead of being covered */
+@media (max-width:980px){.sys-vis{transition:top .6s var(--ease)}html:has(.nav:not(.up)) .sys-vis{top:76px}}
+@media (max-width:980px) and (prefers-reduced-motion:reduce){.sys-vis{transition:none}}
 @media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
 </style>
 </head>
