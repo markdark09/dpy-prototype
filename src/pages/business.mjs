@@ -186,7 +186,7 @@ export default {
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
     <ul class="tabs" role="tablist" aria-label="Building type">${SECTORS.map((s, i) => `<li role="presentation"><button class="chip" role="tab" id="t-${s.k}" aria-controls="p-${s.k}" aria-selected="${!i}" tabindex="${i ? -1 : 0}">${s.t}</button></li>`).join('')}</ul>
     <div class="sx">
-      <div class="sx-pic">${SECTORS.map((s, i) => { const t = img(R, `assets/img/${s.img}.webp`, '', ` class="${i ? '' : 'on'}" data-k="${s.k}"`, '(max-width:980px) 100vw, 640px'); return i ? t.replace(' src=', ' data-src=').replace(' srcset=', ' data-srcset=') : t }).join('')}</div>
+      <div class="sx-pic">${SECTORS.map((s, i) => { const t = img(R, `assets/img/${s.img}.webp`, '', ` class="${i ? '' : 'on'}" data-k="${s.k}"`, '(max-width:980px) 220vw, 1600px'); return i ? t.replace(' src=', ' data-src=').replace(' srcset=', ' data-srcset=') : t }).join('')}</div>
       <div class="sx-txt">${SECTORS.map((s, i) => `<div class="sx-panel" role="tabpanel" id="p-${s.k}" aria-labelledby="t-${s.k}"${i ? ' hidden' : ''}>
         <h3>${s.t}</h3><p class="q">The challenge</p><p>${s.need}</p><p class="q b">What we install</p><p>${s.we}</p>
         <ul class="sx-parts">${s.parts.map(([n, u]) => `<li><a href="${L(u)}">${n}${I.arr}</a></li>`).join('')}</ul>

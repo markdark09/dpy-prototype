@@ -15,10 +15,13 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   const ctx = await b.newContext(opts)
   let body = null, mode = 'sent'
   await ctx.route('**/api/send', r => { body = JSON.parse(r.request().postData()); return mode === 'sent' ? r.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }) : r.continue() })
+  // a role's own page: View role from the list, then Apply, which arrives at the form with the role picked
   const p = await open(ctx, '/careers', { wait: 500 })
-  await p.locator('a[data-role="Sales Engineer (Cebu)"]').click(); await p.waitForTimeout(1400)
+  await Promise.all([p.waitForURL(/careers\/sales-engineer-cebu$/), p.locator('a[href="careers/sales-engineer-cebu"].btn').click()])
+  check(`${name} a role has its own page`, await p.evaluate(() => document.querySelector('h1').textContent === 'Sales Engineer' && document.querySelectorAll('.jp-list li').length >= 7))
+  await Promise.all([p.waitForURL(/careers\?role=sales-engineer-cebu#apply$/), p.locator('.jp-head .btn.red').click()]); await p.waitForTimeout(1400)
   const st = await p.evaluate(() => ({ role: document.querySelector('#cR').value, focus: document.activeElement?.id, top: Math.round(document.querySelector('#apply').getBoundingClientRect().top) }))
-  check(`${name} Apply picks the role and moves to the form`, st.role === 'Sales Engineer (Cebu)' && st.focus === 'cN' && st.top < 200, st)
+  check(`${name} Apply on the role page picks the role and moves to the form`, st.role === 'Sales Engineer (Cebu)' && st.focus === 'cN' && st.top < 200, st)
   await submit(p)
   check(`${name} empty send marks the fields`, await p.evaluate(() => document.querySelectorAll('#apply .bad').length >= 3))
   await p.fill('#cN', 'Juan Cruz'); await p.fill('#cP', '0917 123 4567'); await p.fill('#cE', 'juan@example.com')

@@ -141,7 +141,7 @@ export default {
         <small>Customer service</small><a class="call" href="tel:+639564160815">0956 416 0815</a>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px">${MSGR}</div>
       </div>
-      <form class="form" data-mail="service@dpymi.com.ph" data-subject="Service request" novalidate>
+      <form class="form" data-mail="support@dpymi.com.ph" data-subject="Service request" novalidate>
         <div class="full"><span class="lb" id="svT">What do you need?</span><div class="qchips" role="group" aria-labelledby="svT" data-group="Service"><label><input type="radio" name="service" value="Repair" checked><span>Repair</span></label><label><input type="radio" name="service" value="Installation"><span>Installation</span></label><label><input type="radio" name="service" value="Preventive maintenance"><span>Maintenance</span></label><label><input type="radio" name="service" value="Other"><span>Something else</span></label></div></div>
         <div><label for="sN">Full name <i>*</i></label><input id="sN" name="fullname" autocomplete="name" required></div>
         <div><label for="sP">Mobile number <i>*</i></label><input id="sP" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX" required></div>
@@ -152,7 +152,7 @@ export default {
         <div><label for="sD">Preferred day</label><input id="sD" name="date" type="date"></div>
         <div class="full"><label for="sM">What's happening?</label><textarea id="sM" name="msg" placeholder="e.g. No hot water since yesterday, the breaker trips when the heater turns on."></textarea></div>
         <label class="ok"><input type="checkbox" name="consent" required><span>I agree that DPY may contact me about this request and use these details as described in the <a href="${R}privacy">privacy notice</a>.</span></label>
-        <div class="f-sub"><small>Sent to our service team at service@dpymi.com.ph.</small><button class="btn red" type="submit">Send my request ${I.arr}</button></div>
+        <div class="f-sub"><small>Sent to our service team at support@dpymi.com.ph.</small><button class="btn red" type="submit">Send my request ${I.arr}</button></div>
         <div class="f-done" role="status"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Thank you<span class="who"></span>!</h3><p>Your email app has opened with your request. Press send, and our service team will call you to confirm a visit.</p><button class="btn ghost again" type="button">Edit my request</button></div>
       </form>
     </div>

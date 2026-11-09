@@ -30,11 +30,25 @@ const css = `
 .pd .pd-msg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;color:var(--mute)}
 /* features */
 /* how it works: the diagram (same style as For Business), its numbered steps, and how to use it */
-.how-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hw-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:start}
+.hw-vis{position:sticky;top:calc(50vh - 232px);z-index:2}
+.hws .kick{color:#7CC0FF}
+.hw-steps{list-style:none;margin:0;padding:0}
+.hw-steps li{min-height:56vh;display:flex;flex-direction:column;justify-content:center;gap:10px;opacity:.7;transition:opacity .5s var(--ease)}
+.hw-steps li:first-child{min-height:44vh;justify-content:flex-start;padding-top:40px}
+.hw-steps li.on{opacity:1}
+.hw-steps em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7CC0FF}
+.hw-steps h3{margin:0;font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.hw-steps p{margin:0;max-width:440px;font-size:15.5px;line-height:1.6;color:#B4C3D4}
+/* one step at a time: its parts stay lit, the rest dims */
+.how-vis [data-part]{transition:opacity .5s var(--ease)}
+.how-vis:not([data-step="all"]) [data-part]{opacity:.16}
+.how-vis[data-step="1"] [data-part~="1"],.how-vis[data-step="2"] [data-part~="2"],.how-vis[data-step="3"] [data-part~="3"],.how-vis[data-step="4"] [data-part~="4"]{opacity:1}
+@media (max-width:980px){.hw-grid{grid-template-columns:minmax(0,1fr);gap:0}.hw-vis{top:0;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:var(--night);box-shadow:0 18px 24px -18px var(--night);transition:top .6s var(--ease)}html:has(.nav:not(.up)) .hw-vis{top:76px}.hw-steps li,.hw-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.hw-steps li:last-child{padding-bottom:40vh}}
+@media (max-width:640px){.hws .how-vis .leg{display:none}.hws .how-vis{padding:8px;border-radius:20px}}
+@media (prefers-reduced-motion:reduce){.how-vis [data-part],.hw-steps li,.hw-vis{transition:none}}
 .how-vis{margin:0;padding:clamp(12px,2vw,22px);border-radius:28px;background:linear-gradient(180deg,#0B1D38,#0A1830);box-shadow:0 40px 80px -50px rgba(1,20,50,.8)}
 .how-vis svg{display:block;width:100%;height:auto;overflow:visible}
-.how-img{margin:0;padding:14px;border-radius:28px;background:#fff;box-shadow:var(--card)}.how-img img{display:block;width:100%;height:auto;border-radius:18px}
-.how-img figcaption{margin:10px 4px 0;font-size:13px;color:var(--mute)}
 .how-vis .leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 4px 0;font-size:12.5px;color:#9DB0C6}
 .how-vis .leg span{display:inline-flex;align-items:center;gap:8px}.how-vis .leg i{width:22px;height:5px;border-radius:4px}
 .how-vis .pipe{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
@@ -64,15 +78,9 @@ const css = `
 .how-vis .steam{fill:none;stroke:#9DB0C6;stroke-width:3;stroke-linecap:round;opacity:.7}
 .how-vis .t{font:600 22px var(--font);fill:#fff}.how-vis .s{font:500 18px var(--font);fill:#9DB0C6}
 .how-vis .mk circle{fill:#fff;transition:fill .3s}.how-vis .mk text{font:700 19px var(--font);fill:#0A1830;text-anchor:middle;dominant-baseline:central;transition:fill .3s}
-.how-vis .mk{cursor:pointer}.how-vis .mk.on circle{fill:#E3262B}.how-vis .mk.on text{fill:#fff}
-.how-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:hw}
-.how-steps li{position:relative;padding:14px 16px 14px 60px;border-radius:18px;cursor:default;transition:background .3s}
-.how-steps li::before{counter-increment:hw;content:counter(hw);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;background:var(--ink);color:#fff;transition:background .3s}
-.how-steps li.on{background:var(--soft)}.how-steps li.on::before{background:var(--red)}
-.how-steps b{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.01em}
-.how-steps p{margin:4px 0 0;font-size:15px;line-height:1.55;color:var(--ink2)}
-.use{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid var(--line)}
-.use-hd h3{margin:8px 0 0;font-size:24px;font-weight:600;letter-spacing:-.02em}
+.how-vis .mk{cursor:pointer}.how-vis .mk circle{transition:fill .3s,transform .3s}.how-vis .mk.on circle{fill:#E3262B}.how-vis .mk.on text{fill:#fff}
+.use{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr);gap:32px}
+.use-hd h2{margin:8px 0 0;font-size:28px;font-weight:600;letter-spacing:-.02em}
 .use-hd p{margin:10px 0 0;font-size:14px;line-height:1.55;color:var(--mute)}
 .use-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;counter-reset:us}
 .use-steps li{padding:18px;border-radius:18px;background:#fff;box-shadow:var(--card)}
@@ -80,8 +88,8 @@ const css = `
 .use-steps b{display:block;font-size:16px;font-weight:600}
 .use-steps p{margin:4px 0 0;font-size:14.5px;line-height:1.55;color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){.how-vis .flow,.how-vis .spin{animation:none}}
-@media (max-width:980px){.how-grid,.use{grid-template-columns:minmax(0,1fr)}.use{gap:16px}}
-@media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}.how-steps li{padding-left:56px}.use{margin-top:40px;padding-top:30px}}
+@media (max-width:980px){.use{grid-template-columns:minmax(0,1fr);gap:16px}}
+@media (max-width:640px){.use-steps{grid-template-columns:minmax(0,1fr)}}
 .ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:start}
 .ab-body p{margin:0 0 18px;max-width:66ch;font-size:18px;line-height:1.7;color:var(--ink2)}.ab-body p:first-child{font-size:20px;line-height:1.6;color:var(--ink)}.ab-body p:last-child{margin-bottom:0}
 .sec.about{padding:56px 0 24px}
@@ -171,17 +179,19 @@ function pg(p) {
   </div>
 </section>
 ${(h => h ? `
-<section class="sec how" aria-labelledby="hwT">
+<section class="sec dark hws" id="how" aria-labelledby="hwT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2" id="hwT">${h.title[0]}<br>${h.title[1]}</h2></div><p class="lede">${h.lede}</p></div>
-    <div class="how-grid">
-      ${h.image ? `<figure class="how-img">${img(R, `assets/img/dpy/${h.image[0]}.webp`, h.image[1], ' loading="lazy"')}<figcaption>${h.image[1]}</figcaption></figure>` : `<figure class="how-vis" data-loop>${h.svg}${h.legendHtml ? `<figcaption class="leg">${h.legendHtml}</figcaption>` : ''}</figure>`}
-      <ol class="how-steps">${h.steps.map(([t, d], i) => `<li data-n="${i + 1}"><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
+    <div class="sec-head"><div><span class="kick">How it works</span><h2 class="thin h2 on-dark" id="hwT">${h.title[0]}<br>${h.title[1]}</h2></div><p class="lede">${h.lede} Scroll through it step by step, or tap a number.</p></div>
+    <div class="hw-grid">
+      <div class="hw-vis"><figure class="how-vis" data-step="all" data-loop>${h.svg}${h.legendHtml ? `<figcaption class="leg">${h.legendHtml}</figcaption>` : ''}</figure></div>
+      <ol class="hw-steps">${h.steps.map(([t, d], i) => `<li data-step="${i + 1}"><em>${String(i + 1).padStart(2, '0')} · Step</em><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
     </div>
-    <div class="use">
-      <div class="use-hd"><span class="kick">How to use it</span><h3>${p.cat === 'pipe' ? 'How we install it' : 'Day to day'}</h3><p>General guidance. Your technician shows you the exact settings at installation, and the manual has the details.</p></div>
-      <ol class="use-steps">${h.use.map(([t, d]) => `<li><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
-    </div>
+  </div>
+</section>
+<section class="sec" aria-labelledby="usT">
+  <div class="wrap use">
+    <div class="use-hd"><span class="kick">How to use it</span><h2 id="usT">${p.cat === 'pipe' ? 'How we install it' : 'Day to day'}</h2><p>General guidance. Your technician shows you the exact settings at installation, and the manual has the details.</p></div>
+    <ol class="use-steps">${h.use.map(([t, d]) => `<li><b>${t}</b><p>${d}</p></li>`).join('')}</ol>
   </div>
 </section>` : '')(howto(p))}
 ${tables ? `
@@ -225,21 +235,55 @@ $('[data-quote-now]').addEventListener('click', e => { const d = e.currentTarget
 // phones: the quote bar slides up once the main buttons scroll away
 const bar = $('.qbar'), acts = $('.pd .ph-acts'), qb = () => { const on = acts.getBoundingClientRect().bottom < 0; bar.classList.toggle('on', on); document.body.classList.toggle('qbar-on', on) }
 addEventListener('scroll', qb, { passive: true }); qb()
-// how it works: a step and its marker light together; while on screen the steps play in order until someone points at one
+// how it works (like For Business): the step being read lights its parts of the drawing and its number; the rest dims.
+// The step being read is the one whose heading is nearest the reading line: the drawing's middle on wide screens,
+// the middle of the space under the stuck drawing on narrow ones. Before the first step reaches it, the whole drawing shows.
 {
-  const hv = $('.how-vis')
+  const hv = $('.hws .how-vis')
   if (hv) {
-    const lis = $$('.how-steps li'), mks = $$('.mk', hv), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
-    let n = 0, timer = 0, touched = false
-    const on = k => { lis.forEach(l => l.classList.toggle('on', l.dataset.n === k)); mks.forEach(m => m.classList.toggle('on', m.dataset.n === k)) }
-    const stop = () => { clearInterval(timer); timer = 0 }
-    const pick = k => { touched = true; stop(); on(k) }
-    lis.forEach(l => { l.addEventListener('pointerenter', () => pick(l.dataset.n)); l.addEventListener('click', () => pick(l.dataset.n)) })
-    mks.forEach(m => { m.addEventListener('pointerenter', () => pick(m.dataset.n)); m.addEventListener('click', () => pick(m.dataset.n)) })
+    const steps = $$('.hw-steps li'), mks = $$('.mk', hv), vis = $('.hw-vis'), RM = matchMedia('(prefers-reduced-motion: reduce)').matches
+    const set = k => {
+      if (hv.dataset.step === k) return
+      hv.dataset.step = k
+      steps.forEach(li => li.classList.toggle('on', li.dataset.step === k))
+      mks.forEach(m => m.classList.toggle('on', m.dataset.n === k))
+    }
+    const line = () => { const v = vis.getBoundingClientRect(); return innerWidth > 980 ? v.top + v.height / 2 : (Math.max(v.bottom, 0) + innerHeight) / 2 }
+    const mid = li => { const r = li.querySelector('h3').getBoundingClientRect(); return r.top + r.height / 2 }
+    let ticking = false
+    const pick = () => {
+      ticking = false
+      const l = line(), marks = steps.map(mid)
+      if (marks[0] > l + innerHeight * 0.18) return set('all')
+      let best = 0
+      marks.forEach((m, i) => { if (Math.abs(m - l) < Math.abs(marks[best] - l)) best = i })
+      set(steps[best].dataset.step)
+    }
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(pick) } }
+    // only listen while the section is near the screen
     new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !touched && !RM && !timer) { on(String(n % lis.length + 1)); timer = setInterval(() => { n++; on(String(n % lis.length + 1)) }, 2600) }
-      else if (!e.isIntersecting) stop()
-    }, { threshold: .4 }).observe(hv)
+      if (e.isIntersecting) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll, { passive: true }); pick() }
+      else { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll) }
+    }, { rootMargin: '200px 0px' }).observe($('.hws'))
+    // a number on the drawing brings its step to the reading line. The line is worked out for where the drawing
+    // will be once stuck (on phones it isn't stuck yet before the jump, and the menu bar hides on the way down),
+    // then checked again when the scroll ends, in case the page moved.
+    const goTo = (li, smooth) => {
+      const at = mid(li) + scrollY, h = vis.offsetHeight, wide = innerWidth > 980, down = at - scrollY > line()
+      const stuckTop = wide ? parseFloat(getComputedStyle(vis).top) || 0 : (down ? 0 : 76)
+      const gridTop = vis.parentElement.getBoundingClientRect().top + scrollY
+      let y = at - (wide ? stuckTop + h / 2 : (stuckTop + h + innerHeight) / 2)
+      // phones: the first step sits just under the drawing, before it sticks. There the drawing still scrolls
+      // with the page, so the reading line moves at half the speed of the heading.
+      if (!wide && y < gridTop - stuckTop) y = 2 * at - (gridTop + h) - innerHeight
+      scrollTo({ top: Math.max(0, y), behavior: smooth ? 'smooth' : 'auto' })
+    }
+    mks.forEach(m => m.addEventListener('click', () => {
+      const li = steps[m.dataset.n - 1]
+      goTo(li, !RM)
+      const fix = () => { if (Math.abs(mid(li) - line()) > 24) goTo(li, false) }
+      if ('onscrollend' in window) addEventListener('scrollend', fix, { once: true }); else setTimeout(fix, RM ? 50 : 900)
+    }))
   }
 }
 `,

@@ -5,7 +5,7 @@
    Settings (Cloudflare dashboard > Workers > prototype > Settings > Variables and secrets):
      RESEND_API_KEY  secret. Without it the endpoint answers 503 and the page falls back to the visitor's email app.
      QUOTE_TO        where quote requests go, e.g. sales@dpymi.com.ph
-     SERVICE_TO      where service requests go, e.g. service@dpymi.com.ph
+     SERVICE_TO      where service requests go, e.g. support@dpymi.com.ph
      CAREERS_TO      where job applications go (with the CV attached), e.g. careers@dpymi.com.ph
      MAIL_FROM       a sender on a domain verified in Resend, e.g. "DPY Website <website@dpymi.com.ph>".
                      Defaults to Resend's test sender, which only delivers to the Resend account's own address.

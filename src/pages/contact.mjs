@@ -20,7 +20,8 @@ export default {
 .ch b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .ch b a{color:inherit}.ch b a:hover{color:var(--red)}
 .ch .msgs{display:flex;gap:8px;flex-wrap:wrap}
-.ch .hrs{grid-column:1/-1;font-size:14px;color:var(--mute);padding:4px 4px 0}
+.ch .hrs{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;font-size:14px;color:var(--mute);padding:4px 4px 0}
+.ch .hrs .gen a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 /* the quote panel: the same two-panel form as the homepage and the Service page, in the sales red */
 .qp{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:30px;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5);overflow:hidden;overflow:clip}
 .qp-side{position:relative;padding:44px 38px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(160deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);overflow:hidden}
@@ -64,8 +65,8 @@ ${BRMAP_CSS}
       <a href="tel:+639564160815"><i>${I.tel}</i><span><small>Customer service &amp; repairs</small><b>0956 416 0815</b></span></a>
       <a href="tel:+63279560521"><i>${I.tel}</i><span><small>Head office telefax</small><b>(02) 7956 0521</b></span></a>
       <a href="mailto:sales@dpymi.com.ph?subject=Quote%20request"><i>${I.mail}</i><span><small>Quotes &amp; projects</small><b>sales@dpymi.com.ph</b></span></a>
-      <a href="mailto:service@dpymi.com.ph?subject=Service%20request"><i>${I.mail}</i><span><small>Repairs &amp; maintenance</small><b>service@dpymi.com.ph</b></span></a>
-      <p class="hrs">${I.clock.replace('<svg', '<svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px"')}Monday to Saturday, 8:00 AM to 5:00 PM</p>
+      <a href="mailto:support@dpymi.com.ph?subject=Service%20request"><i>${I.mail}</i><span><small>Service, maintenance &amp; warranty</small><b>support@dpymi.com.ph</b></span></a>
+      <p class="hrs">${I.clock.replace('<svg', '<svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px"')}Monday to Saturday, 8:00 AM to 5:00 PM<span class="gen">General inquiries: <a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></span></p>
     </div>
   </div>
 </section>

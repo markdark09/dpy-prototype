@@ -3,16 +3,20 @@
 {
   "name": "prototype",
   "compatibility_date": "2026-10-01",
-  // only /api/* runs code (the form sender); every other address is served straight from the files
+  // code runs only for the paths in run_worker_first (forms, job openings, the admin page, the sitemap);
+  // every other address is served straight from the files
   "main": "worker/index.js",
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"],
+    "run_worker_first": ["/api/*", "/careers", "/careers.html", "/careers/*", "/admin", "/admin/*", "/sitemap.xml"],
     // unknown paths get the branded 404.html (with a real 404 status)
     "not_found_handling": "404-page"
   },
-  // QUOTE_TO, SERVICE_TO and MAIL_FROM are set in the dashboard (RESEND_API_KEY as a secret), never here:
-  // keep_vars stops a deploy from wiping them
+  // the job openings HR saves on the admin page. No id: Wrangler creates the namespace on the first deploy
+  // (automatic provisioning) and reuses it after that. Locally, wrangler dev keeps it in .wrangler/state.
+  "kv_namespaces": [{ "binding": "JOBS" }],
+  // QUOTE_TO, SERVICE_TO, CAREERS_TO, MAIL_FROM, ACCESS_TEAM_DOMAIN and ACCESS_AUD are set in the dashboard
+  // (RESEND_API_KEY as a secret), never here: keep_vars stops a deploy from wiping them
   "keep_vars": true
 }

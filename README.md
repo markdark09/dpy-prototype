@@ -76,7 +76,7 @@ Leave `MAIL_FROM` unset; it defaults to `DPY Website <onboarding@resend.dev>`, w
 | Name | Type | Value |
 |---|---|---|
 | `QUOTE_TO` | Text | `sales@dpymi.com.ph` (must exist as a mailbox or forward) |
-| `SERVICE_TO` | Text | `service@dpymi.com.ph` (must exist as a mailbox or forward) |
+| `SERVICE_TO` | Text | `support@dpymi.com.ph` (must exist as a mailbox or forward) |
 | `CAREERS_TO` | Text | `careers@dpymi.com.ph` (must exist as a mailbox or forward) |
 | `MAIL_FROM` | Text | `DPY Website <website@dpymi.com.ph>` |
 
@@ -261,6 +261,12 @@ Each product card now links to its category on the new Water Heaters page, and t
   - **Found while checking, for DPY:** DPY's page calls the AC·THOR i "6KW"; it is a 0 to 3.6 kW unit (6 kW only with a second 3 kW element). DPY says the AC·THOR 9s suits single, two or three phase supplies, while my-PV's datasheet lists a three-phase connection (the page says so and invites a question). The Power Meter's sensors take cables up to 10 mm across, not "10 mm²". The Katen BPT12-13A is a ducted ceiling fan (round duct collar in DPY's photo), not a wall or window fan; the site now says so.
 - **A description on every product page (2026-11-07).** An Overview section under the header, two short paragraphs per product: what it is and how it works, then the facts that matter. Written only from facts already on our pages and spec sheets (DPY's live pages list features, not descriptions), so nothing new to confirm beyond the items below. The same text is the product description in the page's structured data for Google.
   - **my-PV, made consistent:** the AC·THOR 9s no longer says "1 to 3 phase" anywhere (header, key figures, features and Compare now follow my-PV's datasheet: a three-phase connection, ask about yours). The AC·THOR i shows 0 to 3.6 kW, as the datasheet says, in place of 0 to 3 kW.
+- **How it works, For Business style, on every product page (2026-11-09).** The diagram stays in view while its four steps scroll past; the step being read lights its parts of the drawing and its number, and the rest dims, as in the For Business system section. Tapping a number scrolls to its step. "How to use it" is now its own section below. On phones the drawing sticks under the menu bar.
+- **For Business, menu bar over the diagram (2026-11-09):** scrolling back up on phones and tablets no longer hides the top of the stuck system diagram.
+- **HAASE (2026-11-09):** the blurry "How it fits in" image (DPY's 756 px diagram) is gone, since the drawing above shows the same system; the drawing labels the return pipe "Back to the sources" and keys orange as "Solar or chiller heat".
+- **Sharper photos (2026-11-09):** the For Business building photos now load their 1,600 px version (they were cropped from the 800 px one). The product photos are already DPY's originals (for example the 5 Star heat pump is 139 x 411 px on dpymi.com.ph), so they look soft on high-density screens; sharper ones need DPY's original files or the makers' press images.
+- **Careers: a page for every opening, and an admin page for DPY's staff (2026-11-09).** See "Careers admin" below.
+- **Email addresses (2026-11-09):** service@ became **support@dpymi.com.ph** (service, maintenance and warranty) everywhere, and **hello@** is shown for general inquiries on the Contact page and in the footer. See "Email addresses".
 - **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three request forms were driven through each outcome (sent, not set up, a field to fix, too many requests). The Careers form was checked at phone and desktop size: Apply picks the role, missing fields and a missing CV are marked, an image file is refused, the file shows in the box, it sends with the CV, and the email fallback asks for the CV.
 
 
@@ -293,11 +299,28 @@ The site uses role-based addresses. Each one should forward to the people who ha
 
 | Address | Used for on the site |
 |---|---|
-| hello@dpymi.com.ph | Footer, the assistant's "Email us", Google business data (company and branches) |
+| hello@dpymi.com.ph | General inquiries: footer, Contact page, the assistant's "Email us", Google business data (company and branches) |
 | sales@dpymi.com.ph | Quote form, every "Get a Quote", footer "quotes", sales contact in the business data |
-| service@dpymi.com.ph | The assistant's repair and maintenance answers, footer "repairs", customer-service contact in the business data |
+| support@dpymi.com.ph | Service, maintenance and warranty (was service@ until 2026-11-09, per DPY): Service form, Contact page, footer, the assistant, customer-service contact in the business data. DPY's list said "dpymy.com.ph" for sales@ and support@; that domain has no mail records, so dpymi.com.ph is used |
 | privacy@dpymi.com.ph | Privacy notice (Data Protection Officer) |
 | careers@dpymi.com.ph | Careers application form (and its email fallback) |
+
+## Careers admin (job openings)
+
+Each opening has its own page (`/careers/sales-engineer-manila` and so on): what the role involves, what DPY looks for, what DPY offers, and an Apply button that opens the Careers form with that role already picked. DPY's staff add, edit, close, reorder and remove openings themselves at **`/admin`**, and changes show on the site within a minute, with no rebuild.
+
+- **How it works:** the openings are stored in a Cloudflare KV namespace bound as `JOBS`. The Worker (`worker/careers.js`) draws the Careers list and each role's page from it, and adds the open roles to the sitemap. Until the first save, everything comes from `src/jobs.json` (the six openings on dpymi.com.ph). Each save keeps the previous list for 60 days (`history:<rev>` keys), in case something must be put back. If two people edit at once, the second save is refused and that person gets the latest list to redo their change.
+- **Who can get in:** Cloudflare Access asks for a work email and sends a one-time code. The Worker also checks Access's signed token (`worker/admin.js`), so the admin stays shut if Access is missing or misconfigured. Without the settings below, `/admin` says "not switched on yet".
+- **Sample text:** the six roles' details (duties, requirements) are samples written for the prototype, marked as such on each page. DPY's HR replaces them by editing each role. Closed roles keep their page, which then says the position is filled.
+
+**Switching it on (one time, in DPY's Cloudflare account):**
+
+1. **Storage:** nothing to do. `wrangler.jsonc` names the `JOBS` binding without an id, so the first deploy creates the namespace and later deploys reuse it.
+2. **Access:** Zero Trust (free for up to 50 people) > Access > Applications > Add an application > Self-hosted. Add the site's domain twice, with the paths `admin` and `api/admin/*`. On the prototype address (`*.workers.dev`), the Worker's Settings > Domains & Routes has an "Enable Cloudflare Access" switch for workers.dev, but that protects the whole address, so use it only once the site is on its own domain or edit the created application down to those two paths. Policy: Allow, with the HR staff's emails (or "Emails ending in @dpymi.com.ph"). Login method: One-time PIN.
+3. **Worker settings** (Workers > prototype > Settings > Variables and secrets, as Text): `ACCESS_TEAM_DOMAIN` = the team domain (e.g. `dpymi.cloudflareaccess.com`), `ACCESS_AUD` = the application's "Application Audience (AUD) Tag".
+4. Open `/admin`, enter a listed email, type the code from the inbox.
+
+**Testing locally:** put `ADMIN_DEV=1` in `.dev.vars` (never committed). It opens `/admin` without Access, and only on localhost. Local saves go to `.wrangler/state`; clear them with `npx wrangler kv key delete jobs --binding JOBS --local`.
 
 ## Sample content (prototype)
 

@@ -5,7 +5,7 @@ import { send, renderEmail, esc } from './send.js'
 
 const ORIGIN = 'https://prototype.dpy-mi.workers.dev'
 const ok = { kind: 'quote', name: 'Ana Cruz', phone: '0917 123 4567', email: 'ana@example.com', consent: true, fields: [['Building', 'Condo'], ['Anything else?', 'Replacing an old heater']] }
-const env = { RESEND_API_KEY: 're_test', QUOTE_TO: 'sales@dpymi.com.ph', SERVICE_TO: 'service@dpymi.com.ph', MAIL_FROM: 'DPY Website <website@dpymi.com.ph>' }
+const env = { RESEND_API_KEY: 're_test', QUOTE_TO: 'sales@dpymi.com.ph', SERVICE_TO: 'support@dpymi.com.ph', MAIL_FROM: 'DPY Website <website@dpymi.com.ph>' }
 const req = (body, { origin = ORIGIN, method = 'POST' } = {}) => new Request(ORIGIN + '/api/send', {
   method, headers: { 'Content-Type': 'application/json', ...(origin ? { Origin: origin } : {}) }, ...(method === 'POST' ? { body: JSON.stringify(body) } : {}),
 })
@@ -29,7 +29,7 @@ test('a good quote request is emailed to QUOTE_TO, with the visitor as reply-to'
 test('a service request goes to SERVICE_TO, and the browser cannot choose the recipient', async () => {
   const calls = stubResend()
   await send(req({ ...ok, kind: 'service', to: 'attacker@example.com' }), env)
-  assert.deepEqual(calls[0].body.to, ['service@dpymi.com.ph'])
+  assert.deepEqual(calls[0].body.to, ['support@dpymi.com.ph'])
 })
 
 test('no email given: no reply-to, still sent', async () => {
