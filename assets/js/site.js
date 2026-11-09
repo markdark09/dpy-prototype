@@ -120,12 +120,71 @@ document.addEventListener('click', e => { const b = e.target.closest('[data-cmp]
 addEventListener('storage', e => e.key === CKEY && C.sync())
 C.sync()
 
-/* ---------- forms: the prototype sends by opening the visitor's email app (production would post to DPY's inbox or CRM) ---------- */
+/* ---------- between pages: the clicked card's photo becomes the product page's photo (@view-transition in base.css).
+   Only one element may carry the name, so earlier ones are cleared, including this page's own product photo. ---------- */
+document.addEventListener('click', e => {
+  const a = e.target.closest('.pc a[href*="products/"]'), im = a && $('.pic img', a.closest('.pc'))
+  if (!im || e.ctrlKey || e.metaKey || e.shiftKey) return
+  $$('[style*="view-transition-name"]').forEach(el => el.style.viewTransitionName = '')
+  const main = $('.plinth ~ img.main'); if (main) main.style.viewTransitionName = 'none'
+  im.style.viewTransitionName = 'product-photo'
+})
+
+/* ---------- sending a form ----------
+   Posts to /api/send, which emails DPY's team. If that isn't set up yet, fails, or the page was opened from disk,
+   it opens the visitor's email app with the request written out instead, so a request is never lost.
+   Resolves to 'sent', 'mail', or { error, field } when the visitor has something to fix. */
+const SENT = {
+  quote: 'We have your request. Our team will call you to arrange your free site visit.',
+  service: 'We have your request. Our service team will call you to confirm a visit.',
+  careers: 'We have your application and CV. Our team will be in touch if your experience fits the role.',
+}
+DPY.send = async ({ form, kind, name, phone, email, fields, cv, mailto }) => {
+  if (/^https?:$/.test(location.protocol)) {
+    try {
+      const r = await fetch('/api/send', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kind, name, phone, email, consent: true, fields, ...(cv ? { cv } : {}), hp_field: form?.elements.hp_field?.value || '' }),
+      })
+      if (r.ok) return 'sent'
+      const j = await r.json().catch(() => ({}))
+      if ((r.status === 400 || r.status === 413) && j.field) return { error: j.error, field: j.field }
+      if (r.status === 429) return { error: j.error }
+    } catch { /* offline or blocked: the email app below still gets the request out */ }
+  }
+  location.href = mailto
+  return 'mail'
+}
+// what every form shares: a hidden field only bots fill, a busy button, a line for problems, the right thank-you text
+DPY.formKit = form => {
+  if (!form.elements.hp_field) form.insertAdjacentHTML('beforeend', '<div class="hp" aria-hidden="true"><label>Leave this empty <input name="hp_field" tabindex="-1" autocomplete="off"></label></div>')
+  const btn = $('button[type=submit]', form), label = btn.innerHTML
+  let err = $('.f-err', form)
+  if (!err) { err = document.createElement('p'); err.className = 'f-err'; err.setAttribute('role', 'alert'); btn.parentElement.before(err) }
+  return {
+    busy(on) {
+      btn.disabled = on; btn.classList.toggle('busy', on); btn.setAttribute('aria-busy', on)
+      btn.innerHTML = on ? '<span class="spin" aria-hidden="true"></span>Sending' : label
+    },
+    error(msg, field) {
+      err.textContent = msg || ''
+      const el = field && form.elements[field]
+      if (el?.focus) { (el.closest('.ok, .qt-ok, .drop') || el).classList.add('bad'); el.focus() }
+    },
+    done(result, kind, doneEl) {
+      const p = $('p', doneEl); if (!p.dataset.mail) p.dataset.mail = p.textContent
+      p.textContent = result === 'sent' ? SENT[kind] : p.dataset.mail
+    },
+  }
+}
+
 $$('form[data-mail]').forEach(form => {
-  const done = $('.f-done', form)
-  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.ok')?.classList.remove('bad') })
-  form.addEventListener('submit', e => {
+  const done = $('.f-done', form), kit = DPY.formKit(form)
+  const kind = form.dataset.kind || (form.dataset.mail.startsWith('service') ? 'service' : 'quote')
+  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.ok, .drop')?.classList.remove('bad'); kit.error('') })
+  form.addEventListener('submit', async e => {
     e.preventDefault()
+    if ($('.busy', form)) return
     const need = $$('[required]:not([type=checkbox])', form).filter(x => !x.value.trim())
     const tel = $('input[type=tel]', form); if (tel && tel.value.trim() && !/^[0-9+()\s-]{7,}$/.test(tel.value.trim())) need.push(tel)
     const ok = $('.ok input', form); ok?.closest('.ok').classList.toggle('bad', !ok.checked)
@@ -133,17 +192,57 @@ $$('form[data-mail]').forEach(form => {
     if (ok && !ok.checked) return ok.focus()
     const lines = []
     for (const el of $$('input,select,textarea', form)) {
-      if (!el.name || el.name === 'consent') continue
+      if (!el.name || el.name === 'consent' || el.name === 'hp_field' || el.type === 'file') continue
       if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) continue
       const lb = el.dataset.label || form.querySelector(`label[for="${el.id}"]`)?.textContent.replace('*', '').trim() || el.closest('[data-group]')?.dataset.group || el.name
-      if (el.value.trim()) lines.push([lb, el.value.trim()])
+      if (el.value.trim()) lines.push([lb, el.value.trim(), el.name])
     }
     const merged = {}; lines.forEach(([k, v]) => merged[k] = merged[k] ? merged[k] + ', ' + v : v)
     const body = Object.entries(merged).map(([k, v]) => `${k}: ${v}`).join('\n')
-    const who = (form.elements.fullname?.value || '').trim()
-    location.href = `mailto:${form.dataset.mail}?subject=${encodeURIComponent((form.dataset.subject || 'Website request') + (who ? ': ' + who : ''))}&body=${encodeURIComponent(body)}`
-    if (done) { const w = $('.who', done); if (w) w.textContent = who ? ', ' + who.split(' ')[0] : ''; done.classList.add('on'); $('.again', done)?.focus() }
+    const val = n => (form.elements[n]?.value || '').trim(), who = val('fullname')
+    // a CV (Careers): checked here first, then sent as base64 with the request
+    const file = $('input[type=file]', form)?.files?.[0]
+    let cv
+    if (file) {
+      if (!/\.(pdf|docx?)$/i.test(file.name)) return kit.error('Please attach your CV as a PDF or Word file.', 'cv')
+      if (file.size > 5 * 1024 * 1024) return kit.error('That file is too large. Please send a CV under 5 MB.', 'cv')
+      cv = { name: file.name, data: await new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1] || ''); r.onerror = no; r.readAsDataURL(file) }).catch(() => '') }
+    }
+    // an email app can't be handed a file, so the fallback email asks for it
+    const note = $('input[type=file]', form) ? '\n\n(Please attach your CV to this email before sending.)' : ''
+    // name, mobile and email travel on their own; everything else as labelled lines
+    const own = new Set(lines.filter(([, , n]) => ['fullname', 'phone', 'email'].includes(n)).map(([lb]) => lb))
+    const fields = Object.entries(merged).filter(([k]) => !own.has(k))
+    kit.busy(true)
+    const res = await DPY.send({
+      form, kind, name: who, phone: val('phone'), email: val('email'), fields, cv,
+      mailto: `mailto:${form.dataset.mail}?subject=${encodeURIComponent((form.dataset.subject || 'Website request') + (who ? ': ' + who : ''))}&body=${encodeURIComponent(body + note)}`,
+    })
+    kit.busy(false)
+    if (res.error) return kit.error(res.error, res.field)
+    if (done) {
+      kit.done(res, kind, done)
+      const w = $('.who', done); if (w) w.textContent = who ? ', ' + who.split(' ')[0] : ''
+      done.classList.add('on'); $('.again', done)?.focus()
+    }
   })
   $('.again', form)?.addEventListener('click', () => done.classList.remove('on'))
 })
+
+/* ---------- phones: on the long forms the send button stays at the bottom of the screen (CSS, base.css). The chat button
+   steps aside while a form fills the bottom of the screen or a field has focus, so it never covers that button or the text
+   being typed. It comes back past the form and once the thank-you shows. ---------- */
+{
+  const forms = $$('form.form, form.qt-form'), near = new Set()
+  if (forms.length && 'IntersectionObserver' in window) {
+    const typing = () => { const a = document.activeElement; return forms.some(f => f.contains(a)) && a.matches('input:not([type=checkbox],[type=radio]),select,textarea') }
+    const set = () => document.body.classList.toggle('form-on', [...near].some(f => !$('.f-done.on, .qt-done.on', f)) || typing())
+    // the bottom 18% of the screen: a form there means its sticky button is there too
+    const io = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? near.add(e.target) : near.delete(e.target)); set() }, { rootMargin: '-82% 0px 0px 0px' })
+    forms.forEach(f => {
+      io.observe(f); f.addEventListener('focusin', set); f.addEventListener('focusout', () => setTimeout(set))
+      const d = $('.f-done, .qt-done', f); if (d) new MutationObserver(set).observe(d, { attributes: true, attributeFilter: ['class'] })
+    })
+  }
+}
 })()

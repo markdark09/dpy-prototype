@@ -2,7 +2,7 @@
 <html lang="en-PH">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Water Heaters & Heat Pumps Philippines | DPY Mercantile Inc.</title>
 <meta name="description" content="Instant, storage, heat pump and solar water heaters for homes, hotels and hospitals in the Philippines. Free site visit, installation and service since 2001.">
 <meta name="robots" content="noindex,nofollow"> <!-- prototype: kept out of search results; use index,follow on the live site -->
@@ -31,11 +31,11 @@
 @font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'Manrope';font-style:normal;font-weight:300 800;font-display:swap;src:url(assets/fonts/manrope-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
-  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#97A1AB; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8; --ice-bg:#EAF2FA; --sand:#FBF3EC;
+  --ink:#0E1116; --ink2:#2B323B; --mute:#66707B; --dim:#6B7580; --line:#E3E8ED; --paper:#FFFFFF; --soft:#F2F5F8; --ice-bg:#EAF2FA; --sand:#FBF3EC;
   --navy:#013C80; --blue:#0D68C3; --sky:#5FA8EC; --ice:#CFE6FB;
   --red:#C70A0E; --red2:#E3262B; --hot:#FF5A3C; --night:#0A1830;
   --font:'Manrope',system-ui,sans-serif;
-  --g:clamp(16px,4vw,56px); --max:1240px;
+  --g:max(clamp(16px,4vw,56px),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px)); --max:1240px;
   --ease:cubic-bezier(.2,.7,0,1); --spring:cubic-bezier(.34,1.56,.64,1);
   --sh:0 24px 50px -28px rgba(1,30,70,.35); --sh-s:0 10px 26px -16px rgba(1,30,70,.3);
   --card:0 1px 0 rgba(1,30,70,.05),0 16px 34px -28px rgba(1,30,70,.4);
@@ -79,7 +79,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .link svg{width:14px;height:14px;transition:transform .4s var(--ease)}
 .link:hover svg{transform:translateX(3px)}
 .nav{position:fixed;left:0;right:0;top:0;z-index:60;transition:transform .6s var(--ease),background .4s,box-shadow .4s}
-.nav.solid{background:rgba(255,255,255,.96);box-shadow:0 1px 0 var(--line)}
+.nav.solid{background:#fff;box-shadow:0 1px 0 var(--line),0 10px 28px -22px rgba(1,30,70,.45)}
 .nav.up{transform:translateY(-100%)}
 .nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
 .brand img{width:132px;height:auto}
@@ -95,15 +95,36 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .ql-n.pop{transform:scale(1.35)}
 .menu-btn{display:none;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:var(--sh-s)}
 .menu-btn i{display:block;width:16px;height:1.5px;margin:4px auto;background:var(--ink);transition:transform .3s}
-.menu-open .menu-btn i:first-child{transform:translateY(2.75px) rotate(45deg)}
-.menu-open .menu-btn i:last-child{transform:translateY(-2.75px) rotate(-45deg)}
-.sheet{position:fixed;inset:0;z-index:55;background:rgba(255,255,255,.98);display:grid;align-content:center;gap:6px;padding:100px var(--g) 40px;opacity:0;pointer-events:none;transition:opacity .4s}
-.sheet a{font-size:32px;font-weight:300;letter-spacing:-.03em}
-.sheet a[aria-current="page"]{font-weight:600}
-.sheet .btn{justify-self:start;margin-top:18px;font-size:15px;font-weight:600;letter-spacing:0}
-.menu-open .sheet{opacity:1;pointer-events:auto}
+.menu-open .menu-btn i:first-of-type{transform:translateY(2.75px) rotate(45deg)}
+.menu-open .menu-btn i:last-of-type{transform:translateY(-2.75px) rotate(-45deg)}
+.nav-cta{gap:10px}
+.nav-tel{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 4px;font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;border-radius:999px;transition:color .25s,background .25s,box-shadow .25s}
+.nav-tel i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#FFF0F0;color:var(--red);transition:background .25s,color .25s}
+.nav-tel svg{width:16px;height:16px}
+.nav-tel:hover i{background:var(--red);color:#fff}
+.nav-tel:hover{color:var(--red)}
+.nav .btn.red .ql-n{background:#fff;color:var(--red)}
+.menu-btn{position:relative}
+.menu-btn .ql-n{position:absolute;top:-4px;right:-4px;margin:0}
+.sheet{position:fixed;inset:0;z-index:55;background:#fff;display:grid;align-content:start;gap:22px;padding:104px var(--g) calc(32px + var(--sb,0px));overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s,visibility 0s .35s}
+.sh-links{display:grid;gap:2px}
+.sheet .sh-links a{justify-self:start;padding:4px 0;font-size:30px;font-weight:300;letter-spacing:-.03em;opacity:0;transform:translateY(10px);transition:opacity .4s calc(var(--i) * 35ms),transform .5s var(--ease) calc(var(--i) * 35ms)}
+.sheet .sh-links a[aria-current="page"]{font-weight:600}
+.sheet .sh-q{justify-self:start;font-size:15px;font-weight:600;letter-spacing:0}
+.sh-contact{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
+.sh-contact > a{display:grid;gap:2px;padding:12px 14px;border-radius:16px;background:var(--soft,#F3F6FA)}
+.sh-contact small{font-size:12px;color:var(--mute)}
+.sh-contact b{font-size:16px;font-weight:600;color:var(--ink)}
+.sh-msg{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.sheet .msgr{height:40px;padding:0 14px;font-size:13px}
+.sh-contact p{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:0;font-size:13px;color:var(--mute)}
+.sh-contact p svg{width:15px;height:15px}
+.menu-open .sheet{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .35s}
+.menu-open .sheet .sh-links a{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.sheet .sh-links a{transform:none;transition:opacity .2s}}
 html.menu-lock{overflow:hidden}
 .pg-business:not(.menu-open) .nav:not(.solid) .brand img{content:url(assets/brand/dpy-logo-white.svg)}
+.pg-business:not(.menu-open) .nav:not(.solid) .nav-tel,.pg-business:not(.menu-open) .nav:not(.solid) .nav-tel:hover{color:#fff}
 .msgr{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
 .msgr svg{width:18px;height:18px}
 .msgr.fb{background:linear-gradient(135deg,#0A7CFF,#A033FF)}
@@ -127,7 +148,7 @@ html.menu-lock{overflow:hidden}
 .ft .soc a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--ink);box-shadow:0 1px 0 rgba(1,30,70,.06);transition:background .3s,color .3s}
 .ft .soc a:hover{background:var(--ink);color:#fff}
 .ft .soc svg{width:16px;height:16px}
-.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#9A8A80}
+.base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:12px;color:#76665C}
 .base a{text-decoration:underline;text-underline-offset:2px}
 .ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
 .ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
@@ -197,7 +218,11 @@ html.menu-lock{overflow:hidden}
 .ql li button{width:30px;height:30px;border-radius:50%;color:var(--mute);font-size:16px}
 .ql li button:hover{background:#FFF0F0;color:var(--red)}
 .ql .more{margin-top:10px;font-size:12.5px}
-@media (max-width:1180px){.pill,.nav .btn.qt{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:1360px){.nav-tel{width:40px;justify-content:center;padding:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}.nav-tel span{display:none}.nav-tel i{background:none}.nav-tel:hover i{background:none;color:var(--red)}}
+@media (max-width:1180px){.pill{display:none}.menu-btn{display:block}.nav-in{grid-template-columns:1fr auto}} 
+@media (max-width:1180px) and (hover:none){.nav-tel{width:44px;height:44px}}
+@media (max-width:560px){.nav .btn.qt{display:none}.nav-tel{width:44px;height:44px;box-shadow:var(--sh-s)}}
+@media (max-width:380px){.sh-contact{grid-template-columns:1fr}}
 @media (max-width:980px){.ft{grid-template-columns:1fr 1fr}.ft .logo{grid-column:1/-1}}
 @media (max-width:640px){.foot-cta{padding:24px 22px}}
 .lite .ask-btn .drop,.lite .ask-btn .av::after,.lite .ask .drop .hot{animation:none!important}
@@ -243,6 +268,35 @@ html.menu-lock{overflow:hidden}
 .trust img{display:block;width:340px;height:auto} 
 .trust + .base{margin-top:26px}
 @media (max-width:640px){.trust{gap:18px}.trust .seal{flex:1 1 100%;max-width:360px}.trust img{width:100%}}
+.hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
+.f-err{grid-column:1/-1;margin:0;font-size:13.5px;font-weight:600;color:var(--red)}
+.f-err:empty{display:none}
+button.busy{cursor:progress;opacity:.85}
+.spin{width:16px;height:16px;margin-right:8px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+@media (hover:none),(max-width:760px){:is(input:not([type=checkbox],[type=radio],[type=range],[type=hidden]),select,textarea){font-size:16px!important}}
+:root{--sb:env(safe-area-inset-bottom,0px);--sr:env(safe-area-inset-right,0px)}
+.ask{right:calc(22px + var(--sr));bottom:calc(22px + var(--sb))}
+.ctray{bottom:calc(20px + var(--sb))}
+.ctray-on .ask{bottom:calc(94px + var(--sb))}
+.sheet{padding-bottom:calc(40px + var(--sb))}
+@media (max-width:640px){.qbar-on .ask{bottom:calc(84px + var(--sb))}.ctray{bottom:calc(12px + var(--sb))}.ctray-on .ask{bottom:calc(80px + var(--sb))}.qbar-on .ctray{bottom:calc(80px + var(--sb))}.qbar-on.ctray-on .ask{bottom:calc(148px + var(--sb))}}
+@media (max-width:560px){.ask{right:calc(14px + var(--sr));bottom:calc(14px + var(--sb))}.ask-win{padding-bottom:var(--sb)}}
+@media (max-width:640px){
+  .form .f-sub,.qt-form .qt-sub{display:contents}
+  .form .f-sub small,.qt-form .qt-sub small{grid-column:1/-1;max-width:none}
+  .form .f-sub .btn,.qt-form .qt-sub .btn{grid-column:1/-1;position:sticky;bottom:calc(12px + var(--sb));z-index:2;width:100%;justify-content:center;box-shadow:0 0 0 6px #fff,0 18px 36px -12px rgba(1,20,50,.45)}
+  .qt-form .qt-done{z-index:3}
+  .ask{transition:opacity .3s,transform .3s,visibility 0s}
+  .form-on .ask:not(.open){opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,transform .3s,visibility 0s .3s}
+}
+@view-transition{navigation:auto}
+.nav{view-transition-name:site-nav}
+.ask{view-transition-name:ask}
+.plinth ~ img.main{view-transition-name:product-photo}
+::view-transition-group(*){animation-duration:.32s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.2s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 </style>
 <style id="br-css">
 .br-stage{position:relative;height:640px;border-radius:28px;overflow:hidden;background:#06101F;box-shadow:0 40px 80px -46px rgba(1,20,50,.7);isolation:isolate}
@@ -683,6 +737,10 @@ main > section{overflow-x:clip}
 .tm figure:nth-child(2) figcaption i{background:linear-gradient(135deg,#E3262B,#7A0F2E)}
 .tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
 @media (max-width:900px){.tm{grid-template-columns:1fr}}
+/* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
+.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13px;color:var(--mute)}
+.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tm-note + .tm{margin-top:16px}
 .cl-cta{margin:34px 0 0;text-align:center;font-size:15px;color:var(--mute)}
 .cl-cta a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .cl-cta svg{width:14px;height:14px}
@@ -758,12 +816,12 @@ main > section{overflow-x:clip}
 .qz-also{margin:18px 0 0;padding:12px 14px;border-radius:14px;background:#F5F8FB;font-size:13px;color:var(--ink2)}
 .qz-also b{font-weight:600}
 .qz-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-@media (max-width:560px){.qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-res{grid-template-columns:1fr}.qz-res .pic{height:160px}.qz-res .pic img{max-height:136px}.qz-cta{flex-direction:column;align-items:flex-start}}
+@media (max-width:560px){.qz{padding:0;align-items:end}.qz-box{border-radius:24px 24px 0 0;max-height:92svh;padding-bottom:env(safe-area-inset-bottom,0px)}.qz-opts{grid-template-columns:1fr}.qz-step h3{font-size:22px}.qz-res{grid-template-columns:1fr}.qz-res .pic{height:160px}.qz-res .pic img{max-height:136px}.qz-cta{flex-direction:column;align-items:flex-start}}
 .qt-msg{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 
 /* ---------- get a free quote: the page's closing ask ---------- */
 .qt{padding:0 0 110px;background:#FBF3EC}
-.qt-panel{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:30px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
+.qt-panel{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:30px;overflow:hidden;overflow:clip;background:#fff;box-shadow:0 40px 80px -50px rgba(1,30,70,.5)}
 .qt-side{position:relative;padding:44px 40px;color:#fff;background:radial-gradient(90% 70% at 0% 0%,#E3262B 0%,rgba(227,38,43,0) 60%),linear-gradient(160deg,#C70A0E 0%,#7A0F2E 45%,#0A1830 100%);overflow:hidden}
 .qt-side::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 40px rgba(255,255,255,.03),0 0 0 80px rgba(255,255,255,.02)}
 .qt-side .kick{color:#FFC9C2}
@@ -914,11 +972,11 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="DPY Mercantile Inc., back to top"><img src="assets/brand/dpy-logo.svg" alt="DPY Mercantile Inc." width="132" height="42"></a>
-    <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="#top" aria-current="page">Home</a></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers">Careers</a></li><li><a href="contact">Contact</a></li></ul>
-    <div class="nav-cta"><a class="btn line qt" href="#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i></button></div>
+    <ul class="pill"><li class="ind" aria-hidden="true"></li><li><a href="water-heaters">Water Heaters</a></li><li><a href="business">For Business</a></li><li><a href="service">Service</a></li><li><a href="projects">Projects</a></li><li><a href="about">About</a></li><li><a href="careers">Careers</a></li><li><a href="contact">Contact</a></li></ul>
+    <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></i><span>0933 867 2954</span></a><a class="btn red qt" href="#quote">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><a href="#top" aria-current="page">Home</a><a href="water-heaters">Water Heaters</a><a href="business">For Business</a><a href="service">Service</a><a href="projects">Projects</a><a href="about">About</a><a href="careers">Careers</a><a href="contact">Contact</a><a class="btn red" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a></nav>
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="#top" aria-current="page" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="careers" style="--i:6">Careers</a><a href="contact" style="--i:7">Contact</a></div><a class="btn red sh-q" href="#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><a href="tel:+639338672954"><small>Sales, call or text</small><b>0933 867 2954</b></a><a href="tel:+639564160815"><small>Repairs &amp; service</small><b>0956 416 0815</b></a><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 5 PM</p></div></nav>
 <!-- /@nav -->
 
 <main id="main">
@@ -1019,7 +1077,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
             <span><small>Set point</small><b>50°C</b></span>
             <span><small>Element</small><b class="i-e"><i class="led"></i><em>Off</em></b></span>
           </div>
-          <img class="h3d-fb" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
+          <img class="h3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
           <span class="model-cap">Shown: Rheem electric storage heater · supplied &amp; installed by DPY</span>
         </div>
       </div>
@@ -1048,7 +1106,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <path d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10V240H0Z" fill="url(#gRiseA)"/>
           <path class="rl" d="M0 220C60 214 90 190 130 170S200 120 230 70 280 20 300 10" fill="none" stroke="url(#gRise)" stroke-width="3"/>
         </svg>
-        <img class="hp" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump" width="355" height="400">
+        <img class="hp" loading="lazy" decoding="async" src="assets/img/dpy/deron-pool.webp" alt="Deron heat pump" width="355" height="400">
         <div class="mini a"><b>Air → Hot Water</b>Heat moved, not made</div>
         <div class="mini b"><b>Deron · 5 Star</b>Heat pumps we install</div>
       </article>
@@ -1091,6 +1149,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     </div>
     <ul class="tabs cl-tabs" role="tablist" aria-label="Client type"></ul>
     <ul class="cl-grid"></ul>
+    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
     <div class="tm">
       <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.”</blockquote><figcaption><i>R</i><div><b>Ramon S.</b>Engineering Manager · Resort, Boracay</div></figcaption></figure>
       <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter.”</blockquote><figcaption><i>M</i><div><b>Maricel D.</b>Facilities Head · Hospital, Iloilo</div></figcaption></figure>
@@ -1206,6 +1265,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     <p>Only the DPY and Gratek staff handling your request, and our website hosting and email providers, who are bound by confidentiality and data-sharing agreements.</p>
     <h3>How long we keep it</h3>
     <p>For up to five (5) years after your last transaction with us, or longer only if the law requires it. After that it is securely deleted.</p>
+    <h3>If you apply for a job</h3>
+    <p>When you apply through our Careers page, we collect your name, mobile number, email, city, the role you want, your message and your CV. We use them only to consider you for that role and similar openings, and only the people handling hiring see them. We keep applications for up to one (1) year, then securely delete them, unless you join us or ask us to delete them sooner.</p>
     <h3>Your rights</h3>
     <p>You may ask to see, correct or delete your details, object to their use, or withdraw your consent at any time by emailing our Data Protection Officer at <a href="mailto:privacy@dpymi.com.ph?subject=Data%20privacy%20request">privacy@dpymi.com.ph</a>. You can also complain to the National Privacy Commission (privacy.gov.ph).</p>
     <p class="sub" style="margin-top:18px">Last updated: October 2026</p>
@@ -1234,7 +1295,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 </div>
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
-<script src="assets/js/site.js?v=a8bca181" defer></script>
+<script src="assets/js/site.js?v=211550ae" defer></script>
 <script src="assets/js/branches.js?v=b03d3dd4" defer></script>
 <script src="assets/js/ask.js?v=7b8006a9" defer></script>
 <script>
@@ -1482,9 +1543,12 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
   pv.addEventListener('close', () => { lenis?.start(); lockPage(false) })
 }
 
-/* ---------- get a free quote (prototype: composes an email; production would post to DPY's CRM) ---------- */
+/* ---------- get a free quote: sent through DPY.send (site.js), which falls back to the visitor's email app ---------- */
 {
   const form = $('.qt-form'), done = $('.qt-done', form)
+  let kit // site.js loads after this script, so its helpers are picked up when first needed
+  const K = () => kit ||= window.DPY.formKit(form)
+  addEventListener('DOMContentLoaded', () => K())
   // any "Get a Quote" button: pre-tick what the visitor was looking at, then glide to the form
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-quote]'); if (!a) return
@@ -1493,18 +1557,28 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
     if (a.dataset.note && !form.msg.value) form.msg.value = a.dataset.note + ': '
     go('#quote'); setTimeout(() => form.fullname.focus({ preventScroll: true }), RM ? 0 : 1300)
   })
-  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.qt-ok')?.classList.remove('bad') })
-  form.addEventListener('submit', e => {
+  form.addEventListener('input', e => { e.target.classList.remove('bad'); e.target.closest('.qt-ok')?.classList.remove('bad'); K().error('') })
+  form.addEventListener('submit', async e => {
     e.preventDefault()
+    if ($('.busy', form)) return
     const need = [form.fullname, form.phone].filter(x => !x.value.trim())
     if (!/^[0-9+()\s-]{7,}$/.test(form.phone.value.trim()) && !need.includes(form.phone)) need.push(form.phone)
     const ok = form.consent.checked; form.consent.closest('.qt-ok').classList.toggle('bad', !ok)
     need.forEach(x => x.classList.add('bad')); if (need.length) return need[0].focus()
     if (!ok) return form.consent.focus()
-    const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ') || '-'
-    const body = [...(form.products.value ? [`Products: ${form.products.value}`] : []), `Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, `Building: ${v('building')}`, `Interested in: ${v('interest')}`, `Nearest branch: ${form.branch.value}`, `Showers / bathrooms: ${form.showers.value || '-'}`, '', form.msg.value].join('\n')
-    location.href = 'mailto:sales@dpymi.com.ph?subject=' + encodeURIComponent('Free quote request: ' + form.fullname.value) + '&body=' + encodeURIComponent(body)
-    $('.who', done).textContent = ', ' + form.fullname.value.trim().split(' ')[0]; done.classList.add('on')
+    const v = n => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value).join(', ')
+    const fields = [['Products', form.products.value], ['Building', v('building')], ['Interested in', v('interest')], ['Nearest branch', form.branch.value],
+      ['Showers / bathrooms', form.showers.value], ['Message', form.msg.value]].map(([k, x]) => [k, (x || '').trim()]).filter(([, x]) => x)
+    const body = [`Name: ${form.fullname.value}`, `Mobile: ${form.phone.value}`, `Email: ${form.email.value || '-'}`, ...fields.map(([k, x]) => `${k}: ${x}`)].join('\n')
+    K().busy(true)
+    const res = await window.DPY.send({
+      form, kind: 'quote', name: form.fullname.value.trim(), phone: form.phone.value.trim(), email: form.email.value.trim(), fields,
+      mailto: 'mailto:sales@dpymi.com.ph?subject=' + encodeURIComponent('Free quote request: ' + form.fullname.value) + '&body=' + encodeURIComponent(body),
+    })
+    K().busy(false)
+    if (res.error) return K().error(res.error, res.field)
+    K().done(res, 'quote', done)
+    $('.who', done).textContent = ', ' + form.fullname.value.trim().split(' ')[0]; done.classList.add('on'); $('.again', done).focus()
   })
   $('.again', done).addEventListener('click', () => done.classList.remove('on'))
 }
