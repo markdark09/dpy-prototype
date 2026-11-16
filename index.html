@@ -341,8 +341,6 @@ button.busy{cursor:progress;opacity:.85}
 .br-stage.walking .br-ov h3{opacity:0}.br-stage.walking .br-ov{top:84px}
 .br-info .ph{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
 .br-info .ph a{color:var(--ink);font-weight:600}
-.br-hint{position:absolute;right:22px;top:22px;z-index:3;padding:8px 14px;border-radius:999px;background:rgba(8,20,40,.72);color:#CFE0F3;font-size:12px;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s}
-.br-stage.zoomed .br-hint{opacity:0}
 
 .br-sv{position:absolute;inset:0;z-index:2;background:#06101F;opacity:0;pointer-events:none;transition:opacity .9s}
 .br-sv.on{opacity:1;pointer-events:auto}
@@ -373,7 +371,7 @@ button.busy{cursor:progress;opacity:.85}
   .br-ov li{flex:none}
   .br-ov button{padding:9px 14px}.br-ov b{font-size:13.5px}
   .br-ov .all{position:absolute;right:0;top:48px;width:auto;padding:8px 12px}
-  .br-hint,.br-sv .tag{display:none}
+  .br-sv .tag{display:none}
   .br-info{left:12px;right:12px;bottom:12px;width:auto}
   .br-stage::after{background:linear-gradient(180deg,rgba(6,16,31,.6),rgba(6,16,31,0) 30%),linear-gradient(0deg,rgba(6,16,31,.6),rgba(6,16,31,0) 40%)}
 }
@@ -1238,7 +1236,6 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <ul></ul>
           <button class="all" aria-pressed="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/></svg>All branches</button>
         </div>
-        <span class="br-hint">Also sold in Baguio City &amp; Tagaytay</span>
         <div class="br-info" aria-live="polite">
           <span class="k"></span><h3></h3><p class="ad"></p>
           <div class="acts"><a class="btn red dirs" href="https://www.google.com/maps/dir/?api=1&amp;destination=14.6111876,121.0954281" target="_blank" rel="noopener">Directions <svg><use href="#arr"/></svg></a><button class="btn ghost vw" type="button"></button><a class="btn ghost tel" href="tel:+639338672954" aria-label="Call"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg></a></div>
@@ -1371,8 +1368,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <!-- /@ask -->
 <script>window.DPY_HOME = true</script>
 <script src="assets/js/site.js?v=84ffe762" defer></script>
-<script src="assets/js/branches.js?v=a2a23101" defer></script>
-<script src="assets/js/ask.js?v=04be947a" defer></script>
+<script src="assets/js/branches.js?v=3e1d78d7" defer></script>
+<script src="assets/js/ask.js?v=efbbbe4c" defer></script>
 <script>
 // paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
 // The library is downloaded early (preload in the head), then run right after the first frame, followed by everything below.
