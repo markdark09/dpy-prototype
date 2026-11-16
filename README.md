@@ -268,6 +268,7 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **Sharper photos (2026-11-09):** the For Business building photos now load their 1,600 px version (they were cropped from the 800 px one). The product photos are already DPY's originals (for example the 5 Star heat pump is 139 x 411 px on dpymi.com.ph), so they look soft on high-density screens; sharper ones need DPY's original files or the makers' press images.
 - **Header (2026-11-09):** it no longer hides while scrolling; it stays, and gets a little shorter (76 to 62 px) once the page scrolls. Sticky bars and diagrams sit just under it.
 - **Service form (2026-11-09):** a Warranty choice (support@ now covers warranty), and the Brand list has every brand DPY sells (Rotex, Enermax, Wilo, my-PV and Katen were missing). The footer link reads "Service & warranty".
+- **Blog (2026-11-17):** seven sample articles, a Blog page with topic filters, the three newest on the homepage, and "Blog" in the header and footer. See "Blog" below.
 - **Careers: a page for every opening, and an admin page for DPY's staff (2026-11-09).** See "Careers admin" below.
 - **Email addresses (2026-11-09):** service@ became **support@dpymi.com.ph** (service, maintenance and warranty) everywhere, and **hello@** is shown for general inquiries on the Contact page and in the footer. See "Email addresses".
 - **Checked** at 390, 820 and 1440 wide on every page: no sideways scrolling and no script errors. The three request forms were driven through each outcome (sent, not set up, a field to fix, too many requests). The Careers form was checked at phone and desktop size: Apply picks the role, missing fields and a missing CV are marked, an image file is refused, the file shows in the box, it sends with the CV, and the email fallback asks for the CV.
@@ -325,7 +326,16 @@ Each opening has its own page (`/careers/sales-engineer-manila` and so on): what
 
 **Testing locally:** put `ADMIN_DEV=1` in `.dev.vars` (never committed). It opens `/admin` without Access, and only on localhost. Local saves go to `.wrangler/state`; clear them with `npx wrangler kv key delete jobs --binding JOBS --local`.
 
-## Sample content (prototype)
+## Blog (guides and news)
+
+`/blog` lists every article, with the newest featured and topic filters (Guides, Tips, For Business, News; `/blog?topic=business` links straight to one). Each article (`/blog/<article>`) has a cover picture, a contents list beside the text on wide screens, a "Talk to an engineer" box, the products it mentions, and more articles. The homepage shows the three newest, between the branches and the quote form, and "Blog" is in the header menu and the footer.
+
+- **Where the articles live:** `src/articles.mjs` (title, topic, date, cover picture, summary, body, related products). `node tools/build.mjs` makes the pages, the homepage teaser and the sitemap entries. Read times are worked out from the text.
+- **The seven articles are samples**, marked as such on the Blog page and at the end of each article. They are written only from facts already on the site (product pages, spec sheets, the For Business page, the savings calculator with the same numbers: 60 showers a day at ₱15/kWh is about ₱241,000 a year electric and ₱65,000 with a heat pump). No client news, names or figures are made up. DPY's team should review them, and add real news (projects, events, awards) with their own photos.
+- **Cover pictures:** the Unsplash stock photos already on the site (shower, plant room, technician), DPY's own renders and team photo, and the AC·THOR product shot.
+- **Later:** the same admin page as the job openings could manage articles, if DPY's staff will write them.
+
+
 
 Where dpymi.com.ph has no information, the prototype uses realistic sample content. Replace it before launch:
 

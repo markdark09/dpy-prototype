@@ -25,10 +25,23 @@ fill('nav', nav({ home: true, nav: 'home' }, ''))
 fill('branchmap', BRMAP.split('\n').map(l => '      ' + l).join('\n'))
 fill('footer', foot('', { noCta: true }))
 fill('ask', ASK)
+// the three latest blog articles, between the branches and the quote form
+const { sorted } = await import(pathToFileURL(path.join(ROOT, 'src/articles.mjs')).href)
+const { articleCard, CARD_CSS } = await import(pathToFileURL(path.join(ROOT, 'src/pages/blog.mjs')).href)
+const BLOG_CSS = CARD_CSS + `.blg{padding:10px 0 110px;background:#FBF3EC}
+.blg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:980px){.blg{padding-bottom:72px}.blg-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:none}}
+@media (max-width:640px){.blg-grid{grid-template-columns:minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:flex}}`
+fill('blog', `<section class="blg" id="blog" aria-labelledby="blgt">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">From our blog</span><h2 class="thin h2" id="blgt">Hot Water Guides<br>&amp; News</h2></div><a class="link" href="blog">All articles <svg aria-hidden="true"><use href="#arr"/></svg></a></div>
+    <div class="blg-grid">${sorted().slice(0, 3).map(a => articleCard(a, '').replace(' data-r>', '>')).join('')}</div>
+  </div>
+</section>`)
 // base.css written in, like the other pages (the homepage's own styles follow it)
 home = home.replace(/<link rel="stylesheet" href="assets\/css\/base\.css\?v=\w+">[^\n]*\n|<style id="base-css">[\s\S]*?<\/style>\n/, () => `<style id="base-css">\n${inlineCss('', ['assets/css/base.css'])}\n</style>\n`)
 // the branch map's styles, shared with the Contact page
-home = home.replace(/(<style id="base-css">[\s\S]*?<\/style>\n)(?:<style id="br-css">[\s\S]*?<\/style>\n)?/, (m, a) => a + `<style id="br-css">\n${BRMAP_CSS}\n</style>\n`)
+home = home.replace(/(<style id="base-css">[\s\S]*?<\/style>\n)(?:<style id="br-css">[\s\S]*?<\/style>\n)?(?:<style id="blog-css">[\s\S]*?<\/style>\n)?/, (m, a) => a + `<style id="br-css">\n${BRMAP_CSS}\n</style>\n<style id="blog-css">\n${BLOG_CSS}\n</style>\n`)
 for (const f of ['assets/js/site.js', 'assets/js/ask.js', 'assets/js/branches.js']) home = home.replace(new RegExp(`${f.replace(/\./g, '\\.')}\\?v=\\w+`), `${f}?v=${ver(f)}`)
 fs.writeFileSync(H, home)
 console.log('homepage: header, footer and versions updated')
