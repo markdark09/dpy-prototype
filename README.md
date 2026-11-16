@@ -218,7 +218,7 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **Search basics:** the page title ("Water Heaters & Heat Pumps Philippines | DPY Mercantile Inc.", 60 characters) and description (157 characters) lead with what people search for. The language is set to English (Philippines), The headings go in order (one h1, then h2s; the footer column titles are h2s styled small). 
 - **Icons:** the SVG favicon, plus a PNG fallback, a home-screen icon (`apple-touch-icon.png`) and `site.webmanifest`. Opened straight from disk, Chrome logs a harmless manifest error; it loads normally once the site is on a web server.
 - **Share previews:** Open Graph and Twitter tags with a 1200×630 cover image (`assets/img/og-cover.jpg`). Links pasted into Facebook, Messenger or Viber show the hero.
-- **Structured data (schema.org JSON-LD):** DPY Mercantile as the organization, with phones, socials and Gratek as a sub-organization, plus each of the five branches as a local business with address, map coordinates and opening hours (Mon–Sat, 8 AM–5 PM). It also describes the website and the page, and uses a PNG logo (`assets/brand/dpy-logo.png`), which search engines need instead of SVG. This helps "water heater near me" searches. Swap the domain when the new site goes live.
+- **Structured data (schema.org JSON-LD):** DPY Mercantile as the organization, with phones, socials and Gratek as a sub-organization, plus each of the five branches as a local business with address, map coordinates and opening hours (Mon–Sat, 8 AM–6 PM). It also describes the website and the page, and uses a PNG logo (`assets/brand/dpy-logo.png`), which search engines need instead of SVG. This helps "water heater near me" searches. Swap the domain when the new site goes live.
 
 
 ## Phones, pages and motion (November 2026 pass)
@@ -268,6 +268,7 @@ Each product card now links to its category on the new Water Heaters page, and t
 - **Sharper photos (2026-11-09):** the For Business building photos now load their 1,600 px version (they were cropped from the 800 px one). The product photos are already DPY's originals (for example the 5 Star heat pump is 139 x 411 px on dpymi.com.ph), so they look soft on high-density screens; sharper ones need DPY's original files or the makers' press images.
 - **Header (2026-11-09):** it no longer hides while scrolling; it stays, and gets a little shorter (76 to 62 px) once the page scrolls. Sticky bars and diagrams sit just under it.
 - **Service form (2026-11-09):** a Warranty choice (support@ now covers warranty), and the Brand list has every brand DPY sells (Rotex, Enermax, Wilo, my-PV and Katen were missing). The footer link reads "Service & warranty".
+- **Branches and hours (2026-11-17, per DPY):** the site shows three branches, Manila (head office, Pasig), Cebu and Davao; Boracay and Iloilo are removed from the branch map, the branch cards, the quote and service forms, the assistant and the homepage's business data for Google, and "five branches" now reads three. Hours are Monday to Saturday, 8 AM to 6 PM everywhere (the business data says 18:00). Older notes below that mention five branches describe the site before this change.
 - **Blog (2026-11-17):** seven sample articles, a Blog page with topic filters, the three newest on the homepage, and "Blog" in the header and footer. See "Blog" below.
 - **Careers: a page for every opening, and an admin page for DPY's staff (2026-11-09).** See "Careers admin" below.
 - **Email addresses (2026-11-09):** service@ became **support@dpymi.com.ph** (service, maintenance and warranty) everywhere, and **hello@** is shown for general inquiries on the Contact page and in the footer. See "Email addresses".
@@ -342,14 +343,14 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 | Where | Sample used |
 |---|---|
 | Testimonials (under the client logos) | Three sample reviews: a Boracay resort engineer, an Iloilo hospital facilities head and a Pasig condo owner. Swap in real customer quotes with their permission. Until then the page labels them **Sample** (the `.tm-note` line in `index.html`; remove it with the samples). |
-| Branch hours | Mon–Sat, 8:00 AM – 5:00 PM, closed Sundays and holidays (branch card and assistant) |
+| Branch hours | Mon–Sat, 8:00 AM – 6:00 PM, closed Sundays and holidays (branch card and assistant) |
 | Hero stat | "5 Branches nationwide", matching the branches page |
 | Privacy notice | Job applications kept 1 year (new section, for the Careers form); retention of 5 years after the last transaction; hosting and email providers as processors; "Last updated: October 2026" |
 | Viber / Messenger | Viber on the sales number 0933 867 2954; Messenger via the Facebook page |
 | Savings calculator | 40 L per shower warmed 27→42°C (0.70 kWh of heat); electric heater 95% efficient; heat pump COP 3.5 on the heat itself; solar covering 65% with an electric backup; ₱15/kWh default (Meralco household average, October 2026: ₱15.06). Update the default rate once a year. Checked 2026-11-06: the old version divided the electric heater's draw by 3.5, counting its losses twice, and used ₱12/kWh, so every figure was about 20% low. |
 | Gratek "Aquarius" and quiz recommendations | General guidance, following the Solutions section |
 | Branch pins and walk views | Google Maps listings and nearest Street View; Davao uses the website address (Camella Northpoint); Boracay shows the Station 2 area |
-| Stock photos | Shower, plant and technician (Unsplash) |
+| Stock photos | Plant and technician (Unsplash); the bathroom (`assets/img/shower.webp`, 1800 px, since 2026-11-17) is Pexels photo 8031880 (pexels.com/photo/8031880, free for commercial use under the Pexels license) |
 | Careers | One-line role descriptions (the live site lists titles only) |
 | Service page | The quick checks, the maintenance checklist and the reply wording are general good practice; DPY's service team should check them |
 | About page | The one-line meaning under each value; the Gratek step in the timeline has no year (not on the live site) |

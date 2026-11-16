@@ -13,7 +13,7 @@ const PM = ['Heating element and thermostat tested', 'Safety and pressure relief
 export default {
   path: 'service', nav: 'service', cta: 'service',
   title: 'Water Heater Repair, Installation & Maintenance',
-  desc: 'Book a water heater repair, installation or preventive maintenance visit with DPY Mercantile. Quick checks to try first, and service teams in Manila, Boracay, Iloilo, Cebu and Davao.',
+  desc: 'Book a water heater repair, installation or preventive maintenance visit with DPY Mercantile. Quick checks to try first, and service teams in Manila, Cebu and Davao.',
   crumbs: [['Service']],
   css: `
 .sv-head{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,5vw,72px);align-items:center}
@@ -80,10 +80,10 @@ export default {
       ${crumbsHtml(R, [['Service']])}
       <span class="kick">Service &amp; repairs</span>
       <h1 class="thin h1">We Keep the<br>Hot Water Running</h1>
-      <p class="lede">Repairs, installation and preventive maintenance for every brand we sell, from our service teams in Manila, Boracay, Iloilo, Cebu and Davao.</p>
+      <p class="lede">Repairs, installation and preventive maintenance for every brand we sell, from our service teams in Manila, Cebu and Davao.</p>
       <div class="ph-acts"><a class="btn red" href="#book">Book a service visit ${I.arr}</a><a class="btn ghost" href="#checks">Try these quick checks first</a></div>
     </div>
-    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A DPY technician servicing a water heater', ' fetchpriority="high"', '(max-width:980px) 100vw, 560px')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 5 PM</span></div>
+    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A DPY technician servicing a water heater', ' fetchpriority="high"', '(max-width:980px) 100vw, 560px')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 6 PM</span></div>
   </div>
 </section>
 

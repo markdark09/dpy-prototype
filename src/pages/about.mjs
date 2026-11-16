@@ -6,7 +6,7 @@ const TIME = [
   ['2011', 'DPY Mercantile, Inc.', 'On May 27, 2011 the business becomes a corporation, to grow into a leading supplier of water heaters, heat exchangers and after-sales service.'],
   ['Gratek', 'A company for homes', 'Gratek Smart Water Corp. is formed to serve homeowners, condo developers and resorts with water heaters and hassle-free service.'],
   ['2021', 'Golden Globe awardee', 'DPY is named an awardee of the Golden Globe Annual Awards for Business Excellence.'],
-  ['Today', 'Five branches, twelve brands', 'Sales and service from Manila, Boracay, Iloilo, Cebu and Davao, with partners from Germany, Australia and beyond.'],
+  ['Today', 'Three branches, twelve brands', 'Sales and service from Manila, Cebu and Davao, with partners from Germany, Australia and beyond.'],
 ]
 const VALUES = [['P', 'Professionalism', 'We do the job right, on time, and stand behind it.'], ['R', 'Respect', 'For our customers, our partners and each other.'], ['I', 'Integrity', 'Honest advice, even when the right heater is the cheaper one.'], ['Z', 'Zeal', 'We care about getting hot water right, every time.'], ['E', 'Excellence', 'World-class products, installed to a high standard.']]
 

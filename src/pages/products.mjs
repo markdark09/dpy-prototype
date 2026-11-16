@@ -218,7 +218,7 @@ ${tables ? `
     <div data-r><i>${I.ck}</i><span><b>Free site visit</b>We check your space and size it right</span></div>
     <div data-r><i>${I.ck}</i><span><b>Installed by our team</b>Our own technicians, tested on the day</span></div>
     <div data-r><i>${I.ck}</i><span><b>Genuine units</b>Supplied direct${p.warranty ? ', with warranty' : ''}</span></div>
-    <div data-r><i>${I.ck}</i><span><b>Serviced for years</b>Repairs and maintenance from 5 branches</span></div>
+    <div data-r><i>${I.ck}</i><span><b>Serviced for years</b>Repairs and maintenance from 3 branches</span></div>
   </div>
 </section>
 

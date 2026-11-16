@@ -168,10 +168,24 @@ for (const url of products) {
 // the blog: every article listed (featured + grid), and each article complete, with working contents links
 {
   const posts = fs.readdirSync(path.join(ROOT, 'blog')).filter(f => f.endsWith('.html')).map(f => '/blog/' + f.replace(/\.html$/, ''))
-  const p = await open(desk, '/blog', { wait: 0 })
-  const listed = await p.evaluate(() => [...document.querySelectorAll('.bc h2 a, .bc h3 a')].map(a => new URL(a.href).pathname))
-  check('blog lists every article once', listed.length === posts.length && posts.every(u => listed.includes(u)), { listed, posts })
-  await p.close()
+  // follow the numbered pages (Older) from /blog: every article appears exactly once, 6 to a page plus the featured one
+  const listed = [], seen = []
+  for (let url = '/blog'; url;) {
+    const p = await open(desk, url, { wait: 0 }); seen.push(url)
+    const r = await p.evaluate(() => ({ cards: [...document.querySelectorAll('.bl-grid .bc h3 a, .bl-feat .bc h2 a')].map(a => new URL(a.href).pathname), next: document.querySelector('.bl-pages a[rel=next]')?.getAttribute('href') || null, grid: document.querySelectorAll('.bl-grid .bc').length }))
+    listed.push(...r.cards)
+    check(`${url}: at most 6 articles in the grid`, r.grid <= 6 && r.grid > 0, r.grid)
+    url = r.next ? new URL(r.next, 'http://x' + url).pathname : null
+    await p.close()
+  }
+  check('blog pages list every article exactly once', listed.length === posts.length && posts.every(u => listed.filter(x => x === u).length === 1), { pages: seen, listed: listed.length, posts: posts.length })
+  // each topic page lists only its topic
+  for (const t of fs.readdirSync(path.join(ROOT, 'blog/topic')).filter(f => f.endsWith('.html')).map(f => '/blog/topic/' + f.replace(/\.html$/, ''))) {
+    const p = await open(desk, t, { wait: 0 })
+    const r = await p.evaluate(() => ({ cats: [...new Set([...document.querySelectorAll('.bl-grid .bc')].map(c => c.dataset.cat))], current: document.querySelector('.tabs [aria-current=page]')?.getAttribute('href') }))
+    check(`${t}: only its own topic, and its chip marked`, r.cats.length === 1 && t.endsWith(r.cats[0]) && r.current?.endsWith(r.cats[0]), r)
+    await p.close()
+  }
   for (const url of posts) {
     const q = await open(desk, url, { wait: 0 })
     const r = await q.evaluate(() => ({

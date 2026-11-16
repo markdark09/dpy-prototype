@@ -1,4 +1,4 @@
-/* The branch map, on the homepage and the Contact page: a satellite map of the Philippines with the five branches.
+/* The branch map, on the homepage and the Contact page: a satellite map of the Philippines with the three branches (Manila, Cebu and Davao).
    Picking one flies down to it, then fades into Google Street View facing the office.
    Branches from dpymi.com.ph/branches; Baguio and Tagaytay from "Where to buy". */
 (() => {
@@ -9,8 +9,6 @@ const ROOT = new URL('../../', document.currentScript.src).href // the site root
 // pin = the office on Google Maps; sv = the nearest Street View spot and the heading/pitch that faces the office
 const BR = [
   { k: 'manila', n: 'Manila', rg: 'Head office', a: '778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City', pin: [121.0954281, 14.6111876], sv: [14.6112029, 121.0953304, 99, -4], bearing: -24 },
-  { k: 'boracay', n: 'Boracay', rg: 'Visayas', a: 'Station 2, Manoc-Manoc, Boracay Island, Malay, Aklan', pin: [121.9246445, 11.9609959], sv: [11.9609959, 121.9246445, 0, -2], bearing: 18, area: true, side: 'l' },
-  { k: 'iloilo', n: 'Iloilo', rg: 'Visayas', a: '2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City', pin: [122.5586473, 10.7162841], sv: [10.7163347, 122.5585963, 135, -4], bearing: -12, side: 'l' },
   { k: 'cebu', n: 'Cebu', rg: 'Visayas', a: '3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City', pin: [123.9450424, 10.3350685], sv: [10.3350473, 123.9449658, 60, -6], bearing: 28 },
   { k: 'davao', n: 'Davao', rg: 'Mindanao', a: 'Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City', pin: [125.613112, 7.0964317], sv: [7.0962733, 125.6130287, 62, -14], bearing: -30 },
 ]

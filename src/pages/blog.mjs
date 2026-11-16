@@ -38,46 +38,71 @@ export const CARD_CSS = `
 @media (max-width:980px){.bc.big{grid-template-columns:minmax(0,1fr)}.bc.big .bc-pic{min-height:0;aspect-ratio:16/9}.bc.big .bc-tx{padding:24px 22px 28px}}
 `
 
-const index = {
-  path: 'blog', nav: 'blog',
-  title: 'Blog: Hot Water Guides & News',
-  desc: 'Practical guides on choosing, running and looking after water heaters and central hot water systems in the Philippines, from DPY Mercantile.',
-  crumbs: [['Blog']],
-  css: CARD_CSS + `
+// ---------- the listing: numbered pages, 6 articles each (page 1 also has the newest article featured above them) ----------
+// /blog, /blog/page/2 ...  and per topic: /blog/topic/guides, /blog/topic/guides/page/2 ...  Plain links, so every page
+// works without JavaScript and search engines can follow them.
+export const PER = 6
+const LIST_CSS = CARD_CSS + `
 .bl-feat{margin-top:44px}
-.bl-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.bl-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-bottom:24px}
+.bl-bar .tabs{margin-top:0;margin-bottom:0}
+/* later pages and topics: a shorter head, straight to the articles */
+.phead.bl-sm{padding-bottom:28px}.bl-sm + .sec{padding-top:40px}
+.chip[aria-current="page"]{background:var(--ink);color:#fff;box-shadow:none}
 .bl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.bl-grid .bc[hidden]{display:none}
+.bl-pages{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:40px 0 0}
+.bl-pages a,.bl-pages span{display:inline-grid;place-items:center;min-width:44px;height:44px;padding:0 14px;border-radius:999px;font-size:14.5px;font-weight:600}
+.bl-pages a{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);transition:background .25s,box-shadow .25s}
+.bl-pages a:hover{background:var(--soft);box-shadow:inset 0 0 0 1px #C9D4E1}
+.bl-pages [aria-current="page"]{background:var(--ink);color:#fff;box-shadow:none}
+.bl-pages .off{color:#9AA5B1;box-shadow:inset 0 0 0 1px var(--line)}
+.bl-pages .nx{display:inline-flex;gap:8px}.bl-pages .nx svg{width:16px;height:16px}.bl-pages .pv svg{transform:scaleX(-1)}
+.bl-count{margin:16px 0 0;font-size:14px;color:var(--mute);text-align:center}
 .bl-note{margin:30px 0 0;font-size:14px;color:var(--mute);text-align:center}
 @media (max-width:980px){.bl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.bl-grid{grid-template-columns:minmax(0,1fr)}}
-`,
-  body: R => `
-<section class="phead">
+@media (max-width:640px){.bl-grid{grid-template-columns:minmax(0,1fr)}.bl-pages .nx .t{display:none}}
+`
+const topicPath = (cat, n = 1) => 'blog' + (cat ? '/topic/' + cat : '') + (n > 1 ? '/page/' + n : '')
+function listPage(cat, n, items, pages, featured) {
+  const label = cat ? CATS[cat] : ''
+  const path = topicPath(cat, n), first = !cat && n === 1
+  const crumbs = [['Blog', first ? '' : 'blog'], ...(cat ? [[label, n > 1 ? topicPath(cat) : '']] : []), ...(n > 1 ? [['Page ' + n, '']] : [])]
+  const crumbList = crumbs.map(([t, u], i) => i === crumbs.length - 1 ? [t] : [t, u])
+  const counts = Object.fromEntries(Object.keys(CATS).map(k => [k, list.filter(x => x.cat === k).length]))
+  return {
+    path, nav: 'blog',
+    title: first ? 'Blog: Hot Water Guides & News' : `${label || 'Blog'}${n > 1 ? ', page ' + n : ''}: Hot Water Guides & News`,
+    desc: cat ? `${label} articles from DPY Mercantile: practical advice on water heaters and hot water systems in the Philippines.` : 'Practical guides on choosing, running and looking after water heaters and central hot water systems in the Philippines, from DPY Mercantile.',
+    crumbs: crumbList,
+    css: LIST_CSS,
+    body: R => `
+<section class="phead${featured ? '' : ' bl-sm'}">
   <span class="glow"></span>
   <div class="wrap">
-    ${crumbsHtml(R, [['Blog']])}
-    <span class="kick">Blog</span><h1 class="thin h1">Hot Water<br>Guides &amp; News</h1>
-    <p class="lede">Practical guides on choosing, running and looking after water heaters and hot water systems, from the team that installs and services them.</p>
-    <div class="bl-feat">${articleCard(list[0], R, { h: 'h2', big: true })}</div>
+    ${crumbsHtml(R, crumbList)}
+    <span class="kick">Blog${cat ? ' · ' + label : ''}</span><h1 class="thin h1">${first ? 'Hot Water<br>Guides &amp; News' : cat ? esc(label) : 'All Articles'}${n > 1 ? `<br><small style="font-size:.5em">Page ${n} of ${pages}</small>` : ''}</h1>
+    ${n > 1 ? '' : `<p class="lede">${cat ? `${counts[cat]} ${counts[cat] === 1 ? 'article' : 'articles'} on ${esc(label.toLowerCase())}, newest first.` : 'Practical guides on choosing, running and looking after water heaters and hot water systems, from the team that installs and services them.'}</p>`}
+    ${featured ? `<div class="bl-feat">${articleCard(featured, R, { h: 'h2', big: true })}</div>` : ''}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="blT">
+<section class="sec" id="articles" aria-labelledby="blT">
   <div class="wrap">
-    <div class="bl-bar"><h2 class="thin h2" id="blT">All Articles</h2>
-      <ul class="tabs" aria-label="Filter articles by topic"><li><button class="chip" type="button" data-f="" aria-pressed="true">All <small>${list.length - 1}</small></button></li>${Object.entries(CATS).map(([k, t]) => { const n = list.slice(1).filter(a => a.cat === k).length; return n ? `<li><button class="chip" type="button" data-f="${k}" aria-pressed="false">${t} <small>${n}</small></button></li>` : '' }).join('')}</ul></div>
-    <div class="bl-grid">${list.slice(1).map(a => articleCard(a, R)).join('')}</div>
+    <div class="bl-bar"><h2 class="thin h2" id="blT">${first ? 'Latest Articles' : 'Articles'}</h2>
+      <ul class="tabs" aria-label="Topics"><li><a class="chip" href="${R}blog"${cat ? '' : ' aria-current="page"'}>All <small>${list.length}</small></a></li>${Object.entries(CATS).filter(([k]) => counts[k]).map(([k, t]) => `<li><a class="chip" href="${R}${topicPath(k)}"${cat === k ? ' aria-current="page"' : ''}>${t} <small>${counts[k]}</small></a></li>`).join('')}</ul></div>
+    <div class="bl-grid">${items.map(x => articleCard(x, R)).join('')}</div>
+    ${pages > 1 ? `<nav class="bl-pages" aria-label="Pages">${n > 1 ? `<a class="nx pv" href="${R}${topicPath(cat, n - 1)}" rel="prev">${I.arr}<span class="t">Newer</span></a>` : `<span class="nx pv off" aria-hidden="true">${I.arr}<span class="t">Newer</span></span>`}${Array.from({ length: pages }, (_, i) => i + 1).map(k => k === n ? `<span aria-current="page">${k}</span>` : `<a href="${R}${topicPath(cat, k)}" aria-label="Page ${k}">${k}</a>`).join('')}${n < pages ? `<a class="nx" href="${R}${topicPath(cat, n + 1)}" rel="next"><span class="t">Older</span>${I.arr}</a>` : `<span class="nx off" aria-hidden="true"><span class="t">Older</span>${I.arr}</span>`}</nav>
+    <p class="bl-count">Page ${n} of ${pages}</p>` : ''}
     <p class="bl-note">${NOTE}</p>
   </div>
 </section>`,
-  js: `
-// topic filters (also from ?topic= in the address, so a topic can be linked)
-const F = $$('[data-f]'), C = $$('.bl-grid .bc')
-const pick = k => { F.forEach(b => b.setAttribute('aria-pressed', b.dataset.f === k)); C.forEach(c => { c.hidden = !!k && c.dataset.cat !== k; c.classList.add('in') }) }
-F.forEach(b => b.addEventListener('click', () => { pick(b.dataset.f); const u = new URL(location.href); b.dataset.f ? u.searchParams.set('topic', b.dataset.f) : u.searchParams.delete('topic'); history.replaceState(null, '', u) }))
-const want = new URLSearchParams(location.search).get('topic'); if (want && F.some(b => b.dataset.f === want)) pick(want)
-`,
+  }
+}
+function listPages(cat) {
+  const all = cat ? list.filter(x => x.cat === cat) : list
+  const featured = cat ? null : all[0], rest = cat ? all : all.slice(1)
+  const pages = Math.max(1, Math.ceil(rest.length / PER))
+  return Array.from({ length: pages }, (_, i) => listPage(cat, i + 1, rest.slice(i * PER, (i + 1) * PER), pages, i === 0 ? featured : null))
 }
 
 function articlePage(a) {
@@ -174,4 +199,4 @@ ${rel.length ? `
   }
 }
 
-export default [index, ...ARTICLES.map(articlePage)]
+export default [...listPages(''), ...Object.keys(CATS).filter(k => list.some(x => x.cat === k)).flatMap(listPages), ...ARTICLES.map(articlePage)]

@@ -11,7 +11,7 @@ const STEPS = [
   ['System design', 'We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.'],
   ['Written proposal', 'An itemized quotation: units, pipes, pumps, installation and commissioning.'],
   ['Supply & installation', 'Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.'],
-  ['Maintenance', 'Preventive maintenance and repairs from our five branches, for as long as the system runs.'],
+  ['Maintenance', 'Preventive maintenance and repairs from our three branches, for as long as the system runs.'],
 ]
 
 export default {

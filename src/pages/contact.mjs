@@ -4,7 +4,7 @@ const INTEREST = [['instant', 'Instant'], ['storage', 'Storage'], ['heatpump', '
 export default {
   path: 'contact', nav: 'contact',
   title: 'Contact Us, Get a Free Quote & Find a Branch',
-  desc: 'Get a free water heater quote from DPY Mercantile, call or message our sales and service teams, or visit a branch in Manila, Boracay, Iloilo, Cebu or Davao.',
+  desc: 'Get a free water heater quote from DPY Mercantile, call or message our sales and service teams, or visit a branch in Manila, Cebu or Davao.',
   crumbs: [['Contact']],
   noCta: true,
   scripts: ['assets/js/branches.js'],
@@ -66,7 +66,7 @@ ${BRMAP_CSS}
       <a href="tel:+63279560521"><i>${I.tel}</i><span><small>Head office telefax</small><b>(02) 7956 0521</b></span></a>
       <a href="mailto:sales@dpymi.com.ph?subject=Quote%20request"><i>${I.mail}</i><span><small>Quotes &amp; projects</small><b>sales@dpymi.com.ph</b></span></a>
       <a href="mailto:support@dpymi.com.ph?subject=Service%20request"><i>${I.mail}</i><span><small>Service, maintenance &amp; warranty</small><b>support@dpymi.com.ph</b></span></a>
-      <p class="hrs">${I.clock.replace('<svg', '<svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px"')}Monday to Saturday, 8:00 AM to 5:00 PM<span class="gen">General inquiries: <a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></span></p>
+      <p class="hrs">${I.clock.replace('<svg', '<svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px"')}Monday to Saturday, 8:00 AM to 6:00 PM<span class="gen">General inquiries: <a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></span></p>
     </div>
   </div>
 </section>
@@ -110,7 +110,7 @@ ${BRMAP_CSS}
 
 <section class="sec soft" id="branches" aria-labelledby="brT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Five branches from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
+    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Three branches, from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
     ${BRMAP}
   </div>
 </section>`,
