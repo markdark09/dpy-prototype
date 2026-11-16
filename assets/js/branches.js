@@ -1,6 +1,6 @@
-/* The branch map, on the homepage and the Contact page: a satellite map of the Philippines with the five branches.
+/* The branch map, on the homepage and the Contact page: a satellite map of the Philippines with the three branches (Manila, Cebu and Davao).
    Picking one flies down to it, then fades into Google Street View facing the office.
-   Branches from dpymi.com.ph/branches; Baguio and Tagaytay from "Where to buy". */
+   Branches: Manila, Cebu and Davao (as DPY asked, November 2026). */
 (() => {
 const stageEl = document.querySelector('.br-stage'); if (!stageEl) return
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)]
@@ -9,12 +9,9 @@ const ROOT = new URL('../../', document.currentScript.src).href // the site root
 // pin = the office on Google Maps; sv = the nearest Street View spot and the heading/pitch that faces the office
 const BR = [
   { k: 'manila', n: 'Manila', rg: 'Head office', a: '778-B Mahogany St., Octagon Village, Brgy. Dela Paz, Pasig City', pin: [121.0954281, 14.6111876], sv: [14.6112029, 121.0953304, 99, -4], bearing: -24 },
-  { k: 'boracay', n: 'Boracay', rg: 'Visayas', a: 'Station 2, Manoc-Manoc, Boracay Island, Malay, Aklan', pin: [121.9246445, 11.9609959], sv: [11.9609959, 121.9246445, 0, -2], bearing: 18, area: true, side: 'l' },
-  { k: 'iloilo', n: 'Iloilo', rg: 'Visayas', a: '2nd Floor Agro Building, Jalandoni Street, Brgy. Villa Anita, Iloilo City', pin: [122.5586473, 10.7162841], sv: [10.7163347, 122.5585963, 135, -4], bearing: -12, side: 'l' },
   { k: 'cebu', n: 'Cebu', rg: 'Visayas', a: '3rd Floor Horacio Sr. Centre, S.B. Cabahug, Ibabao-Estancia, Mandaue City', pin: [123.9450424, 10.3350685], sv: [10.3350473, 123.9449658, 60, -6], bearing: 28 },
   { k: 'davao', n: 'Davao', rg: 'Mindanao', a: 'Camella Northpoint, J.P. Laurel Avenue, Bajada, Davao City', pin: [125.613112, 7.0964317], sv: [7.0962733, 125.6130287, 62, -14], bearing: -30 },
 ]
-const ALSO = [['Baguio City', 120.5960, 16.4023, ''], ['Tagaytay', 120.9620, 14.1153, 'l']]
 const stage = $('.br-stage'), ov = $('.br-ov'), info = $('.br-info'), all = $('.all', ov), sv = $('.br-sv'), svf = $('iframe', sv), dive = $('.br-dive'), vw = $('.vw', info)
 const WALK = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="3" r="2"/><path d="M6 6h4l1 5H9.5l-.5 4h-2l-.5-4H5z"/></svg>Street view', MAPV = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1.5 4l4-1.5 5 1.5 4-1.5v9.5l-4 1.5-5-1.5-4 1.5z"/><path d="M5.5 2.5v10M10.5 4v10"/></svg>Map view'
 $('ul', ov).innerHTML = BR.map((b, i) => `<li><button data-i="${i}" aria-pressed="false"><span class="n">0${i + 1}</span><span><b>${b.n}</b><small>${b.rg}</small></span></button></li>`).join('')
@@ -60,7 +57,6 @@ function boot() {
     map.scrollZoom.disable() // the page scroll stays the page scroll
     const pin = (lng, lat, label, cls, onClick) => { const el = document.createElement('div'); el.className = 'mk ' + cls; el.innerHTML = `<i></i><span>${label}</span>`; if (onClick) el.addEventListener('click', onClick); new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map); return el }
     mk = BR.map((b, i) => pin(b.pin[0], b.pin[1], b.n, b.side || '', () => fly(i)))
-    ALSO.forEach(([n, lng, lat, side]) => pin(lng, lat, n, 'sm ' + side))
     map.once('load', () => { $('.br-ld').remove(); new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); if (cur < 0) map.flyTo({ ...HOME, duration: RM ? 0 : 2600, essential: true }) }, { threshold: .35 }).observe(stage) })
   }
   document.head.append(s)

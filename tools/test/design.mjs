@@ -165,6 +165,40 @@ for (const url of products) {
   await p.close()
 }
 
+// the blog: every article listed (featured + grid), and each article complete, with working contents links
+{
+  const posts = fs.readdirSync(path.join(ROOT, 'blog')).filter(f => f.endsWith('.html')).map(f => '/blog/' + f.replace(/\.html$/, ''))
+  // follow the numbered pages (Older) from /blog: every article appears exactly once, 6 to a page plus the featured one
+  const listed = [], seen = []
+  for (let url = '/blog'; url;) {
+    const p = await open(desk, url, { wait: 0 }); seen.push(url)
+    const r = await p.evaluate(() => ({ cards: [...document.querySelectorAll('.bl-grid .bc h3 a, .bl-feat .bc h2 a')].map(a => new URL(a.href).pathname), next: document.querySelector('.bl-pages a[rel=next]')?.getAttribute('href') || null, grid: document.querySelectorAll('.bl-grid .bc').length }))
+    listed.push(...r.cards)
+    check(`${url}: at most 6 articles in the grid`, r.grid <= 6 && r.grid > 0, r.grid)
+    url = r.next ? new URL(r.next, 'http://x' + url).pathname : null
+    await p.close()
+  }
+  check('blog pages list every article exactly once', listed.length === posts.length && posts.every(u => listed.filter(x => x === u).length === 1), { pages: seen, listed: listed.length, posts: posts.length })
+  // each topic page lists only its topic
+  for (const t of fs.readdirSync(path.join(ROOT, 'blog/topic')).filter(f => f.endsWith('.html')).map(f => '/blog/topic/' + f.replace(/\.html$/, ''))) {
+    const p = await open(desk, t, { wait: 0 })
+    const r = await p.evaluate(() => ({ cats: [...new Set([...document.querySelectorAll('.bl-grid .bc')].map(c => c.dataset.cat))], current: document.querySelector('.tabs [aria-current=page]')?.getAttribute('href') }))
+    check(`${t}: only its own topic, and its chip marked`, r.cats.length === 1 && t.endsWith(r.cats[0]) && r.current?.endsWith(r.cats[0]), r)
+    await p.close()
+  }
+  for (const url of posts) {
+    const q = await open(desk, url, { wait: 0 })
+    const r = await q.evaluate(() => ({
+      h1: document.querySelector('h1')?.textContent.trim(), date: !!document.querySelector('.ar-meta b'), cover: !!document.querySelector('.ar-cover img'),
+      note: !!document.querySelector('.ar-note'), paras: document.querySelectorAll('.ar-body p').length,
+      toc: [...document.querySelectorAll('.ar-toc a')].map(a => a.getAttribute('href')).filter(h => !document.querySelector(h)),
+      ld: [...document.querySelectorAll('script[type="application/ld+json"]')].some(s => s.textContent.includes('"BlogPosting"')),
+    }))
+    check(`${url}: a complete article`, r.h1 && r.date && r.cover && r.note && r.paras >= 3 && !r.toc.length && r.ld, r)
+    await q.close()
+  }
+}
+
 // text size floors on every page: reading text (a sentence, normal weight) 12.5px and up; nothing under 11px (10.5px on phones)
 {
   const { sitemapPaths } = await import('./lib.mjs')

@@ -69,7 +69,7 @@ export default {
     <div class="what">
       <div data-r><em>DESIGN</em><b>Sized for the peak hour</b><p>We work with your engineers and contractors to size heaters, tanks and pumps for the busiest morning of the year.</p></div>
       <div data-r><em>INSTALL</em><b>Our own technicians</b><p>Installed, tested and commissioned by DPY's team, with genuine units and spare parts in stock.</p></div>
-      <div data-r><em>MAINTAIN</em><b>Years after handover</b><p>Preventive maintenance and repairs from five branches, so the system keeps running at full occupancy.</p></div>
+      <div data-r><em>MAINTAIN</em><b>Years after handover</b><p>Preventive maintenance and repairs from our three branches, so the system keeps running at full occupancy.</p></div>
     </div>
   </div>
 </section>`,
