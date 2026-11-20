@@ -1,4 +1,4 @@
-import { BRANCHES, crumbsHtml, img, I, MSGR } from '../../tools/lib.mjs'
+import { BRANCHES, SITE, crumbsHtml, img, I, MSGR } from '../../tools/lib.mjs'
 
 // quick checks a customer can safely do before calling (general good practice; the 2 L/min figure is from Aquapower's spec sheet)
 const CHECKS = [
@@ -13,6 +13,8 @@ const PM = ['Heating element and thermostat tested', 'Safety and pressure relief
 export default {
   path: 'service', nav: 'service', cta: 'service',
   title: 'Water Heater Repair, Installation & Maintenance',
+  // the three kinds of visit on the cards at the top, for search engines
+  ld: [{ '@type': 'Service', name: 'Water heater repair, installation and maintenance', serviceType: 'Water heater service', url: SITE + 'service', provider: { '@type': 'Organization', name: 'DPY Mercantile Inc.', url: SITE }, areaServed: { '@type': 'Country', name: 'Philippines' }, hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Service visits', itemListElement: ['Water heater repair', 'Water heater installation', 'Preventive maintenance'].map(name => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })) } }],
   desc: 'Book a water heater repair, installation or preventive maintenance visit with DPY Mercantile. Quick checks to try first, and service teams in Manila, Cebu and Davao.',
   crumbs: [['Service']],
   css: `
@@ -83,7 +85,7 @@ export default {
       <p class="lede">Repairs, installation and preventive maintenance for every brand we sell, from our service teams in Manila, Cebu and Davao.</p>
       <div class="ph-acts"><a class="btn red" href="#book">Book a service visit ${I.arr}</a><a class="btn ghost" href="#checks">Try these quick checks first</a></div>
     </div>
-    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A DPY technician servicing a water heater', ' fetchpriority="high"', '(max-width:980px) 100vw, 560px')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 6 PM</span></div>
+    <div class="sv-photo">${img(R, 'assets/img/technician.webp', 'A technician servicing a wall-mounted water heater', ' fetchpriority="high"', '(max-width:980px) 100vw, 560px')}<span class="badge"><i></i>Service Mon–Sat, 8 AM – 6 PM</span></div>
   </div>
 </section>
 

@@ -12,10 +12,10 @@
 <meta property="og:title" content="Hot Water Systems for Hotels, Hospitals &amp; Buildings | DPY Mercantile">
 <meta property="og:description" content="Central hot water systems designed, installed and maintained by DPY Mercantile: heat pumps, storage tanks and pumps for hotels, hospitals, condos and commercial buildings.">
 <meta property="og:url" content="https://prototype.dpy-mi.workers.dev/business">
-<meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/resort-render.webp">
+<meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/og-business.jpg">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"For Business","item":"https://prototype.dpy-mi.workers.dev/business"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"For Business","item":"https://prototype.dpy-mi.workers.dev/business"}]},{"@type":"Service","name":"Central hot water systems for buildings","serviceType":"Hot water system design, supply, installation and maintenance","url":"https://prototype.dpy-mi.workers.dev/business","provider":{"@type":"Organization","name":"DPY Mercantile Inc.","url":"https://prototype.dpy-mi.workers.dev/"},"areaServed":{"@type":"Country","name":"Philippines"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the site survey really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used. You then get a written, itemized proposal: units, pipes, pumps, installation and commissioning."}},{"@type":"Question","name":"Do you work with our engineers and contractors?","acceptedAnswer":{"@type":"Answer","text":"Yes. We size the heaters, tanks and pumps with your engineers and contractors for the busiest hour of the day, and test and commission the system with them before handover."}},{"@type":"Question","name":"How much can a heat pump save?","acceptedAnswer":{"@type":"Answer","text":"A heat pump uses roughly a quarter to a third of the power of an electric heater for the same hot water. The savings calculator works out a year of running costs at your electricity rate."}},{"@type":"Question","name":"Who looks after the system after handover?","acceptedAnswer":{"@type":"Answer","text":"We do. Our own technicians handle preventive maintenance, repairs and spare parts from our branches in Manila, Cebu and Davao, with yearly maintenance plans."}},{"@type":"Question","name":"Which brands do you install?","acceptedAnswer":{"@type":"Answer","text":"Genuine units from 12 brands: Deron, HAASE, Enermax, Champion, Wilo, 5 Star, Aquapower, Rheem, Everhot, Rotex, Grundfos and my-PV. We keep spare parts for them in stock."}}]}]}</script>
 <link rel="icon" href="assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -461,8 +461,10 @@ button.busy{cursor:progress;opacity:.85}
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
 @media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}
 .bh{position:relative;isolation:isolate;overflow:clip;padding:160px 0 70px;color:#fff;background:var(--night)}
-.bh > img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.bh > picture img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .bh::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,16,31,.92) 0%,rgba(6,16,31,.7) 45%,rgba(6,16,31,.25) 100%),linear-gradient(0deg,rgba(6,16,31,.8),rgba(6,16,31,0) 40%)}
+/* one column: the text runs across the whole photo, so the photo is dimmed evenly instead of only on the left */
+@media (max-width:980px){.bh::after{background:linear-gradient(180deg,rgba(6,16,31,.78),rgba(6,16,31,.8) 50%,rgba(6,16,31,.9))}}
 .bh .crumbs{color:#9DB0C6}.bh .crumbs [aria-current]{color:#fff}.bh .crumbs li+li::before{color:#5E7896}
 .bh .kick{color:#7CC0FF}
 .bh .lede{color:#CFE0F2;margin-top:18px;font-size:16px;max-width:540px}
@@ -549,13 +551,48 @@ button.busy{cursor:progress;opacity:.85}
 .bwall{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .bwall li{min-width:0;display:grid;place-items:center;height:92px;padding:0 14px;border-radius:16px;background:#fff;box-shadow:var(--card)}
 .bwall img{max-height:34px;max-width:min(110px,100%);width:auto;filter:grayscale(1);opacity:.75;transition:filter .4s,opacity .4s}
-.bwall li:hover img{filter:none;opacity:1}
-.bwall span{font-size:15px;font-weight:800;letter-spacing:.07em;color:#3A4655}
+.bwall li:hover img,.bwall a:focus-visible img{filter:none;opacity:1}
+.bwall span{font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#3A4655}
+/* a brand with products on the site: the whole tile is the link */
+.bwall a{display:grid;place-items:center;width:calc(100% + 28px);height:100%;margin:0 -14px;padding:0 14px;border-radius:inherit;transition:background .3s}
+.bwall a:hover{background:#F4F7FA}
+.bwall a:hover span{color:var(--ink)}
+/* questions: the heading stays beside the answers on wide screens */
+.fq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px 64px;align-items:start}
+.fq-head{position:sticky;top:110px}
+.fq-head .lede{margin-top:18px}
+.fq details{border-bottom:1px solid var(--line)}
+.fq details:first-child{border-top:1px solid var(--line)}
+.fq summary{position:relative;display:block;padding:22px 48px 22px 0;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.4;cursor:pointer;list-style:none;transition:color .3s}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary::after{content:"";position:absolute;right:8px;top:50%;width:16px;height:16px;margin-top:-8px;background:linear-gradient(var(--red),var(--red)) center/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) center/2px 16px no-repeat;transition:transform .35s var(--ease)}
+.fq details[open] summary::after{transform:rotate(45deg)}
+.fq summary:hover{color:var(--blue)}
+.fq summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:6px}
+.fq p{margin:-6px 0 22px;max-width:640px;font-size:15.5px;line-height:1.65;color:var(--ink2)}
 .save{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
 .save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
 @media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:62px;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
+/* phone: the five steps read as a timeline, each circle joined to the next */
+@media (max-width:640px){.proc{gap:0}.proc li{min-height:48px;padding:0 0 26px 66px}.proc li::before{position:absolute;left:0;top:0;margin:0}.proc li:not(:last-child)::after{content:"";position:absolute;left:23px;top:54px;bottom:6px;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--sky),#FF8A3D);opacity:.5}.proc b{padding-top:12px}}
+@media (max-width:980px){.fq-grid{grid-template-columns:minmax(0,1fr)}.fq-head{position:static}}
+/* Customer reviews (resources/views/site/partials/reviews.blade.php): the homepage and the For Business page */
+.tm{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.tm figure{margin:0;display:flex;flex-direction:column;gap:14px;padding:24px 24px 22px;border-radius:22px;background:#fff;box-shadow:0 1px 0 rgba(1,30,70,.05),0 18px 36px -30px rgba(1,30,70,.45)}
+.tm .st{color:#F2A33A;font-size:14px;letter-spacing:2px}
+.tm blockquote{margin:0;font-size:15px;line-height:1.55;color:var(--ink);letter-spacing:-.01em}
+.tm figcaption{margin-top:auto;display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--mute)}
+.tm figcaption b{display:block;font-size:13.5px;color:var(--ink);font-weight:600}
+.tm figcaption i{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--navy))}
+.tm figure:nth-child(2) figcaption i{background:linear-gradient(135deg,#E3262B,#7A0F2E)}
+.tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
+@media (max-width:900px){.tm{grid-template-columns:1fr}}
+/* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
+.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13.5px;color:var(--mute)}
+.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tm-note + .tm{margin-top:16px}
 </style>
 </head>
 <body class="pg-business">
@@ -578,14 +615,18 @@ button.busy{cursor:progress;opacity:.85}
 <nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links"><a href="./" style="--i:0">Home</a><a href="water-heaters" style="--i:1">Water Heaters</a><a href="business" aria-current="page" style="--i:2">For Business</a><a href="service" style="--i:3">Service</a><a href="projects" style="--i:4">Projects</a><a href="about" style="--i:5">About</a><a href="blog" style="--i:6">Blog</a><a href="careers" style="--i:7">Careers</a><a href="contact" style="--i:8">Contact</a></div><a class="btn red sh-q" href="contact#quote">Get a Free Quote <svg aria-hidden="true"><use href="#arr"/></svg></a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg"><a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a></div><p><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.6V8l2.4 1.6"/></svg>Monday to Saturday, 8 AM to 6 PM</p></div></nav>
 <main id="main">
 <section class="bh">
-  <img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:640px) 400px, 100vw" fetchpriority="high">
+  <!-- art direction: phones get a tall crop of the photo, wider screens the whole photo -->
+  <picture>
+    <source media="(max-width:640px)" srcset="assets/img/business-hero-phone.webp" width="860" height="1688">
+    <img src="assets/img/business-hero.webp" width="2400" height="1350" alt="" srcset="assets/img/business-hero-1400.webp 1400w, assets/img/business-hero.webp 2400w" sizes="100vw" fetchpriority="high">
+  </picture>
   <div class="wrap">
     <ol class="crumbs"><li><a href="./">Home</a></li><li><span aria-current="page">For Business</span></li></ol>
     <span class="kick">For hotels, hospitals &amp; buildings</span>
     <h1 class="thin h1 on-dark">Hot Water Systems<br>Built Around Your Building</h1>
     <p class="lede">We design, supply, install and maintain central hot water systems: heat pumps, storage tanks, pumps and pipes, from one team since 2001.</p>
     <div class="ph-acts"><a class="btn red" href="contact?type=project#quote">Book a free site survey <svg aria-hidden="true"><use href="#arr"/></svg></a><a class="btn line" href="projects">See our projects</a></div>
-    <ul class="ph-stats"><li><b>25</b><small>Years in hot water</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>12</b><small>Brands we install</small></li><li><b>5</b><small>Service branches</small></li></ul>
+    <ul class="ph-stats"><li><b>25</b><small>Years in hot water</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>12</b><small>Brands we install</small></li><li><b>3</b><small>Service branches</small></li></ul>
   </div>
 </section>
 
@@ -638,7 +679,7 @@ button.busy{cursor:progress;opacity:.85}
     <div class="sec-head"><div><span class="kick">By building</span><h2 class="thin h2" id="sxT">What Your Building<br>Needs From Hot Water</h2></div><p class="lede">Every building uses hot water differently. Pick yours to see what we usually install.</p></div>
     <ul class="tabs" role="tablist" aria-label="Building type"><li role="presentation"><button class="chip" role="tab" id="t-hotels" aria-controls="p-hotels" aria-selected="true" tabindex="0">Hotels & Resorts</button></li><li role="presentation"><button class="chip" role="tab" id="t-hospitals" aria-controls="p-hospitals" aria-selected="false" tabindex="-1">Hospitals & Clinics</button></li><li role="presentation"><button class="chip" role="tab" id="t-towers" aria-controls="p-towers" aria-selected="false" tabindex="-1">Condos & Residential Towers</button></li><li role="presentation"><button class="chip" role="tab" id="t-commercial" aria-controls="p-commercial" aria-selected="false" tabindex="-1">Restaurants, Gyms & Offices</button></li></ul>
     <div class="sx">
-      <div class="sx-pic"><img src="assets/img/dpy/resort-render.webp" width="1600" height="538" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="on" data-k="hotels"><img data-src="assets/img/plant.webp" width="1600" height="1067" alt="" data-srcset="assets/img/plant-800.webp 800w, assets/img/plant.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="hospitals"><img data-src="assets/img/dpy/tower-render.webp" width="1600" height="538" alt="" data-srcset="assets/img/dpy/tower-render-800.webp 800w, assets/img/dpy/tower-render.webp 1600w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="towers"><img data-src="assets/img/shower.webp" width="1800" height="1200" alt="" data-srcset="assets/img/shower-800.webp 800w, assets/img/shower.webp 1800w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="commercial"></div>
+      <div class="sx-pic"><img src="assets/img/dpy/resort-render.webp" width="1920" height="646" alt="" srcset="assets/img/dpy/resort-render-800.webp 800w, assets/img/dpy/resort-render.webp 1920w" sizes="(max-width:980px) 220vw, 1600px" class="on" data-k="hotels"><img data-src="assets/img/plant.webp" width="2400" height="1600" alt="" data-srcset="assets/img/plant-800.webp 800w, assets/img/plant.webp 2400w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="hospitals"><img data-src="assets/img/dpy/tower-render.webp" width="1920" height="646" alt="" data-srcset="assets/img/dpy/tower-render-800.webp 800w, assets/img/dpy/tower-render.webp 1920w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="towers"><img data-src="assets/img/shower.webp" width="2400" height="1602" alt="" data-srcset="assets/img/shower-800.webp 800w, assets/img/shower.webp 2400w" sizes="(max-width:980px) 220vw, 1600px" class="" data-k="commercial"></div>
       <div class="sx-txt"><div class="sx-panel" role="tabpanel" id="p-hotels" aria-labelledby="t-hotels">
         <h3>Hotels & Resorts</h3><p class="q">The challenge</p><p>Every guest showers in the same two morning hours, and the pool, kitchen and laundry need hot water too.</p><p class="q b">What we install</p><p>Central heat pump plants with large storage tanks and circulation pumps, sized for full occupancy, so the last guest gets the same hot shower as the first.</p>
         <ul class="sx-parts"><li><a href="products/deron-air-to-water-heat-pump">Deron air to water heat pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/haase-energy-storage-tank">HAASE energy storage tanks<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/wilo-pumps">Wilo circulation pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li><li><a href="products/deron-swimming-pool-heat-pump">Pool heat pumps<svg aria-hidden="true"><use href="#arr"/></svg></a></li></ul>
@@ -656,21 +697,40 @@ button.busy{cursor:progress;opacity:.85}
   </div>
 </section>
 
-<section class="sec" aria-labelledby="prT">
+<section class="sec soft" aria-labelledby="rvT" style="--from:#FFFFFF">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Clients</span><h2 class="thin h2" id="rvT">What Our Clients<br>Say About Us</h2></div><a class="link" href="projects">See our projects and clients <svg aria-hidden="true"><use href="#arr"/></svg></a></div>
+    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
+    <div class="tm">
+      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.”</blockquote><figcaption><i>R</i><div><b>Ramon S.</b>Engineering Manager · Resort, Boracay</div></figcaption></figure>
+      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter.”</blockquote><figcaption><i>M</i><div><b>Maricel D.</b>Facilities Head · Hospital, Iloilo</div></figcaption></figure>
+      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“They visited our condo, recommended an instant heater that fit the small bathroom, and installed it the same week. Very professional.”</blockquote><figcaption><i>J</i><div><b>Jun P.</b>Unit owner · Condo, Pasig</div></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="prT" style="--from:#F4F7FA">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How we work</span><h2 class="thin h2" id="prT">From Survey to<br>Service, One Team</h2></div><p class="lede">You deal with the same company from the first site visit to the tenth maintenance check.</p></div>
-    <ol class="proc"><li data-r><b>Site survey</b><p>Free. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used.</p></li><li data-r><b>System design</b><p>We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.</p></li><li data-r><b>Written proposal</b><p>An itemized quotation: units, pipes, pumps, installation and commissioning.</p></li><li data-r><b>Supply & installation</b><p>Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.</p></li><li data-r><b>Maintenance</b><p>Preventive maintenance and repairs from our three branches, for as long as the system runs.</p></li></ol>
+    <ol class="proc"><li data-r><b>Site survey</b><p>Free. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used.</p></li><li data-r><b>System design</b><p>We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.</p></li><li data-r><b>Written proposal</b><p>An itemized quotation: units, pipes, pumps, installation and commissioning.</p></li><li data-r><b>Supply & installation</b><p>Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.</p></li><li data-r><b>Maintenance</b><p>Preventive maintenance and repairs from our own branches, for as long as the system runs.</p></li></ol>
   </div>
 </section>
 
 <section class="sec soft" aria-labelledby="brT" style="--from:#FFFFFF">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Brands</span><h2 class="thin h2" id="brT">Equipment We<br>Supply &amp; Install</h2></div><p class="lede">From Germany, Australia and beyond, chosen for Philippine conditions and backed by our own spare parts.</p></div>
-    <ul class="bwall"><li data-r><img src="assets/img/logos/deron.jpg" width="212" height="81" alt="Deron" loading="lazy"></li><li data-r><img src="assets/img/logos/haase.jpg" width="252" height="81" alt="HAASE" loading="lazy"></li><li data-r><img src="assets/img/logos/enermax.jpg" width="185" height="81" alt="Enermax" loading="lazy"></li><li data-r><img src="assets/img/logos/champion.jpg" width="301" height="69" alt="Champion" loading="lazy"></li><li data-r><img src="assets/img/logos/wilo.png" width="163" height="81" alt="Wilo" loading="lazy"></li><li data-r><img src="assets/img/logos/5star.jpg" width="203" height="81" alt="5 Star" loading="lazy"></li><li data-r><span>AQUAPOWER</span></li><li data-r><span>RHEEM</span></li><li data-r><span>EVERHOT</span></li><li data-r><span>ROTEX</span></li><li data-r><span>GRUNDFOS</span></li><li data-r><span>MY-PV</span></li></ul>
+    <ul class="bwall"><li data-r><img src="assets/img/logos/deron.jpg" width="212" height="81" alt="Deron" loading="lazy"></li><li data-r><a href="products/haase-energy-storage-tank" aria-label="HAASE products"><img src="assets/img/logos/haase.jpg" width="252" height="81" alt="HAASE" loading="lazy"></a></li><li data-r><a href="products/enermax-storage-tank" aria-label="Enermax products"><img src="assets/img/logos/enermax.jpg" width="185" height="81" alt="Enermax" loading="lazy"></a></li><li data-r><a href="products/champion-storage-tank" aria-label="Champion products"><img src="assets/img/logos/champion.jpg" width="301" height="69" alt="Champion" loading="lazy"></a></li><li data-r><a href="products/wilo-pumps" aria-label="Wilo products"><img src="assets/img/logos/wilo.png" width="163" height="81" alt="Wilo" loading="lazy"></a></li><li data-r><img src="assets/img/logos/5star.jpg" width="203" height="81" alt="5 Star" loading="lazy"></li><li data-r><img src="assets/img/logos/aquapower.jpg" width="240" height="55" alt="Aquapower" loading="lazy"></li><li data-r><a href="products/rheem" aria-label="Rheem products"><span>Rheem</span></a></li><li data-r><span>Everhot</span></li><li data-r><a href="products/rotex-sanicube" aria-label="Rotex products"><span>Rotex</span></a></li><li data-r><span>Grundfos</span></li><li data-r><span>my-PV</span></li></ul>
   </div>
 </section>
 
-<section class="sec tight" aria-label="Savings" style="--from:#F4F7FA">
+<section class="sec" aria-labelledby="fqT" style="--from:#F4F7FA">
+  <div class="wrap fq-grid">
+    <div class="fq-head"><span class="kick">Questions</span><h2 class="thin h2" id="fqT">Questions From<br>Building Owners</h2><p class="lede">Short answers to what hotel, hospital and building teams ask us first.</p></div>
+    <div class="fq"><details><summary>Is the site survey really free?</summary><p>Yes. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used. You then get a written, itemized proposal: units, pipes, pumps, installation and commissioning.</p></details><details><summary>Do you work with our engineers and contractors?</summary><p>Yes. We size the heaters, tanks and pumps with your engineers and contractors for the busiest hour of the day, and test and commission the system with them before handover.</p></details><details><summary>How much can a heat pump save?</summary><p>A heat pump uses roughly a quarter to a third of the power of an electric heater for the same hot water. The savings calculator works out a year of running costs at your electricity rate.</p></details><details><summary>Who looks after the system after handover?</summary><p>We do. Our own technicians handle preventive maintenance, repairs and spare parts from our branches in Manila, Cebu and Davao, with yearly maintenance plans.</p></details><details><summary>Which brands do you install?</summary><p>Genuine units from 12 brands: Deron, HAASE, Enermax, Champion, Wilo, 5 Star, Aquapower, Rheem, Everhot, Rotex, Grundfos and my-PV. We keep spare parts for them in stock.</p></details></div>
+  </div>
+</section>
+
+<section class="sec tight" aria-label="Savings">
   <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="./#savings">Try the savings calculator <svg aria-hidden="true"><use href="#arr"/></svg></a></div></div>
 </section>
 </main>

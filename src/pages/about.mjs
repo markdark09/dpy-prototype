@@ -1,4 +1,5 @@
-import { crumbsHtml, img, I, BRANCHES } from '../../tools/lib.mjs'
+import { SITE, crumbsHtml, img, I, BRANCHES } from '../../tools/lib.mjs'
+import { ORG, ORG_REF } from '../org.mjs'
 
 // from dpymi.com.ph/dpy-mercantile, /gratek-smart-water-corp and /awards; registration numbers left out on purpose
 const TIME = [
@@ -13,6 +14,8 @@ const VALUES = [['P', 'Professionalism', 'We do the job right, on time, and stan
 export default {
   path: 'about', nav: 'about',
   title: 'About DPY Mercantile & Gratek Smart Water',
+  // the company in full on the page about it: founded August 2001 by Mr. Danilo P. Yap (the timeline below)
+  ld: [{ '@type': 'AboutPage', url: SITE + 'about', name: 'About DPY Mercantile & Gratek Smart Water', about: ORG_REF }, { ...ORG, foundingDate: '2001-08', founder: { '@type': 'Person', name: 'Danilo P. Yap' } }],
   desc: 'Since 2001, DPY Mercantile Inc. and Gratek Smart Water Corp. have supplied, installed and serviced water heaters for homes, hotels and hospitals across the Philippines.',
   crumbs: [['About']],
   css: `
@@ -76,7 +79,7 @@ export default {
     ${crumbsHtml(R, [['About']])}
     <div class="ph-grid">
       <div><span class="kick">About us</span><h1 class="thin h1">25 Years of<br>Hot Water Done Right</h1><p class="lede">DPY Mercantile Inc. and its home company, Gratek Smart Water Corp., supply, install and service water heaters for homes, hotels and hospitals across the Philippines.</p></div>
-      <ul class="ph-stats"><li><b>2001</b><small>Founded</small></li><li><b>5</b><small>Branches</small></li><li><b>12</b><small>Brands</small></li></ul>
+      <ul class="ph-stats"><li><b>2001</b><small>Founded</small></li><li><b>3</b><small>Branches</small></li><li><b>12</b><small>Brands</small></li></ul>
     </div>
     <figure class="ab-photo">${img(R, 'assets/img/dpy/team.webp', 'The DPY Mercantile team', ' fetchpriority="high"', '(max-width:1240px) 100vw, 1128px')}<figcaption>The DPY team</figcaption></figure>
   </div>
