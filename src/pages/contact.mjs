@@ -1,19 +1,24 @@
-import { BRANCHES, PRODUCTS, crumbsHtml, I, MSGR, img, prodImg, BRMAP, BRMAP_CSS } from '../../tools/lib.mjs'
+import { BRANCHES, PRODUCTS, SITE, crumbsHtml, I, MSGR, img, prodImg, BRMAP, BRMAP_CSS } from '../../tools/lib.mjs'
+import { ORG, ORG_REF, BRANCHES_LD } from '../org.mjs'
 
 const INTEREST = [['instant', 'Instant'], ['storage', 'Storage'], ['heatpump', 'Heat pump'], ['solar', 'Solar'], ['tank', 'Tanks & pumps'], ['unsure', 'Not sure yet']]
 export default {
   path: 'contact', nav: 'contact',
   title: 'Contact Us, Get a Free Quote & Find a Branch',
+  // the company with its contact points, and each branch as a local business
+  ld: [{ '@type': 'ContactPage', url: SITE + 'contact', name: 'Contact DPY Mercantile', about: ORG_REF }, ORG, ...BRANCHES_LD],
   desc: 'Get a free water heater quote from DPY Mercantile, call or message our sales and service teams, or visit a branch in Manila, Cebu or Davao.',
   crumbs: [['Contact']],
   noCta: true,
   scripts: ['assets/js/branches.js'],
   css: `
 /* ways to reach us: one row of cards */
-.ch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.ch b{overflow-wrap:anywhere}
-.ch a,.ch div.c{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
-.ch a:hover{transform:translateX(4px)}
+/* the email cards get the room: an address stays on one line (it may still wrap before its @ on a narrow card) */
+.ch{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,.85fr) minmax(0,1.15fr) minmax(0,1.15fr);gap:12px}
+.ch b{overflow-wrap:break-word}
+/* only the cards themselves: the general inquiries link below them stays an inline link */
+.ch > a,.ch div.c{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
+.ch > a:hover{transform:translateX(4px)}
 .ch i{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
 .ch i svg{width:17px;height:17px}
 .ch small{display:block;font-size:13px;color:var(--mute)}
@@ -45,6 +50,8 @@ export default {
 .qp .ql{margin:30px 34px 0}
 .qp .form{padding:30px 34px 34px}
 ${BRMAP_CSS}
+/* below 1100 px four cards are too narrow for the email addresses: two to a row, as on tablets */
+@media (max-width:1100px){.ch{grid-template-columns:1fr 1fr}}
 @media (max-width:980px){.qp{grid-template-columns:1fr}.qp-side{padding:34px 26px}.ch{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.ch{grid-template-columns:1fr}.qp .ql{margin:18px 16px 0}.qp .form{padding:20px 22px 26px}}
 `,
@@ -64,8 +71,8 @@ ${BRMAP_CSS}
     <div class="ch">
       <a href="tel:+639564160815"><i>${I.tel}</i><span><small>Customer service &amp; repairs</small><b>0956 416 0815</b></span></a>
       <a href="tel:+63279560521"><i>${I.tel}</i><span><small>Head office telefax</small><b>(02) 7956 0521</b></span></a>
-      <a href="mailto:sales@dpymi.com.ph?subject=Quote%20request"><i>${I.mail}</i><span><small>Quotes &amp; projects</small><b>sales@dpymi.com.ph</b></span></a>
-      <a href="mailto:support@dpymi.com.ph?subject=Service%20request"><i>${I.mail}</i><span><small>Service, maintenance &amp; warranty</small><b>support@dpymi.com.ph</b></span></a>
+      <a href="mailto:sales@dpymi.com.ph?subject=Quote%20request"><i>${I.mail}</i><span><small>Quotes &amp; projects</small><b>sales<wbr>@dpymi.com.ph</b></span></a>
+      <a href="mailto:support@dpymi.com.ph?subject=Service%20request"><i>${I.mail}</i><span><small>Service, maintenance &amp; warranty</small><b>support<wbr>@dpymi.com.ph</b></span></a>
       <p class="hrs">${I.clock.replace('<svg', '<svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:6px"')}Monday to Saturday, 8:00 AM to 6:00 PM<span class="gen">General inquiries: <a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></span></p>
     </div>
   </div>
@@ -110,7 +117,7 @@ ${BRMAP_CSS}
 
 <section class="sec soft" id="branches" aria-labelledby="brT">
   <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Three branches, from Luzon to Mindanao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
+    <div class="sec-head"><div><span class="kick">Branches</span><h2 class="thin h2" id="brT">Visit a Branch<br>Near You</h2></div><p class="lede">Three branches: Manila, Cebu and Davao, each with its own sales and service team. Pick one to fly in and see the office from the street.</p></div>
     ${BRMAP}
   </div>
 </section>`,

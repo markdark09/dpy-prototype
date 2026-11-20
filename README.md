@@ -333,7 +333,7 @@ Each opening has its own page (`/careers/sales-engineer-manila` and so on): what
 
 - **Where the articles live:** `src/articles.mjs` (title, topic, date, cover picture, summary, body, related products). `node tools/build.mjs` makes the pages, the homepage teaser and the sitemap entries. Read times are worked out from the text.
 - **The seven articles are samples**, marked as such on the Blog page and at the end of each article. They are written only from facts already on the site (product pages, spec sheets, the For Business page, the savings calculator with the same numbers: 60 showers a day at ₱15/kWh is about ₱241,000 a year electric and ₱65,000 with a heat pump). No client news, names or figures are made up. DPY's team should review them, and add real news (projects, events, awards) with their own photos.
-- **Cover pictures:** the Unsplash stock photos already on the site (shower, plant room, technician), DPY's own renders and team photo, and the AC·THOR product shot.
+- **Cover pictures:** the Pexels stock photos on the site (bathroom, plant room, technician), DPY's own renders and team photo, and the AC·THOR product shot.
 - **Later:** the same admin page as the job openings could manage articles, if DPY's staff will write them.
 
 
@@ -350,7 +350,7 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 | Savings calculator | 40 L per shower warmed 27→42°C (0.70 kWh of heat); electric heater 95% efficient; heat pump COP 3.5 on the heat itself; solar covering 65% with an electric backup; ₱15/kWh default (Meralco household average, October 2026: ₱15.06). Update the default rate once a year. Checked 2026-11-06: the old version divided the electric heater's draw by 3.5, counting its losses twice, and used ₱12/kWh, so every figure was about 20% low. |
 | Gratek "Aquarius" and quiz recommendations | General guidance, following the Solutions section |
 | Branch pins and walk views | Google Maps listings and nearest Street View; Davao uses the website address (Camella Northpoint); Boracay shows the Station 2 area |
-| Stock photos | Plant and technician (Unsplash); the bathroom (`assets/img/shower.webp`, 1800 px, since 2026-11-17) is Pexels photo 8031880 (pexels.com/photo/8031880, free for commercial use under the Pexels license) |
+| Stock photos | All from Pexels, free for commercial use under the Pexels license, 2400 px with an 800 px copy (since 2026-11-20): bathroom `shower.webp` (Pexels 7031878), plant room `plant.webp` (20046689, a heat pump with insulated tanks), technician `technician.webp` (34938442), For Business hero `business-hero.webp` with a tall phone crop and `og-business.jpg` (16714960, a beachfront resort hotel). DPY's renders, team and HAASE photos are the 1920 px copies from dpymi.com.ph; larger originals are still needed from DPY |
 | Careers | One-line role descriptions (the live site lists titles only) |
 | Service page | The quick checks, the maintenance checklist and the reply wording are general good practice; DPY's service team should check them |
 | About page | The one-line meaning under each value; the Gratek step in the timeline has no year (not on the live site) |
@@ -362,7 +362,7 @@ Where dpymi.com.ph has no information, the prototype uses realistic sample conte
 ## Notes
 
 - **Photos from dpymi.com.ph:** the product photos, partner logos, team and installation photos, and project renders come from DPY's own site, so confirm they can be reused on the new site.
-- **Stock photos:** the remaining photos (shower, plant, technician) are Unsplash placeholders.
+- **Stock photos:** the bathroom, plant room, technician and For Business hero photos are Pexels stock photos, not DPY's own.
 - **Rheem photo:** only a small one exists on the site, so ask DPY for larger product shots.
 - **Illustrative content:** the hotspot labels, the dial and the 26–50°C demo are generic. The 3D model follows the look of Rheem's electric storage heaters but isn't an exact model, so DPY's engineers should check the parts and the 50°C set point. Confirm DPY may show the Rheem logo this way (as a Rheem distributor this is normal, but check).
 - **Content to confirm with DPY:** 100+ references, the brands carried, and whether free consultation covers projects. The buttons open an email to sales@dpymi.com.ph.

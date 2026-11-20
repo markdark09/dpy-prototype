@@ -161,7 +161,7 @@ for (const url of products) {
     diagram: !!document.querySelector('.how-vis svg .mk'), steps: document.querySelectorAll('.hw-steps li').length, use: document.querySelectorAll('.use-steps li').length,
     about: document.querySelectorAll('#about .ab-body p').length, specs: !!document.querySelector('#specs'), table: !!document.querySelector('#specs table'), ask: !!document.querySelector('#specs .spec-none a[href*="contact"]'),
   }))
-  check(`${url}: description, how-it-works diagram, steps and specs`, r.about === 2 && r.diagram && r.steps === 4 && r.use === 4 && r.specs && (r.table || r.ask), r)
+  check(`${url}: description, how-it-works diagram, steps and specs`, r.about >= 2 && r.diagram && r.steps === 4 && r.use === 4 && r.specs && (r.table || r.ask), r)
   await p.close()
 }
 

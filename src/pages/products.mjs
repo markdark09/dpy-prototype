@@ -136,7 +136,8 @@ const css = `
 function pg(p) {
   const c = CATS[p.cat], src = prodImg(p)
   const rel = PRODUCTS.filter(x => x !== p && x.cat === p.cat).concat(PRODUCTS.filter(x => x !== p && x.cat !== p.cat && x.for.some(f => p.for.includes(f)))).slice(0, 4)
-  const tables = (p.specs || []).map(k => specTable(k)).join('') + (p.table ? specTable(null, p.table) : '')
+  // specs: sheets typed into specs.json; tables: finished tables (DPY's master file, Nov 2026); table: one hand-made table
+  const tables = (p.specs || []).map(k => specTable(k)).join('') + (p.tables || []).map(t => specTable(null, t)).join('') + (p.table ? specTable(null, p.table) : '')
   return {
     path: 'products/' + p.slug, nav: 'water-heaters', cta: 'product',
     title: `${p.name} | ${c.t.replace(/^./, x => x.toUpperCase())}`,

@@ -1,4 +1,4 @@
-import { CLIENTS, crumbsHtml, img, I } from '../../tools/lib.mjs'
+import { CLIENTS, PRODUCTS, SITE, crumbsHtml, dims, img, I } from '../../tools/lib.mjs'
 
 const SECTORS = [
   { k: 'hotels', t: 'Hotels & Resorts', img: 'dpy/resort-render', need: 'Every guest showers in the same two morning hours, and the pool, kitchen and laundry need hot water too.', we: 'Central heat pump plants with large storage tanks and circulation pumps, sized for full occupancy, so the last guest gets the same hot shower as the first.', parts: [['Deron air to water heat pumps', 'deron-air-to-water-heat-pump'], ['HAASE energy storage tanks', 'haase-energy-storage-tank'], ['Wilo circulation pumps', 'wilo-pumps'], ['Pool heat pumps', 'deron-swimming-pool-heat-pump']], cl: 'Hotels & Resorts' },
@@ -11,7 +11,30 @@ const STEPS = [
   ['System design', 'We size the heaters, tanks and pumps for your peak hour, and plan where everything goes.'],
   ['Written proposal', 'An itemized quotation: units, pipes, pumps, installation and commissioning.'],
   ['Supply & installation', 'Genuine units from 12 brands, installed by our own technicians, then tested and commissioned with your engineers.'],
-  ['Maintenance', 'Preventive maintenance and repairs from our three branches, for as long as the system runs.'],
+  ['Maintenance', 'Preventive maintenance and repairs from our own branches, for as long as the system runs.'],
+]
+// [logo file or '' for the name in type, brand as the products are labelled]
+const BRANDS = [['deron.jpg', 'Deron'], ['haase.jpg', 'HAASE'], ['enermax.jpg', 'Enermax'], ['champion.jpg', 'Champion'], ['wilo.png', 'Wilo'], ['5star.jpg', '5 Star'], ['aquapower.jpg', 'Aquapower'], ['', 'Rheem'], ['', 'Everhot'], ['', 'Rotex'], ['', 'Grundfos'], ['', 'my-PV']]
+// a brand with one product links to it. The Laravel site sends a brand with several to its search page; the prototype
+// has no search, and its range page cannot filter by brand, so those stay names here
+const brandLink = (R, brand) => {
+  const mine = PRODUCTS.filter(p => p.brand === brand)
+  return mine.length === 1 ? `${R}products/${mine[0].slug}` : ''
+}
+// the buyers' first questions, answered only with what the rest of the site already states; shown on the page and
+// given to search engines as FAQPage data (the two must match)
+const FAQ = [
+  ['Is the site survey really free?', 'Yes. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used. You then get a written, itemized proposal: units, pipes, pumps, installation and commissioning.'],
+  ['Do you work with our engineers and contractors?', 'Yes. We size the heaters, tanks and pumps with your engineers and contractors for the busiest hour of the day, and test and commission the system with them before handover.'],
+  ['How much can a heat pump save?', 'A heat pump uses roughly a quarter to a third of the power of an electric heater for the same hot water. The savings calculator works out a year of running costs at your electricity rate.'],
+  ['Who looks after the system after handover?', 'We do. Our own technicians handle preventive maintenance, repairs and spare parts from our branches in Manila, Cebu and Davao, with yearly maintenance plans.'],
+  ['Which brands do you install?', `Genuine units from ${BRANDS.length} brands: ${BRANDS.map(b => b[1]).slice(0, -1).join(', ')} and ${BRANDS.at(-1)[1]}. We keep spare parts for them in stock.`],
+]
+// the sample reviews, as on the homepage, until DPY sends real ones
+const REVIEWS = [
+  ['R', 'Ramon S.', 'Engineering Manager · Resort, Boracay', 'We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.'],
+  ['M', 'Maricel D.', 'Facilities Head · Hospital, Iloilo', "For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter."],
+  ['J', 'Jun P.', 'Unit owner · Condo, Pasig', 'They visited our condo, recommended an instant heater that fit the small bathroom, and installed it the same week. Very professional.'],
 ]
 
 export default {
@@ -19,11 +42,17 @@ export default {
   title: 'Hot Water Systems for Hotels, Hospitals & Buildings',
   desc: 'Central hot water systems designed, installed and maintained by DPY Mercantile: heat pumps, storage tanks and pumps for hotels, hospitals, condos and commercial buildings.',
   crumbs: [['For Business']],
-  ogImage: 'assets/img/dpy/resort-render.webp',
+  ogImage: 'assets/img/og-business.jpg',
+  ld: [
+    { '@type': 'Service', name: 'Central hot water systems for buildings', serviceType: 'Hot water system design, supply, installation and maintenance', url: SITE + 'business', provider: { '@type': 'Organization', name: 'DPY Mercantile Inc.', url: SITE }, areaServed: { '@type': 'Country', name: 'Philippines' } },
+    { '@type': 'FAQPage', mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  ],
   css: `
 .bh{position:relative;isolation:isolate;overflow:clip;padding:160px 0 70px;color:#fff;background:var(--night)}
-.bh > img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.bh > picture img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .bh::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,16,31,.92) 0%,rgba(6,16,31,.7) 45%,rgba(6,16,31,.25) 100%),linear-gradient(0deg,rgba(6,16,31,.8),rgba(6,16,31,0) 40%)}
+/* one column: the text runs across the whole photo, so the photo is dimmed evenly instead of only on the left */
+@media (max-width:980px){.bh::after{background:linear-gradient(180deg,rgba(6,16,31,.78),rgba(6,16,31,.8) 50%,rgba(6,16,31,.9))}}
 .bh .crumbs{color:#9DB0C6}.bh .crumbs [aria-current]{color:#fff}.bh .crumbs li+li::before{color:#5E7896}
 .bh .kick{color:#7CC0FF}
 .bh .lede{color:#CFE0F2;margin-top:18px;font-size:16px;max-width:540px}
@@ -110,27 +139,66 @@ export default {
 .bwall{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .bwall li{min-width:0;display:grid;place-items:center;height:92px;padding:0 14px;border-radius:16px;background:#fff;box-shadow:var(--card)}
 .bwall img{max-height:34px;max-width:min(110px,100%);width:auto;filter:grayscale(1);opacity:.75;transition:filter .4s,opacity .4s}
-.bwall li:hover img{filter:none;opacity:1}
-.bwall span{font-size:15px;font-weight:800;letter-spacing:.07em;color:#3A4655}
+.bwall li:hover img,.bwall a:focus-visible img{filter:none;opacity:1}
+.bwall span{font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#3A4655}
+/* a brand with products on the site: the whole tile is the link */
+.bwall a{display:grid;place-items:center;width:calc(100% + 28px);height:100%;margin:0 -14px;padding:0 14px;border-radius:inherit;transition:background .3s}
+.bwall a:hover{background:#F4F7FA}
+.bwall a:hover span{color:var(--ink)}
+/* questions: the heading stays beside the answers on wide screens */
+.fq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px 64px;align-items:start}
+.fq-head{position:sticky;top:110px}
+.fq-head .lede{margin-top:18px}
+.fq details{border-bottom:1px solid var(--line)}
+.fq details:first-child{border-top:1px solid var(--line)}
+.fq summary{position:relative;display:block;padding:22px 48px 22px 0;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.4;cursor:pointer;list-style:none;transition:color .3s}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary::after{content:"";position:absolute;right:8px;top:50%;width:16px;height:16px;margin-top:-8px;background:linear-gradient(var(--red),var(--red)) center/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) center/2px 16px no-repeat;transition:transform .35s var(--ease)}
+.fq details[open] summary::after{transform:rotate(45deg)}
+.fq summary:hover{color:var(--blue)}
+.fq summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:6px}
+.fq p{margin:-6px 0 22px;max-width:640px;font-size:15.5px;line-height:1.65;color:var(--ink2)}
 .save{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
 .save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
 @media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:62px;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
+/* phone: the five steps read as a timeline, each circle joined to the next */
+@media (max-width:640px){.proc{gap:0}.proc li{min-height:48px;padding:0 0 26px 66px}.proc li::before{position:absolute;left:0;top:0;margin:0}.proc li:not(:last-child)::after{content:"";position:absolute;left:23px;top:54px;bottom:6px;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--sky),#FF8A3D);opacity:.5}.proc b{padding-top:12px}}
+@media (max-width:980px){.fq-grid{grid-template-columns:minmax(0,1fr)}.fq-head{position:static}}
+/* Customer reviews (resources/views/site/partials/reviews.blade.php): the homepage and the For Business page */
+.tm{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.tm figure{margin:0;display:flex;flex-direction:column;gap:14px;padding:24px 24px 22px;border-radius:22px;background:#fff;box-shadow:0 1px 0 rgba(1,30,70,.05),0 18px 36px -30px rgba(1,30,70,.45)}
+.tm .st{color:#F2A33A;font-size:14px;letter-spacing:2px}
+.tm blockquote{margin:0;font-size:15px;line-height:1.55;color:var(--ink);letter-spacing:-.01em}
+.tm figcaption{margin-top:auto;display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--mute)}
+.tm figcaption b{display:block;font-size:13.5px;color:var(--ink);font-weight:600}
+.tm figcaption i{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--navy))}
+.tm figure:nth-child(2) figcaption i{background:linear-gradient(135deg,#E3262B,#7A0F2E)}
+.tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
+@media (max-width:900px){.tm{grid-template-columns:1fr}}
+/* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
+.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13.5px;color:var(--mute)}
+.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tm-note + .tm{margin-top:16px}
 `,
   body: R => {
     const L = s => s.startsWith('../') ? R + s.slice(3) : `${R}products/${s}`
     const logos = cat => CLIENTS[cat].slice(0, 5).map(([f, n]) => img(R, `assets/img/clients/${f}.webp`, n, ' loading="lazy"')).join('')
     return `
 <section class="bh">
-  ${img(R, 'assets/img/dpy/resort-render.webp', '', ` srcset="${R}assets/img/dpy/resort-render-800.webp 800w, ${R}assets/img/dpy/resort-render.webp 1600w" sizes="(max-width:640px) 400px, 100vw" fetchpriority="high"`)}
+  <!-- art direction: phones get a tall crop of the photo, wider screens the whole photo -->
+  <picture>
+    <source media="(max-width:640px)" srcset="${R}assets/img/business-hero-phone.webp" width="${dims('assets/img/business-hero-phone.webp')[0]}" height="${dims('assets/img/business-hero-phone.webp')[1]}">
+    ${img(R, 'assets/img/business-hero.webp', '', ` srcset="${R}assets/img/business-hero-1400.webp 1400w, ${R}assets/img/business-hero.webp 2400w" sizes="100vw" fetchpriority="high"`)}
+  </picture>
   <div class="wrap">
     ${crumbsHtml(R, [['For Business']])}
     <span class="kick">For hotels, hospitals &amp; buildings</span>
     <h1 class="thin h1 on-dark">Hot Water Systems<br>Built Around Your Building</h1>
     <p class="lede">We design, supply, install and maintain central hot water systems: heat pumps, storage tanks, pumps and pipes, from one team since 2001.</p>
     <div class="ph-acts"><a class="btn red" href="${R}contact?type=project#quote">Book a free site survey ${I.arr}</a><a class="btn line" href="${R}projects">See our projects</a></div>
-    <ul class="ph-stats"><li><b>25</b><small>Years in hot water</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>12</b><small>Brands we install</small></li><li><b>5</b><small>Service branches</small></li></ul>
+    <ul class="ph-stats"><li><b>25</b><small>Years in hot water</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>12</b><small>Brands we install</small></li><li><b>3</b><small>Service branches</small></li></ul>
   </div>
 </section>
 
@@ -192,6 +260,16 @@ export default {
   </div>
 </section>
 
+<section class="sec soft" aria-labelledby="rvT">
+  <div class="wrap">
+    <div class="sec-head"><div><span class="kick">Clients</span><h2 class="thin h2" id="rvT">What Our Clients<br>Say About Us</h2></div><a class="link" href="${R}projects">See our projects and clients ${I.arr}</a></div>
+    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
+    <div class="tm">
+${REVIEWS.map(([i, n, by, q]) => `      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“${q}”</blockquote><figcaption><i>${i}</i><div><b>${n}</b>${by}</div></figcaption></figure>`).join('\n')}
+    </div>
+  </div>
+</section>
+
 <section class="sec" aria-labelledby="prT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">How we work</span><h2 class="thin h2" id="prT">From Survey to<br>Service, One Team</h2></div><p class="lede">You deal with the same company from the first site visit to the tenth maintenance check.</p></div>
@@ -202,7 +280,14 @@ export default {
 <section class="sec soft" aria-labelledby="brT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Brands</span><h2 class="thin h2" id="brT">Equipment We<br>Supply &amp; Install</h2></div><p class="lede">From Germany, Australia and beyond, chosen for Philippine conditions and backed by our own spare parts.</p></div>
-    <ul class="bwall">${[['deron.jpg', 'Deron'], ['haase.jpg', 'HAASE'], ['enermax.jpg', 'Enermax'], ['champion.jpg', 'Champion'], ['wilo.png', 'Wilo'], ['5star.jpg', '5 Star'], ['', 'AQUAPOWER'], ['', 'RHEEM'], ['', 'EVERHOT'], ['', 'ROTEX'], ['', 'GRUNDFOS'], ['', 'MY-PV']].map(([f, n]) => `<li data-r>${f ? img(R, 'assets/img/logos/' + f, n, ' loading="lazy"') : `<span>${n}</span>`}</li>`).join('')}</ul>
+    <ul class="bwall">${BRANDS.map(([f, n]) => { const mark = f ? img(R, 'assets/img/logos/' + f, n, ' loading="lazy"') : `<span>${n}</span>`, href = brandLink(R, n); return `<li data-r>${href ? `<a href="${href}" aria-label="${n} products">${mark}</a>` : mark}</li>` }).join('')}</ul>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="fqT">
+  <div class="wrap fq-grid">
+    <div class="fq-head"><span class="kick">Questions</span><h2 class="thin h2" id="fqT">Questions From<br>Building Owners</h2><p class="lede">Short answers to what hotel, hospital and building teams ask us first.</p></div>
+    <div class="fq">${FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
   </div>
 </section>
 
