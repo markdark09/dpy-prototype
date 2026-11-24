@@ -658,7 +658,8 @@ main > section{overflow-x:clip}
 .h3d{position:absolute;inset:0;width:100%;height:100%;display:block}
 .h3d-fb{display:none}
 .no3d .h3d{display:none}
-.no3d .h3d-fb{display:block;position:absolute;left:50%;top:6%;height:84%;width:auto;transform:translateX(-50%)}
+/* the photo ends above the instrument panel (the Everhot photo is taller than a squat tank) */
+.no3d .h3d-fb{display:block;position:absolute;left:50%;top:4%;height:76%;width:auto;transform:translateX(-50%)}
 /* part labels, pinned to points on the 3D model every frame */
 .lbls{position:absolute;inset:0;pointer-events:none}
 .lbl{position:absolute;left:0;top:0;display:flex;align-items:center;gap:0;opacity:0;transition:opacity .45s;will-change:transform}
@@ -717,40 +718,6 @@ main > section{overflow-x:clip}
 
 /* ---------- installation & after-sales ---------- */
 /* ---------- clients: real logos from DPY's project-reference pages; filters dim the rest instead of reshuffling ---------- */
-/* ---------- savings calculator ---------- */
-.sav{padding:10px 0 110px;background:#F4F7FA}
-.sav-card{display:grid;grid-template-columns:.95fr 1.05fr;border-radius:30px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -56px rgba(1,30,70,.55)}
-.sav-in{padding:36px 36px 30px;background:linear-gradient(180deg,#F7FAFD,#fff)}
-.sav-in .lb{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--ink2)}
-.sav-in .lb output{font-size:28px;font-weight:600;letter-spacing:-.03em;color:var(--ink)}
-.sav-in .lb output small{font-size:13px;font-weight:600;color:var(--mute);margin-left:4px;letter-spacing:0}
-.sav-in input[type=range]{width:100%;height:28px;margin:0;background:none;-webkit-appearance:none;appearance:none;cursor:pointer}
-.sav-in input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:9px;background:linear-gradient(90deg,var(--sky),var(--red)) 0/var(--p,30%) 100% no-repeat,#E3EAF1}
-.sav-in input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--ink),0 6px 14px rgba(1,30,70,.25)}
-.sav-in input[type=range]::-moz-range-track{height:8px;border-radius:9px;background:#E3EAF1}
-.sav-in input[type=range]::-moz-range-progress{height:8px;border-radius:9px;background:linear-gradient(90deg,var(--sky),var(--red))}
-.sav-in input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--ink)}
-.sav-pre{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 26px}
-.sav-pre button{height:32px;padding:0 12px;border-radius:999px;background:#EEF2F6;font-size:12.5px;font-weight:600;color:var(--ink2);transition:background .25s,color .25s}
-.sav-pre button:hover,.sav-pre button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.sav-rate{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mute)}
-.sav-rate input{width:84px;height:40px;padding:0 10px;border-radius:12px;border:1px solid var(--line);font:inherit;font-size:15px;font-weight:600;color:var(--ink);text-align:center}
-.sav-rate input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,104,195,.1)}
-.sav-note{margin:22px 0 0;font-size:12.5px;line-height:1.5;color:var(--dim)}
-.sav-out{padding:36px 36px 30px;display:flex;flex-direction:column}
-.sav-big{margin:0;font-size:15px;color:var(--mute)}
-.sav-big b{display:block;margin-top:4px;font-size:clamp(2.2rem,3.6vw,3rem);font-weight:600;letter-spacing:-.04em;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
-.sav-big b em{font-style:normal;color:#1E9E55}
-.sav-bars{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:16px}
-.sav-bars li{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:baseline}
-.sav-bars span{font-size:13.5px;font-weight:600;color:var(--ink2)}
-.sav-bars strong{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
-.sav-bars strong small{margin-left:8px;font-size:12px;font-weight:700;color:#1E9E55}
-.sav-bars i{grid-column:1/-1;height:12px;border-radius:9px;background:#EEF2F6;overflow:hidden}
-.sav-bars i::after{content:"";display:block;height:100%;width:100%;border-radius:inherit;background:var(--c);transform-origin:0 50%;transform:scaleX(var(--w,0));transition:transform .7s var(--ease)}
-.sav-out .btn{margin-top:auto;align-self:flex-start}
-.sav-out .acts{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-@media (max-width:900px){.sav-card{grid-template-columns:1fr}.sav-in,.sav-out{padding:26px 22px}}
 .cli{padding:20px 0 110px;background:#F4F7FA}
 .cl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
 .cl{position:relative;display:grid;place-items:center;height:96px;padding:14px 16px;border-radius:14px;background:#fff;box-shadow:0 1px 0 rgba(1,30,70,.05),0 10px 24px -20px rgba(1,30,70,.35);transition:opacity .5s,box-shadow .5s var(--ease)}
@@ -961,6 +928,7 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .how-vis::after{content:"";position:absolute;left:0;right:0;top:100%;height:36px;background:linear-gradient(#0A1830,rgba(10,24,48,0));pointer-events:none}
   .how-vis .model-cap{display:none}.how-vis .inst{bottom:10px}
   .lbl .ln{width:22px}.lbl .tx{font-size:11px;padding:5px 8px}.inst{gap:12px;padding:8px 12px}.i-bar{width:56px}
+  /* "Factory setting" is wider than the old "Set point": on the narrowest phones the bar gives way (the tank reads in numbers) */
   .how-end{flex-direction:column;align-items:flex-start;margin-left:56px}.how-end p{max-width:none}
   .sol{padding-top:190px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 150px,#F4F7FA 100%)}
   .hc-pair{display:block;width:100%;max-width:440px}.hc-dial{width:100%;display:grid;grid-template-columns:1fr 112px;align-content:center;column-gap:12px;padding:14px 16px}
@@ -989,11 +957,10 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
 }
 @media (max-width:560px){ .models{grid-template-columns:1fr;row-gap:64px} .model .pic{height:230px} .pager button{padding:0 11px;font-size:12px} .cap{width:300px} }
 @media (max-width:560px){
-  .sav,.cli,.br{padding-bottom:72px}.svc{padding:24px 0 80px}.qt{padding-bottom:72px}.sol{padding-bottom:72px}
+  .cli,.br{padding-bottom:72px}.svc{padding:24px 0 80px}.qt{padding-bottom:72px}.sol{padding-bottom:72px}
   .sec-head{margin-bottom:32px;gap:14px}.range .sec-head{margin-bottom:72px}
   .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:calc(var(--g) * -1);margin-right:calc(var(--g) * -1);padding:2px var(--g)}
   .tabs::-webkit-scrollbar{display:none}.tabs li{flex:none}
-  .sav-in input[type=range]{height:40px}
   .br-info .ph{line-height:2}
 }
 .gt-top small{font-size:12px}.gt-br span{font-size:11px}.sy small,.plan .top .real{font-size:12px}.inst small{font-size:11.5px}
@@ -1113,24 +1080,24 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <ol class="steps">
             <span class="bar" aria-hidden="true"></span>
             <li class="on"><i>01</i><div><b>Cold water comes in</b><p>Mains water enters at the bottom of the insulated tank.</p></div></li>
-            <li><i>02</i><div><b>The elements heat it</b><p>The upper element heats the top of the tank first, then the lower element heats the rest. Hot water rises.</p></div></li>
-            <li><i>03</i><div><b>The thermostat holds it</b><p>It switches the element on and off to keep the tank at the temperature you set.</p></div></li>
+            <li><i>02</i><div><b>The element heats it</b><p>One heating element near the bottom warms the water. The hot water rises to the top of the tank.</p></div></li>
+            <li><i>03</i><div><b>The thermostat holds it</b><p>It switches the element on and off to keep the tank at 60°C, the factory setting. You can adjust it.</p></div></li>
             <li><i>04</i><div><b>Hot water to every tap</b><p>The outlet draws from the top, where the water is hottest, and sends it to your showers.</p></div></li>
           </ol>
-          <div class="how-end"><p><b>Held at 50°C, ready at every tap,</b> day and night. We'll size the right one for you.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a></div>
+          <div class="how-end"><p><b>Held at 60°C, the factory setting, ready at every tap,</b> day and night. We'll size the right one for you.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a></div>
         </div>
         <div class="how-vis" aria-hidden="true">
-          <!-- a real-time 3D cutaway of a storage water heater (Three.js, module at the end of the page) -->
+          <!-- a real-time 3D cutaway of an Everhot storage water heater (Three.js, module at the end of the page) -->
           <canvas class="h3d"></canvas>
           <div class="lbls"></div>
           <div class="inst">
             <span><small>Tank</small><b class="i-t">26.0°C</b></span>
             <span class="i-bar"><i></i></span>
-            <span><small>Set point</small><b>50°C</b></span>
+            <span><small>Factory setting</small><b>60°C</b></span>
             <span><small>Element</small><b class="i-e"><i class="led"></i><em>Off</em></b></span>
           </div>
-          <img class="h3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/rheem.webp" alt="" width="270" height="452">
-          <span class="model-cap">Shown: Rheem electric storage heater · supplied &amp; installed by DPY</span>
+          <img class="h3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/everhot-tank.webp" alt="" width="314" height="824">
+          <span class="model-cap">Shown: Everhot electric storage heater · supplied &amp; installed by DPY</span>
         </div>
       </div>
     </div>
@@ -1162,33 +1129,6 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
         <div class="mini a"><b>Air → Hot Water</b>Heat moved, not made</div>
         <div class="mini b"><b>Deron · 5 Star</b>Heat pumps we install</div>
       </article>
-    </div>
-  </div>
-</section>
-
-<section class="sav" id="savings" aria-labelledby="svt">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="kick">Savings</span><h2 class="thin h2" id="svt">How Much Could<br>You Save?</h2></div>
-      <p class="lede">Compare a year of running costs for a plain electric heater, a heat pump and solar. Move the slider to match your building.</p>
-    </div>
-    <div class="sav-card">
-      <div class="sav-in">
-        <label class="lb" for="svN">Hot showers a day <output id="svNo">60</output></label>
-        <input id="svN" type="range" min="2" max="600" step="1" value="60">
-        <div class="sav-pre" aria-label="Presets"><button type="button" data-sh="4">Family home</button><button type="button" data-sh="20">Small resort</button><button type="button" data-sh="60" aria-pressed="true">Mid-size hotel</button><button type="button" data-sh="250">Large hotel</button><button type="button" data-sh="400">Hospital</button></div>
-        <div class="sav-rate"><label for="svR">Electricity rate</label><span>₱</span><input id="svR" type="number" min="5" max="30" step=".5" value="15"><span>per kWh</span></div>
-        <p class="sav-note">Estimate only: 40 liters per shower heated from 27°C to 42°C, every day of the year. An electric heater about 95% efficient; a heat pump making 3.5 units of heat per unit of electricity; solar covering about 65% of the heat. The rate starts at ₱15, about Meralco's household average in October 2026: enter the one on your bill. Your free site visit gives exact figures.</p>
-      </div>
-      <div class="sav-out" aria-live="polite">
-        <p class="sav-big">A heat pump could save you about<b><em class="svS">₱0</em> a year</b></p>
-        <ul class="sav-bars">
-          <li style="--c:linear-gradient(90deg,#F2A08F,#E3262B)"><span>Electric water heater</span><strong class="svE">₱0</strong><i></i></li>
-          <li style="--c:linear-gradient(90deg,#9BC9F3,#0D68C3)"><span>Heat pump</span><strong class="svH">₱0</strong><i></i></li>
-          <li style="--c:linear-gradient(90deg,#FFD58A,#F2A33A)"><span>Solar with electric backup</span><strong class="svO">₱0</strong><i></i></li>
-        </ul>
-        <div class="acts"><a class="btn red" href="#quote" data-quote="Heat pump" data-note="Savings estimate">Get an exact quote <svg><use href="#arr"/></svg></a><button class="btn line" type="button" data-quiz>Which suits me?</button></div>
-      </div>
     </div>
   </div>
 </section>
@@ -1258,10 +1198,10 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
   <a class="bc-pic" href="blog/instant-or-storage-water-heater" tabindex="-1" aria-hidden="true"><img src="assets/img/shower.webp" width="2400" height="1602" alt="" srcset="assets/img/shower-800.webp 800w, assets/img/shower.webp 2400w" sizes="(max-width:640px) 100vw, 400px" loading="lazy"></a>
   <div class="bc-tx"><p class="bc-meta"><span class="bc-cat">Guides</span><span>November 12, 2026</span><span>2 min read</span></p>
   <h3><a href="blog/instant-or-storage-water-heater">Instant or Storage: Which Water Heater Fits Your Home?</a></h3><p class="bc-ex">One shower, or the whole family at once? How the two most common home water heaters differ, and how to choose.</p></div>
-</article><article class="bc" data-cat="business">
-  <a class="bc-pic" href="blog/heat-pump-savings-worked-example" tabindex="-1" aria-hidden="true"><img src="assets/img/plant.webp" width="2400" height="1600" alt="" srcset="assets/img/plant-800.webp 800w, assets/img/plant.webp 2400w" sizes="(max-width:640px) 100vw, 400px" loading="lazy"></a>
-  <div class="bc-tx"><p class="bc-meta"><span class="bc-cat">For Business</span><span>November 5, 2026</span><span>2 min read</span></p>
-  <h3><a href="blog/heat-pump-savings-worked-example">How Much Can a Heat Pump Save? A Worked Example</a></h3><p class="bc-ex">A hotel with 60 showers a day, step by step: what it spends on hot water with electric heaters, and with a heat pump.</p></div>
+</article><article class="bc" data-cat="tips">
+  <a class="bc-pic" href="blog/signs-your-water-heater-needs-service" tabindex="-1" aria-hidden="true"><img src="assets/img/technician.webp" width="2400" height="1600" alt="" srcset="assets/img/technician-800.webp 800w, assets/img/technician.webp 2400w" sizes="(max-width:640px) 100vw, 400px" loading="lazy"></a>
+  <div class="bc-tx"><p class="bc-meta"><span class="bc-cat">Tips</span><span>October 29, 2026</span><span>2 min read</span></p>
+  <h3><a href="blog/signs-your-water-heater-needs-service">5 Signs Your Water Heater Needs Service</a></h3><p class="bc-ex">Lukewarm water, a tripping breaker, rust or a dripping valve: what each sign means, and what to do.</p></div>
 </article></div>
   </div>
 </section>
@@ -1369,7 +1309,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <script>window.DPY_HOME = true</script>
 <script src="assets/js/site.js?v=84ffe762" defer></script>
 <script src="assets/js/branches.js?v=3e1d78d7" defer></script>
-<script src="assets/js/ask.js?v=efbbbe4c" defer></script>
+<script src="assets/js/ask.js?v=eebf1e10" defer></script>
 <script>
 // paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
 // The library is downloaded early (preload in the head), then run right after the first frame, followed by everything below.
@@ -1439,7 +1379,7 @@ const CLIENTS = {
   const cli = $('.cli'), grid = $('.cl-grid'), tabs = $('.cl-tabs'), cats = Object.keys(CLIENTS)
   // in category order (hotels, then hospitals, residences, food); a filter lights up its group and dims the rest, so nothing moves
   grid.innerHTML = cats.flatMap(c => CLIENTS[c].map(([f, n]) => `<li class="cl" data-c="${c}" title="${n}"><img src="assets/img/clients/${f}.webp"${wh('clients/' + f + '.webp')} alt="${n}" loading="lazy"><span aria-hidden="true">${n}</span></li>`)).join('')
-  tabs.innerHTML = ['All', ...cats].map((c, i) => `<li role="presentation"><button role="tab" aria-selected="${!i}">${c}${i ? ` <small>${CLIENTS[c].length}</small>` : ''}</button></li>`).join('')
+  tabs.innerHTML = ['All', ...cats].map((c, i) => `<li role="presentation"><button role="tab" aria-selected="${!i}">${c}</button></li>`).join('')
   const B = $$('button', tabs), T = $$('.cl', grid)
   B.forEach((b, i) => b.addEventListener('click', () => {
     B.forEach(x => x.setAttribute('aria-selected', x === b))
@@ -1657,29 +1597,6 @@ const lockPage = on => { const h = document.documentElement; if (on) h.style.set
   $('.again', done).addEventListener('click', () => done.classList.remove('on'))
 }
 
-/* ---------- savings calculator (estimates; the assumptions are printed under the inputs) ---------- */
-{
-  const n = $('#svN'), no = $('#svNo'), rate = $('#svR'), P = $$('.sav-pre button'), bars = $$('.sav-bars i')
-  // one shower: 40 L of water warmed 15 K (27 to 42°C) needs 0.70 kWh of heat. An electric heater (~95% efficient) draws
-  // heat / .95; a heat pump draws heat / 3.5 (its seasonal COP, kept conservative for 55-60°C storage in Philippine heat);
-  // solar covers 65% of the heat and an electric element the rest
-  const HEAT = 40 * 4.186 * 15 / 3600, EFF = .95, COP = 3.5, SOLAR = .65
-  const PESO = new Intl.NumberFormat('en-PH', { maximumFractionDigits: 0 }), peso = v => '₱' + PESO.format(Math.round(v))
-  let shown = { e: 0, h: 0, o: 0 }
-  function calc() {
-    const N = +n.value, r = Math.max(1, +rate.value || 15), yr = N * HEAT * r * 365, e = yr / EFF, h = yr / COP, o = yr * (1 - SOLAR) / EFF
-    no.innerHTML = N + '<small>a day</small>'; n.style.setProperty('--p', ((N - 2) / 598 * 100).toFixed(1) + '%')
-    P.forEach(b => b.setAttribute('aria-pressed', +b.dataset.sh === N))
-    const to = { e, h, o }, set = s => { $('.svE').textContent = peso(s.e); $('.svH').innerHTML = peso(s.h) + `<small>−${peso(s.e - s.h).slice(1)}</small>`; $('.svO').innerHTML = peso(s.o) + `<small>−${peso(s.e - s.o).slice(1)}</small>`; $('.svS').textContent = peso(s.e - s.h) }
-    if (MOTION) gsap.to(shown, { ...to, duration: .6, ease: 'power2.out', overwrite: true, onUpdate: () => set(shown) }); else set(shown = to)
-    bars[0].style.setProperty('--w', 1); bars[1].style.setProperty('--w', (h / e).toFixed(3)); bars[2].style.setProperty('--w', (o / e).toFixed(3))
-  }
-  n.addEventListener('input', calc); rate.addEventListener('input', calc)
-  P.forEach(b => b.addEventListener('click', () => { n.value = b.dataset.sh; calc() }))
-  // count up when the section first comes into view
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { calc(); o.disconnect() } }, { threshold: .3 }).observe($('.sav-card'))
-}
-
 /* ---------- the range: real DPY products ---------- */
 const CK = '<svg><use href="#ck"/></svg>', EXT = '<svg><use href="#ext"/></svg>'
 const MODELS = [
@@ -1807,7 +1724,6 @@ async function entrances() { // one small task per group, with a break between e
   gsap.from('.br-stage', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.br-stage', start: 'top 85%' } }); await step()
   gsap.from('.br-ov li', { x: -24, autoAlpha: 0, duration: .9, ease: 'expo.out', stagger: .06, delay: .3, clearProps: 'transform,opacity,visibility', scrollTrigger: { trigger: '.br-stage', start: 'top 70%' } }); await step()
   gsap.from('.qt-panel', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.qt', start: 'top 85%' } }); await step()
-  gsap.from('.sav-card', { y: 50, autoAlpha: 0, duration: 1.2, ease: 'expo.out', clearProps: 'all', scrollTrigger: { trigger: '.sav', start: 'top 80%' } }); await step()
   gsap.from('.tm figure', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .08, clearProps: 'all', scrollTrigger: { trigger: '.tm', start: 'top 88%' } }); await step()
   gsap.set('.sy', { transition: 'none' }); await step()
   gsap.from('.sy', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: .07, clearProps: 'all', scrollTrigger: { trigger: '.systems', start: 'top 88%' } }); await step()
@@ -1828,11 +1744,12 @@ painted.then(() => (window.requestIdleCallback || setTimeout)(entrances, { timeo
   m.textContent = JSON.stringify({ imports: u ? { three: u + 'build/three.module.min.js', 'three/addons/environments/RoomEnvironment.js': u + 'examples/jsm/environments/RoomEnvironment.js' } : { three: './assets/vendor/three.module.min.js', 'three/addons/environments/RoomEnvironment.js': './assets/vendor/RoomEnvironment.js' } })
   document.currentScript.after(m) }</script>
 <script type="module">
-/* How it works: a real-time 3D cutaway of a DPY electric storage water heater.
+/* How it works: a real-time 3D cutaway of an Everhot electric storage water heater, which DPY supplies.
    A quarter of the tank is cut away to show the real layers (steel shell, polyurethane foam, glass-lined steel tank)
    and parts (dip tube, heating element, thermostat, anode rod, relief valve). Scroll drives what happens inside:
-   cold water fills through the dip tube → the element heats it and a convection plume lifts the hot water →
-   the thermostat cycles the element at 50°C → hot water leaves from the top while cold refills at the bottom. */
+   cold water fills through the dip tube → the one element, near the bottom, heats it and a convection plume lifts the
+   hot water → the thermostat cycles the element at 60°C, the factory setting → hot water leaves from the top while
+   cold refills at the bottom. */
 const vis = document.querySelector('.how-vis'), cv = vis.querySelector('.h3d'), lblBox = vis.querySelector('.lbls')
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches
 window.HOW3D = 'loading' // tells the page the 3D is on its way (the photo fallback is only for when it can't load)
@@ -1876,9 +1793,10 @@ const foamMap = tex((x, s) => { // polyurethane foam: warm yellow with open-cell
 foamMap.repeat.set(2, 6)
 const DS = THREE.DoubleSide
 const M = {
-  shell: new THREE.MeshPhysicalMaterial({ color: 0xDADFE3, roughness: .38, clearcoat: .55, clearcoatRoughness: .25 }), // Rheem's light grey satin enamel
-  panelFrame: new THREE.MeshStandardMaterial({ color: 0xAEB5BC, roughness: .5, metalness: .2 }),
-  panel: new THREE.MeshPhysicalMaterial({ color: 0xD2D7DC, roughness: .42, clearcoat: .4 }),
+  shell: new THREE.MeshPhysicalMaterial({ color: 0xEEF1F3, roughness: .34, clearcoat: .6, clearcoatRoughness: .22 }), // Everhot's white enamel
+  band: new THREE.MeshPhysicalMaterial({ color: 0xA3AAB1, roughness: .42, metalness: .15, clearcoat: .4 }), // the grey band with the name
+  panelFrame: new THREE.MeshStandardMaterial({ color: 0xC4CACF, roughness: .5, metalness: .15 }),
+  panel: new THREE.MeshPhysicalMaterial({ color: 0xF3F5F6, roughness: .4, clearcoat: .45 }),
   trim: new THREE.MeshStandardMaterial({ color: 0x5E666F, roughness: .35, metalness: .7 }),
   steelCut: new THREE.MeshStandardMaterial({ color: 0xD7DDE3, roughness: .3, metalness: .9, side: DS }),
   foam: new THREE.MeshStandardMaterial({ color: 0xffffff, map: foamMap, bumpMap: foamMap, bumpScale: 1.5, roughness: .95, side: DS }),
@@ -1901,8 +1819,9 @@ await breathe()
 const tank = new THREE.Group(); scene.add(tank)
 const add = (geo, mat, pos, rot) => { const m = new THREE.Mesh(geo, mat); if (pos) m.position.copy(pos); if (rot) m.rotation.set(...rot); tank.add(m); return m }
 const sector = (r, h, closed = false, seg = 96, ts = TS, tl = TL) => new THREE.CylinderGeometry(r, r, h, seg, 1, !closed, ts, tl)
-/* modelled on the Rheem electric storage heater DPY supplies: grey enamel shell, domed top with a trim ring,
-   twin access panels (upper and lower element + thermostat), the Rheem badge and a rating label */
+/* modelled on the Everhot electric storage heater DPY supplies (DPY's product photo): white enamel shell, domed top
+   with a trim ring, a grey band near the top with the red Everhot name and its labels, and one access panel at the
+   bottom, over the single heating element and its thermostat */
 add(sector(RO, 2 * H), M.shell)                                          // enamelled steel shell
 add(sector(RO, .05, true), M.shell, new THREE.Vector3(0, -H - .025, 0))  // base
 const DOME_A = .35, DOME_R = RO / Math.sin(DOME_A), DOME_OFF = DOME_R * Math.cos(DOME_A)
@@ -1914,21 +1833,21 @@ add(sector(RI, .04, true), M.lining, new THREE.Vector3(0, -HW - .02, 0))
 // decals and panels sit in the band of shell the camera sees, between the cut edge and the silhouette
 const FRONT = 2.0
 const patch = (r, h, w, mat, y, th = FRONT) => add(new THREE.CylinderGeometry(r, r, h, 24, 1, true, th - w / 2, w), mat, new THREE.Vector3(0, y, 0))
-const decal = (url, w, aspect, y, r = RO + .004) => { // a printed label wrapped on the shell (embedded image, so it works from file://)
-  const t = tex(() => {}, 512, Math.round(512 / aspect)); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping
-  const img = new Image(); img.onload = () => { const c = t.image; c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); t.needsUpdate = true }; img.src = url
-  return patch(r, w * RO / aspect, w, new THREE.MeshPhysicalMaterial({ map: t, transparent: true, roughness: .35, clearcoat: .6, polygonOffset: true, polygonOffsetFactor: -2 }), y)
-}
-// the two access panels: element + thermostat behind each
-for (const y of [.62, -.86]) { patch(RO + .004, .5, .4, M.panelFrame, y); patch(RO + .009, .44, .34, M.panel, y) }
-decal('data:image/webp;base64,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', .32, 1, 1.24)               // the Rheem badge (from DPY's Rheem product photo)
-// rating label between the panels
-const rating = tex((x, w, h) => {
-  x.fillStyle = '#F7F7F2'; x.fillRect(0, 0, w, h); x.strokeStyle = '#9AA0A6'; x.lineWidth = 4; x.strokeRect(2, 2, w - 4, h - 4)
-  x.fillStyle = '#C70A0E'; x.fillRect(14, 14, w - 28, 34); x.fillStyle = '#fff'; x.font = 'bold 22px Arial'; x.fillText('ELECTRIC WATER HEATER', 22, 39)
-  x.fillStyle = '#3A3F45'; for (let i = 0; i < 9; i++) x.fillRect(18, 70 + i * 24, (i % 3 === 2 ? .5 : .85) * (w - 36), 9)
-}, 512, 300)
-patch(RO + .004, .28 * RO / 1.7, .28, new THREE.MeshStandardMaterial({ map: rating, roughness: .6, polygonOffset: true, polygonOffsetFactor: -2 }), -.12)
+// the grey band near the top, all the way round the uncut shell
+const BAND_Y = H - .32
+add(sector(RO + .003, .36), M.band, new THREE.Vector3(0, BAND_Y, 0))
+// the red Everhot name on the band, drawn as text (the brand's name, not a copy of its logo artwork)
+const name = tex((x, w, h) => {
+  x.clearRect(0, 0, w, h); x.fillStyle = '#D3121B'; x.textAlign = 'center'; x.textBaseline = 'middle'
+  x.font = '900 104px "Arial Black", "Helvetica Neue", Arial, sans-serif'; x.fillText('EVERHOT', w / 2, h / 2 + 4)
+}, 512, 128)
+name.wrapS = name.wrapT = THREE.ClampToEdgeWrapping
+patch(RO + .006, .6 * RO / 4, .6, new THREE.MeshPhysicalMaterial({ map: name, transparent: true, roughness: .35, clearcoat: .6, polygonOffset: true, polygonOffsetFactor: -2 }), BAND_Y, FRONT - .18)
+// one access panel at the bottom: the element and the thermostat are behind it
+const PANEL_Y = -.98
+patch(RO + .004, .62, .4, M.panelFrame, PANEL_Y); patch(RO + .009, .56, .34, M.panel, PANEL_Y)
+// the red warning sticker under the panel
+patch(RO + .006, .06, .2, new THREE.MeshPhysicalMaterial({ color: 0xC70A0E, roughness: .4, clearcoat: .5, polygonOffset: true, polygonOffsetFactor: -2 }), PANEL_Y - .38)
 // the cut faces: the section through each layer, on both edges of the missing quarter
 function face(rects, mat, parent = tank) {
   for (const th of [TS, TS + TL]) for (const [r0, r1, y0, y1] of rects) {
@@ -1961,17 +1880,16 @@ add(new THREE.CylinderGeometry(.045, .045, .2, 20), M.chrome, new THREE.Vector3(
 const an = polar(.22, AN_TH, 0)
 add(new THREE.CylinderGeometry(.03, .03, 2.3, 16), M.anode, new THREE.Vector3(an.x, HW - 1.15, an.z))
 add(new THREE.CylinderGeometry(.075, .075, .06, 6), M.brass, new THREE.Vector3(an.x, H + .08, an.z))
-// twin heating elements (upper and lower), each behind its access panel, as in Rheem's dual-element tanks
+// one heating element near the bottom, behind the access panel: Everhot heats the whole tank from there
 const d = new THREE.Vector3(Math.sin(EL_TH), 0, Math.cos(EL_TH)), pp = new THREE.Vector3(Math.cos(EL_TH), 0, -Math.sin(EL_TH))
-const EYU = .5, EY = -1.0 // upper and lower element heights
+const EY = -1.0 // the element's height
 const ep = (r, s, y = EY) => d.clone().multiplyScalar(r).add(pp.clone().multiplyScalar(s)).setY(y)
-const copperU = M.copper.clone()
 const element = (y, mat) => {
   const loop = new THREE.CatmullRomCurve3([ep(RO, .075, y), ep(.6, .075, y), ep(.28, .075, y), ep(.18, 0, y), ep(.28, -.075, y), ep(.6, -.075, y), ep(RO, -.075, y)])
   add(new THREE.TubeGeometry(loop, 120, .036, 14, false), mat)
   add(new THREE.CylinderGeometry(.11, .11, .05, 32), M.brass, d.clone().multiplyScalar(RI + .02).setY(y)).rotation.set(Math.PI / 2, EL_TH, 0, 'YXZ') // screw-in flange, facing along the element
 }
-element(EYU, copperU); element(EY, M.copper)
+element(EY, M.copper)
 const TV = Math.PI * 1.9
 const tv = add(new THREE.CylinderGeometry(.05, .05, .24, 20), M.brass, polar(RO + .1, TV, H - .28)); tv.rotation.order = 'YXZ'; tv.rotation.set(Math.PI / 2, TV, 0)
 add(new THREE.BoxGeometry(.04, .14, .03), M.dark, polar(RO + .2, TV, H - .2)).rotation.y = TV
@@ -2055,12 +1973,11 @@ const LBL = [
   ['02', 'Dip tube', new THREE.Vector3(inlet.x, -.35, inlet.z), [0]],
   ['03', 'Polyurethane insulation', polar(.885, .02, .55), [0]],
   ['04', 'Glass-lined steel tank', polar(.782, .02, -.35), [0]],
-  ['05', 'Upper heating element', ep(.4, .075, EYU), [1]],
-  ['06', 'Lower heating element', ep(.4, .075, EY), [1]],
-  ['07', 'Thermostats (behind the panels)', polar(RO + .01, FRONT + .17, -.86), [2]],
-  ['08', 'Magnesium anode rod', new THREE.Vector3(an.x, .1, an.z), [2]],
-  ['09', 'Hot water outlet', new THREE.Vector3(outlet.x, H + .7, outlet.z), [3]],
-  ['10', 'T&P relief valve', polar(RO + .2, TV, H - .28), [3]],
+  ['05', 'Heating element', ep(.4, .075, EY), [1]],
+  ['06', 'Thermostat (behind the panel)', polar(RO + .01, FRONT + .17, PANEL_Y), [2]],
+  ['07', 'Magnesium anode rod', new THREE.Vector3(an.x, .1, an.z), [2]],
+  ['08', 'Hot water outlet', new THREE.Vector3(outlet.x, H + .7, outlet.z), [3]],
+  ['09', 'T&P relief valve', polar(RO + .2, TV, H - .28), [3]],
 ]
 const lbls = LBL.map(([n, t]) => { const e = document.createElement('div'); e.className = 'lbl'; e.innerHTML = `<i class="dot"></i><i class="ln"></i><span class="tx"><em>${n}</em>${t}</span>`; lblBox.append(e); return e })
 const iT = vis.querySelector('.i-t'), iBar = vis.querySelector('.i-bar i'), led = vis.querySelector('.led'), iE = vis.querySelector('.i-e em')
@@ -2073,7 +1990,7 @@ let mx = 0, my = 0; vis.addEventListener('pointermove', e => { const r = vis.get
 /* ---- the loop ---- */
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), sm = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
 const DULL = new THREE.Color(0x5a0c00), BRIGHT = new THREE.Color(0xff6a1a)
-let heatE = 0, heatU = 0, last = 0, camA = null, camY = null, visible = false, sp = 0, lastP = 0, wave = 0
+let heatE = 0, last = 0, camA = null, camY = null, visible = false, sp = 0, lastP = 0, wave = 0
 let raf = 0, ready = false
 function loop(ms) { frame(ms); raf = visible ? requestAnimationFrame(loop) : 0 }
 new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && ready && !raf && !RM) raf = requestAnimationFrame(loop) }).observe(vis)
@@ -2082,19 +1999,17 @@ function frame(ms) {
   const p = RM ? 1 : (window.HOW?.p ?? 0)
   sp += (Math.abs(p - lastP) / Math.max(dt, .001) - sp) * Math.min(1, dt * 3); lastP = p // how fast the user is scrolling
   const fill = sm(0, .2, p), h = sm(.26, .62, p), hold = p > .62 && p < .78, out = p > .78, inflow = p < .2 || out
-  // Rheem's twin elements work in turn: the upper one heats the top of the tank first, then the lower one heats the
-  // rest; at the set point the thermostat clicks the lower element off and on to hold 50°C
-  const onU = p > .22 && p <= .4, onL = (p > .4 && p <= .62) || (hold && Math.sin(t * 1.6) > -.2), on = onU || onL
-  // each element has thermal mass: it warms through dull red to orange, and cools slowly
-  heatU += ((onU ? 1 : 0) - heatU) * Math.min(1, dt * (onU ? 1.1 : .6))
-  heatE += ((onL ? 1 : 0) - heatE) * Math.min(1, dt * (onL ? 1.1 : .6))
-  copperU.emissive.copy(DULL).lerp(BRIGHT, heatU); copperU.emissiveIntensity = heatU * 2.8
+  // the one element heats the tank from the bottom; at the set point (60°C, the factory setting) the thermostat clicks
+  // it off and on to hold the temperature
+  const on = (p > .22 && p <= .62) || (hold && Math.sin(t * 1.6) > -.2)
+  // the element has thermal mass: it warms through dull red to orange, and cools slowly
+  heatE += ((on ? 1 : 0) - heatE) * Math.min(1, dt * (on ? 1.1 : .6))
   M.copper.emissive.copy(DULL).lerp(BRIGHT, heatE); M.copper.emissiveIntensity = heatE * 2.8
-  const act = heatU > heatE ? EYU : EY, ah = Math.max(heatU, heatE)
+  const act = EY, ah = heatE
   glow.position.copy(ep(.45, 0, act + .15)); glow.intensity = ah * 2.6
   U.uEl.value.copy(ep(.42, 0, act))
   // instrument
-  const temp = hold || out ? 50 + (hold ? Math.sin(t * 1.6) * .35 : 0) : 26 + h * 24
+  const temp = hold || out ? 60 + (hold ? Math.sin(t * 1.6) * .35 : 0) : 26 + h * 34
   const tt = temp.toFixed(1) + '°C'; if (iT.textContent !== tt) iT.textContent = tt
   iBar.style.transform = `scaleX(${((temp - 20) / 40).toFixed(3)})`
   led.classList.toggle('on', on); const es = on ? 'On' : 'Off'; if (iE.textContent !== es) iE.textContent = es
@@ -2116,7 +2031,7 @@ function frame(ms) {
   for (const q of parts) {
     const prev = polar(q.r, q.th, q.y)
     if (q.y > top - .03) q.y = top - .03 - Math.random() * .1
-    const nearEl = q.r < .7 && ((heatE > .3 && Math.abs(q.y - EY) < .2) || (heatU > .3 && Math.abs(q.y - EYU) < .2))
+    const nearEl = q.r < .7 && heatE > .3 && Math.abs(q.y - EY) < .2
     if (nearEl) q.t = Math.min(1, q.t + dt * 1.2 * ah); else q.t = Math.max(h * .5, q.t - dt * .05)
     let vy = (q.t - .42) * .5 + Math.sin(t * 1.1 + q.s) * .04
     // hot water spreads out under the surface and sinks along the cooler walls: a convection loop

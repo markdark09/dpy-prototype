@@ -1,6 +1,6 @@
 // Blog articles (sample content for the prototype: DPY's team reviews them before launch).
-// Written only from facts already on the site: product pages, spec sheets, the For Business page and the savings
-// calculator (same assumptions and numbers). No client news or names are made up.
+// Written only from facts already on the site: product pages, spec sheets and the For Business page. No savings figures
+// (DPY asked to remove them, November 2026), and no client news or names are made up.
 // Body blocks: ['p', text], ['h', heading], ['ul', [items]], ['ol', [items]], ['tip', text], ['nums', [[value, label], ...]].
 // In text, **bold** and [link text](site/path) work; paths are relative to the site root.
 
@@ -16,7 +16,6 @@ export const ARTICLES = [
       ['h', "What's new"],
       ['ul', [
         'Every product has its own page with a plain description, a **How it works** diagram and its specifications. [Browse the products](water-heaters)',
-        'A [savings calculator](#savings) compares a year of running costs for electric heaters, heat pumps and solar at your electricity rate.',
         'Book a repair, maintenance or warranty visit from the [Service page](service#book).',
         'See our openings and apply with your CV on the [Careers page](careers).',
         'A short quiz on the homepage suggests the right kind of water heater for your home or building.',
@@ -39,23 +38,6 @@ export const ARTICLES = [
       ["h", "A quick way to choose"],
       ["ul", ["**One bathroom, one shower at a time:** an instant heater","**Shower and sink in the same bathroom:** a multipoint instant heater","**Two or more bathrooms used at once:** a storage heater","**Weak water pressure:** an instant heater that starts at 2 liters a minute, or one with a built-in pump like the Gratek Aquarius"]],
       ["tip", "Not sure? Our free site visit checks your water pressure, wiring and space before we recommend anything. [Request a visit](contact#quote)"],
-    ],
-  },
-  {
-    slug: "heat-pump-savings-worked-example", cat: "business", date: "2026-11-05", img: "assets/img/plant.webp", alt: "A heat pump and insulated hot water tanks in a plant room", title: "How Much Can a Heat Pump Save? A Worked Example", excerpt: "A hotel with 60 showers a day, step by step: what it spends on hot water with electric heaters, and with a heat pump.", related: ["deron-air-to-water-heat-pump","5-star-integral-heat-pump","haase-energy-storage-tank"],
-    body: [
-      ["p", "A heat pump costs more to buy than an electric heater, so the first question every hotel and building owner asks is how much it saves each year. Here is the arithmetic our savings calculator uses, worked through for 60 showers a day."],
-      ["h", "Step 1: the heat one shower needs"],
-      ["p", "A typical shower uses about 40 liters of water, warmed by about 15°C: from 27°C to a comfortable 42°C. Warming 40 liters by 15°C takes about **0.7 kWh** of heat."],
-      ["h", "Step 2: the electricity each system draws for that heat"],
-      ["ul", ["An **electric heater** turns about 95% of its electricity into heat, so it draws about 0.73 kWh per shower.","A **heat pump** moves heat from the air instead of making it. We assume it gives 3.5 units of heat for every unit of electricity, a cautious figure for 55 to 60°C in Philippine weather. So it draws about 0.2 kWh per shower."]],
-      ["h", "Step 3: a year of showers"],
-      ["p", "At 60 showers a day, every day, and ₱15 per kWh:"],
-      ["nums", [["₱241,000","a year with electric heaters"],["₱65,000","a year with a heat pump"],["₱176,000","saved every year"]]],
-      ["p", "The heat pump's running cost is about a quarter of the electric heaters', in line with what [Deron](products/deron-air-to-water-heat-pump) states for its heat pumps."],
-      ["h", "What changes the answer"],
-      ["ul", ["**Your electricity rate:** the higher it is, the more a heat pump saves.","**How much hot water you use:** kitchens, laundries and pools add to the showers.","**The design:** water temperature, storage tanks, pipes and insulation all count."]],
-      ["tip", "Try your own numbers in the [savings calculator](#savings), or ask us for a proposal sized for your building."],
     ],
   },
   {
@@ -134,17 +116,14 @@ export const ARTICLES = [
     body: [
       ['p', 'Heat pumps and solar water heaters both cost far less to run than plain electric heaters. They get there in different ways, and many buildings end up using both.'],
       ['h', 'How each one saves'],
-      ['ul', ['**Solar** heats water with sunlight. Our savings calculator assumes the sun covers about 65% of the heat over a year, and an electric element covers the rest on cloudy days and at night.', '**A heat pump** moves heat from the air, day and night, rain or shine. We assume it gives 3.5 units of heat for every unit of electricity.']],
-      ['h', 'The numbers side by side'],
-      ['p', 'For 60 showers a day at ₱15 per kWh, with the calculator\'s assumptions:'],
-      ['nums', [['₱241,000', 'a year with electric heaters'], ['₱84,000', 'a year with solar and its electric backup'], ['₱65,000', 'a year with a heat pump']]],
+      ['ul', ['**Solar** heats water with sunlight, and an electric element covers the rest on cloudy days and at night.', '**A heat pump** moves heat from the air, day and night, rain or shine. We assume it gives 3.5 units of heat for every unit of electricity.']],
       ['h', 'When solar fits best'],
       ['ul', ['A sunny roof with room for the panels', 'Hot water used mostly in the day and evening', 'Homes and resorts with free roof space']],
       ['h', 'When a heat pump fits best'],
       ['ul', ['Little roof space, or a shaded roof', 'Hot water needed around the clock, as in hotels and hospitals', 'A plant room or outdoor spot with good airflow']],
       ['h', 'Or both'],
       ['p', 'In a central system, solar can add free heat on sunny days while heat pumps carry the load, with a storage tank holding the result. A [HAASE tank](products/haase-energy-storage-tank) takes heat from several sources at once.'],
-      ['tip', 'Try both in the [savings calculator](#savings) with your own numbers, or ask us to compare them for your building. [Contact our sales team](contact#quote)'],
+      ['tip', 'Ask us to compare them for your building, with your roof, your hours and your electricity rate. [Contact our sales team](contact#quote)'],
     ],
     related: ['5-star-solar-water-heater', 'deron-air-to-water-heat-pump', 'haase-energy-storage-tank'],
   },
