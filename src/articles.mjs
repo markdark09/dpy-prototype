@@ -60,7 +60,7 @@ export const ARTICLES = [
     ],
   },
   {
-    slug: 'low-water-pressure-condo-hot-shower', cat: 'guides', date: '2026-10-22', img: 'assets/img/dpy/tower-render.webp', alt: 'A residential tower',
+    slug: 'low-water-pressure-condo-hot-shower', cat: 'guides', date: '2026-10-22', img: 'assets/img/condo.webp', alt: 'A residential condo tower against a blue sky',
     title: 'Low Water Pressure in Your Condo? What Actually Works',
     excerpt: 'Upper floors and older buildings often have weak pressure. Here is how to still get a good hot shower.',
     body: [
@@ -78,7 +78,7 @@ export const ARTICLES = [
     related: ['gratek-aquarius-aqa-30', 'aquapower-s35m-s45m', 'wilo-pumps'],
   },
   {
-    slug: 'hotel-hot-water-morning-rush', cat: 'business', date: '2026-10-15', img: 'assets/img/dpy/resort-render.webp', alt: 'A resort hotel by the sea',
+    slug: 'hotel-hot-water-morning-rush', cat: 'business', date: '2026-10-15', img: 'assets/img/hotel.webp', alt: 'A resort hotel tower behind its swimming pool',
     title: "Sizing Hot Water for a Hotel's Morning Rush",
     excerpt: 'Guests shower in the same two morning hours. Here is how a central system is planned so the last guest gets the same hot water as the first.',
     body: [
@@ -161,7 +161,7 @@ export const ARTICLES = [
     related: ['katen-exhaust-fans'],
   },
   {
-    slug: 'hygienic-hot-water-hospitals', cat: 'business', date: '2026-09-10', img: 'assets/img/dpy/haase-install.webp', alt: 'A HAASE energy storage tank installed by DPY',
+    slug: 'hygienic-hot-water-hospitals', cat: 'business', date: '2026-09-10', img: 'assets/img/plant.webp', alt: 'A heat pump and insulated hot water tanks in a plant room',
     title: 'Hygienic Hot Water: Why Hospitals Use Heat Exchanger Tanks',
     excerpt: 'Hot water that stands in a tank can grow bacteria. Heat exchanger tanks heat drinking water as it flows, so none is stored.',
     body: [

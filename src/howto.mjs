@@ -213,9 +213,11 @@ const KINDS = {
       M(1, 210, 70), M(2, 320, 200), M(3, 430, 52), M(4, 440, 312),
     ].join('')
     const steps = [
-      ['Heat comes in', 'Heat pumps, solar panels or a boiler heat the water in the tank. One tank can take heat from several sources at once.'],
+      // the Sanicube from ROTEX's instructions: a heat pump or boiler heats the top zone through its own coil, solar the bottom zone
+      rotex ? ['Heat comes in', 'A heat pump or boiler heats the top of the tank through its own stainless steel coil, and solar panels can add heat at the bottom. The tank water only stores that heat.']
+        : ['Heat comes in', 'Heat pumps, solar panels or a boiler heat the water in the tank. One tank can take heat from several sources at once.'],
       ['Stored in layers', 'Hot water rises, so the top stays hottest, and the insulation keeps the heat for hours.'],
-      rotex ? ['Drinking water heated on the way', "Your drinking water runs through stainless steel coils inside the tank and is heated as it passes. It's never stored, which keeps it fresh and hygienic."]
+      rotex ? ['Drinking water heated on the way', 'Your drinking water runs up through a stainless steel coil inside the tank and is heated as it passes. Only the water in the coil, 19 or 29 liters depending on the model, is kept hot, and it is used first in, first out, so none goes stale.']
         : coil ? ['Fresh water heated through the coil', 'Fresh water runs through a heat exchanger coil inside the tank and picks up the stored heat on its way to the taps.']
         : ['Drawn from the top', 'The building takes hot water from the top, and circulation pumps carry it to every floor.'],
       coil ? ['Fresh water every time', 'Cold water comes in at the bottom of the coil, so what reaches the taps is always freshly heated.'] : ['Topped up from the bottom', 'Cold water refills the tank at the bottom, away from the hot layer, to be heated.'],
