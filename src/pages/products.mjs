@@ -1,4 +1,4 @@
-import { PRODUCTS, CATS, card, crumbsHtml, img, I, MSGR, specTable, prodImg, SITE, ver } from '../../tools/lib.mjs'
+import { PRODUCTS, CATS, card, crumbsHtml, img, I, MSGR, specTable, prodImg, SITE, ver, esc } from '../../tools/lib.mjs'
 import { howto } from '../howto.mjs'
 
 const css = `
@@ -32,6 +32,54 @@ const css = `
 @keyframes pdIn{from{opacity:0;transform:translateY(30px) scale(.96)}}
 .stage .noimg{position:relative;z-index:1;align-self:center;display:grid;place-items:center;width:260px;height:260px;border-radius:50%;background:#fff;box-shadow:var(--sh);font-size:30px;font-weight:800;letter-spacing:.1em;color:#3A4655}
 .stage .noimg small{display:block;margin-top:6px;text-align:center;font-size:11px;letter-spacing:.06em;font-weight:600;color:var(--mute)}
+/* the gallery, for two or more photos: each photo is a slide as wide as the stage, in a row that scrolls sideways and
+   snaps, so swiping works without the script; the script adds the arrows, thumbnails, counter and full screen */
+.pd-media{position:relative;min-width:0}
+.gal-track{position:absolute;inset:0;z-index:1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:24px}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.gal-s{position:relative;flex:0 0 100%;margin:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:70px;scroll-snap-align:center;scroll-snap-stop:always}
+.gal-s:not(:first-child) .main{animation:none}
+html.js .gal-s .main{cursor:zoom-in}
+.gal-s figcaption{position:absolute;z-index:2;left:50%;top:12px;max-width:calc(100% - 120px);transform:translateX(-50%);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);box-shadow:var(--card);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal-btn,.gal-full,.lb-x{position:absolute;z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 8px 20px -8px rgba(1,30,70,.4);cursor:pointer;transition:opacity .25s,transform .25s var(--ease),background-color .2s}
+.gal-btn{top:calc(50% - 22px)}.gal-btn.prev{left:4px}.gal-btn.next{right:4px}
+.gal-btn svg{width:16px;height:16px}.gal-btn.prev svg{transform:scaleX(-1)}
+.gal-btn:disabled{opacity:0;pointer-events:none}
+.gal-full{top:4px;right:4px}.gal-full svg,.lb-x svg{width:17px;height:17px}
+.gal-btn:hover,.gal-full:hover,.lb-x:hover{background-color:#fff;transform:scale(1.06)}
+.gal-btn:active,.gal-full:active,.lb-x:active{transform:scale(.94)}
+.gal-btn:focus-visible,.gal-full:focus-visible,.lb-x:focus-visible,.gal-th button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.gal-n{position:absolute;z-index:2;right:8px;bottom:12px;padding:4px 10px;border-radius:999px;background:rgba(10,24,48,.72);color:#fff;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.gal-th{position:relative;display:flex;justify-content:flex-start;justify-content:safe center;gap:10px;margin-top:4px;padding:4px;overflow-x:auto;scrollbar-width:none}
+.gal-th::-webkit-scrollbar{display:none}
+.gal-th button{flex:none;width:64px;height:64px;padding:5px;border:0;border-radius:14px;background:#fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;transition:box-shadow .2s,transform .2s var(--ease)}
+.gal-th button[aria-current="true"]{box-shadow:0 0 0 2px var(--blue)}
+.gal-th button:hover{transform:translateY(-2px)}.gal-th button:active{transform:scale(.95)}
+.gal-th img{width:100%;height:100%;object-fit:contain;border-radius:9px}
+html:not(.js) .gal-btn,html:not(.js) .gal-full,html:not(.js) .gal-n,html:not(.js) .gal-th{display:none}
+/* with a mouse the arrows show on hover; on touch screens people swipe, and the counter says where they are */
+@media (hover:hover){.gal-btn{opacity:0}.gal:hover .gal-btn:not(:disabled),.gal-btn:focus-visible{opacity:1}.gal-n{display:none}}
+@media (hover:none){.gal .gal-btn{display:none}}
+@media (max-width:980px){.pd-media{order:-1;margin-top:-10px}.pd-media .stage{order:0;margin-top:0}}
+@media (max-width:640px){.gal-s{padding-bottom:56px}.gal-th{justify-content:flex-start}.gal-th button{width:56px;height:56px}}
+/* full screen: the photos large on a dark background, swipe or arrows between them, a click or tap zooms in */
+html.gal-open{overflow:hidden}
+.gal-lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(6,14,28,.97);color:#fff;overscroll-behavior:contain}
+.gal-lb::backdrop{background:rgba(6,14,28,.6)}
+.gal-lb[open]{display:block}
+.lb-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb-track::-webkit-scrollbar{display:none}
+.lb-track.zoomed{overflow-x:hidden}
+.lb-s{flex:0 0 100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(68px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px));scroll-snap-align:center;scroll-snap-stop:always;overflow:hidden}
+.lb-s img{min-height:0;max-width:min(100%,1400px);max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:14px;background:#fff;cursor:zoom-in;transition:transform .35s var(--ease)}
+.lb-s img.zoom{transform:scale(2.2);cursor:zoom-out;touch-action:none}
+.lb-s figcaption{font-size:14px;color:#C9D6E6;text-align:center}
+.gal-lb .lb-x{top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px))}
+.gal-lb .gal-btn{opacity:1}.gal-lb .gal-btn.prev{left:calc(12px + env(safe-area-inset-left,0px))}.gal-lb .gal-btn.next{right:calc(12px + env(safe-area-inset-right,0px))}
+.lb-n{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:#C9D6E6}
+@media (max-width:640px){.gal-lb .gal-btn{display:none}}
+@media (prefers-reduced-motion:reduce){.gal-btn,.gal-full,.lb-x,.gal-th button,.lb-s img{transition:none}}
 .pd .kick{margin-bottom:12px}
 .pd h1{font-size:clamp(2.1rem,3.8vw,3.3rem)}
 .pd .lede{margin-top:16px;font-size:16px;color:var(--ink2)}
@@ -150,8 +198,30 @@ const css = `
   .foot{padding-bottom:90px}}
 `
 
+// the gallery's full-screen button (the Laravel site writes the same)
+const EXPAND = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg>'
+
+// the product photo: one on its plinth, or with more photos (p.photos: [{ img, alt, cap, cut }], cut for a cut-out
+// shot on white) a gallery, as on the Laravel site's product page
+function stage(R, p, src) {
+  const photos = [...(src ? [{ rel: src, alt: p.name, photo: !!p.photo }] : []), ...(p.photos || []).map(ph => ({ rel: `assets/img/dpy/${ph.img}.webp`, alt: ph.alt, cap: ph.cap, photo: !ph.cut }))]
+  const n = photos.length
+  if (n < 2) return `<div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span>${src ? img(R, src, p.name, ` class="main${p.photo ? ' photo' : ''}" fetchpriority="high"`) : `<span class="noimg"><span>${p.brand.toUpperCase()}<small>Photo to follow</small></span></span>`}</div>`
+  return `<div class="pd-media">
+        <div class="stage gal" data-gal role="region" aria-roledescription="carousel" aria-label="Photos of ${esc(p.name)}">
+          <span class="halo"></span><span class="floor"></span><span class="plinth"></span>
+          <div class="gal-track" tabindex="0">${photos.map((ph, i) => `<figure class="gal-s" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}">${img(R, ph.rel, ph.alt, ` class="main${ph.photo ? ' photo' : ''}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}`)}${ph.cap ? `<figcaption>${esc(ph.cap)}</figcaption>` : ''}</figure>`).join('')}</div>
+          <button class="gal-btn prev" type="button" aria-label="Previous photo">${I.arr}</button><button class="gal-btn next" type="button" aria-label="Next photo">${I.arr}</button>
+          <button class="gal-full" type="button" aria-label="View the photos full screen">${EXPAND}</button>
+          <span class="gal-n" aria-hidden="true"><b>1</b> / ${n}</span>
+        </div>
+        <div class="gal-th">${photos.map((ph, i) => `<button type="button" aria-label="Photo ${i + 1} of ${n}: ${esc(ph.alt)}"${i === 0 ? ' aria-current="true"' : ''}>${img(R, ph.rel, '', ' loading="lazy"', '72px')}</button>`).join('')}</div>
+      </div>`
+}
+
 function pg(p) {
   const c = CATS[p.cat], src = prodImg(p)
+  const gallery = [src, ...(p.photos || []).map(ph => `assets/img/dpy/${ph.img}.webp`)].filter(Boolean)
   const rel = PRODUCTS.filter(x => x !== p && x.cat === p.cat).concat(PRODUCTS.filter(x => x !== p && x.cat !== p.cat && x.for.some(f => p.for.includes(f)))).slice(0, 4)
   // specs: sheets typed into specs.json; tables: finished tables (DPY's master file, Nov 2026); table: one hand-made table
   const tables = (p.specs || []).map(k => specTable(k)).join('') + (p.tables || []).map(t => specTable(null, t)).join('') + (p.table ? specTable(null, p.table) : '')
@@ -161,8 +231,9 @@ function pg(p) {
     desc: `${p.short} Supplied, installed and serviced by DPY Mercantile across the Philippines. Free site visit and quote.`.slice(0, 300),
     crumbs: [['Water Heaters', 'water-heaters'], [c.t.replace(/^./, x => x.toUpperCase()), `water-heaters?type=${p.cat}`], [p.name]],
     ogImage: src || undefined,
-    ld: [{ '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand }, category: c.t, description: p.about.join(' '), ...(src ? { image: SITE + src } : {}), url: SITE + 'products/' + p.slug }],
+    ld: [{ '@type': 'Product', name: p.name, brand: { '@type': 'Brand', name: p.brand }, category: c.t, description: p.about.join(' '), ...(gallery.length > 1 ? { image: gallery.map(g => SITE + g) } : src ? { image: SITE + src } : {}), url: SITE + 'products/' + p.slug }],
     css,
+    ...(gallery.length > 1 ? { scripts: ['assets/js/gallery.js'] } : {}),
     body: R => `
 <section class="phead pd">
   <span class="glow${p.cat === 'heatpump' || p.cat === 'solar' ? ' warm' : ''}"></span>
@@ -178,7 +249,7 @@ function pg(p) {
         <div class="ph-acts"><a class="btn red" href="${R}contact?add=${p.slug}#quote" data-quote-now="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}">Get a quote for this ${I.arr}</a><button class="addq" type="button" data-add="${p.slug}" data-name="${p.name}" data-img="${src}" data-cat="${p.cat}" aria-pressed="false">${I.plus}<span class="of">Add to quote list</span><span class="on">In your quote list</span></button><button class="cmpb wide" type="button" data-cmp="${p.slug}" data-name="${p.name}" data-img="${src}" aria-pressed="false">${I.cmp}<span class="of">Compare</span><span class="on">Comparing</span></button></div>
         <div class="pd-msg">Questions first? ${MSGR}<a class="msgr" style="background:var(--ink)" href="tel:+639338672954">${I.tel}Call</a></div>
       </div>
-      <div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span>${src ? img(R, src, p.name, ` class="main${p.photo ? ' photo' : ''}" fetchpriority="high"`) : `<span class="noimg"><span>${p.brand.toUpperCase()}<small>Photo to follow</small></span></span>`}</div>
+      ${stage(R, p, src)}
     </div>
   </div>
 </section>
