@@ -26,7 +26,7 @@ const brandLink = (R, brand) => {
 const FAQ = [
   ['Is the site survey really free?', 'Yes. Our sales engineers visit, look at the plant room, the roof and the pipes, and ask how the building is used. You then get a written, itemized proposal: units, pipes, pumps, installation and commissioning.'],
   ['Do you work with our engineers and contractors?', 'Yes. We size the heaters, tanks and pumps with your engineers and contractors for the busiest hour of the day, and test and commission the system with them before handover.'],
-  ['How much can a heat pump save?', 'A heat pump uses roughly a quarter to a third of the power of an electric heater for the same hot water. The savings calculator works out a year of running costs at your electricity rate.'],
+  ['How much can a heat pump save?', 'A heat pump uses roughly a quarter to a third of the power of an electric heater for the same hot water. What that means for your building depends on how much hot water it uses, so we work it out in the free site survey and proposal.'],
   ['Who looks after the system after handover?', 'We do. Our own technicians handle preventive maintenance, repairs and spare parts from our branches in Manila, Cebu and Davao, with yearly maintenance plans.'],
   ['Which brands do you install?', `Genuine units from ${BRANDS.length} brands: ${BRANDS.map(b => b[1]).slice(0, -1).join(', ')} and ${BRANDS.at(-1)[1]}. We keep spare parts for them in stock.`],
 ]
@@ -158,11 +158,8 @@ export default {
 .fq summary:hover{color:var(--blue)}
 .fq summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:6px}
 .fq p{margin:-6px 0 22px;max-width:640px;font-size:15.5px;line-height:1.65;color:var(--ink2)}
-.save{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:30px;border-radius:26px;background:#fff;box-shadow:var(--card)}
-.save b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}
-.save p{margin:6px 0 0;color:var(--mute);font-size:14.5px;max-width:620px}
 @media (max-width:980px){.sys{padding:72px 0 24px}.sys-grid{grid-template-columns:minmax(0,1fr);gap:0}.sys-vis{top:62px;margin:0 calc(var(--g) * -1);padding:10px var(--g) 12px;background:#0A1830;box-shadow:0 18px 24px -18px #0A1830}.sys-steps li,.sys-steps li:first-child{min-height:0;justify-content:flex-start;padding:30px 0}.sys-steps li:last-child{padding-bottom:40vh}.sx{grid-template-columns:1fr}.sx-pic{min-height:280px}.proc{grid-template-columns:1fr 1fr}.proc::before{display:none}.sch-steps{grid-template-columns:1fr 1fr}.bwall{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.save{grid-template-columns:1fr}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
+@media (max-width:640px){.sch svg{width:680px;max-width:none}.sys-vis .leg{display:none}.bh{padding:120px 0 48px}.sch{padding:14px;border-radius:22px}.sch-steps,.proc,.sx-parts{grid-template-columns:1fr}.sx-txt{padding:22px}.bwall{gap:8px}.bwall li{height:64px;padding:0 8px}.bwall span{font-size:11.5px}}
 /* phone: the five steps read as a timeline, each circle joined to the next */
 @media (max-width:640px){.proc{gap:0}.proc li{min-height:48px;padding:0 0 26px 66px}.proc li::before{position:absolute;left:0;top:0;margin:0}.proc li:not(:last-child)::after{content:"";position:absolute;left:23px;top:54px;bottom:6px;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--sky),#FF8A3D);opacity:.5}.proc b{padding-top:12px}}
 @media (max-width:980px){.fq-grid{grid-template-columns:minmax(0,1fr)}.fq-head{position:static}}
@@ -289,10 +286,6 @@ ${REVIEWS.map(([i, n, by, q]) => `      <figure><span class="st" aria-label="5 o
     <div class="fq-head"><span class="kick">Questions</span><h2 class="thin h2" id="fqT">Questions From<br>Building Owners</h2><p class="lede">Short answers to what hotel, hospital and building teams ask us first.</p></div>
     <div class="fq">${FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
   </div>
-</section>
-
-<section class="sec tight" aria-label="Savings">
-  <div class="wrap"><div class="save" data-r><div><b>How much could a heat pump save your building?</b><p>Move one slider to compare a year of running costs for electric heaters, heat pumps and solar, at your electricity rate.</p></div><a class="btn" href="${R || './'}#savings">Try the savings calculator ${I.arr}</a></div></div>
 </section>`
   },
   js: `

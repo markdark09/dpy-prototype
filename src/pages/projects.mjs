@@ -1,18 +1,13 @@
 import { CLIENTS, crumbsHtml, img, I } from '../../tools/lib.mjs'
 
-const total = Object.values(CLIENTS).flat().length
 export default {
   path: 'projects', nav: 'projects', cta: 'project',
   title: 'Projects & Clients: Hotels, Hospitals and Buildings',
   desc: 'Hotels, hospitals, residences and restaurants across the Philippines that run on hot water systems supplied and installed by DPY Mercantile and Gratek.',
   crumbs: [['Projects']],
   css: `
-.pj-hero{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:200px 200px;gap:14px;margin-top:48px}
-.pj-hero figure{position:relative;margin:0;border-radius:22px;overflow:hidden;background:#dfe8f1}
-.pj-hero figure:first-child{grid-row:1/3;grid-column:1/3}
-.pj-hero img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
-.pj-hero figure:hover img{transform:scale(1.04)}
-.pj-hero figcaption{position:absolute;left:12px;bottom:12px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;box-shadow:var(--sh-s)}
+/* the client logos under the heading, where the project photos were */
+.pj-logos{margin-top:48px}
 /* 8 a row: all 32 make four full rows, and each filter (16, 6, 6, 4) fills or centres its rows */
 .lg{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 .lg li{flex:0 0 calc((100% - 7 * 12px) / 8);min-width:0}
@@ -21,10 +16,6 @@ export default {
 .lg img{max-height:56px;max-width:100%;width:auto;filter:grayscale(1);opacity:.78;transition:filter .4s,opacity .4s}
 .lg li:hover img{filter:none;opacity:1}
 .lg span{font-size:11.5px;font-weight:600;color:var(--mute);text-align:center;line-height:1.3}
-.sect{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
-.sect div{padding:20px;border-radius:20px;background:#fff;box-shadow:var(--card)}
-.sect b{display:block;font-size:34px;font-weight:300;letter-spacing:-.04em;line-height:1.1}
-.sect span{font-size:13px;color:var(--mute)}
 .honest{margin:28px 0 0;font-size:14px;color:var(--mute);text-align:center}
 .what{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .what div{padding:24px;border-radius:22px;background:#fff;box-shadow:var(--card)}
@@ -32,34 +23,25 @@ export default {
 .what p{margin:0;font-size:14px;color:var(--mute);line-height:1.55}
 .what em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--blue)}
 @media (max-width:1100px){.lg{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:980px){.pj-hero{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 160px}.pj-hero figure:first-child{grid-column:1/3;grid-row:1}.sect{grid-template-columns:1fr 1fr}.what{grid-template-columns:1fr}}
+@media (max-width:980px){.what{grid-template-columns:1fr}}
 @media (max-width:980px){.lg li{flex-basis:calc((100% - 3 * 12px) / 4)}}
 @media (max-width:640px){.lg{gap:10px}.lg li{flex-basis:calc((100% - 10px) / 2);height:116px}}
 `,
-  body: R => `
+  body: R => { let shown = 0; return `
 <section class="phead">
   <span class="glow"></span>
   <div class="wrap">
     ${crumbsHtml(R, [['Projects']])}
     <div class="ph-grid">
       <div><span class="kick">Projects &amp; clients</span><h1 class="thin h1">Hot Water for Places<br>People Rely On</h1><p class="lede">Hotels, hospitals, residences and restaurants across the Philippines run on hot water systems we supplied, installed and still maintain.</p></div>
-      <ul class="ph-stats"><li><b>${total}</b><small>Clients shown here</small></li><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>2001</b><small>In business since</small></li></ul>
+      <ul class="ph-stats"><li><b>100+</b><small>Hotel &amp; hospital projects</small></li><li><b>2001</b><small>In business since</small></li></ul>
     </div>
-    <div class="pj-hero">
-      <figure>${img(R, 'assets/img/dpy/haase-install.webp', 'A HAASE energy storage tank installed by DPY', ' fetchpriority="high"', '(max-width:980px) 100vw, 800px')}<figcaption>HAASE tank installation by DPY</figcaption></figure>
-      <figure>${img(R, 'assets/img/dpy/resort-render.webp', 'Resort project', ' loading="lazy"', '(max-width:980px) 50vw, 400px')}<figcaption>Resort project</figcaption></figure>
-      <figure>${img(R, 'assets/img/dpy/tower-render.webp', 'Residential tower project', ' loading="lazy"', '(max-width:980px) 50vw, 400px')}<figcaption>Residential tower</figcaption></figure>
+    <!-- client logos where project photos used to be (DPY, November 2026); the first rows load with the page -->
+    <div class="pj-logos" aria-label="Our clients" role="group">
+      <ul class="tabs" aria-label="Filter clients by type of building"><li><button class="chip" type="button" data-c="" aria-pressed="true">All</button></li>${Object.keys(CLIENTS).map(k => `<li><button class="chip" type="button" data-c="${k}" aria-pressed="false">${k}</button></li>`).join('')}</ul>
+      <ul class="lg">${Object.entries(CLIENTS).flatMap(([k, v]) => v.map(([f, n]) => `<li data-c="${k}" data-r>${img(R, `assets/img/clients/${f}.webp`, '', ++shown > 16 ? ' loading="lazy"' : '')}<span>${n}</span></li>`)).join('')}</ul>
+      <p class="honest">Logos belong to their owners and are shown as project references.</p>
     </div>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="clT">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Our clients</span><h2 class="thin h2" id="clT">Trusted Across<br>Every Kind of Building</h2></div><p class="lede">Filter by type of building. These names come from DPY's and Gratek's project references.</p></div>
-    <div class="sect">${Object.entries(CLIENTS).map(([k, v]) => `<div data-r><b>${v.length}</b><span>${k}</span></div>`).join('')}</div>
-    <ul class="tabs" aria-label="Filter clients"><li><button class="chip" type="button" data-c="" aria-pressed="true">All <small>${total}</small></button></li>${Object.entries(CLIENTS).map(([k, v]) => `<li><button class="chip" type="button" data-c="${k}" aria-pressed="false">${k} <small>${v.length}</small></button></li>`).join('')}</ul>
-    <ul class="lg">${Object.entries(CLIENTS).flatMap(([k, v]) => v.map(([f, n]) => `<li data-c="${k}" data-r>${img(R, `assets/img/clients/${f}.webp`, '', ' loading="lazy"')}<span>${n}</span></li>`)).join('')}</ul>
-    <p class="honest">Logos belong to their owners and are shown as project references.</p>
   </div>
 </section>
 
@@ -72,7 +54,7 @@ export default {
       <div data-r><em>MAINTAIN</em><b>Years after handover</b><p>Preventive maintenance and repairs from our three branches, so the system keeps running at full occupancy.</p></div>
     </div>
   </div>
-</section>`,
+</section>` },
   js: `
 const B = $$('[data-c]').filter(b => b.tagName === 'BUTTON'), L = $$('.lg li')
 B.forEach(b => b.addEventListener('click', () => { B.forEach(x => x.setAttribute('aria-pressed', x === b)); L.forEach(l => { l.hidden = !!b.dataset.c && l.dataset.c !== b.dataset.c; l.classList.add('in') }) }))

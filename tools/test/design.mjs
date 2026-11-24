@@ -118,13 +118,18 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   await ctx.close()
 }
 
-// the savings calculator: 60 showers a day at ₱15/kWh (0.70 kWh of heat each; electric 95% efficient; heat pump COP 3.5; solar 65%)
+// DPY asked for no savings calculator and no computed savings (November 2026): none on the homepage or For Business,
+// and the How it works tank is an Everhot held at its 60°C factory setting
 {
   const ctx = await b.newContext({ ...DESKTOP, reducedMotion: 'reduce' })
-  const p = await open(ctx, '/', { wait: 800 })
-  await p.evaluate(() => document.querySelector('.sav-card').scrollIntoView({ block: 'center' })); await p.waitForTimeout(1200)
-  const v = await p.evaluate(() => ({ e: document.querySelector('.svE').textContent, s: document.querySelector('.svS').textContent, rate: document.querySelector('#svR').value }))
-  check('savings: 60 showers at ₱15 gives ₱241,246 electric and ₱175,765 saved', v.e === '₱241,246' && v.s === '₱175,765' && v.rate === '15', v)
+  for (const path of ['/', '/business']) {
+    const p = await open(ctx, path, { wait: 600 })
+    const v = await p.evaluate(() => ({ calc: !!document.querySelector('#savings, .sav, .save'), peso: /₱\s?\d/.test(document.body.innerText), word: /calculator/i.test(document.body.innerText) }))
+    check(`${path}: no savings calculator and no peso savings figures`, !v.calc && !v.peso && !v.word, v)
+  }
+  const p = await open(ctx, '/', { wait: 600 })
+  const t = await p.evaluate(() => ({ cap: document.querySelector('.model-cap')?.textContent, set: document.querySelector('.inst')?.textContent.replace(/\s+/g, ' ') }))
+  check('How it works: an Everhot tank at its 60°C factory setting', /Everhot/.test(t.cap) && /Factory setting\s*60°C/i.test(t.set), t)
   await ctx.close()
 }
 
@@ -141,11 +146,12 @@ for (const [name, opts] of [['desktop', DESKTOP], ['phone', PHONE]]) {
   await p.close()
 }
 
-// logo walls fill their rows: Projects (every filter) and the homepage clients (all sizes)
+// logo walls fill their rows: Projects (every filter) and the homepage clients (all sizes). Rows are read from the
+// layout (offsetTop), not the screen: the Projects logos sit in the first screen and may still be fading up into place
 for (const [name, opts] of [['desktop', DESKTOP], ['tablet', TABLET], ['phone', PHONE]]) {
   const ctx = await b.newContext(opts)
   const p = await open(ctx, '/projects', { wait: 500 })
-  const rowsOf = sel => p.evaluate(sel => { const r = {}; [...document.querySelectorAll(sel)].filter(l => !l.hidden && l.offsetWidth).forEach(l => { const t = Math.round(l.getBoundingClientRect().top); r[t] = (r[t] || 0) + 1 }); return Object.values(r) }, sel)
+  const rowsOf = sel => p.evaluate(sel => { const r = {}; [...document.querySelectorAll(sel)].filter(l => !l.hidden && l.offsetWidth).forEach(l => { const t = l.offsetTop; r[t] = (r[t] || 0) + 1 }); return Object.values(r) }, sel)
   const all = await rowsOf('.lg li')
   check(`${name} Projects: all 32 logos in full rows`, all.every(n => n === all[0]), all)
   const q = await open(ctx, '/', { wait: 500 })
