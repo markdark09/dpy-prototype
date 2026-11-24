@@ -21,11 +21,14 @@ try {
   THREE = await import('three'); ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js'))
   R = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' })
 } catch { return } // no WebGL here: the flat drawing stays, and that is all
-R.debug.checkShaderErrors = false; R.setPixelRatio(Math.min(devicePixelRatio, 1.25)); R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05; R.outputColorSpace = THREE.SRGBColorSpace
+R.debug.checkShaderErrors = false; R.setPixelRatio(Math.min(devicePixelRatio, 2)); R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05; R.outputColorSpace = THREE.SRGBColorSpace
+R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.shadowMap.autoUpdate = false; R.shadowMap.needsUpdate = true // the tank never moves: its shadows are drawn once
 const scene = new THREE.Scene()
 await breathe()
 scene.environment = new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(), .04).texture
-const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(4, 6, 6); scene.add(key)
+const key = new THREE.DirectionalLight(0xffffff, 1.7); key.position.set(4, 6, 6); scene.add(key)
+key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.bias = -.0004; key.shadow.normalBias = .015; key.shadow.radius = 4
+Object.assign(key.shadow.camera, { left: -2.2, right: 2.2, top: 2.4, bottom: -2.4, near: 2, far: 16 })
 const rim = new THREE.DirectionalLight(0x7cc0ff, 1.2); rim.position.set(-6, 3, -4); scene.add(rim)
 scene.add(new THREE.HemisphereLight(0xe4eef8, 0x0a1830, .45))
 const glow = new THREE.PointLight(0xff6a2a, 0, 2.4, 1.6); scene.add(glow) // the heating coil's glow on the water
@@ -42,20 +45,20 @@ const CX = -.04, YW0 = -1.31, YW1 = 1.29
 
 /* ---- materials ---- */
 const tex = (fn, w = 256, h = w) => { const c = document.createElement('canvas'); c.width = w; c.height = h; fn(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t }
-const foamMap = tex((x, s) => { // polyurethane foam: warm yellow with open-cell speckle
-  x.fillStyle = '#E2B04A'; x.fillRect(0, 0, s, s)
-  for (let i = 0; i < 2600; i++) { const r = Math.random() * 2.2 + .4; x.fillStyle = Math.random() < .5 ? 'rgba(150,100,20,.35)' : 'rgba(255,230,160,.45)'; x.beginPath(); x.arc(Math.random() * s, Math.random() * s, r, 0, 7); x.fill() }
-})
-const ribs = tex((x, w, h) => { for (let i = 0; i < w; i++) { const v = 128 + 110 * Math.sin(i / w * Math.PI * 2); x.fillStyle = `rgb(${v},${v},${v})`; x.fillRect(i, 0, 1, h) } }, 64, 8) // corrugation
-ribs.repeat.set(420, 1)
+const foamMap = tex((x, s) => { // polyurethane foam: pale ochre, fine closed cells, a little uneven
+  x.fillStyle = '#DDB060'; x.fillRect(0, 0, s, s)
+  for (let i = 0; i < 40; i++) { const g = x.createRadialGradient(Math.random() * s, Math.random() * s, 0, Math.random() * s, Math.random() * s, 60 + Math.random() * 80); g.addColorStop(0, Math.random() < .5 ? 'rgba(240,200,120,.25)' : 'rgba(170,120,40,.18)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, s, s) }
+  for (let i = 0; i < 14000; i++) { const r = Math.random() * 1.3 + .3; x.fillStyle = Math.random() < .55 ? 'rgba(130,85,20,.32)' : 'rgba(255,236,175,.4)'; x.beginPath(); x.arc(Math.random() * s, Math.random() * s, r, 0, 7); x.fill() }
+}, 512)
+foamMap.repeat.set(1.6, 1.6)
 const M = {
-  shell: new THREE.MeshPhysicalMaterial({ color: 0xF2F4F5, roughness: .38, clearcoat: .45, clearcoatRoughness: .3, side: THREE.DoubleSide }), // white polypropylene
-  cap: new THREE.MeshPhysicalMaterial({ color: 0x4A5056, roughness: .45, clearcoat: .3 }), // the dark grey top
+  shell: new THREE.MeshPhysicalMaterial({ color: 0xE6E9EC, roughness: .32, clearcoat: .8, clearcoatRoughness: .14, side: THREE.DoubleSide }), // glossy white polypropylene, as in the photo
+  cap: new THREE.MeshPhysicalMaterial({ color: 0x3B4147, roughness: .5, clearcoat: .25, clearcoatRoughness: .4 }), // the satin charcoal top
   foam: new THREE.MeshStandardMaterial({ color: 0xffffff, map: foamMap, bumpMap: foamMap, bumpScale: 1.5, roughness: .95, side: THREE.DoubleSide }),
-  tank: new THREE.MeshStandardMaterial({ color: 0xBFC6CE, roughness: .55, metalness: .05, side: THREE.DoubleSide }), // the polypropylene inner tank
-  steel: new THREE.MeshStandardMaterial({ color: 0xE6EBF0, roughness: .26, metalness: .95, bumpMap: ribs, bumpScale: 1.2, envMapIntensity: 1.6 }), // 316L, corrugated
-  heat: new THREE.MeshStandardMaterial({ color: 0xC9CFD6, roughness: .3, metalness: .9, emissive: 0x000000, emissiveIntensity: 1, bumpMap: ribs, bumpScale: 1 }),
-  pipe: new THREE.MeshStandardMaterial({ color: 0xF4F7FA, roughness: .2, metalness: .75 }),
+  tank: new THREE.MeshStandardMaterial({ color: 0xAEB5BC, roughness: .62, metalness: .02, side: THREE.DoubleSide }), // the polypropylene inner tank
+  steel: new THREE.MeshStandardMaterial({ color: 0xB9C1C9, roughness: .3, metalness: 1, envMapIntensity: .95 }), // 316L stainless (its corrugation is too fine to show at this size)
+  heat: new THREE.MeshStandardMaterial({ color: 0xB3BBC3, roughness: .32, metalness: 1, emissive: 0x000000, emissiveIntensity: 1, envMapIntensity: .9 }),
+  pipe: new THREE.MeshStandardMaterial({ color: 0xE8ECF0, roughness: .16, metalness: 1 }),
   red: new THREE.MeshPhysicalMaterial({ color: 0xC70A0E, roughness: .35, clearcoat: .6 }),
   blue: new THREE.MeshStandardMaterial({ color: 0x0D68C3, roughness: .4 }),
   brass: new THREE.MeshStandardMaterial({ color: 0xC9A048, roughness: .3, metalness: 1 }),
@@ -79,7 +82,7 @@ function extrude(pts, holes, y0, y1, mat, bevel = 0) {
   const shape = new THREE.Shape(pts.map(([x, z]) => new THREE.Vector2(x, -z)))
   for (const hole of holes) shape.holes.push(new THREE.Path(hole.map(([x, z]) => new THREE.Vector2(x, -z))))
   const g = new THREE.ExtrudeGeometry(shape, { depth: y1 - y0 - 2 * bevel, bevelEnabled: bevel > 0, bevelThickness: bevel, bevelSize: bevel * .7, bevelSegments: 3, curveSegments: 1 })
-  const m = new THREE.Mesh(g, mat); m.rotation.x = -Math.PI / 2; m.position.y = y0 + bevel; tank.add(m); return m
+  const m = new THREE.Mesh(g, mat); m.rotation.x = -Math.PI / 2; m.position.y = y0 + bevel; m.castShadow = m.receiveShadow = true; tank.add(m); return m
 }
 // one layer of wall between half widths a and b: whole rings above and below the window, an L of wall beside it
 function wall(a, ra, b, rb, y0, y1, mat) {
@@ -98,9 +101,12 @@ extrude(outline(W + .012, RW + .012), [], H, H + CAP, M.cap, .035) // the dark t
 // text, not a copy of the logo artwork)
 const onFront = (mesh, x, y) => { mesh.position.set(x, y, W + .004); tank.add(mesh); return mesh }
 for (const y of [-.45, -1.38]) onFront(new THREE.Mesh(new THREE.CircleGeometry(.07, 40), M.plug), -.42, y)
-const name = tex((x, w, h) => { x.clearRect(0, 0, w, h); x.fillStyle = '#3A3F45'; x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '900 88px "Arial Black", Arial, sans-serif'; x.fillText('ROTEX', 8, h / 2 + 4) }, 512, 128)
-name.wrapS = name.wrapT = THREE.ClampToEdgeWrapping
-onFront(new THREE.Mesh(new THREE.PlaneGeometry(.48, .12), new THREE.MeshBasicMaterial({ map: name, transparent: true, toneMapped: false })), -.47, H - .28)
+const label = (text, font, align) => { const t = tex((x, w, h) => { x.clearRect(0, 0, w, h); x.fillStyle = '#2F3439'; x.textAlign = align; x.textBaseline = 'middle'; x.font = font; x.fillText(text, align === 'left' ? 8 : w - 8, h / 2 + 4) }, 512, 128); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; return new THREE.MeshPhysicalMaterial({ map: t, transparent: true, roughness: .3, clearcoat: .8, polygonOffset: true, polygonOffsetFactor: -2 }) }
+onFront(new THREE.Mesh(new THREE.PlaneGeometry(.48, .12), label('ROTEX', '900 88px "Arial Black", Arial, sans-serif', 'left')), -.4, H - .2)
+onFront(new THREE.Mesh(new THREE.PlaneGeometry(.48, .12), label('Sanicube', '500 54px Arial, sans-serif', 'right')), .45, H - .2)
+// a soft shadow on the floor, so the tank stands on something
+const shadowTex = tex((x, s) => { const g = x.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2); g.addColorStop(0, 'rgba(0,0,0,.6)'); g.addColorStop(.45, 'rgba(0,0,0,.35)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, s, s) })
+{ const m = new THREE.Mesh(new THREE.PlaneGeometry(2.9, 2.9), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })); m.rotation.x = -Math.PI / 2; m.position.y = -H - .032; tank.add(m) }
 
 /* ---- the coils ---- */
 const helix = (r, y0, y1, turns, th0) => { const n = Math.round(turns * 40); return Array.from({ length: n + 1 }, (_, i) => { const u = i / n, th = th0 + u * turns * Math.PI * 2; return new THREE.Vector3(r * Math.sin(th), y0 + u * (y1 - y0), r * Math.cos(th)) }) }
@@ -109,9 +115,11 @@ const helix = (r, y0, y1, turns, th0) => { const n = Math.round(turns * 40); ret
 const TOP = H + CAP + .02, FZ = .5, UNDER = H - .06 // the cap's top, the row's depth, just under the cap (inside the foam)
 const FIT = { coldIn: -.42, hotOut: -.21, heatFlow: 0, heatReturn: .21, spare: .42 }
 for (const [x, mat] of [[FIT.coldIn, M.blue], [FIT.hotOut, M.red], [FIT.heatFlow, M.red], [FIT.heatReturn, M.blue], [FIT.spare, M.pipe]]) {
-  const stem = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, .2, 16), M.pipe); stem.position.set(x, TOP + .1, FZ); tank.add(stem)
-  const ring = new THREE.Mesh(new THREE.CylinderGeometry(.045, .045, .05, 20), mat); ring.position.set(x, TOP + .12, FZ); tank.add(ring)
-  const nut = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, .05, 6), M.brass); nut.position.set(x, TOP + .2, FZ); tank.add(nut)
+  const part = (geo, m, y) => { const p = new THREE.Mesh(geo, m); p.position.set(x, y, FZ); p.castShadow = true; tank.add(p) }
+  part(new THREE.CylinderGeometry(.03, .034, .2, 20), M.pipe, TOP + .1)
+  part(new THREE.CylinderGeometry(.046, .046, .045, 24), mat, TOP + .11)
+  part(new THREE.CylinderGeometry(.052, .052, .05, 6), M.brass, TOP + .19)
+  part(new THREE.CylinderGeometry(.036, .036, .04, 20), M.brass, TOP + .235)
 }
 // the drinking water coil: large, close to the tank wall, many tight turns from bottom to top
 const RC = .48, Y0 = -1.33, Y1 = 1.27, TURNS = 13, TH0 = Math.PI * 1.1
@@ -122,14 +130,27 @@ const path = [new THREE.Vector3(FIT.coldIn, TOP + .25, FZ), new THREE.Vector3(FI
   new THREE.Vector3((IN.x + coilStart.x) / 2, Y0 - .02, (IN.z + coilStart.z) / 2), ...coilPts,
   new THREE.Vector3(coilEnd.x, UNDER, coilEnd.z), new THREE.Vector3(FIT.hotOut, UNDER, FZ), new THREE.Vector3(FIT.hotOut, TOP + .25, FZ)]
 const dhw = new THREE.CatmullRomCurve3(path, false, 'catmullrom', .02)
-tank.add(new THREE.Mesh(new THREE.TubeGeometry(dhw, 1800, .028, 12, false), M.steel))
+// the coil's own material carries the flow: a soft glow travelling along it (the tube's u runs along its length), cold
+// blue at the inlet, warming up the coil, hot out at the top
+const F = { uT: { value: 0 }, uFlow: { value: 0 }, uHot: { value: 0 }, uIn: { value: 0 }, uOut: { value: 1 } }
+const mDhw = M.steel.clone(); mDhw.defines = { USE_UV: '' }
+mDhw.onBeforeCompile = sh => {
+  Object.assign(sh.uniforms, F)
+  sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uT,uFlow,uHot,uIn,uOut;')
+    .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+    { float u=vUv.x, w=clamp((u-uIn)/(uOut-uIn),0.,1.)*uHot; vec3 fc=mix(vec3(.16,.5,1.),vec3(1.,.36,.1),w);
+      float d=fract(u*70.-uT), p=smoothstep(0.,.35,d)*smoothstep(1.,.6,d);
+      totalEmissiveRadiance+=fc*uFlow*(.18+.75*p); }`)
+}
+mDhw.customProgramCacheKey = () => 'rotex-dhw'
+{ const m = new THREE.Mesh(new THREE.TubeGeometry(dhw, 1800, .028, 12, false), mDhw); m.castShadow = m.receiveShadow = true; tank.add(m) }
 // the heating coil, inside it in the hot water zone at the top (ROTEX: the heat generator heats the top zone, its water
 // flowing from top to bottom), its flow and return going up to the cap
 const RH = .24, HY0 = .3, HY1 = 1.15
 const heatPts = helix(RH, HY0, HY1, 4.5, Math.PI * .25), hs = heatPts[0], he = heatPts.at(-1)
 const heatPath = [new THREE.Vector3(FIT.heatFlow, TOP + .25, FZ), new THREE.Vector3(FIT.heatFlow, UNDER, FZ), new THREE.Vector3(he.x, UNDER, he.z), new THREE.Vector3(he.x, HY1 + .08, he.z),
   ...heatPts.slice().reverse(), new THREE.Vector3(hs.x * .35, HY0 - .06, hs.z * .35), new THREE.Vector3(hs.x * .35, UNDER, hs.z * .35), new THREE.Vector3(FIT.heatReturn, UNDER, FZ), new THREE.Vector3(FIT.heatReturn, TOP + .25, FZ)]
-tank.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(heatPath, false, 'catmullrom', .02), 900, .026, 10, false), M.heat))
+{ const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(heatPath, false, 'catmullrom', .02), 900, .026, 10, false), M.heat); m.castShadow = m.receiveShadow = true; tank.add(m) }
 await breathe()
 
 /* ---- the tank water: warm above the heat front, cooler below, with a shimmer; cut at the window like the tank ---- */
@@ -156,18 +177,18 @@ const mWater = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, 
 const water = new THREE.Group(); water.renderOrder = 1; tank.add(water)
 { const m = extrude([...outline(TI - .004, RT, true), [CX, CX]], [], -HI + .005, HI - .005, mWater); tank.remove(m); water.add(m) } // the water, cut like the tank
 
-/* ---- particles: drinking water along its path, and warm water rising off the heating coil ---- */
-const NF = 90, NR = 40
-const pm = new THREE.MeshBasicMaterial({ transparent: true, opacity: .9, depthWrite: false, toneMapped: false })
-const P = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 10, 8), pm, NF + NR); P.renderOrder = 2; tank.add(P)
-const COLD = new THREE.Color(0x8CCBFF), HOTC = new THREE.Color(0xFF7A45), WARM = new THREE.Color(0xFFC09A)
-const flows = Array.from({ length: NF }, (_, i) => ({ s: i / NF })), rises = Array.from({ length: NR }, () => ({ live: 0, y: 0, a: 0, r: 0, v: 0 }))
-const O = new THREE.Object3D(), C = new THREE.Color()
+/* ---- warm water rising off the heating coil ---- */
+const NR = 40
+const pm = new THREE.MeshBasicMaterial({ transparent: true, opacity: .6, depthWrite: false, toneMapped: false })
+const P = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 10, 8), pm, NR); P.renderOrder = 2; tank.add(P)
+const WARM = new THREE.Color(0xFFC09A)
+const rises = Array.from({ length: NR }, () => ({ live: 0, y: 0, a: 0, r: 0, v: 0 }))
+const O = new THREE.Object3D()
 const put = (i, pos, sc, col) => { O.position.copy(pos); O.scale.setScalar(sc); O.updateMatrix(); P.setMatrixAt(i, O.matrix); P.setColorAt(i, col) }
 // where along the path (0 to 1, by length) the coil starts and ends, for the colour: cold until the coil, warming up
 // it, hot after
 const along = target => { let best = 0, bd = Infinity; for (let k = 0; k <= 2000; k++) { const d = dhw.getPointAt(k / 2000).distanceToSquared(target); if (d < bd) { bd = d; best = k / 2000 } } return best }
-const S_IN = along(coilPts[0]), S_OUT = along(coilEnd)
+F.uIn.value = along(coilPts[0]); F.uOut.value = along(coilEnd)
 
 /* ---- labels pinned to the parts, shown with their step ---- */
 // the coil label sits on the turn nearest the viewer, halfway up
@@ -198,8 +219,8 @@ function size() { // an <svg> has no offsetWidth/offsetTop: measure it against t
 new ResizeObserver(size).observe(svg); size()
 
 /* ---- the loop ---- */
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
 const DULL = new THREE.Color(0x5a0c00), BRIGHT = new THREE.Color(0xff6a1a)
+const CAM = { d: 8.5, y: 2.05, look: .32 } // a product-photo view: close, from the front right, a little above the cap
 let last = 0, heat = 0, hot = 0, front = HI, flow = 0, visible = true, raf = 0
 function frame(ms) {
   const t = ms / 1000, dt = Math.min(.05, last ? t - last : .016); last = t
@@ -218,16 +239,12 @@ function frame(ms) {
   U.uTh.value = front; U.uHot.value = hot; U.uOn.value = heat; U.uT.value = t
   // camera: from the front right and a little above, as in ROTEX's image, with a slow drift; room above the
   // connections so their labels never touch the top edge
-  const fit = Math.max(1, .6 / cam.aspect), dist = 9.8 * fit, a = .8 + Math.sin(t * .2) * .04
-  cam.position.set(Math.sin(a) * dist, 2.3 * fit + Math.sin(t * .27) * .05, Math.cos(a) * dist); cam.lookAt(0, .3, 0)
-  // drinking water: cold down the inlet pipe, warming as it climbs the coil, hot on the way out
+  // on a phone the labels wrap to two lines: step back a little so those over the connections stay in the frame
+  const fit = Math.max(1, .6 / cam.aspect) * (H2 < 320 ? 1.1 : 1), dist = CAM.d * fit, a = .8 + Math.sin(t * .2) * .04
+  cam.position.set(Math.sin(a) * dist, CAM.y * fit + Math.sin(t * .27) * .05, Math.cos(a) * dist); cam.lookAt(0, CAM.look, 0)
+  // drinking water: cold in at the bottom of the coil, warming as it climbs, hot on the way out
+  F.uT.value = RM ? 0 : t * 3.15; F.uFlow.value = flow; F.uHot.value = hot
   let i = 0
-  for (const f of flows) {
-    f.s = (f.s + dt * .045 * (RM ? 0 : 1)) % 1
-    const w = f.s < S_IN ? 0 : f.s > S_OUT ? 1 : (f.s - S_IN) / (S_OUT - S_IN)
-    // beads a little wider than the pipe, so the flow shows on the outside of the coil
-    put(i++, dhw.getPointAt(f.s), flow * .046, C.copy(COLD).lerp(HOTC, clamp(w * hot)))
-  }
   // warm water rising off the heating coil
   for (const q of rises) {
     if (!q.live && heat > .4 && Math.random() < .08 * heat) { q.live = 1; q.y = HY0 + Math.random() * (HY1 - HY0); q.a = Math.random() * 6.28; q.r = .05 + Math.random() * .2; q.v = .25 + Math.random() * .25 }
