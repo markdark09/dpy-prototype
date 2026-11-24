@@ -40,6 +40,10 @@ const css = `
 .gal-track:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 .gal-s{position:relative;flex:0 0 100%;margin:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:70px;scroll-snap-align:center;scroll-snap-stop:always}
 .gal-s:not(:first-child) .main{animation:none}
+/* every slide the same size, whatever the file: a product fills the same box, standing on the plinth; a photograph fills
+   one 4:3 frame (cropped to it if its shape differs); headroom above for the caption and the full-screen button */
+.gal-s .main{width:80%;height:80%;object-fit:contain;object-position:50% 100%}
+.gal-s .main.photo{width:auto;height:auto;max-width:92%;max-height:80%;aspect-ratio:4/3;object-fit:cover}
 html.js .gal-s .main{cursor:zoom-in}
 .gal-s figcaption{position:absolute;z-index:2;left:50%;top:12px;max-width:calc(100% - 120px);transform:translateX(-50%);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);box-shadow:var(--card);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gal-btn,.gal-full,.lb-x{position:absolute;z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 8px 20px -8px rgba(1,30,70,.4);cursor:pointer;transition:opacity .25s,transform .25s var(--ease),background-color .2s}
