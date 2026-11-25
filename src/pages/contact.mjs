@@ -14,14 +14,14 @@ export default {
   css: `
 /* ways to reach us: one row of cards */
 /* the email cards get the room: an address stays on one line (it may still wrap before its @ on a narrow card) */
-.ch{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,.85fr) minmax(0,1.15fr) minmax(0,1.15fr);gap:12px}
+.ch{display:grid;grid-template-columns:repeat(4,auto);gap:12px} /* each card as wide as its text needs, spare room shared */
 .ch b{overflow-wrap:break-word}
 /* only the cards themselves: the general inquiries link below them stays an inline link */
 .ch > a,.ch div.c{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
 .ch > a:hover{transform:translateX(4px)}
 .ch i{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--ink)}
 .ch i svg{width:17px;height:17px}
-.ch small{display:block;font-size:13px;color:var(--mute)}
+.ch small{display:block;font-size:13px;color:var(--mute);white-space:normal} /* the card is a tel: link, which keeps numbers on one line; the label may wrap */
 .ch b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
 .ch b a{color:inherit}.ch b a:hover{color:var(--red)}
 .ch .msgs{display:flex;gap:8px;flex-wrap:wrap}
