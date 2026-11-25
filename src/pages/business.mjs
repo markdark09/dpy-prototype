@@ -14,7 +14,7 @@ const STEPS = [
   ['Maintenance', 'Preventive maintenance and repairs from our own branches, for as long as the system runs.'],
 ]
 // [logo file or '' for the name in type, brand as the products are labelled]
-const BRANDS = [['deron.jpg', 'Deron'], ['haase.jpg', 'HAASE'], ['enermax.jpg', 'Enermax'], ['champion.jpg', 'Champion'], ['wilo.png', 'Wilo'], ['5star.jpg', '5 Star'], ['aquapower.jpg', 'Aquapower'], ['', 'Rheem'], ['', 'Everhot'], ['', 'Rotex'], ['', 'Grundfos'], ['', 'my-PV']]
+const BRANDS = [['deron.jpg', 'Deron'], ['haase.webp', 'HAASE'], ['enermax.webp', 'Enermax'], ['champion.jpg', 'Champion'], ['wilo.webp', 'Wilo'], ['5star.jpg', '5 Star'], ['aquapower.jpg', 'Aquapower'], ['rheem.webp', 'Rheem'], ['', 'Everhot'], ['', 'Rotex'], ['grundfos.webp', 'Grundfos'], ['my-pv.webp', 'my-PV']]
 // a brand with one product links to it. The Laravel site sends a brand with several to its search page; the prototype
 // has no search, and its range page cannot filter by brand, so those stay names here
 const brandLink = (R, brand) => {

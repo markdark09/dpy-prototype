@@ -6,7 +6,9 @@
    steel coil and takes up heat on the way to the top (counterflow), first in, first out, which also keeps the bottom of
    the tank the coolest. The figure's data-step (set by product.js as the steps scroll past) says
    which part of that story to show. */
-const fig = document.querySelector('.hws .how-vis'), svg = fig?.querySelector('svg')
+// where it draws: the element marked [data-r3d] (the homepage's tank section, once ROTEX is picked there), or else the
+// product page's How it works figure; it fits over [data-r3d-box], or over that figure's drawing (its svg)
+const fig = document.querySelector('[data-r3d]') || document.querySelector('.hws .how-vis'), svg = fig?.querySelector('[data-r3d-box]') || fig?.querySelector('svg')
 // everything runs inside start(), so a browser without WebGL can step aside quietly and keep the drawing
 async function start() {
 if (!fig || !svg) return
@@ -239,9 +241,12 @@ function frame(ms) {
   U.uTh.value = front; U.uHot.value = hot; U.uOn.value = heat; U.uT.value = t
   // camera: from the front right and a little above, as in ROTEX's image, with a slow drift; room above the
   // connections so their labels never touch the top edge
-  // on a phone the labels wrap to two lines: step back a little so those over the connections stay in the frame
-  const fit = Math.max(1, .6 / cam.aspect) * (H2 < 320 ? 1.1 : 1), dist = CAM.d * fit, a = .8 + Math.sin(t * .2) * .04
-  cam.position.set(Math.sin(a) * dist, CAM.y * fit + Math.sin(t * .27) * .05, Math.cos(a) * dist); cam.lookAt(0, CAM.look, 0)
+  // on a phone the labels wrap to two lines: step back a little so those over the connections stay in the frame; in a
+  // narrow column (the homepage's) step back too, so the labels beside the connections have room on both sides
+  const fit = Math.max(1, .6 / cam.aspect) * (H2 < 320 ? 1.1 : 1) * (W2 < 600 ? 1.14 : 1), dist = CAM.d * fit, a = .8 + Math.sin(t * .2) * .04
+  // narrow: aim a little left of the tank too, so it sits right of centre and the cold water pipe, the leftmost
+  // connection, keeps room for its label on the left (its neighbour, the hot water outlet, labels to the right)
+  cam.position.set(Math.sin(a) * dist, CAM.y * fit + Math.sin(t * .27) * .05, Math.cos(a) * dist); cam.lookAt(W2 < 600 ? -.16 : 0, CAM.look, 0)
   // drinking water: cold in at the bottom of the coil, warming as it climbs, hot on the way out
   F.uT.value = RM ? 0 : t * 3.15; F.uFlow.value = flow; F.uHot.value = hot
   let i = 0
@@ -253,14 +258,28 @@ function frame(ms) {
   }
   P.instanceMatrix.needsUpdate = true; if (P.instanceColor) P.instanceColor.needsUpdate = true
   R.render(scene, cam)
+  // labels: each on its own side when it fits there; if not, on the other side when that is free; if neither, it keeps
+  // its side and slides just inside the frame. Those that fit are placed first, so a label that has to move never lands
+  // on one of them (in a narrow frame the cold water and hot water labels sit side by side at the connections)
+  const items = []
   LBL.forEach(([, , pos, steps, side], k) => {
     const e = lbls[k], show = steps.includes(st)
     e.classList.toggle('on', show); if (!show) return
-    const v = pos.clone().project(cam), x = (v.x + 1) / 2 * W2, y = (1 - v.y) / 2 * H2, lw = e._w || (e._w = e.offsetWidth)
-    let left = side === 'l'; if (left && x - lw < 4) left = false; else if (!left && x + lw > W2 - 4) left = true
-    e.classList.toggle('l', left)
-    e.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(${left ? '-100%' : '0'},-50%)`
+    const v = pos.clone().project(cam)
+    items.push({ e, x: (v.x + 1) / 2 * W2, y: (1 - v.y) / 2 * H2, w: e._w || (e._w = e.offsetWidth), h: e._h || (e._h = e.offsetHeight), left: side === 'l' })
   })
+  const fits = (q, l) => l ? q.x - q.w >= 4 : q.x + q.w <= W2 - 4
+  const span = (q, l, x) => [l ? x - q.w : x, l ? x : x + q.w, q.y - q.h / 2, q.y + q.h / 2]
+  const placed = [], free = s => placed.every(p => s[1] <= p[0] || s[0] >= p[1] || s[3] <= p[2] || s[2] >= p[3])
+  items.sort((a, b) => Number(!fits(a, a.left)) - Number(!fits(b, b.left)))
+  for (const q of items) {
+    let l = q.left
+    if (!fits(q, l) && fits(q, !l) && free(span(q, !l, q.x))) l = !l
+    const x = fits(q, l) ? q.x : l ? q.w + 4 : W2 - 4 - q.w
+    placed.push(span(q, l, x))
+    q.e.classList.toggle('l', l)
+    q.e.style.transform = `translate(${x.toFixed(1)}px,${q.y.toFixed(1)}px) translate(${l ? '-100%' : '0'},-50%)`
+  }
 }
 function loop(ms) { frame(ms); raf = visible && !RM ? requestAnimationFrame(loop) : 0 }
 await breathe()

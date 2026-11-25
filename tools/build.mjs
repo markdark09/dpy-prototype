@@ -25,6 +25,10 @@ fill('nav', nav({ home: true, nav: 'home' }, ''))
 fill('branchmap', BRMAP.split('\n').map(l => '      ' + l).join('\n'))
 fill('footer', foot('', { noCta: true }))
 fill('ask', ASK)
+// How it works: the ROTEX Sanicube's steps, the same words as on its product page
+{ const { howto } = await import(pathToFileURL(path.join(ROOT, 'src/howto.mjs')).href)
+  const { PRODUCTS } = await import(pathToFileURL(path.join(ROOT, 'src/products.mjs')).href)
+  fill('rotexsteps', howto(PRODUCTS.find(p => p.slug === 'rotex-sanicube')).steps.map(([t, d], i) => `            <li${i ? '' : ' class="on"'}><i>${String(i + 1).padStart(2, '0')}</i><div><b>${t}</b><p>${d}</p></div></li>`).join('\n')) }
 // the three latest blog articles, between the branches and the quote form
 const { sorted } = await import(pathToFileURL(path.join(ROOT, 'src/articles.mjs')).href)
 const { articleCard, CARD_CSS } = await import(pathToFileURL(path.join(ROOT, 'src/pages/blog.mjs')).href)
@@ -42,7 +46,7 @@ fill('blog', `<section class="blg" id="blog" aria-labelledby="blgt">
 home = home.replace(/<link rel="stylesheet" href="assets\/css\/base\.css\?v=\w+">[^\n]*\n|<style id="base-css">[\s\S]*?<\/style>\n/, () => `<style id="base-css">\n${inlineCss('', ['assets/css/base.css'])}\n</style>\n`)
 // the branch map's styles, shared with the Contact page
 home = home.replace(/(<style id="base-css">[\s\S]*?<\/style>\n)(?:<style id="br-css">[\s\S]*?<\/style>\n)?(?:<style id="blog-css">[\s\S]*?<\/style>\n)?/, (m, a) => a + `<style id="br-css">\n${BRMAP_CSS}\n</style>\n<style id="blog-css">\n${BLOG_CSS}\n</style>\n`)
-for (const f of ['assets/js/site.js', 'assets/js/ask.js', 'assets/js/branches.js']) home = home.replace(new RegExp(`${f.replace(/\./g, '\\.')}\\?v=\\w+`), `${f}?v=${ver(f)}`)
+for (const f of ['assets/js/site.js', 'assets/js/ask.js', 'assets/js/branches.js', 'assets/js/rotex-3d.js']) home = home.replace(new RegExp(`${f.replace(/\./g, '\\.')}\\?v=\\w+`), `${f}?v=${ver(f)}`)
 fs.writeFileSync(H, home)
 console.log('homepage: header, footer and versions updated')
 

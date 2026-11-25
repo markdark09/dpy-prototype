@@ -26,7 +26,10 @@ export default {
 /* three ways in */
 .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-40px;position:relative;z-index:2}
 .way{display:flex;flex-direction:column;gap:6px;padding:22px;border-radius:24px;background:#fff;box-shadow:0 30px 60px -40px rgba(1,30,70,.5);transition:transform .6s var(--ease)}
-.way:hover{transform:translateY(-5px)}
+/* the scroll reveal (.js [data-r].in) sets transform and a 1s transition, so the card's own rules outrank it */
+.ways .way.in{transition:opacity .8s var(--ease),transform .6s var(--ease)}
+@media (hover:hover){.ways .way:hover{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){.ways .way.in{transition:none}.ways .way:hover{transform:none}}
 .way .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:8px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--navy))}
 .way:nth-child(2) .ic{background:linear-gradient(135deg,#FF8A3D,var(--red))}
 .way:nth-child(3) .ic{background:linear-gradient(135deg,#2BB673,#167A42)}

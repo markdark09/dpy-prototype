@@ -61,7 +61,7 @@ const CK = '<svg aria-hidden="true"><use href="#ck"/></svg>'
 export function listHtml(jobs, R) {
   const open = openJobs(jobs)
   if (!open.length) return `<li class="job none"><div><b>No openings right now</b><p>We're not hiring for a specific role at the moment, but we still read every application.</p></div></li>`
-  return open.map(j => `<li class="job" data-r><div><b><a href="${R}careers/${j.slug}">${esc(j.title)}</a></b><p>${esc(j.summary)}</p></div><span class="loc">${PIN}${esc(j.location)}</span><a class="btn sm" href="${R}careers/${j.slug}" aria-label="View the ${esc(label(j))} role">View role ${ARR}</a></li>`).join('')
+  return open.map(j => `<li class="job" data-r data-city="${esc(j.location)}"><div><b><a href="${R}careers/${j.slug}">${esc(j.title)}</a></b><span class="job-meta">${PIN}${esc(j.location)} <i aria-hidden="true">·</i> ${esc(j.type)}</span><p>${esc(j.summary)}</p></div><span class="job-go" aria-hidden="true">${ARR}</span></li>`).join('')
 }
 export const optionsHtml = jobs => openJobs(jobs).map(j => `<option data-slug="${j.slug}">${esc(label(j))}</option>`).join('')
 export const stats = jobs => { const o = openJobs(jobs); return { open: o.length, cities: new Set(o.map(j => j.location.toLowerCase())).size } }

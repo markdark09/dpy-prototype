@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp">
 <meta property="og:locale" content="en_PH">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Rheem Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/rheem"}]},{"@type":"Product","name":"Rheem Storage Water Heaters","brand":{"@type":"Brand","name":"Rheem"},"category":"Electric storage heaters","description":"Rheem storage heaters heat water ahead of time and keep it ready in an insulated tank, so several taps can run hot at once. There are 16 sizes from 23 to 456 liters: wall-hung, lowboy or tall floor-standing, for anything from one bathroom to a small hotel. The tank is lined with Rheemglas enamel, fused to the steel at 870°C, and protected by an anode rod, so hot water can't corrode it. An Incoloy element limits sediment build-up, CFC-free insulation keeps the heat in, and a relief valve and thermostat guard against high pressure and overheating. It meets IEC 60335-2-21 and UL 174.","image":"https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp","url":"https://prototype.dpy-mi.workers.dev/products/rheem"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://prototype.dpy-mi.workers.dev/"},{"@type":"ListItem","position":2,"name":"Water Heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters"},{"@type":"ListItem","position":3,"name":"Electric storage heaters","item":"https://prototype.dpy-mi.workers.dev/water-heaters?type=storage"},{"@type":"ListItem","position":4,"name":"Rheem Storage Water Heaters","item":"https://prototype.dpy-mi.workers.dev/products/rheem"}]},{"@type":"Product","name":"Rheem Storage Water Heaters","brand":{"@type":"Brand","name":"Rheem"},"category":"Electric storage heaters","description":"Rheem storage heaters heat water ahead of time and keep it ready in an insulated tank, so several taps can run hot at once. There are 16 sizes from 23 to 456 liters: wall-hung, lowboy or tall floor-standing, for anything from one bathroom to a small hotel. The tank is lined with Rheemglas enamel, fused to the steel at 870°C, and protected by an anode rod, so hot water can't corrode it. An Incoloy element limits sediment build-up, CFC-free insulation keeps the heat in, and a relief valve and thermostat guard against high pressure and overheating. It meets IEC 60335-2-21 and UL 174.","image":["https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem.webp","https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem-86h-horizontal.webp","https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem-86h-connections.webp","https://prototype.dpy-mi.workers.dev/assets/img/dpy/rheem-85v-tall.webp"],"url":"https://prototype.dpy-mi.workers.dev/products/rheem"}]}</script>
 <link rel="icon" href="../assets/brand/dpy-icon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/brand/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -490,6 +490,58 @@ button.busy{cursor:progress;opacity:.85}
 @keyframes pdIn{from{opacity:0;transform:translateY(30px) scale(.96)}}
 .stage .noimg{position:relative;z-index:1;align-self:center;display:grid;place-items:center;width:260px;height:260px;border-radius:50%;background:#fff;box-shadow:var(--sh);font-size:30px;font-weight:800;letter-spacing:.1em;color:#3A4655}
 .stage .noimg small{display:block;margin-top:6px;text-align:center;font-size:11px;letter-spacing:.06em;font-weight:600;color:var(--mute)}
+/* the gallery, for two or more photos: each photo is a slide as wide as the stage, in a row that scrolls sideways and
+   snaps, so swiping works without the script; the script adds the arrows, thumbnails, counter and full screen */
+.pd-media{position:relative;min-width:0}
+.gal-track{position:absolute;inset:0;z-index:1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:24px}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.gal-s{position:relative;flex:0 0 100%;margin:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:70px;scroll-snap-align:center;scroll-snap-stop:always}
+.gal-s:not(:first-child) .main{animation:none}
+/* every slide the same size, whatever the file: a product fills the same box, standing on the plinth; a photograph fills
+   one 4:3 frame (cropped to it if its shape differs); headroom above for the caption and the full-screen button */
+.gal-s .main{width:80%;height:80%;object-fit:contain;object-position:50% 100%}
+.gal-s .main.photo{width:auto;height:auto;max-width:92%;max-height:80%;aspect-ratio:4/3;object-fit:cover}
+html.js .gal-s .main{cursor:zoom-in}
+.gal-s figcaption{position:absolute;z-index:2;left:50%;top:12px;max-width:calc(100% - 120px);transform:translateX(-50%);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.94);box-shadow:var(--card);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gal-btn,.gal-full,.lb-x{position:absolute;z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 8px 20px -8px rgba(1,30,70,.4);cursor:pointer;transition:opacity .25s,transform .25s var(--ease),background-color .2s}
+.gal-btn{top:calc(50% - 22px)}.gal-btn.prev{left:4px}.gal-btn.next{right:4px}
+.gal-btn svg{width:16px;height:16px}.gal-btn.prev svg{transform:scaleX(-1)}
+.gal-btn:disabled{opacity:0;pointer-events:none}
+.gal-full{top:4px;right:4px}.gal-full svg,.lb-x svg{width:17px;height:17px}
+.gal-btn:hover,.gal-full:hover,.lb-x:hover{background-color:#fff;transform:scale(1.06)}
+.gal-btn:active,.gal-full:active,.lb-x:active{transform:scale(.94)}
+.gal-btn:focus-visible,.gal-full:focus-visible,.lb-x:focus-visible,.gal-th button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.gal-n{position:absolute;z-index:2;right:8px;bottom:12px;padding:4px 10px;border-radius:999px;background:rgba(10,24,48,.72);color:#fff;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.gal-th{position:relative;display:flex;justify-content:flex-start;justify-content:safe center;gap:10px;margin-top:4px;padding:4px;overflow-x:auto;scrollbar-width:none}
+.gal-th::-webkit-scrollbar{display:none}
+.gal-th button{flex:none;width:64px;height:64px;padding:5px;border:0;border-radius:14px;background:#fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;transition:box-shadow .2s,transform .2s var(--ease)}
+.gal-th button[aria-current="true"]{box-shadow:0 0 0 2px var(--blue)}
+.gal-th button:hover{transform:translateY(-2px)}.gal-th button:active{transform:scale(.95)}
+.gal-th img{width:100%;height:100%;object-fit:contain;border-radius:9px}
+html:not(.js) .gal-btn,html:not(.js) .gal-full,html:not(.js) .gal-n,html:not(.js) .gal-th{display:none}
+/* with a mouse the arrows show on hover; on touch screens people swipe, and the counter says where they are */
+@media (hover:hover){.gal-btn{opacity:0}.gal:hover .gal-btn:not(:disabled),.gal-btn:focus-visible{opacity:1}.gal-n{display:none}}
+@media (hover:none){.gal .gal-btn{display:none}}
+@media (max-width:980px){.pd-media{order:-1;margin-top:-10px}.pd-media .stage{order:0;margin-top:0}}
+@media (max-width:640px){.gal-s{padding-bottom:56px}.gal-th{justify-content:flex-start}.gal-th button{width:56px;height:56px}}
+/* full screen: the photos large on a dark background, swipe or arrows between them, a click or tap zooms in */
+html.gal-open{overflow:hidden}
+.gal-lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(6,14,28,.97);color:#fff;overscroll-behavior:contain}
+.gal-lb::backdrop{background:rgba(6,14,28,.6)}
+.gal-lb[open]{display:block}
+.lb-track{position:absolute;inset:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb-track::-webkit-scrollbar{display:none}
+.lb-track.zoomed{overflow-x:hidden}
+.lb-s{flex:0 0 100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(68px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px));scroll-snap-align:center;scroll-snap-stop:always;overflow:hidden}
+.lb-s img{min-height:0;max-width:min(100%,1400px);max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:14px;background:#fff;cursor:zoom-in;transition:transform .35s var(--ease)}
+.lb-s img.zoom{transform:scale(2.2);cursor:zoom-out;touch-action:none}
+.lb-s figcaption{font-size:14px;color:#C9D6E6;text-align:center}
+.gal-lb .lb-x{top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px))}
+.gal-lb .gal-btn{opacity:1}.gal-lb .gal-btn.prev{left:calc(12px + env(safe-area-inset-left,0px))}.gal-lb .gal-btn.next{right:calc(12px + env(safe-area-inset-right,0px))}
+.lb-n{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:#C9D6E6}
+@media (max-width:640px){.gal-lb .gal-btn{display:none}}
+@media (prefers-reduced-motion:reduce){.gal-btn,.gal-full,.lb-x,.gal-th button,.lb-s img{transition:none}}
 .pd .kick{margin-bottom:12px}
 .pd h1{font-size:clamp(2.1rem,3.8vw,3.3rem)}
 .pd .lede{margin-top:16px;font-size:16px;color:var(--ink2)}
@@ -641,7 +693,16 @@ button.busy{cursor:progress;opacity:.85}
         <div class="ph-acts"><a class="btn red" href="../contact?add=rheem#quote" data-quote-now="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" data-cat="storage">Get a quote for this <svg aria-hidden="true"><use href="#arr"/></svg></a><button class="addq" type="button" data-add="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" data-cat="storage" aria-pressed="false"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add to quote list</span><span class="on">In your quote list</span></button><button class="cmpb wide" type="button" data-cmp="rheem" data-name="Rheem Storage Water Heaters" data-img="assets/img/dpy/rheem.webp" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg><span class="of">Compare</span><span class="on">Comparing</span></button></div>
         <div class="pd-msg">Questions first? <a class="msgr fb" href="https://m.me/dpymercantileinc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.4 2 2 6.1 2 11.6c0 2.9 1.2 5.4 3.2 7.1V22l3-1.7c1.2.3 2.4.5 3.8.5 5.6 0 10-4.1 10-9.6S17.6 2 12 2zm1 12.9l-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 5-2.7-5.5 5.8z"/></svg>Messenger</a><a class="msgr vb" href="viber://chat?number=%2B639338672954"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.4 1.5c-2.6 0-7 .4-8.6 2C1.5 4.8 1 6.7 1 9.3v2.4c0 2.6.5 4.5 1.8 5.8.8.8 2 1.3 3.2 1.6v3c0 .6.7.9 1.1.5l2.9-3c.6 0 1.2.1 1.8.1 2.6 0 7-.4 8.6-2 1.3-1.3 1.6-3.2 1.6-5.8V9.3c0-2.6-.4-4.5-1.6-5.8-1.6-1.6-6-2-8.6-2zm4.8 13.2c-.3.8-1.5 1.5-2.2 1.5-.6 0-1.2-.2-3.5-1.4-2.6-1.4-4.4-4.1-4.5-4.3-.2-.2-1-1.4-1-2.7 0-1.3.7-1.9.9-2.2.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.2 1.6z"/></svg>Viber</a><a class="msgr" style="background:var(--ink)" href="tel:+639338672954"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.8h2.4l1.2 3-1.6 1a8 8 0 0 0 5.2 5.2l1-1.6 3 1.2v2.4a1.5 1.5 0 0 1-1.6 1.5A12.5 12.5 0 0 1 1.5 3.4 1.5 1.5 0 0 1 3 1.8z"/></svg>Call</a></div>
       </div>
-      <div class="stage"><span class="halo"></span><span class="floor"></span><span class="plinth"></span><img src="../assets/img/dpy/rheem.webp" width="270" height="452" alt="Rheem Storage Water Heaters" class="main" fetchpriority="high"></div>
+      <div class="pd-media">
+        <div class="stage gal" data-gal role="region" aria-roledescription="carousel" aria-label="Photos of Rheem Storage Water Heaters">
+          <span class="halo"></span><span class="floor"></span><span class="plinth"></span>
+          <div class="gal-track" tabindex="0"><figure class="gal-s" role="group" aria-roledescription="slide" aria-label="1 of 4"><img src="../assets/img/dpy/rheem.webp" width="270" height="452" alt="Rheem Storage Water Heaters" class="main" fetchpriority="high"></figure><figure class="gal-s" role="group" aria-roledescription="slide" aria-label="2 of 4"><img src="../assets/img/dpy/rheem-86h-horizontal.webp" width="1280" height="814" alt="Rheem 86H horizontal storage water heater" srcset="../assets/img/dpy/rheem-86h-horizontal-800.webp 800w, ../assets/img/dpy/rheem-86h-horizontal.webp 1280w" sizes="(max-width:640px) 100vw, 60vw" class="main" loading="lazy"><figcaption>Horizontal 86H series</figcaption></figure><figure class="gal-s" role="group" aria-roledescription="slide" aria-label="3 of 4"><img src="../assets/img/dpy/rheem-86h-connections.webp" width="1280" height="1280" alt="The inlet and outlet on the end of a Rheem 86H heater" srcset="../assets/img/dpy/rheem-86h-connections-800.webp 800w, ../assets/img/dpy/rheem-86h-connections.webp 1280w" sizes="(max-width:640px) 100vw, 60vw" class="main" loading="lazy"><figcaption>Inlet and outlet</figcaption></figure><figure class="gal-s" role="group" aria-roledescription="slide" aria-label="4 of 4"><img src="../assets/img/dpy/rheem-85v-tall.webp" width="512" height="1280" alt="Rheem 85V tall floor-standing storage water heater" class="main" loading="lazy"><figcaption>Tall 85V series</figcaption></figure></div>
+          <button class="gal-btn prev" type="button" aria-label="Previous photo"><svg aria-hidden="true"><use href="#arr"/></svg></button><button class="gal-btn next" type="button" aria-label="Next photo"><svg aria-hidden="true"><use href="#arr"/></svg></button>
+          <button class="gal-full" type="button" aria-label="View the photos full screen"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5 9 7M2.5 13.5 7 9"/></svg></button>
+          <span class="gal-n" aria-hidden="true"><b>1</b> / 4</span>
+        </div>
+        <div class="gal-th"><button type="button" aria-label="Photo 1 of 4: Rheem Storage Water Heaters" aria-current="true"><img src="../assets/img/dpy/rheem.webp" width="270" height="452" alt="" loading="lazy"></button><button type="button" aria-label="Photo 2 of 4: Rheem 86H horizontal storage water heater"><img src="../assets/img/dpy/rheem-86h-horizontal.webp" width="1280" height="814" alt="" srcset="../assets/img/dpy/rheem-86h-horizontal-800.webp 800w, ../assets/img/dpy/rheem-86h-horizontal.webp 1280w" sizes="72px" loading="lazy"></button><button type="button" aria-label="Photo 3 of 4: The inlet and outlet on the end of a Rheem 86H heater"><img src="../assets/img/dpy/rheem-86h-connections.webp" width="1280" height="1280" alt="" srcset="../assets/img/dpy/rheem-86h-connections-800.webp 800w, ../assets/img/dpy/rheem-86h-connections.webp 1280w" sizes="72px" loading="lazy"></button><button type="button" aria-label="Photo 4 of 4: Rheem 85V tall floor-standing storage water heater"><img src="../assets/img/dpy/rheem-85v-tall.webp" width="512" height="1280" alt="" loading="lazy"></button></div>
+      </div>
     </div>
   </div>
 </section>
@@ -707,7 +768,7 @@ button.busy{cursor:progress;opacity:.85}
   <div class="acts"><button class="cmpb" type="button" data-cmp="everhot" data-name="Everhot Storage Water Heaters" data-img="assets/img/dpy/everhot-storage-range.webp" aria-pressed="false" aria-label="Compare Everhot Storage Water Heaters" title="Compare"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 5h9M9 2.5 11.5 5 9 7.5M13.5 11h-9M7 8.5 4.5 11 7 13.5"/></svg></button><button class="addq" type="button" data-add="everhot" data-name="Everhot Storage Water Heaters" data-img="assets/img/dpy/everhot-storage-range.webp" data-cat="storage" aria-pressed="false" aria-label="Add Everhot Storage Water Heaters to your quote"><svg aria-hidden="true"><use href="#plus"/></svg><span class="of">Add<span class="lg"> to quote</span></span><span class="on"><span class="lg">In your quote</span><span class="sm">Added</span></span></button></div>
 </article><article class="pc" data-cat="instant" data-for="home" data-r>
   <span class="tag">Instant</span><span class="who"><span>Home</span></span>
-  <div class="pic"><img src="../assets/img/dpy/aquapower-a35.webp" width="365" height="600" alt="Aquapower A35M / A55" loading="lazy"></div>
+  <div class="pic"><img src="../assets/img/dpy/aquapower-a35.webp" width="1634" height="2513" alt="Aquapower A35M / A55" srcset="../assets/img/dpy/aquapower-a35-800.webp 800w, ../assets/img/dpy/aquapower-a35.webp 1634w" sizes="(max-width:640px) 100vw, 60vw" loading="lazy"></div>
   <p class="br">Aquapower · Multipoint</p>
   <h3><a href="../products/aquapower-a35m-a55">Aquapower A35M / A55</a></h3>
   <p>A Compact Series multipoint heater: one unit can feed the shower and the sink.</p>
@@ -762,6 +823,7 @@ button.busy{cursor:progress;opacity:.85}
   </section>
 </div>
 <script src="../assets/js/site.js?v=84ffe762" defer></script>
+<script src="../assets/js/gallery.js?v=a9e029e4" defer></script>
 <script src="../assets/js/ask.js?v=eebf1e10" defer></script>
 <script>
 addEventListener('DOMContentLoaded', () => { // after site.js (deferred), so window.DPY is ready

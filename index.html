@@ -691,6 +691,38 @@ main > section{overflow-x:clip}
 .how-end .how-more:hover{color:#fff}
 .how-end .how-more:focus-visible{outline:2px solid #7CC0FF;outline-offset:3px;border-radius:4px}
 .model-cap{position:absolute;right:0;top:0;font-size:11.5px;font-weight:600;color:#8FA6C0;letter-spacing:.02em}
+/* the switch between the two tanks: an Everhot storage heater or a ROTEX Sanicube heat exchanger tank */
+.how-pick{display:inline-flex;gap:4px;margin:22px 0 26px;padding:4px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.how-pick button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:8px 16px;border:0;border-radius:12px;background:transparent;color:#CFE0F2;font:600 14px/1.25 var(--font);text-align:left;cursor:pointer;transition:background-color .25s,color .25s}
+.how-pick button small{font-size:12px;font-weight:600;letter-spacing:.03em;color:#7F95AE;transition:color .25s}
+.how-pick button:hover{color:#fff;background:rgba(255,255,255,.07)}
+.how-pick button:active{transform:scale(.98)}
+.how-pick button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+.how-pick button[aria-pressed="true"] small{color:var(--blue)}
+.how-pick button:focus-visible{outline:2px solid #7CC0FF;outline-offset:2px}
+/* the words for the tank not shown (the section's own display rules would otherwise bring them back) */
+.how [hidden]{display:none!important}
+/* ROTEX: its 3D takes the Everhot's place, and the Everhot's own parts are put away */
+.how[data-model="rotex"] .how-vis > :is(.h3d,.lbls,.inst,.h3d-fb){display:none}
+.r3d-home{position:absolute;inset:0}
+.r3d-box{position:absolute;left:0;right:0;top:30px;bottom:0}
+.r3d-fb{position:absolute;left:50%;top:10%;height:78%;width:auto;transform:translateX(-50%)}
+.r3d-home.has3d .r3d-fb{display:none}
+/* the column here is narrower than on the product page: a long label wraps rather than running out of the frame */
+.how .r3d-lbls .tx{white-space:normal;max-width:210px;line-height:1.3}
+.how .r3d-lbls .ln{width:24px}
+.how-vis .r3d,.how-vis .r3d-lbls{position:absolute;pointer-events:none}
+.how-vis .r3d{border-radius:16px}
+.r3d-lbls .lbl{position:absolute;left:0;top:0;display:flex;align-items:center;opacity:0;transition:opacity .45s;will-change:transform}
+.r3d-lbls .lbl.on{opacity:1}
+.r3d-lbls .dot{width:9px;height:9px;margin:-4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18),0 0 12px rgba(124,192,255,.8);flex:none}
+.r3d-lbls .ln{width:40px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,.25));flex:none}
+.r3d-lbls .tx{white-space:nowrap;padding:6px 11px;border-radius:8px;background:rgba(8,20,40,.8);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font-size:12px;font-weight:600;color:#E8F1FB}
+.r3d-lbls .tx em{font-style:normal;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#7CC0FF;margin-right:7px}
+.r3d-lbls .lbl.l{flex-direction:row-reverse}.r3d-lbls .lbl.l .ln{background:linear-gradient(270deg,rgba(255,255,255,.75),rgba(255,255,255,.25))}
+/* phones: a long label wraps onto two lines rather than running off the drawing */
+@media (max-width:640px){.r3d-lbls .ln{width:14px}.how .r3d-lbls .tx{font-size:11px;padding:5px 8px;white-space:normal;max-width:128px;line-height:1.3}}
+@media (prefers-reduced-motion:reduce){.r3d-lbls .lbl{transition:none}}
 
 /* ---------- which heater for which building ---------- */
 .sol{padding:250px 0 100px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 230px,#F4F7FA 100%)}
@@ -933,6 +965,7 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .how-vis{position:sticky;top:62px;z-index:2;align-self:start;height:min(58svh,500px);order:-1;margin:0 calc(var(--g) * -1);background:#0A1830}
   .how-vis::after{content:"";position:absolute;left:0;right:0;top:100%;height:36px;background:linear-gradient(#0A1830,rgba(10,24,48,0));pointer-events:none}
   .how-vis .model-cap{display:none}.how-vis .inst{bottom:10px}
+  .r3d-box{top:0}.how-pick{display:flex;margin:18px 0 22px}.how-pick button{flex:1 1 0}
   .lbl .ln{width:22px}.lbl .tx{font-size:11px;padding:5px 8px}.inst{gap:12px;padding:8px 12px}.i-bar{width:56px}
   /* "Factory setting" is wider than the old "Set point": on the narrowest phones the bar gives way (the tank reads in numbers) */
   .how-end{flex-direction:column;align-items:flex-start;margin-left:56px}.how-end p{max-width:none}
@@ -1076,21 +1109,33 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
   </div>
 </section>
 
-<section class="how" id="how">
+<section class="how" id="how" data-model="everhot">
   <div class="how-track">
     <div class="how-pin">
       <div class="wrap how-grid">
         <div>
           <span class="kick">How it works</span>
-          <h2 class="thin h2">Inside a Storage<br>Water Heater</h2>
-          <ol class="steps">
+          <h2 class="thin h2"><span data-for="everhot">Inside a Storage<br>Water Heater</span><span data-for="rotex" hidden>Inside a Heat<br>Exchanger Tank</span></h2>
+          <div class="how-pick" role="group" aria-label="Which tank to look inside" hidden>
+            <button type="button" data-model="everhot" aria-pressed="true">Storage heater<small>Everhot</small></button><button type="button" data-model="rotex" aria-pressed="false" data-src="assets/js/rotex-3d.js?v=b10f14bd">Heat exchanger tank<small>ROTEX Sanicube</small></button>
+          </div>
+          <ol class="steps" data-for="everhot">
             <span class="bar" aria-hidden="true"></span>
             <li class="on"><i>01</i><div><b>Cold water comes in</b><p>Mains water enters at the bottom of the insulated tank.</p></div></li>
             <li><i>02</i><div><b>The element heats it</b><p>One heating element near the bottom warms the water. The hot water rises to the top of the tank.</p></div></li>
             <li><i>03</i><div><b>The thermostat holds it</b><p>It switches the element on and off to keep the tank at 60°C, the factory setting. You can adjust it.</p></div></li>
             <li><i>04</i><div><b>Hot water to every tap</b><p>The outlet draws from the top, where the water is hottest, and sends it to your showers.</p></div></li>
           </ol>
-          <div class="how-end"><p><b>Held at 60°C, the factory setting, ready at every tap,</b> day and night. We'll size the right one for you.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a><a class="how-more" href="products/rotex-sanicube#how">See inside a Rotex Sanicube, with its water <svg><use href="#arr"/></svg></a></div>
+          <ol class="steps" data-for="rotex" hidden>
+            <span class="bar" aria-hidden="true"></span>
+<!-- @rotexsteps: made by tools/build.mjs from src/howto.mjs, the ROTEX Sanicube product page's own steps -->
+            <li class="on"><i>01</i><div><b>Heat comes in</b><p>A heat pump or boiler heats the top of the tank through its own stainless steel coil, and solar panels can add heat at the bottom. The tank water only stores that heat.</p></div></li>
+            <li><i>02</i><div><b>Stored in layers</b><p>Hot water rises, so the top stays hottest, and the insulation keeps the heat for hours.</p></div></li>
+            <li><i>03</i><div><b>Drinking water heated on the way</b><p>Your drinking water runs up through a stainless steel coil inside the tank and is heated as it passes. Only the water in the coil, 19 or 29 liters depending on the model, is kept hot, and it is used first in, first out, so none goes stale.</p></div></li>
+            <li><i>04</i><div><b>Fresh water every time</b><p>Cold water comes in at the bottom of the coil, so what reaches the taps is always freshly heated.</p></div></li>
+<!-- /@rotexsteps -->
+          </ol>
+          <div class="how-end"><p data-for="everhot"><b>Held at 60°C, the factory setting, ready at every tap,</b> day and night. We'll size the right one for you.</p><p data-for="rotex" hidden><b>Heated as it flows, first in, first out,</b> so no hot water sits and goes stale. We'll size the right tank for your building.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a><a class="how-more" data-for="everhot" href="products/everhot">More about the Everhot heaters <svg><use href="#arr"/></svg></a><a class="how-more" data-for="rotex" hidden href="products/rotex-sanicube">More about the ROTEX Sanicube <svg><use href="#arr"/></svg></a></div>
         </div>
         <div class="how-vis" aria-hidden="true">
           <!-- a real-time 3D cutaway of an Everhot storage water heater (Three.js, module at the end of the page) -->
@@ -1103,7 +1148,10 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
             <span><small>Element</small><b class="i-e"><i class="led"></i><em>Off</em></b></span>
           </div>
           <img class="h3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/everhot-tank.webp" alt="" width="314" height="824">
-          <span class="model-cap">Shown: Everhot electric storage heater · supplied &amp; installed by DPY</span>
+          <!-- the ROTEX Sanicube in 3D (assets/js/rotex-3d.js), its product photo until the 3D is ready or where WebGL does not run -->
+          <div class="r3d-home" data-for="rotex" data-r3d data-step="1" hidden><div class="r3d-box" data-r3d-box></div><img class="r3d-fb" loading="lazy" decoding="async" src="assets/img/dpy/rotex-sanicube.webp" alt="" width="622" height="1400"></div>
+          <span class="model-cap" data-for="everhot">Shown: Everhot electric storage heater · supplied &amp; installed by DPY</span>
+          <span class="model-cap" data-for="rotex" hidden>Shown: ROTEX Sanicube heat exchanger tank · supplied &amp; installed by DPY</span>
         </div>
       </div>
     </div>
@@ -1327,7 +1375,7 @@ const MOTION = !RM && !!window.gsap && !!window.ScrollTrigger
 if (MOTION) { gsap.registerPlugin(ScrollTrigger); ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,DOMContentLoaded,resize' }) } // no automatic re-measure on load: see the one after the intro
 const IMG = 'assets/img/dpy/'
 // pixel sizes of the images the scripts insert, so the browser reserves their space before they load (no layout shift)
-const DIM = {"clients/ace-iloilo.webp":[160,160],"clients/amanpulo.webp":[160,160],"clients/arya.webp":[320,119],"clients/ascott.webp":[165,160],"clients/chong-hua.webp":[160,160],"clients/city-of-dreams.webp":[296,160],"clients/discovery-shores.webp":[221,160],"clients/dunkin.webp":[320,116],"clients/dusit-thani.webp":[320,95],"clients/fairfield.webp":[320,93],"clients/fitness-first.webp":[190,160],"clients/four-points.webp":[240,160],"clients/go-hotels.webp":[205,160],"clients/holiday-inn.webp":[162,160],"clients/ibis.webp":[160,160],"clients/jp-morgan.webp":[320,65],"clients/kfc.webp":[159,160],"clients/makati-med.webp":[205,54],"clients/marco-polo.webp":[289,160],"clients/maribago.webp":[307,128],"clients/mcdonalds.webp":[183,160],"clients/msr.webp":[185,160],"clients/park-avenue.webp":[320,66],"clients/proscenium.webp":[320,58],"clients/red-planet.webp":[160,160],"clients/shakeys.webp":[320,158],"clients/shangri-la.webp":[320,159],"clients/sheraton.webp":[202,137],"clients/starbucks.webp":[158,160],"clients/summit.webp":[297,120],"clients/taal-vista.webp":[320,88],"clients/trion.webp":[319,160],"clients/u-baguio.webp":[161,160],"dpy/acthor.webp":[340,294],"dpy/aquaplast.webp":[340,276],"dpy/aquapower-a35.webp":[365,600],"dpy/aquapower-aqp28n.webp":[462,560],"dpy/aquapower-s35.webp":[976,1100],"dpy/champion-tank.webp":[215,440],"dpy/deron-de27.webp":[493,544],"dpy/deron-pool.webp":[355,400],"dpy/everhot-cold.webp":[622,1100],"dpy/everhot-hot.webp":[622,1100],"dpy/everhot.webp":[407,720],"dpy/gratek-aquarius.webp":[327,206],"dpy/haase-install.webp":[1920,1280],"dpy/haase-tank.webp":[422,428],"dpy/heatpump-5star.webp":[138,410],"dpy/resort-render.webp":[1920,646],"dpy/rheem.webp":[270,452],"dpy/solar-5star.webp":[720,711],"dpy/team.webp":[1920,646],"dpy/tower-render.webp":[1920,646],"dpy/wilo-pump.webp":[340,284],"logos/5star.jpg":[203,81],"logos/aquapower.jpg":[240,55],"logos/champion.jpg":[301,69],"logos/deron.jpg":[212,81],"logos/enermax.jpg":[185,81],"logos/haase.jpg":[252,81],"logos/wilo.png":[163,81]}
+const DIM = {"clients/ace-iloilo.webp":[160,160],"clients/amanpulo.webp":[160,160],"clients/arya.webp":[320,119],"clients/ascott.webp":[165,160],"clients/chong-hua.webp":[160,160],"clients/city-of-dreams.webp":[296,160],"clients/discovery-shores.webp":[221,160],"clients/dunkin.webp":[320,116],"clients/dusit-thani.webp":[320,95],"clients/fairfield.webp":[320,93],"clients/fitness-first.webp":[190,160],"clients/four-points.webp":[240,160],"clients/go-hotels.webp":[205,160],"clients/holiday-inn.webp":[162,160],"clients/ibis.webp":[160,160],"clients/jp-morgan.webp":[320,65],"clients/kfc.webp":[159,160],"clients/makati-med.webp":[205,54],"clients/marco-polo.webp":[289,160],"clients/maribago.webp":[307,128],"clients/mcdonalds.webp":[183,160],"clients/msr.webp":[185,160],"clients/park-avenue.webp":[320,66],"clients/proscenium.webp":[320,58],"clients/red-planet.webp":[160,160],"clients/shakeys.webp":[320,158],"clients/shangri-la.webp":[320,159],"clients/sheraton.webp":[202,137],"clients/starbucks.webp":[158,160],"clients/summit.webp":[297,120],"clients/taal-vista.webp":[320,88],"clients/trion.webp":[319,160],"clients/u-baguio.webp":[161,160],"dpy/acthor.webp":[340,294],"dpy/aquaplast.webp":[340,276],"dpy/aquapower-a35.webp":[365,600],"dpy/aquapower-aqp28n.webp":[462,560],"dpy/aquapower-s35.webp":[976,1100],"dpy/champion-tank.webp":[215,440],"dpy/deron-de27.webp":[493,544],"dpy/deron-pool.webp":[355,400],"dpy/everhot-cold.webp":[622,1100],"dpy/everhot-hot.webp":[622,1100],"dpy/everhot.webp":[407,720],"dpy/gratek-aquarius.webp":[327,206],"dpy/haase-install.webp":[1920,1280],"dpy/haase-tank.webp":[1206,1101],"dpy/heatpump-5star.webp":[138,410],"dpy/resort-render.webp":[1920,646],"dpy/rheem.webp":[270,452],"dpy/solar-5star.webp":[720,711],"dpy/team.webp":[1920,646],"dpy/tower-render.webp":[1920,646],"dpy/wilo-pump.webp":[340,284],"logos/5star.jpg":[203,81],"logos/rheem.webp":[120,120],"logos/wilo.webp":[280,120],"logos/systemair.webp":[598,120],"logos/my-pv.webp":[615,120],"logos/grundfos.webp":[598,81],"logos/haase.webp":[823,120],"logos/enermax.webp":[835,120],"logos/aquapower.jpg":[240,55],"logos/champion.jpg":[301,69],"logos/deron.jpg":[212,81]}
 const wh = p => { const d = DIM[p.replace('assets/img/', '')]; return d ? ` width="${d[0]}" height="${d[1]}"` : '' }
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t) }
 
@@ -1357,17 +1405,17 @@ $$('main > section').forEach(s => new IntersectionObserver(([e]) => s.classList.
 /* ---------- brands: a still wall of the brands DPY carries; hover shows what DPY supplies from each (as listed on dpymi.com.ph) ---------- */
 const EXT0 = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9l6-6M4.5 3H9v4.5"/></svg>'
 const BRANDS = [
-  ['Rheem', '', 'Electric storage heaters', 'products/rheem'],
+  ['Rheem', 'rheem.webp', 'Electric storage heaters', 'products/rheem'],
   ['Aquapower', 'aquapower.jpg', 'Instant water heaters', 'water-heaters?type=instant'],
-  ['HAASE', 'haase.jpg', 'Heat exchange storage tanks', 'products/haase-energy-storage-tank'],
+  ['HAASE', 'haase.webp', 'Heat exchange storage tanks', 'products/haase-energy-storage-tank'],
   ['Deron', 'deron.jpg', 'Heat pumps', 'water-heaters?type=heatpump'],
   ['5 Star', '5star.jpg', 'Solar heaters & heat pumps', 'products/5-star-solar-water-heater'],
   ['Everhot', '', 'Electric storage heaters', 'products/everhot'],
-  ['Enermax', 'enermax.jpg', 'Hot water storage tanks', 'products/enermax-storage-tank'],
+  ['Enermax', 'enermax.webp', 'Hot water storage tanks', 'products/enermax-storage-tank'],
   ['Champion', 'champion.jpg', 'Glass-lined storage tanks', 'products/champion-storage-tank'],
-  ['Wilo', 'wilo.png', 'Circulation pumps', 'products/wilo-pumps'],
-  ['Grundfos', '', 'Pumps', 'water-heaters?type=pump'],
-  ['Systemair', '', 'Ventilation fans & blowers', 'business'],
+  ['Wilo', 'wilo.webp', 'Circulation pumps', 'products/wilo-pumps'],
+  ['Grundfos', 'grundfos.webp', 'Pumps', 'water-heaters?type=pump'],
+  ['Systemair', 'systemair.webp', 'Ventilation fans & blowers', 'business'],
   ['Katen', '', 'Exhaust fans', 'products/katen-exhaust-fans'],
 ]
 $('.bwall').innerHTML = BRANDS.map(([n, img, what, url]) => `<li><a class="bw" href="${url}" aria-label="${n}: ${what}">
@@ -1661,7 +1709,12 @@ $('.plans').innerHTML = PLANS.map(([t, f, img, pos, real, li, [q, qs], cta, feat
   <a class="btn ${feat ? 'red' : 'ghost'}" href="#quote" data-quote="" data-note="${t}">${cta}</a></div></article>`).join('')
 
 /* ---------- how it works: scroll progress drives the 3D cutaway (module at the end) and the step list ---------- */
-const steps = $$('.steps li'), bar = $('.steps .bar'), howSec = $('.how')
+// two tanks share the section: the Everhot (its 3D at the end of the page) and the ROTEX Sanicube (assets/js/rotex-3d.js,
+// loaded the first time it is picked); each has its own step list, and the same scroll drives whichever is shown
+const howSec = $('.how'), r3d = $('[data-r3d]', howSec)
+let steps, bar
+const useList = () => { const list = $(`.steps[data-for="${howSec.dataset.model}"]`, howSec); steps = $$('li', list); bar = $('.bar', list) }
+useList()
 window.HOW = { p: RM ? 1 : 0 }
 function heat(p) {
   window.HOW.p = p
@@ -1669,10 +1722,25 @@ function heat(p) {
   bar.style.transform = `scaleY(${clamp(p * 4.2 / 3).toFixed(3)})` // reaches each circle just as its step lights up
   steps.forEach((s, i) => { s.classList.toggle('on', i === st); s.classList.toggle('done', i < st) })
   howSec.classList.toggle('done', p > .93)
+  // the ROTEX scene shows the step being read, and the whole story once the last step is done
+  if (r3d) { const k = p > .93 ? 'all' : String(st + 1); if (r3d.dataset.step !== k) r3d.dataset.step = k }
 }
 heat(RM ? 1 : 0)
 const rail = () => bar.parentNode.style.setProperty('--rail', steps.at(-1).offsetTop + 'px') // centre of 01 to centre of 04
 rail(); addEventListener('resize', rail); document.fonts?.ready.then(rail)
+$('.how-pick', howSec).hidden = false // the switch needs this script, so it shows only once the script runs
+$$('.how-pick button', howSec).forEach(b => b.addEventListener('click', () => {
+  const m = b.dataset.model
+  if (m === howSec.dataset.model) return
+  howSec.dataset.model = m
+  $$('.how-pick button', howSec).forEach(x => x.setAttribute('aria-pressed', String(x === b)))
+  $$('[data-for]', howSec).forEach(el => { el.hidden = el.dataset.for !== m })
+  useList(); rail(); heat(window.HOW.p)
+  // resolved against the page first: a path without ./ or / would be looked up in the import map instead, and fail
+  if (b.dataset.src && !b.dataset.loaded) { b.dataset.loaded = '1'; import(new URL(b.dataset.src, location.href).href).catch(() => {}) } // no 3D: its photo stays
+  $('.how-vis', howSec).dispatchEvent(new Event('how-model')) // the Everhot scene pauses while the ROTEX one is shown, and picks up again
+  window.ScrollTrigger?.refresh() // the steps' text changed length
+}))
 // if the 3D can't start (no WebGL, or offline so Three.js can't load), show the real product photo instead
 setTimeout(() => { if (!window.HOW3D) $('.how-vis').classList.add('no3d') }, 6000) // no module support at all
 
@@ -1766,12 +1834,15 @@ await Promise.race([near, new Promise(go => { const after = () => setTimeout(() 
 // a frame break: the build runs in small steps, so the page never freezes long enough to notice
 const breathe = () => new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)))
 while (performance.now() - (window.DPYbusy ?? -1e9) < 1500) await new Promise(r => setTimeout(r, 400)) // someone is turning the dial: wait until they stop
+// no 3D here (no WebGL, or Three.js could not load): the product photo shows instead, and the scene stops quietly
+// (waiting forever rather than throwing, so the page's console shows no error for an expected case)
+const stop = () => { vis.classList.add('no3d'); return new Promise(() => {}) }
 let THREE, RoomEnvironment
 try { THREE = await import('three'); ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js')) }
-catch (e) { vis.classList.add('no3d'); throw e }
+catch { await stop() }
 let R
 try { R = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' }) }
-catch (e) { vis.classList.add('no3d'); throw e }
+catch { await stop() }
 window.HOW3D = true
 await breathe()
 R.debug.checkShaderErrors = false; R.setPixelRatio(Math.min(devicePixelRatio, 1.25)); R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05; R.outputColorSpace = THREE.SRGBColorSpace
@@ -1998,8 +2069,11 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v)), sm = (a, b, v) =
 const DULL = new THREE.Color(0x5a0c00), BRIGHT = new THREE.Color(0xff6a1a)
 let heatE = 0, last = 0, camA = null, camY = null, visible = false, sp = 0, lastP = 0, wave = 0
 let raf = 0, ready = false
-function loop(ms) { frame(ms); raf = visible ? requestAnimationFrame(loop) : 0 }
-new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && ready && !raf && !RM) raf = requestAnimationFrame(loop) }).observe(vis)
+// paused while the section shows the ROTEX tank instead (its own scene draws then), and picked up again when the Everhot is back
+const away = () => vis.closest('.how')?.dataset.model === 'rotex'
+function loop(ms) { frame(ms); raf = visible && !away() ? requestAnimationFrame(loop) : 0 }
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && ready && !raf && !RM && !away()) raf = requestAnimationFrame(loop) }).observe(vis)
+vis.addEventListener('how-model', () => { if (visible && ready && !raf && !RM && !away()) raf = requestAnimationFrame(loop) })
 function frame(ms) {
   const t = ms / 1000, dt = Math.min(.05, last ? t - last : .016); last = t
   const p = RM ? 1 : (window.HOW?.p ?? 0)
@@ -2084,7 +2158,7 @@ if (R.extensions.has('KHR_parallel_shader_compile')) { try { await R.compileAsyn
 else { await new Promise(r => idle(r, 1500)); R.compile(scene, cam) } // no background compile on this GPU: do it now, while the tank is still off screen
 ready = true
 if (RM) { size(); frame(0) }
-else if (visible && !raf) raf = requestAnimationFrame(loop)
+else if (visible && !raf && !away()) raf = requestAnimationFrame(loop)
 </script>
 
 </body>

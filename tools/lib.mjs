@@ -16,7 +16,7 @@ export const SITE = 'https://prototype.dpy-mi.workers.dev/' // swap to the real 
 export const inlineCss = (R, files) => files.map(f => fs.readFileSync(path.join(ROOT, f), 'utf8')).join('\n')
   .replace(/\/\*[\s\S]*?\*\//g, '').replace(/\n\s*\n+/g, '\n').replace(/url\(\.\.\//g, `url(${R}assets/`).trim()
 export const ver = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8)
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 // ---------- image sizes (read from the webp/png/jpg header, so every <img> gets width and height) ----------
 const dimCache = {}

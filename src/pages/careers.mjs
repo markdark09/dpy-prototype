@@ -16,14 +16,36 @@ export default {
 .why b{display:block;font-size:17px;font-weight:600;margin-bottom:6px}
 .why p{margin:0;font-size:14px;color:var(--mute);line-height:1.55}
 .jobs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.job{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:20px 22px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .5s var(--ease)}
-.job:hover{transform:translateX(4px)}
-.job b a{color:inherit}.job b a:hover{text-decoration:underline;text-underline-offset:3px}
-.job.none{grid-template-columns:1fr}.job.none:hover{transform:none}
+/* a role: the whole card opens it (its title is the link, stretched over the card), with one quiet arrow */
+.job{position:relative;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:20px 22px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.job[hidden]{display:none}
+.job b a{color:inherit}
+.job b a::after{content:"";position:absolute;inset:0;border-radius:20px}
+.job b a:focus-visible{outline:none}
+.job b a:focus-visible::after{outline:2px solid var(--blue);outline-offset:3px}
+/* the scroll reveal (.js [data-r].in) sets transform and a 1s transition, so the card's own rules outrank it */
+.jobs .job.in{transition:opacity .8s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease)}
+@media (hover:hover){.jobs .job:not(.none):hover{transform:translateY(-2px);box-shadow:0 18px 36px -22px rgba(1,30,70,.45),var(--card)}}
+.jobs .job:not(.none):active{transform:scale(.995)}
+.job.none{grid-template-columns:1fr}
 .job b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
-.job p{margin:4px 0 0;font-size:14.5px;color:var(--mute)}
-.job .loc{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--soft)}
-.job .loc svg{width:14px;height:14px}
+.job-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;font-size:13px;font-weight:600;color:var(--ink2)}
+.job-meta svg{width:14px;height:14px;flex:none;color:var(--blue)}
+.job-meta i{font-style:normal;color:var(--mute)}
+.job p{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--mute)}
+.job-go{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--ink);transition:background-color .3s,color .3s,transform .4s var(--ease)}
+.job-go svg{width:16px;height:16px}
+@media (hover:hover){.job:hover .job-go{background:var(--ink);color:#fff;transform:translateX(3px)}}
+/* the city filter, built by the page script from the roles listed (so its counts always match), when they are in more than one city */
+.job-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.job-filter button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#fff;box-shadow:0 0 0 1px var(--line);font:600 14px var(--font);color:var(--ink);cursor:pointer;transition:background-color .25s,color .25s,box-shadow .25s}
+.job-filter button span{font-size:12px;font-weight:700;color:var(--mute);transition:color .25s}
+@media (hover:hover){.job-filter button:hover{box-shadow:0 0 0 1px var(--ink)}}
+.job-filter button:active{transform:scale(.97)}
+.job-filter button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.job-filter button[aria-pressed="true"] span{color:rgba(255,255,255,.72)}
+.job-filter button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.job,.jobs .job.in,.job-go,.job-filter button{transition:none}.jobs .job:not(.none):hover,.jobs .job:not(.none):active,.job:hover .job-go{transform:none}}
 .apply{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:30px;padding:30px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#0D3A73,#0A1830)}
 .apply b{display:block;font-size:22px;font-weight:600}
 .apply p{margin:6px 0 0;color:#A9C2DE;font-size:14.5px}
@@ -52,7 +74,7 @@ export default {
 .drop.has{border-style:solid;border-color:#9FD8B8;background:#F3FBF6}.drop.has .ic{color:#1E9E55}
 .drop.bad,.drop:has(input.bad){border-color:var(--red);background:#FFF6F6}
 @media (max-width:980px){.why,.ap{grid-template-columns:1fr}}
-@media (max-width:640px){.job{grid-template-columns:1fr;gap:10px}.job .loc{justify-self:start}.apply{grid-template-columns:1fr}.ap-side,.ap .form{padding:26px 22px}.drop .pick{display:none}}
+@media (max-width:640px){.job{gap:12px;padding:18px;align-items:start}.job-go{width:36px;height:36px}.job-go svg{width:14px;height:14px}.job-filter button{flex:1 1 auto;justify-content:center}.apply{grid-template-columns:1fr}.ap-side,.ap .form{padding:26px 22px}.drop .pick{display:none}}
 `,
   body: R => `
 <section class="phead">
@@ -77,6 +99,7 @@ export default {
 <section class="sec soft" id="roles" aria-labelledby="roT">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">Open roles</span><h2 class="thin h2" id="roT">We're Hiring</h2></div><p class="lede">Open a role to see what it involves, then apply from this page with your CV. We'll be in touch if your experience fits.</p></div>
+    <div class="job-filter" role="group" aria-label="Show roles in" hidden></div><p class="vh" id="jobsShown" aria-live="polite"></p>
     <ul class="jobs"><!--jobs:list-->${listHtml(JOBS, R)}<!--/jobs:list--></ul>
     <div class="apply" data-r><div><b>Don't see your role?</b><p>Send your CV anyway. We keep good people in mind for the next opening.</p></div><a class="btn white" href="#apply" data-role="Open application">Send an open application ${I.arr}</a></div>
   </div>
@@ -111,6 +134,38 @@ export default {
 {
   const want = new URLSearchParams(location.search).get('role'), opt = want && $('#cR option[data-slug="' + CSS.escape(want) + '"]')
   if (opt) { opt.selected = true; if (location.hash === '#apply') setTimeout(() => $('#cN').focus({ preventScroll: true }), RM ? 0 : 900) }
+}
+// roles by city: chips built from the roles listed (so their counts always match the list), shown only when the roles
+// are in more than one city; the choice stays in the address (?city=Cebu), so a city's roles can be shared as a link
+{
+  const jobs = $$('.jobs .job[data-city]'), box = $('.job-filter'), live = $('#jobsShown')
+  // one chip per city however it was typed ("Cebu", "cebu"), as the Cities hiring count does
+  const key = c => (c || '').trim().toLowerCase(), groups = new Map()
+  jobs.forEach(j => {
+    const k = key(j.dataset.city)
+    if (!k) return
+    const g = groups.get(k) || groups.set(k, [j.dataset.city.trim(), 0]).get(k)
+    g[1]++
+    if (g[0] === g[0].toLowerCase()) g[0] = j.dataset.city.trim() // "cebu" listed first still shows as "Cebu"
+  })
+  const cities = [...groups.values()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  if (box && cities.length > 1) {
+    const chip = (city, n, name) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.city = city; b.append(name + ' '); const s = document.createElement('span'); s.textContent = n; b.append(s); return b }
+    box.append(chip('', jobs.length, 'All'), ...cities.map(([c, n]) => chip(c, n, c)))
+    const chips = $$('button', box)
+    const pick = (city, push) => {
+      const k = key(city)
+      chips.forEach(b => b.setAttribute('aria-pressed', String(key(b.dataset.city) === k)))
+      let n = 0; jobs.forEach(j => { j.hidden = !!k && key(j.dataset.city) !== k; if (!j.hidden) n++ })
+      if (!push) return
+      if (live) live.textContent = n + (n === 1 ? ' role' : ' roles') + (city ? ' in ' + city : '')
+      const u = new URL(location); city ? u.searchParams.set('city', city) : u.searchParams.delete('city'); history.replaceState(null, '', u)
+    }
+    chips.forEach(b => b.addEventListener('click', () => pick(b.dataset.city, true)))
+    const want = key(new URLSearchParams(location.search).get('city')), hit = cities.find(([c]) => key(c) === want)
+    pick(hit ? hit[0] : '', false)
+    box.hidden = false
+  }
 }
 // Apply buttons: pick that role in the form, then go to it
 $$('a[data-role]').forEach(a => a.addEventListener('click', e => {
