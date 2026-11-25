@@ -20,12 +20,14 @@ export default {
 .job{position:relative;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:20px 22px;border-radius:20px;background:#fff;box-shadow:var(--card);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
 .job[hidden]{display:none}
 .job b a{color:inherit}
-.job b a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.job b a::after{content:"";position:absolute;inset:0;border-radius:20px}
 .job b a:focus-visible{outline:none}
-.job:has(b a:focus-visible){outline:2px solid var(--blue);outline-offset:3px}
-.job:hover{transform:translateY(-2px);box-shadow:0 18px 36px -22px rgba(1,30,70,.45),var(--card)}
-.job:active{transform:scale(.995)}
-.job.none{grid-template-columns:1fr}.job.none:hover{transform:none;box-shadow:var(--card)}
+.job b a:focus-visible::after{outline:2px solid var(--blue);outline-offset:3px}
+/* the scroll reveal (.js [data-r].in) sets transform and a 1s transition, so the card's own rules outrank it */
+.jobs .job.in{transition:opacity .8s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease)}
+@media (hover:hover){.jobs .job:not(.none):hover{transform:translateY(-2px);box-shadow:0 18px 36px -22px rgba(1,30,70,.45),var(--card)}}
+.jobs .job:not(.none):active{transform:scale(.995)}
+.job.none{grid-template-columns:1fr}
 .job b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .job-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;font-size:13px;font-weight:600;color:var(--ink2)}
 .job-meta svg{width:14px;height:14px;flex:none;color:var(--blue)}
@@ -33,17 +35,17 @@ export default {
 .job p{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--mute)}
 .job-go{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--ink);transition:background-color .3s,color .3s,transform .4s var(--ease)}
 .job-go svg{width:16px;height:16px}
-.job:hover .job-go{background:var(--ink);color:#fff;transform:translateX(3px)}
+@media (hover:hover){.job:hover .job-go{background:var(--ink);color:#fff;transform:translateX(3px)}}
 /* the city filter, built by the page script from the roles listed (so its counts always match), when they are in more than one city */
 .job-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
 .job-filter button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:#fff;box-shadow:0 0 0 1px var(--line);font:600 14px var(--font);color:var(--ink);cursor:pointer;transition:background-color .25s,color .25s,box-shadow .25s}
 .job-filter button span{font-size:12px;font-weight:700;color:var(--mute);transition:color .25s}
-.job-filter button:hover{box-shadow:0 0 0 1px var(--ink)}
+@media (hover:hover){.job-filter button:hover{box-shadow:0 0 0 1px var(--ink)}}
 .job-filter button:active{transform:scale(.97)}
 .job-filter button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
 .job-filter button[aria-pressed="true"] span{color:rgba(255,255,255,.72)}
 .job-filter button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.job,.job-go,.job-filter button{transition:none}.job:hover,.job:hover .job-go{transform:none}}
+@media (prefers-reduced-motion:reduce){.job,.jobs .job.in,.job-go,.job-filter button{transition:none}.jobs .job:not(.none):hover,.jobs .job:not(.none):active,.job:hover .job-go{transform:none}}
 .apply{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:30px;padding:30px;border-radius:26px;color:#fff;background:linear-gradient(120deg,#0D3A73,#0A1830)}
 .apply b{display:block;font-size:22px;font-weight:600}
 .apply p{margin:6px 0 0;color:#A9C2DE;font-size:14.5px}
@@ -137,21 +139,31 @@ export default {
 // are in more than one city; the choice stays in the address (?city=Cebu), so a city's roles can be shared as a link
 {
   const jobs = $$('.jobs .job[data-city]'), box = $('.job-filter'), live = $('#jobsShown')
-  const cities = [...jobs.reduce((m, j) => m.set(j.dataset.city, (m.get(j.dataset.city) || 0) + 1), new Map())].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  // one chip per city however it was typed ("Cebu", "cebu"), as the Cities hiring count does
+  const key = c => (c || '').trim().toLowerCase(), groups = new Map()
+  jobs.forEach(j => {
+    const k = key(j.dataset.city)
+    if (!k) return
+    const g = groups.get(k) || groups.set(k, [j.dataset.city.trim(), 0]).get(k)
+    g[1]++
+    if (g[0] === g[0].toLowerCase()) g[0] = j.dataset.city.trim() // "cebu" listed first still shows as "Cebu"
+  })
+  const cities = [...groups.values()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
   if (box && cities.length > 1) {
     const chip = (city, n, name) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.city = city; b.append(name + ' '); const s = document.createElement('span'); s.textContent = n; b.append(s); return b }
     box.append(chip('', jobs.length, 'All'), ...cities.map(([c, n]) => chip(c, n, c)))
     const chips = $$('button', box)
     const pick = (city, push) => {
-      chips.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.city === city)))
-      let n = 0; jobs.forEach(j => { j.hidden = !!city && j.dataset.city !== city; if (!j.hidden) n++ })
+      const k = key(city)
+      chips.forEach(b => b.setAttribute('aria-pressed', String(key(b.dataset.city) === k)))
+      let n = 0; jobs.forEach(j => { j.hidden = !!k && key(j.dataset.city) !== k; if (!j.hidden) n++ })
       if (!push) return
       if (live) live.textContent = n + (n === 1 ? ' role' : ' roles') + (city ? ' in ' + city : '')
       const u = new URL(location); city ? u.searchParams.set('city', city) : u.searchParams.delete('city'); history.replaceState(null, '', u)
     }
     chips.forEach(b => b.addEventListener('click', () => pick(b.dataset.city, true)))
-    const want = new URLSearchParams(location.search).get('city')
-    pick(cities.some(([c]) => c === want) ? want : '', false)
+    const want = key(new URLSearchParams(location.search).get('city')), hit = cities.find(([c]) => key(c) === want)
+    pick(hit ? hit[0] : '', false)
     box.hidden = false
   }
 }
