@@ -460,6 +460,23 @@ button.busy{cursor:progress;opacity:.85}
 }
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
 @media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}
+/* Rotex: the 3D cutaway sits over the drawing and takes its place once ready (resources/js/site/rotex-3d.js) */
+.how-vis{position:relative}
+.how-vis .r3d,.how-vis .r3d-lbls{position:absolute;pointer-events:none}
+.how-vis .r3d{border-radius:16px}
+.how-vis.has3d > svg{visibility:hidden}
+/* the drawing's legend (with its solar colour) gives way too: the 3D labels name every part */
+.how-vis.has3d > .leg{visibility:hidden}
+.r3d-lbls .lbl{position:absolute;left:0;top:0;display:flex;align-items:center;opacity:0;transition:opacity .45s;will-change:transform}
+.r3d-lbls .lbl.on{opacity:1}
+.r3d-lbls .dot{width:9px;height:9px;margin:-4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18),0 0 12px rgba(124,192,255,.8);flex:none}
+.r3d-lbls .ln{width:40px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,.25));flex:none}
+.r3d-lbls .tx{white-space:nowrap;padding:6px 11px;border-radius:8px;background:rgba(8,20,40,.8);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font-size:12px;font-weight:600;color:#E8F1FB}
+.r3d-lbls .tx em{font-style:normal;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#7CC0FF;margin-right:7px}
+.r3d-lbls .lbl.l{flex-direction:row-reverse}.r3d-lbls .lbl.l .ln{background:linear-gradient(270deg,rgba(255,255,255,.75),rgba(255,255,255,.25))}
+/* phones: a long label wraps onto two lines rather than running off the drawing */
+@media (max-width:640px){.r3d-lbls .ln{width:14px}.r3d-lbls .tx{font-size:11px;padding:5px 8px;white-space:normal;max-width:128px;line-height:1.3}}
+@media (prefers-reduced-motion:reduce){.r3d-lbls .lbl{transition:none}}
 .pd{padding-bottom:80px}
 .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
 /* the product on a glass plinth, under a soft spotlight (same staging as the homepage hero) */

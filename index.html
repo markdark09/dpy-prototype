@@ -684,6 +684,12 @@ main > section{overflow-x:clip}
 .how-end p b{color:#fff}
 .how.done .how-end{opacity:1;transform:none;pointer-events:auto}
 .how-end .btn{flex:none;white-space:nowrap}
+/* a second tank with its water: the Rotex Sanicube's own 3D, on its product page */
+.how-end{flex-wrap:wrap}
+.how-end .how-more{flex-basis:100%;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#7CC0FF}
+.how-end .how-more svg{width:14px;height:14px}
+.how-end .how-more:hover{color:#fff}
+.how-end .how-more:focus-visible{outline:2px solid #7CC0FF;outline-offset:3px;border-radius:4px}
 .model-cap{position:absolute;right:0;top:0;font-size:11.5px;font-weight:600;color:#8FA6C0;letter-spacing:.02em}
 
 /* ---------- which heater for which building ---------- */
@@ -1084,7 +1090,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
             <li><i>03</i><div><b>The thermostat holds it</b><p>It switches the element on and off to keep the tank at 60°C, the factory setting. You can adjust it.</p></div></li>
             <li><i>04</i><div><b>Hot water to every tap</b><p>The outlet draws from the top, where the water is hottest, and sends it to your showers.</p></div></li>
           </ol>
-          <div class="how-end"><p><b>Held at 60°C, the factory setting, ready at every tap,</b> day and night. We'll size the right one for you.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a></div>
+          <div class="how-end"><p><b>Held at 60°C, the factory setting, ready at every tap,</b> day and night. We'll size the right one for you.</p><a class="btn red" href="#heaters" data-quiz>Find My Water Heater <svg><use href="#arr"/></svg></a><a class="how-more" href="products/rotex-sanicube#how">See inside a Rotex Sanicube, with its water <svg><use href="#arr"/></svg></a></div>
         </div>
         <div class="how-vis" aria-hidden="true">
           <!-- a real-time 3D cutaway of an Everhot storage water heater (Three.js, module at the end of the page) -->
@@ -1112,7 +1118,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
     </div>
     <ul class="tabs" role="tablist" aria-label="Building type"></ul>
     <div class="sol-grid">
-      <div class="big" role="tabpanel" style="--img:url(assets/img/dpy/tower-render.webp)">
+      <div class="big" role="tabpanel" style="--img:url(assets/img/condo.webp)">
         <div class="frost"><h3><span class="dot"></span><span class="t"></span></h3><p class="rec">Recommended: <b></b></p><p class="d"></p><div class="tags"></div></div>
         <span class="credit"></span>
       </div>
@@ -1625,9 +1631,9 @@ $('.systems').innerHTML = SYS.map(([img, t, br, d, url]) => `<a class="sy" href=
 
 /* ---------- which water heater for which building ---------- */
 const SOL = [
-  ['Condos & Apartments', 'dpy/tower-render', 'Instant water heaters', 'A compact instant heater beside each shower gives hot water in seconds, with no tank to fit into a small unit.', ['Aquapower', 'Gratek Aquarius', 'Wall-mounted'], 'Residential tower, from DPY\'s project slides'],
+  ['Condos & Apartments', 'condo', 'Instant water heaters', 'A compact instant heater beside each shower gives hot water in seconds, with no tank to fit into a small unit.', ['Aquapower', 'Gratek Aquarius', 'Wall-mounted'], ''],
   ['Family Homes', 'shower', 'Storage or solar water heaters', 'A storage heater keeps a tank of hot water ready for several taps at once. Add solar on the roof to cut the power bill.', ['Rheem', 'Everhot', '5 Star solar'], ''],
-  ['Hotels & Resorts', 'dpy/resort-render', 'Heat pump water heaters', 'Central heat-pump plants with storage tanks and circulation pumps, sized for full occupancy and kept running by our after-sales team.', ['Deron heat pumps', 'HAASE tanks', 'Wilo pumps'], 'Resort project, from DPY\'s project slides'],
+  ['Hotels & Resorts', 'hotel', 'Heat pump water heaters', 'Central heat-pump plants with storage tanks and circulation pumps, sized for full occupancy and kept running by our after-sales team.', ['Deron heat pumps', 'HAASE tanks', 'Wilo pumps'], ''],
   ['Hospitals', 'plant', 'Heat pumps with backup heaters', 'Hot water around the clock for wards, theatres and kitchens, with backup heating so supply never stops.', ['Backup heaters', 'Mixing valves', 'Maintenance plans'], ''],
 ]
 const tabs = $('.tabs'), big = $('.big'), fr = $('.big .frost'), credit = $('.big .credit')
@@ -1646,7 +1652,7 @@ SOL.forEach(([, img]) => { const im = new Image(); im.src = `assets/img/${img}.w
 /* ---------- installation & after-sales (with DPY's own photos) ---------- */
 const PLANS = [
   ['Free Consultation', 'Before you buy', 'dpy/team', '30% center', 'The DPY team', ['Site visit by our sales team', 'Water heater sizing', 'Brand & model advice', 'Written quotation'], ['Free', 'site visit & quote'], 'Book a Visit', false],
-  ['Supply & Installation', 'Homes, hotels & hospitals', 'dpy/haase-install', 'center 30%', 'HAASE tank installation', ['Genuine units from 12 brands', 'Pipes, pumps & fittings', 'Installed by our technicians', 'Testing & commissioning', 'Warranty registration'], ['Per project', 'quotation'], 'Get a Quote', true],
+  ['Supply & Installation', 'Homes, hotels & hospitals', 'install', 'center', '', ['Genuine units from 12 brands', 'Pipes, pumps & fittings', 'Installed by our technicians', 'Testing & commissioning', 'Warranty registration'], ['Per project', 'quotation'], 'Get a Quote', true],
   ['After-Sales Service', 'For as long as you own it', 'technician', 'center', '', ['Repairs & spare parts', 'Preventive maintenance', 'Descaling & anode checks', 'Service from every branch'], ['Yearly', 'maintenance plans'], 'Ask About Service', false],
 ]
 $('.plans').innerHTML = PLANS.map(([t, f, img, pos, real, li, [q, qs], cta, feat]) => `<article class="plan${feat ? ' feat' : ''}">

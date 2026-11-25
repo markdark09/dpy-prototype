@@ -460,6 +460,23 @@ button.busy{cursor:progress;opacity:.85}
 }
 .lite .phead::before,.lite .phead::after{animation:none;opacity:.8}
 @media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;transform:none}}
+/* Rotex: the 3D cutaway sits over the drawing and takes its place once ready (resources/js/site/rotex-3d.js) */
+.how-vis{position:relative}
+.how-vis .r3d,.how-vis .r3d-lbls{position:absolute;pointer-events:none}
+.how-vis .r3d{border-radius:16px}
+.how-vis.has3d > svg{visibility:hidden}
+/* the drawing's legend (with its solar colour) gives way too: the 3D labels name every part */
+.how-vis.has3d > .leg{visibility:hidden}
+.r3d-lbls .lbl{position:absolute;left:0;top:0;display:flex;align-items:center;opacity:0;transition:opacity .45s;will-change:transform}
+.r3d-lbls .lbl.on{opacity:1}
+.r3d-lbls .dot{width:9px;height:9px;margin:-4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18),0 0 12px rgba(124,192,255,.8);flex:none}
+.r3d-lbls .ln{width:40px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,.25));flex:none}
+.r3d-lbls .tx{white-space:nowrap;padding:6px 11px;border-radius:8px;background:rgba(8,20,40,.8);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font-size:12px;font-weight:600;color:#E8F1FB}
+.r3d-lbls .tx em{font-style:normal;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#7CC0FF;margin-right:7px}
+.r3d-lbls .lbl.l{flex-direction:row-reverse}.r3d-lbls .lbl.l .ln{background:linear-gradient(270deg,rgba(255,255,255,.75),rgba(255,255,255,.25))}
+/* phones: a long label wraps onto two lines rather than running off the drawing */
+@media (max-width:640px){.r3d-lbls .ln{width:14px}.r3d-lbls .tx{font-size:11px;padding:5px 8px;white-space:normal;max-width:128px;line-height:1.3}}
+@media (prefers-reduced-motion:reduce){.r3d-lbls .lbl{transition:none}}
 .pd{padding-bottom:80px}
 .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
 /* the product on a glass plinth, under a soft spotlight (same staging as the homepage hero) */
@@ -651,8 +668,11 @@ button.busy{cursor:progress;opacity:.85}
   <linearGradient id="hwTank" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4C9BE8"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
   <linearGradient id="hwCoil" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F08A4B"/><stop offset="1" stop-color="#E3473B"/></linearGradient>
 </defs><g data-part="1"><rect class="box" x="20" y="60" width="150" height="80" rx="16"/><text class="t" x="95" y="96" text-anchor="middle">Heat pump</text><text class="s" x="95" y="120" text-anchor="middle">or boiler</text><rect class="box" x="20" y="250" width="150" height="80" rx="16"/><text class="t" x="95" y="286" text-anchor="middle">Solar</text><text class="s" x="95" y="310" text-anchor="middle">panels</text></g><rect class="shell" x="250" y="30" width="140" height="340" rx="34"/><g data-part="2 3"><rect x="264" y="44" width="112" height="312" rx="24" fill="url(#hwTank)" opacity=".85"/></g><g data-part="1"><path class="pipe hot" d="M170 100 H264"/><path class="flow" d="M170 100 H264"/><path class="pipe warm" d="M170 290 H220 V250 H264"/><path class="flow slow" d="M170 290 H220 V250 H264"/></g><g data-part="3"><path class="coil" d="M282 320 h76 v-30 h-76 v-30 h76 v-30 h-76 v-30 h76 v-30 h-76 v-30 h76 v-30 h-76 v-30"/></g><g data-part="3 4"><path class="pipe cold" d="M520 340 H400 V330 H282"/><path class="flow" d="M520 340 H400 V330 H282"/><text class="s" x="640" y="360" text-anchor="end">Fresh water in</text></g><g data-part="3"><path class="pipe hot" d="M358 80 H460 V90"/><path class="flow" d="M358 80 H460 V90"/></g><g data-part="3"><rect class="box" x="460" y="60" width="160" height="230" rx="16"/><rect class="floor" x="476" y="78" width="128" height="48" rx="8"/><rect class="floor" x="476" y="144" width="128" height="48" rx="8"/><rect class="floor" x="476" y="210" width="128" height="48" rx="8"/><text class="s" x="540" y="312" text-anchor="middle">Building</text></g><text class="t" x="320" y="22" text-anchor="middle">Sanicube</text><g class="mk" data-n="1"><circle cx="210" cy="70" r="17"/><text x="210" y="71">1</text></g><g class="mk" data-n="2"><circle cx="320" cy="200" r="17"/><text x="320" y="201">2</text></g><g class="mk" data-n="3"><circle cx="430" cy="52" r="17"/><text x="430" y="53">3</text></g><g class="mk" data-n="4"><circle cx="440" cy="312" r="17"/><text x="440" y="313">4</text></g></svg><figcaption class="leg"><span><i style="background:#4C9BE8"></i>Cold water</span><span><i style="background:#F08A4B"></i>Warmed by the sun</span><span><i style="background:#E3473B"></i>Hot water</span></figcaption></figure></div>
-      <ol class="hw-steps"><li data-step="1"><em>01 · Step</em><h3>Heat comes in</h3><p>Heat pumps, solar panels or a boiler heat the water in the tank. One tank can take heat from several sources at once.</p></li><li data-step="2"><em>02 · Step</em><h3>Stored in layers</h3><p>Hot water rises, so the top stays hottest, and the insulation keeps the heat for hours.</p></li><li data-step="3"><em>03 · Step</em><h3>Drinking water heated on the way</h3><p>Your drinking water runs through stainless steel coils inside the tank and is heated as it passes. It's never stored, which keeps it fresh and hygienic.</p></li><li data-step="4"><em>04 · Step</em><h3>Fresh water every time</h3><p>Cold water comes in at the bottom of the coil, so what reaches the taps is always freshly heated.</p></li></ol>
+      <ol class="hw-steps"><li data-step="1"><em>01 · Step</em><h3>Heat comes in</h3><p>A heat pump or boiler heats the top of the tank through its own stainless steel coil, and solar panels can add heat at the bottom. The tank water only stores that heat.</p></li><li data-step="2"><em>02 · Step</em><h3>Stored in layers</h3><p>Hot water rises, so the top stays hottest, and the insulation keeps the heat for hours.</p></li><li data-step="3"><em>03 · Step</em><h3>Drinking water heated on the way</h3><p>Your drinking water runs up through a stainless steel coil inside the tank and is heated as it passes. Only the water in the coil, 19 or 29 liters depending on the model, is kept hot, and it is used first in, first out, so none goes stale.</p></li><li data-step="4"><em>04 · Step</em><h3>Fresh water every time</h3><p>Cold water comes in at the bottom of the coil, so what reaches the taps is always freshly heated.</p></li></ol>
     </div>
+    <!-- the Sanicube in 3D over the drawing; the drawing stays where WebGL does not run. Three.js is served from this site -->
+    <script type="importmap">{"imports":{"three":"../assets/vendor/three.module.min.js?v=2992ecd7","three/addons/environments/RoomEnvironment.js":"../assets/vendor/RoomEnvironment.js?v=597308a0"}}</script>
+    <script type="module" src="../assets/js/rotex-3d.js?v=5eb3ee30"></script>
   </div>
 </section>
 <section class="sec" aria-labelledby="usT" style="--from:#0A1830;--blend:var(--dblend)">
