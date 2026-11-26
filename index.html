@@ -706,8 +706,15 @@ main > section{overflow-x:clip}
 .how[data-model="rotex"] .how-vis > :is(.h3d,.lbls,.inst,.h3d-fb){display:none}
 .r3d-home{position:absolute;inset:0}
 .r3d-box{position:absolute;left:0;right:0;top:30px;bottom:0}
-.r3d-fb{position:absolute;left:50%;top:10%;height:78%;width:auto;transform:translateX(-50%)}
+.r3d-fb{position:absolute;left:50%;top:10%;height:78%;width:auto;transform:translateX(-50%);visibility:hidden}
+/* the photo is the fallback only (no WebGL, the script failed, or too slow); while the scene builds, a quiet ring,
+   then the 3D fades in */
+.r3d-home.no3d:not(.has3d) .r3d-fb{visibility:visible}
 .r3d-home.has3d .r3d-fb{display:none}
+.r3d-home > .r3d,.r3d-home > .r3d-lbls{opacity:0;transition:opacity .5s var(--ease)}
+.r3d-home.has3d > .r3d,.r3d-home.has3d > .r3d-lbls{opacity:1}
+.r3d-home:not(.has3d):not(.no3d)::before{content:"";position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:3px solid rgba(255,255,255,.14);border-top-color:rgba(255,255,255,.7);animation:r3dspin .9s linear infinite}
+@keyframes r3dspin{to{transform:rotate(1turn)}}
 /* the column here is narrower than on the product page: a long label wraps rather than running out of the frame */
 .how .r3d-lbls .tx{white-space:normal;max-width:210px;line-height:1.3}
 .how .r3d-lbls .ln{width:24px}
@@ -1117,7 +1124,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
           <span class="kick">How it works</span>
           <h2 class="thin h2"><span data-for="everhot">Inside a Storage<br>Water Heater</span><span data-for="rotex" hidden>Inside a Heat<br>Exchanger Tank</span></h2>
           <div class="how-pick" role="group" aria-label="Which tank to look inside" hidden>
-            <button type="button" data-model="everhot" aria-pressed="true">Storage heater<small>Everhot</small></button><button type="button" data-model="rotex" aria-pressed="false" data-src="assets/js/rotex-3d.js?v=b10f14bd">Heat exchanger tank<small>ROTEX Sanicube</small></button>
+            <button type="button" data-model="everhot" aria-pressed="true">Storage heater<small>Everhot</small></button><button type="button" data-model="rotex" aria-pressed="false" data-src="assets/js/rotex-3d.js?v=8e95da02">Heat exchanger tank<small>ROTEX Sanicube</small></button>
           </div>
           <ol class="steps" data-for="everhot">
             <span class="bar" aria-hidden="true"></span>
@@ -1729,6 +1736,13 @@ heat(RM ? 1 : 0)
 const rail = () => bar.parentNode.style.setProperty('--rail', steps.at(-1).offsetTop + 'px') // centre of 01 to centre of 04
 rail(); addEventListener('resize', rail); document.fonts?.ready.then(rail)
 $('.how-pick', howSec).hidden = false // the switch needs this script, so it shows only once the script runs
+// the ROTEX 3D is fetched once this section comes near, not on the click, so picking ROTEX only has to build the scene
+// (the script waits until its frame is shown before it builds anything). Its photo is the fallback only: no WebGL,
+// the script fails, or the 3D is not ready 10 s after ROTEX is picked. A phone saving data waits for the click.
+const rotexBtn = $('.how-pick button[data-src]', howSec)
+// resolved against the page first: a path without ./ or / would be looked up in the import map instead, and fail
+const loadRotex = () => { if (!rotexBtn || rotexBtn.dataset.loaded) return; rotexBtn.dataset.loaded = '1'; import(new URL(rotexBtn.dataset.src, location.href).href).catch(() => r3d?.classList.add('no3d')) }
+if (rotexBtn && !navigator.connection?.saveData) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); loadRotex() } }, { rootMargin: '100% 0px' }).observe(howSec)
 $$('.how-pick button', howSec).forEach(b => b.addEventListener('click', () => {
   const m = b.dataset.model
   if (m === howSec.dataset.model) return
@@ -1736,8 +1750,7 @@ $$('.how-pick button', howSec).forEach(b => b.addEventListener('click', () => {
   $$('.how-pick button', howSec).forEach(x => x.setAttribute('aria-pressed', String(x === b)))
   $$('[data-for]', howSec).forEach(el => { el.hidden = el.dataset.for !== m })
   useList(); rail(); heat(window.HOW.p)
-  // resolved against the page first: a path without ./ or / would be looked up in the import map instead, and fail
-  if (b.dataset.src && !b.dataset.loaded) { b.dataset.loaded = '1'; import(new URL(b.dataset.src, location.href).href).catch(() => {}) } // no 3D: its photo stays
+  if (b.dataset.src) { loadRotex(); setTimeout(() => { if (r3d && !r3d.classList.contains('has3d')) r3d.classList.add('no3d') }, 10000) }
   $('.how-vis', howSec).dispatchEvent(new Event('how-model')) // the Everhot scene pauses while the ROTEX one is shown, and picks up again
   window.ScrollTrigger?.refresh() // the steps' text changed length
 }))
