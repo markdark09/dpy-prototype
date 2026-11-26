@@ -22,7 +22,7 @@ let THREE, RoomEnvironment, R
 try {
   THREE = await import('three'); ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js'))
   R = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' })
-} catch { return } // no WebGL here: the flat drawing stays, and that is all
+} catch { fig.classList.add('no3d'); return } // no WebGL here: the photo (homepage) or the flat drawing stays, and that is all
 R.debug.checkShaderErrors = false; R.setPixelRatio(Math.min(devicePixelRatio, 2)); R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.05; R.outputColorSpace = THREE.SRGBColorSpace
 R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.shadowMap.autoUpdate = false; R.shadowMap.needsUpdate = true // the tank never moves: its shadows are drawn once
 const scene = new THREE.Scene()
@@ -289,4 +289,4 @@ new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !
 // with reduced motion: no animation, just the step's picture, redrawn when the step changes
 if (RM) { hot = 1; frame(performance.now()); new MutationObserver(() => { heat = fig.dataset.step === '1' ? 1 : 0; flow = 1; frame(performance.now()) }).observe(fig, { attributes: true, attributeFilter: ['data-step'] }) }
 }
-start()
+start().catch(() => fig?.classList.add('no3d')) // anything else going wrong: the same fallback
