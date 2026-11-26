@@ -156,7 +156,9 @@ html.menu-lock{overflow:hidden}
 .ft .soc svg{width:16px;height:16px}
 .base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid rgba(120,70,40,.15);font-size:13px;color:#76665C}
 .base a{text-decoration:underline;text-underline-offset:2px}
-.ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px}
+.ink-def{position:absolute;width:0;height:0;overflow:hidden}
+.ask{position:fixed;right:22px;bottom:22px;z-index:80;font-size:14px;transition:opacity .3s,transform .3s,visibility 0s}
+.ask.away:not(.open){opacity:0;visibility:hidden;transform:translateY(12px);pointer-events:none;transition:opacity .3s,transform .3s,visibility 0s .3s} 
 .ask-btn{position:relative;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 8px;border-radius:999px;background:var(--ink);color:#fff;font-weight:600;box-shadow:0 18px 40px -14px rgba(1,20,50,.55);transition:transform .5s var(--ease),opacity .3s}
 .ask-btn:hover{transform:translateY(-2px)}
 .ask-btn .av{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center}
@@ -403,6 +405,7 @@ button.busy{cursor:progress;opacity:.85}
 .blg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 @media (max-width:980px){.blg{padding-bottom:72px}.blg-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:none}}
 @media (max-width:640px){.blg-grid{grid-template-columns:minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:flex}}
+@media (max-width:560px){.blg-grid{display:flex;gap:14px;margin:0 calc(var(--g) * -1);padding:4px var(--g) 18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain}.blg-grid::-webkit-scrollbar{display:none}.blg-grid > .bc{flex:0 0 84%;scroll-snap-align:start}} /* phones: the three latest articles in one swipe row, with dots (index.html) */
 </style>
 <link rel="preload" as="image" href="assets/img/dpy/aquapower-aqp28n.webp" fetchpriority="high">
 <link rel="preload" as="script" href="assets/vendor/gsap.min.js"><link rel="preload" as="script" href="assets/vendor/ScrollTrigger.min.js"> <!-- downloaded now, run after the first paint --> <!-- the first heater in the hero: the script adds it, so tell the browser early -->
@@ -573,7 +576,7 @@ main > section{overflow-x:clip}
 
 /* ---------- the water heaters (real DPY products) ---------- */
 /* the page warms as you scroll: ice blue here, deep night for the demo, then cool light, then warm sand */
-.range{padding:30px 0 300px;background:linear-gradient(180deg,#EAF2FA 0,#EAF2FA calc(100% - 300px),#0A1830 100%)}
+.range{padding:30px 0 160px;background:linear-gradient(180deg,#EAF2FA 0,#EAF2FA calc(100% - 160px),#0A1830 100%)}
 .range .sec-head{margin-bottom:96px}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px}
 .sec-head .lede{max-width:330px;margin:0}
@@ -704,6 +707,11 @@ main > section{overflow-x:clip}
 .how [hidden]{display:none!important}
 /* ROTEX: its 3D takes the Everhot's place, and the Everhot's own parts are put away */
 .how[data-model="rotex"] .how-vis > :is(.h3d,.lbls,.inst,.h3d-fb){display:none}
+.swipe-dots{display:none;justify-content:center;gap:2px;margin-top:4px}
+.swipe-dots button{display:grid;place-items:center;width:24px;height:24px;padding:0;border:0;background:none;cursor:pointer}
+.swipe-dots button::before{content:"";width:7px;height:7px;border-radius:99px;background:rgba(10,24,48,.22);transition:width .3s var(--ease),background-color .3s}
+.swipe-dots button[aria-current="true"]::before{width:18px;background:var(--ink)}
+.swipe-dots button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:99px}
 .r3d-home{position:absolute;inset:0}
 .r3d-box{position:absolute;left:0;right:0;top:30px;bottom:0}
 .r3d-fb{position:absolute;left:50%;top:10%;height:78%;width:auto;transform:translateX(-50%);visibility:hidden}
@@ -732,7 +740,7 @@ main > section{overflow-x:clip}
 @media (prefers-reduced-motion:reduce){.r3d-lbls .lbl{transition:none}}
 
 /* ---------- which heater for which building ---------- */
-.sol{padding:250px 0 100px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 230px,#F4F7FA 100%)}
+.sol{padding:160px 0 100px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 140px,#F4F7FA 100%)}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;list-style:none}
 .tabs button{height:38px;padding:0 16px;border-radius:999px;background:var(--soft);font-size:13.5px;font-weight:500;color:var(--ink2);transition:background .3s,color .3s}
 .tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
@@ -766,7 +774,7 @@ main > section{overflow-x:clip}
 .cli{padding:20px 0 110px;background:#F4F7FA}
 .cl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
 .cl{position:relative;display:grid;place-items:center;height:96px;padding:14px 16px;border-radius:14px;background:#fff;box-shadow:0 1px 0 rgba(1,30,70,.05),0 10px 24px -20px rgba(1,30,70,.35);transition:opacity .5s,box-shadow .5s var(--ease)}
-.cl img{max-width:100%;max-height:52px;width:auto;filter:grayscale(1);opacity:.74;transition:filter .5s,opacity .5s,transform .6s var(--ease)}
+.cl img{max-width:100%;max-height:52px;width:auto;filter:grayscale(1) url(#ink);transition:filter .5s,opacity .5s,transform .6s var(--ease)} /* #ink: a tone curve that darkens pale logos, white stays white (the svg in the section) */
 .cl span{position:absolute;left:6px;right:6px;bottom:7px;font-size:11.5px;font-weight:600;color:var(--mute);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .4s}
 .cl:hover{box-shadow:0 1px 0 rgba(1,30,70,.05),0 18px 34px -20px rgba(1,30,70,.45)}
 .cl:hover img,.cli.f .cl.in img{filter:none;opacity:1}
@@ -785,9 +793,6 @@ main > section{overflow-x:clip}
 .tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
 @media (max-width:900px){.tm{grid-template-columns:1fr}}
 /* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
-.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13.5px;color:var(--mute)}
-.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.tm-note + .tm{margin-top:16px}
 .cl-cta{margin:34px 0 0;text-align:center;font-size:15px;color:var(--mute)}
 .cl-cta a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink);border-bottom:1.5px solid var(--red);padding-bottom:1px}
 .cl-cta svg{width:14px;height:14px}
@@ -976,7 +981,7 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .lbl .ln{width:22px}.lbl .tx{font-size:11px;padding:5px 8px}.inst{gap:12px;padding:8px 12px}.i-bar{width:56px}
   /* "Factory setting" is wider than the old "Set point": on the narrowest phones the bar gives way (the tank reads in numbers) */
   .how-end{flex-direction:column;align-items:flex-start;margin-left:56px}.how-end p{max-width:none}
-  .sol{padding-top:190px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 150px,#F4F7FA 100%)}
+  .sol{padding-top:120px;background:linear-gradient(180deg,#0A1830 0,#F4F7FA 100px,#F4F7FA 100%)}
   .hc-pair{display:block;width:100%;max-width:440px}.hc-dial{width:100%;display:grid;grid-template-columns:1fr 112px;align-content:center;column-gap:12px;padding:14px 16px}
   .hc-dial .dial{grid-column:2;grid-row:1/3;width:112px;height:112px;margin:0}.hc-dial b{align-self:end}.hc-dial small{align-self:start}.dial-scale{display:none}
   /* on a phone every callout label sits to the right, over the tank, so nothing runs off the screen */
@@ -995,13 +1000,15 @@ html.modal-open{overflow:hidden;padding-right:var(--sbw,0px)}
   .hc-row::-webkit-scrollbar{display:none}
   .hc-row > .hc-gtk,.hc-row > .hc-pair{flex:0 0 86%;max-width:none;scroll-snap-align:start}
   .hc-row > .hc-pair{display:flex}.hc-row .hc-dial{height:100%}
+  .swipe-dots{display:flex}
+  .plans{display:flex;gap:14px;margin:0 calc(var(--g) * -1);padding:4px var(--g) 18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain}.plans::-webkit-scrollbar{display:none}.plans > .plan{flex:0 0 84%;scroll-snap-align:start} /* the three service plans: one swipe row */
   .hero-foot{margin-top:22px;padding-top:18px;width:100%}
   .stats{grid-template-columns:repeat(3,1fr);gap:12px;width:100%}.stats b{font-size:26px}.stats small{display:block;line-height:1.3}
   .brands-k{display:none}
   .hc-gtk .gt-br{margin-bottom:14px}
   .band{padding:44px 0 56px}.band h2{margin-bottom:24px}
 }
-@media (max-width:560px){ .models{grid-template-columns:1fr;row-gap:64px} .model .pic{height:230px} .pager button{padding:0 11px;font-size:12px} .cap{width:300px} }
+@media (max-width:560px){ .models{display:flex;gap:14px;margin:0 calc(var(--g) * -1);padding:40px var(--g) 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain} .models::-webkit-scrollbar{display:none} .model{flex:0 0 84%;scroll-snap-align:start} .model .pic{height:230px} .pager button{padding:0 11px;font-size:12px} .cap{width:300px} } /* phones: the four types share one swipe row (each card keeps its buttons), with dots below */
 @media (max-width:560px){
   .cli,.br{padding-bottom:72px}.svc{padding:24px 0 80px}.qt{padding-bottom:72px}.sol{padding-bottom:72px}
   .sec-head{margin-bottom:32px;gap:14px}.range .sec-head{margin-bottom:72px}
@@ -1201,13 +1208,8 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
       <p class="lede">Some of the places across the Philippines that run on hot water supplied and installed by DPY and Gratek.</p>
     </div>
     <ul class="tabs cl-tabs" role="tablist" aria-label="Client type"></ul>
+    <svg class="ink-def" width="0" height="0" aria-hidden="true" focusable="false"><filter id="ink" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR type="gamma" exponent="2.2"/><feFuncG type="gamma" exponent="2.2"/><feFuncB type="gamma" exponent="2.2"/></feComponentTransfer></filter></svg>
     <ul class="cl-grid"></ul>
-    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
-    <div class="tm">
-      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.”</blockquote><figcaption><i>R</i><div><b>Ramon S.</b>Engineering Manager · Resort, Boracay</div></figcaption></figure>
-      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter.”</blockquote><figcaption><i>M</i><div><b>Maricel D.</b>Facilities Head · Hospital, Iloilo</div></figcaption></figure>
-      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“They visited our condo, recommended an instant heater that fit the small bathroom, and installed it the same week. Very professional.”</blockquote><figcaption><i>J</i><div><b>Jun P.</b>Unit owner · Condo, Pasig</div></figcaption></figure>
-    </div>
     <p class="cl-cta">Your building next? <a href="#quote" data-quote="" data-note="Project inquiry">Talk to our project team <svg><use href="#arr"/></svg></a></p>
   </div>
 </section>
@@ -1317,7 +1319,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
       <div><h2>Contact</h2><ul><li><a href="tel:+639338672954">0933 867 2954</a></li><li><a href="tel:+639152453528">0915 245 3528</a></li><li><a href="tel:+63279560521">(02) 7956 0521</a></li><li><a href="mailto:hello@dpymi.com.ph">hello@dpymi.com.ph</a></li><li><a href="mailto:sales@dpymi.com.ph">sales@dpymi.com.ph</a></li><li><a href="mailto:support@dpymi.com.ph">support@dpymi.com.ph</a></li><li>Mon–Sat · 8 AM – 6 PM</li></ul></div>
     </div>
     <div class="trust"><div><p class="k">A registered Philippine business</p><ul><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>DTI registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>SEC registered (2011)</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>BIR registered</li><li><i><svg aria-hidden="true"><use href="#ck"/></svg></i>Golden Globe awardee 2021</li></ul></div><a class="seal" href="https://verify.bir.gov.ph/correspondence/" target="_blank" rel="noopener" title="Verify on the BIR website (opens in a new tab)"><img src="assets/brand/bir-seal.png" width="728" height="216" alt="BIR Registration Seal Badge: registered 2017, RDO 23, RSN 043RC20230000001041. Open the BIR verification page" loading="lazy"></a></div>
-    <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Prototype by Makarios IT Solutions · product photos from dpymi.com.ph</span></div>
+    <div class="base"><span>© 2026 DPY Mercantile Inc. &amp; Gratek Smart Water Corp.</span><span><a href="privacy">Privacy notice</a> · Website by Makarios IT Solutions</span></div>
   </div>
 </footer>
 <!-- /@footer -->
@@ -1370,7 +1372,7 @@ if (matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 
 <script>window.DPY_HOME = true</script>
 <script src="assets/js/site.js?v=84ffe762" defer></script>
 <script src="assets/js/branches.js?v=3e1d78d7" defer></script>
-<script src="assets/js/ask.js?v=eebf1e10" defer></script>
+<script src="assets/js/ask.js?v=94da44ed" defer></script>
 <script>
 // paint first, animate after: the hero (heater included) is on screen before the animation library even runs.
 // The library is downloaded early (preload in the head), then run right after the first frame, followed by everything below.
@@ -1682,6 +1684,24 @@ const SYS = [
   ['aquaplast', 'PPR Pipes & Fittings', 'Aquaplast', 'Heat-resistant pipes, elbows and valves for hot water lines.', 'products/aquaplast-ppr-pipes'],
   ['acthor', 'AC·THOR Solar Control', 'my-PV', 'Sends surplus solar-panel power into heating your water.', 'water-heaters?type=control'],
 ]
+// phones: a row that swipes sideways (the hero's two cards, the four heater types) gets dots below it: they show
+// which card is in view, follow the swipe and can be tapped. Hidden above 560px, where the cards sit side by side.
+const swipeDots = (row, label) => {
+  if (!row) return
+  const cards = [...row.children], dots = document.createElement('div')
+  dots.className = 'swipe-dots'; dots.setAttribute('role', 'group'); dots.setAttribute('aria-label', label)
+  cards.forEach((c, i) => {
+    const d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', `Card ${i + 1} of ${cards.length}`)
+    d.addEventListener('click', () => row.scrollTo({ left: c.offsetLeft - cards[0].offsetLeft, behavior: RM ? 'auto' : 'smooth' }))
+    dots.append(d)
+  })
+  row.after(dots)
+  const mark = c => [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(cards[i] === c)))
+  mark(cards[0])
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mark(e.target) }), { root: row, threshold: .6 })
+  cards.forEach(c => io.observe(c))
+}
+swipeDots($('.hc-row'), 'Hero cards'); swipeDots($('.models'), 'Water heater types')
 $('.systems').innerHTML = SYS.map(([img, t, br, d, url]) => `<a class="sy" href="${url}"><span class="ph"><img src="${IMG}${img}.webp"${wh('dpy/' + img + '.webp')} alt="${t}: ${br}" loading="lazy"></span><span><small>${br}</small><b>${t}</b><p>${d}</p></span><i aria-hidden="true">${EXT}</i></a>`).join('')
 
 /* ---------- which water heater for which building ---------- */
@@ -1714,6 +1734,8 @@ $('.plans').innerHTML = PLANS.map(([t, f, img, pos, real, li, [q, qs], cta, feat
   <div class="top" style="--img:url(assets/img/${img}.webp);--pos:${pos}"><small>What you get</small><ul>${li.map(x => `<li>${x}</li>`).join('')}</ul>${real ? `<span class="real">${real}</span>` : ''}</div>
   <div class="bot"><h3>${t}</h3><p class="for">${f}</p><p class="q">${q} <small>${qs}</small></p>
   <a class="btn ${feat ? 'red' : 'ghost'}" href="#quote" data-quote="" data-note="${t}">${cta}</a></div></article>`).join('')
+
+swipeDots($('.plans'), 'Service steps'); swipeDots($('.blg-grid'), 'Latest articles')
 
 /* ---------- how it works: scroll progress drives the 3D cutaway (module at the end) and the step list ---------- */
 // two tanks share the section: the Everhot (its 3D at the end of the page) and the ROTEX Sanicube (assets/js/rotex-3d.js,

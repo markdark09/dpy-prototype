@@ -13,7 +13,7 @@ export default {
 .lg li{flex:0 0 calc((100% - 7 * 12px) / 8);min-width:0}
 .lg li{display:grid;grid-template-rows:1fr auto;gap:8px;justify-items:center;align-items:center;height:132px;padding:16px 12px 12px;border-radius:18px;background:#fff;box-shadow:var(--card);transition:opacity .45s,transform .6s var(--ease)}
 .lg li[hidden]{display:none}
-.lg img{max-height:56px;max-width:100%;width:auto;filter:grayscale(1);opacity:.78;transition:filter .4s,opacity .4s}
+.lg img{max-height:56px;max-width:100%;width:auto;filter:grayscale(1) url(#ink);transition:filter .4s,opacity .4s} /* #ink: pale logos darker, white stays white (the svg before the list) */
 .lg li:hover img{filter:none;opacity:1}
 .lg span{font-size:11.5px;font-weight:600;color:var(--mute);text-align:center;line-height:1.3}
 .honest{margin:28px 0 0;font-size:14px;color:var(--mute);text-align:center}
@@ -39,7 +39,7 @@ export default {
     <!-- client logos where project photos used to be (DPY, November 2026); the first rows load with the page -->
     <div class="pj-logos" aria-label="Our clients" role="group">
       <ul class="tabs" aria-label="Filter clients by type of building"><li><button class="chip" type="button" data-c="" aria-pressed="true">All</button></li>${Object.keys(CLIENTS).map(k => `<li><button class="chip" type="button" data-c="${k}" aria-pressed="false">${k}</button></li>`).join('')}</ul>
-      <ul class="lg">${Object.entries(CLIENTS).flatMap(([k, v]) => v.map(([f, n]) => `<li data-c="${k}" data-r>${img(R, `assets/img/clients/${f}.webp`, '', ++shown > 16 ? ' loading="lazy"' : '')}<span>${n}</span></li>`)).join('')}</ul>
+      <svg class="ink-def" width="0" height="0" aria-hidden="true" focusable="false"><filter id="ink" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR type="gamma" exponent="2.2"/><feFuncG type="gamma" exponent="2.2"/><feFuncB type="gamma" exponent="2.2"/></feComponentTransfer></filter></svg><ul class="lg">${Object.entries(CLIENTS).flatMap(([k, v]) => v.map(([f, n]) => `<li data-c="${k}" data-r>${img(R, `assets/img/clients/${f}.webp`, '', ++shown > 16 ? ' loading="lazy"' : '')}<span>${n}</span></li>`)).join('')}</ul>
       <p class="honest">Logos belong to their owners and are shown as project references.</p>
     </div>
   </div>

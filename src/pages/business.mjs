@@ -31,6 +31,7 @@ const FAQ = [
   ['Which brands do you install?', `Genuine units from ${BRANDS.length} brands: ${BRANDS.map(b => b[1]).slice(0, -1).join(', ')} and ${BRANDS.at(-1)[1]}. We keep spare parts for them in stock.`],
 ]
 // the sample reviews, as on the homepage, until DPY sends real ones
+// sample quotes, kept for when DPY sends real ones (the reviews section is left out until then, as on the website)
 const REVIEWS = [
   ['R', 'Ramon S.', 'Engineering Manager · Resort, Boracay', 'We switched our guest rooms to heat pumps with DPY. Hot water has never run out at full occupancy, and our power bill dropped noticeably.'],
   ['M', 'Maricel D.', 'Facilities Head · Hospital, Iloilo', "For a hospital, hot water can't stop. DPY designed the backup system, installed it on schedule, and their maintenance team checks it every quarter."],
@@ -175,9 +176,6 @@ export default {
 .tm figure:nth-child(3) figcaption i{background:linear-gradient(135deg,#F2A33A,#C76A0E)}
 @media (max-width:900px){.tm{grid-template-columns:1fr}}
 /* the reviews are samples until DPY sends real ones (README, sample content): say so on the page */
-.tm-note{margin:40px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;text-align:center;font-size:13.5px;color:var(--mute)}
-.tm-note span{padding:3px 10px;border-radius:999px;background:#FFF1DC;color:#8A5300;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.tm-note + .tm{margin-top:16px}
 `,
   body: R => {
     const L = s => s.startsWith('../') ? R + s.slice(3) : `${R}products/${s}`
@@ -253,16 +251,6 @@ export default {
         <h3>${s.t}</h3><p class="q">The challenge</p><p>${s.need}</p><p class="q b">What we install</p><p>${s.we}</p>
         <ul class="sx-parts">${s.parts.map(([n, u]) => `<li><a href="${L(u)}">${n}${I.arr}</a></li>`).join('')}</ul>
         <div class="sx-logos"><small>Trusted by</small>${logos(s.cl)}</div></div>`).join('')}</div>
-    </div>
-  </div>
-</section>
-
-<section class="sec soft" aria-labelledby="rvT">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="kick">Clients</span><h2 class="thin h2" id="rvT">What Our Clients<br>Say About Us</h2></div><a class="link" href="${R}projects">See our projects and clients ${I.arr}</a></div>
-    <p class="tm-note"><span>Sample</span>These three reviews show the layout. Real customer quotes, used with permission, replace them before launch.</p>
-    <div class="tm">
-${REVIEWS.map(([i, n, by, q]) => `      <figure><span class="st" aria-label="5 out of 5">★★★★★</span><blockquote>“${q}”</blockquote><figcaption><i>${i}</i><div><b>${n}</b>${by}</div></figcaption></figure>`).join('\n')}
     </div>
   </div>
 </section>

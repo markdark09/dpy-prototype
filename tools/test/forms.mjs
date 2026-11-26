@@ -1,5 +1,5 @@
 // The homepage quote, Contact quote and Service booking forms.
-// Phone: the send button pins to the bottom while the form is on screen and the chat button steps aside,
+// Phone: the chat button waits until the visitor scrolls, the send button pins to the bottom while the form is on screen and the chat button steps aside,
 // both outcomes of sending (server sent it, or not set up so the email app opens), the earliest service day.
 // Desktop: the send row is the normal one (note left, button right, nothing pinned).
 import { chromium, BASE, PHONE, DESKTOP, open, check, done, scrollTo, shot } from './lib.mjs'
@@ -19,7 +19,7 @@ const phone = await b.newContext(PHONE)
 for (const [url, f] of FORMS) {
   const p = await open(phone, url, { wait: 500 })
   let s = await state(p)
-  check(`${url} phone, top of page: chat shown`, s.chat && !s.formOn, s)
+  check(`${url} phone, top of page: chat waits until the visitor scrolls (it covered the first screen's buttons)`, !s.chat && !s.formOn, s)
   await midForm(p, f); s = await state(p)
   check(`${url} phone, mid form: send button pinned, chat hidden`, s.gap >= 10 && s.gap <= 16 && s.w > 300 && !s.chat, s)
   await shot(p, `form-pinned${url.replace(/\W/g, '-') || '-home'}`)

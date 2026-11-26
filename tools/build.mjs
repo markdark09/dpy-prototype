@@ -35,7 +35,8 @@ const { articleCard, CARD_CSS } = await import(pathToFileURL(path.join(ROOT, 'sr
 const BLOG_CSS = CARD_CSS + `.blg{padding:10px 0 110px;background:#FBF3EC}
 .blg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 @media (max-width:980px){.blg{padding-bottom:72px}.blg-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:none}}
-@media (max-width:640px){.blg-grid{grid-template-columns:minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:flex}}`
+@media (max-width:640px){.blg-grid{grid-template-columns:minmax(0,1fr)}.blg-grid .bc:nth-child(3){display:flex}}
+@media (max-width:560px){.blg-grid{display:flex;gap:14px;margin:0 calc(var(--g) * -1);padding:4px var(--g) 18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--g);scrollbar-width:none;overscroll-behavior-x:contain}.blg-grid::-webkit-scrollbar{display:none}.blg-grid > .bc{flex:0 0 84%;scroll-snap-align:start}} /* phones: the three latest articles in one swipe row, with dots (index.html) */`
 fill('blog', `<section class="blg" id="blog" aria-labelledby="blgt">
   <div class="wrap">
     <div class="sec-head"><div><span class="kick">From our blog</span><h2 class="thin h2" id="blgt">Hot Water Guides<br>&amp; News</h2></div><a class="link" href="blog">All articles <svg aria-hidden="true"><use href="#arr"/></svg></a></div>
