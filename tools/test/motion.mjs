@@ -48,6 +48,8 @@ for (const c of cases) for (const url of ['/', '/products/aquapower-s35m-s45m', 
   // bring up the bars that only show after an action
   if (url === '/water-heaters') { await p.locator('.pc [data-cmp]').first().click().catch(() => {}); await p.waitForTimeout(300) }
   if (url.startsWith('/products/')) { await p.evaluate(() => scrollBy(0, document.querySelector('.ph-acts').getBoundingClientRect().bottom + 200)); await p.waitForTimeout(700) }
+  // Ask DPY waits for a scroll (ask.js), so show it here to measure where it sits
+  await p.evaluate(() => document.querySelector('.ask')?.classList.remove('away')); await p.waitForTimeout(400)
   const m = await p.evaluate(() => {
     const vw = innerWidth, vh = innerHeight, out = {}
     for (const sel of ['.ask', '.ctray', '.qbar', '.cbar', '.cmpbar', '.ph-acts']) {

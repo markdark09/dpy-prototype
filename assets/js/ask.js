@@ -3,6 +3,13 @@
 (() => {
 const SRC = document.currentScript.src
 if (!document.querySelector('.ask')) return // the page has no chat markup
+// the button waits until the visitor starts scrolling: at the top of a page it sat on the first screen's own buttons
+// (the homepage's heater tabs, the contact cards). A page too short to scroll that far shows it at once.
+{
+  const el = document.querySelector('.ask')
+  const set = () => el.classList.toggle('away', scrollY < Math.min(innerHeight * .3, (document.documentElement.scrollHeight - innerHeight) / 2))
+  set(); addEventListener('scroll', set, { passive: true }); addEventListener('resize', set)
+}
 // nothing runs while the page opens: the chat wakes when the visitor reaches for it (hover, focus, tap), or for the nudge at 9 s
 const BTN = document.querySelector('.ask-btn'); let ready = false
 const boot = () => { if (!ready) { ready = true; init() } }
