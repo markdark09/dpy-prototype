@@ -128,7 +128,11 @@ export function card(p, R, { h = 'h3' } = {}) {
 }
 
 // ---------- layout ----------
-const NAV = [['water-heaters', 'Water Heaters'], ['business', 'For Business'], ['service', 'Service'], ['projects', 'Projects'], ['about', 'About'], ['blog', 'Blog'], ['careers', 'Careers'], ['contact', 'Contact']]
+// the usual company-site order (DPY asked for About first): who we are, what we sell, for business, proof,
+// after-sales service, articles, then Contact. Careers is for job seekers, so it is in the phone menu (before
+// Contact) and the footer, not the top bar.
+const NAV = [['about', 'About'], ['water-heaters', 'Water Heaters'], ['business', 'For Business'], ['projects', 'Projects'], ['service', 'Service'], ['blog', 'Blog'], ['contact', 'Contact']]
+const SHEET_NAV = [...NAV.slice(0, -1), ['careers', 'Careers'], NAV.at(-1)]
 function head(pg, R) {
   const url = SITE + (pg.path === 'index' ? '' : pg.path), title = pg.title.includes('DPY') ? pg.title : pg.title + ' | DPY Mercantile'
   const crumbs = pg.crumbs ? { '@type': 'BreadcrumbList', itemListElement: [['Home', SITE], ...pg.crumbs.map(([n, u]) => [n, u ? SITE + u : url])].map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: u })) } : null
@@ -178,7 +182,7 @@ export function nav(pg, R) {
     <div class="nav-cta"><a class="nav-tel" href="tel:+639338672954" aria-label="Call DPY sales, 0933 867 2954"><i>${I.tel}</i><span>0933 867 2954</span></a><a class="btn red qt" href="${quote}">Get a Quote <span class="ql-n" hidden></span></a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><i></i><i></i><span class="ql-n" hidden aria-hidden="true"></span></button></div>
   </div>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links">${[[pg.home ? '#top' : R || './', 'Home', 'home'], ...NAV.map(([k, t]) => [R + k, t, k])].map(([h, t, k], i) => `<a href="${h}"${cur(k)} style="--i:${i}">${t}</a>`).join('')}</div><a class="btn red sh-q" href="${quote}">Get a Free Quote ${I.arr}</a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg">${MSGR}</div><p>${I.clock}Monday to Saturday, 8 AM to 6 PM</p></div></nav>`
+<nav class="sheet" id="sheet" aria-label="Menu"><div class="sh-links">${[[pg.home ? '#top' : R || './', 'Home', 'home'], ...SHEET_NAV.map(([k, t]) => [R + k, t, k])].map(([h, t, k], i) => `<a href="${h}"${cur(k)} style="--i:${i}">${t}</a>`).join('')}</div><a class="btn red sh-q" href="${quote}">Get a Free Quote ${I.arr}</a><div class="sh-contact"><div class="sh-num"><small>Sales, call or text</small><b><a href="tel:+639338672954">0933 867 2954</a> / <a href="tel:+639152453528">0915 245 3528</a></b></div><div class="sh-num"><small>Repairs &amp; service</small><b><a href="tel:+639564160815">0956 416 0815</a></b></div><div class="sh-msg">${MSGR}</div><p>${I.clock}Monday to Saturday, 8 AM to 6 PM</p></div></nav>`
 }
 // the banner that closes each page: what to do next, for what the visitor came to that page for
 const SALES = ['tel:+639338672954', '0933 867 2954'], SERVICE = ['tel:+639564160815', '0956 416 0815']
